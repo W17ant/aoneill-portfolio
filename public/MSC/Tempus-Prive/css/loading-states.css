@@ -1,0 +1,529 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - LOADING STATES STYLING MODULE      ###
+   ###   Last Updated: 29-06-2025                          ###
+   ########################################################### */
+
+/*
+===============================================
+Skeleton screens, spinners, and empty states
+All loading-specific animations and patterns
+Base styles remain in main.css and components.css
+===============================================
+*/
+
+/* ###########################################################
+   ###   1. CSS CUSTOM PROPERTIES - Loading Specific       ###
+   ########################################################### */
+
+   :root {
+    /* Animation durations aligned with luxury feel */
+    --loading-duration-fast: 0.8s;
+    --loading-duration-medium: 1.4s;
+    --loading-duration-slow: 2.2s;
+    
+    /* Skeleton & shimmer colors derived from brand palette */
+    --skeleton-base: rgba(188, 192, 203, 0.15); /* royal-silver with opacity */
+    --skeleton-shine: rgba(194, 157, 92, 0.3);  /* imperial-gold shimmer */
+    --skeleton-dark: rgba(14, 21, 40, 0.05);    /* crown-navy subtle */
+    
+    /* Loading spinner colors */
+    --spinner-primary: var(--imperial-gold);
+    --spinner-track: rgba(188, 192, 203, 0.2);
+    
+    /* Pulse animation intensity */
+    --pulse-scale: 1.02;
+    --pulse-opacity-min: 0.6;
+  }
+  
+  /* Dark theme adjustments */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --skeleton-base: rgba(188, 192, 203, 0.08);
+      --skeleton-shine: rgba(194, 157, 92, 0.2);
+      --skeleton-dark: rgba(255, 255, 255, 0.03);
+    }
+  }
+  
+  /* ###########################################################
+     ###   2. BASE LOADING CLASSES - Common Properties       ###
+     ########################################################### */
+  
+  /* Base class for all loading elements */
+  .loading-state {
+    position: relative;
+    overflow: hidden;
+    /* Prevents layout shift during load */
+    min-height: 1rem;
+    pointer-events: none;
+    user-select: none;
+  }
+  
+  /* Accessibility: Announce loading state to screen readers */
+  .loading-state::before {
+    content: attr(aria-label);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* ###########################################################
+     ###   3. SKELETON SCREENS - Product Cards & Content     ###
+     ########################################################### */
+  
+  /* Base skeleton element */
+  .skeleton {
+    background: var(--skeleton-base);
+    background-image: linear-gradient(
+      90deg,
+      var(--skeleton-base) 0%,
+      var(--skeleton-shine) 20%,
+      var(--skeleton-base) 40%,
+      var(--skeleton-base) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+    animation: skeleton-shimmer var(--loading-duration-medium) infinite ease-in-out;
+    border-radius: 4px;
+  }
+  
+  /* Skeleton variants for different content types */
+  .skeleton-text {
+    height: 1em;
+    margin: 0.5em 0;
+    border-radius: 3px;
+  }
+  
+  .skeleton-text.skeleton-header {
+    height: 1.5em;
+    width: 60%;
+    margin-bottom: 1em;
+  }
+  
+  .skeleton-text.skeleton-paragraph {
+    width: 100%;
+  }
+  
+  .skeleton-text.skeleton-paragraph:last-child {
+    width: 80%;
+  }
+  
+  /* Watch card skeleton - maintains aspect ratio */
+  .skeleton-watch-card {
+    aspect-ratio: 3/4;
+    border-radius: 8px;
+    background: var(--skeleton-base);
+    position: relative;
+  }
+  
+  .skeleton-watch-image {
+    width: 100%;
+    height: 70%;
+    background: var(--skeleton-dark);
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skeleton-watch-details {
+    padding: 1rem;
+  }
+  
+  /* Price skeleton with gold hint */
+  .skeleton-price {
+    height: 1.5em;
+    width: 40%;
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-base) 0%,
+      rgba(194, 157, 92, 0.1) 50%,
+      var(--skeleton-base) 100%
+    );
+  }
+  
+  /* ###########################################################
+     ###   4. CIRCULAR SPINNER - Elegant Rotation            ###
+     ########################################################### */
+  
+  .spinner {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+  }
+  
+  .spinner::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid var(--spinner-track);
+    border-top-color: var(--spinner-primary);
+    animation: spinner-rotate var(--loading-duration-fast) linear infinite;
+  }
+  
+  /* Size variants */
+  .spinner.spinner-small {
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  .spinner.spinner-large {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  /* Centered spinner container */
+  .spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    min-height: 200px;
+  }
+  
+  /* ###########################################################
+     ###   5. BUTTON LOADING STATES - Inline Indicators      ###
+     ########################################################### */
+  
+  .btn-loading {
+    position: relative;
+    color: transparent !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    top: 50%;
+    left: 50%;
+    margin-left: -0.5em;
+    margin-top: -0.5em;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spinner-rotate var(--loading-duration-fast) linear infinite;
+  }
+  
+  /* Dark button variant */
+  .btn-loading.btn-dark::after {
+    border-color: rgba(194, 157, 92, 0.3);
+    border-top-color: var(--imperial-gold);
+  }
+  
+  /* ###########################################################
+     ###   6. PROGRESSIVE IMAGE LOADING - Blur-up Effect     ###
+     ########################################################### */
+  
+  .image-loading {
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+  }
+  
+  .image-loading img {
+    filter: blur(20px);
+    transform: scale(1.1);
+    transition: filter 0.3s ease-out, transform 0.3s ease-out;
+  }
+  
+  .image-loading.loaded img {
+    filter: blur(0);
+    transform: scale(1);
+  }
+  
+  /* Optional: low-quality placeholder */
+  .image-loading .placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    transform: scale(1.05);
+  }
+  
+  /* ###########################################################
+     ###   7. PULSE ANIMATIONS - Subtle Attention            ###
+     ########################################################### */
+  
+  .pulse {
+    animation: pulse-subtle var(--loading-duration-slow) ease-in-out infinite;
+  }
+  
+  .pulse-gold {
+    animation: pulse-gold var(--loading-duration-medium) ease-in-out infinite;
+  }
+  
+  /* For loading watch collections */
+  .collection-loading {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  
+  /* ###########################################################
+     ###   8. LOADING OVERLAYS - Full Section Coverage       ###
+     ########################################################### */
+  
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(14, 21, 40, 0.9); /* crown-navy overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    animation: fade-in 0.3s ease-out forwards;
+  }
+  
+  .loading-overlay .spinner {
+    border-color: rgba(188, 192, 203, 0.3);
+    border-top-color: var(--imperial-gold);
+  }
+  
+  /* ###########################################################
+     ###   9. LAZY LOAD STATES - Intersection Observer       ###
+     ########################################################### */
+  
+  .lazy-load {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .lazy-load.lazy-loaded {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Staggered animation for collections */
+  .lazy-load-stagger {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  .lazy-load-stagger.lazy-loaded {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  /* Apply delay based on nth-child */
+  .lazy-load-stagger:nth-child(1) { transition-delay: 0.1s; }
+  .lazy-load-stagger:nth-child(2) { transition-delay: 0.2s; }
+  .lazy-load-stagger:nth-child(3) { transition-delay: 0.3s; }
+  .lazy-load-stagger:nth-child(4) { transition-delay: 0.4s; }
+  .lazy-load-stagger:nth-child(n+5) { transition-delay: 0.5s; }
+  
+  /* ###########################################################
+     ###   10. ANIMATIONS - Keyframe Definitions             ###
+     ########################################################### */
+  
+  @keyframes skeleton-shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  @keyframes spinner-rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: var(--pulse-opacity-min);
+      transform: scale(var(--pulse-scale));
+    }
+  }
+  
+  @keyframes pulse-gold {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(194, 157, 92, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(194, 157, 92, 0);
+    }
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* ###########################################################
+     ###   11. ACCESSIBILITY - Reduced Motion                ###
+     ########################################################### */
+  
+  @media (prefers-reduced-motion: reduce) {
+    /* Disable all animations for users who prefer reduced motion */
+    .skeleton,
+    .spinner::after,
+    .btn-loading::after,
+    .pulse,
+    .pulse-gold,
+    .loading-overlay,
+    .lazy-load,
+    .lazy-load-stagger,
+    .image-loading img {
+      animation: none !important;
+      transition: none !important;
+    }
+    
+    /* Instant state changes */
+    .lazy-load,
+    .lazy-load-stagger {
+      opacity: 1;
+      transform: none;
+    }
+    
+    /* Static loading indicators */
+    .skeleton {
+      background-image: none;
+      background: var(--skeleton-base);
+    }
+    
+    .spinner::after,
+    .btn-loading::after {
+      border-top-color: transparent;
+      border-right-color: var(--spinner-primary);
+    }
+  }
+  
+  /* ###########################################################
+     ###   12. RESPONSIVE ADJUSTMENTS - Mobile Optimizations ###
+     ########################################################### */
+  
+  @media (max-width: 768px) {
+    /* Reduce animation complexity on mobile for performance */
+    .skeleton {
+      animation-duration: calc(var(--loading-duration-medium) * 1.5);
+    }
+    
+    /* Smaller spinners on mobile */
+    .spinner {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+    
+    /* Adjust collection grid for mobile */
+    .collection-loading {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    /* Simplified image loading on mobile */
+    .image-loading img {
+      filter: blur(10px);
+    }
+  }
+  
+  /* ###########################################################
+     ###   13. UTILITY CLASSES - Quick Application           ###
+     ########################################################### */
+  
+  /* Hide content while loading */
+  .loading-hide {
+    visibility: hidden;
+  }
+  
+  /* Prevent interaction during load */
+  .loading-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  
+  /* Loading text indicator */
+  .loading-text::after {
+    content: '...';
+    display: inline-block;
+    width: 1em;
+    text-align: left;
+    animation: loading-dots 1.4s infinite;
+  }
+  
+  @keyframes loading-dots {
+    0% { content: '.'; }
+    33% { content: '..'; }
+    66% { content: '...'; }
+  }
+  
+  /* ###########################################################
+     ###         END OF LOADING STATES STYLESHEET            ###
+     ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: LOADING STATES STYLES
+=======================================================
+
+INITIAL LOAD SCREEN:
+- Full viewport coverage
+- Centered branding
+- Fade out animation
+- Minimum display timing
+
+SKELETON SCREENS:
+- Animated placeholders
+- Shimmer effect
+- Layout preservation
+- Smooth transitions
+
+SPINNER COMPONENTS:
+- Multiple sizes
+- Rotation animation
+- Brand colors
+- Accessibility
+
+PROGRESS BARS:
+- Linear design
+- Percentage display
+- Smooth animation
+- Status colors
+
+ERROR STATES:
+- Clear messaging
+- Retry buttons
+- Icon usage
+- Help text
+
+PERFORMANCE:
+- CSS animations only
+- GPU optimization
+- Low CPU usage
+- Battery efficient
+=======================================================
+*/     

@@ -1,0 +1,1014 @@
+<!-- #########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - MAIN PAGE                          ###
+   ###   Last Updated: 28-06-2025                          ###
+   ########################################################### -->  
+     
+<!-- ===============================================
+     TEMPUS PRIVÉ - index.html - Main Page 
+     ===============================================    -->     
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tempus Privé - Time Reserved for the Few. Ultra-luxury timepieces for discerning collectors.">
+    <meta name="keywords" content="luxury watches, Rolex, Patek Philippe, Richard Mille, Audemars Piguet, Swiss watches">
+    <title>Tempus Privé | Time Reserved for the Few</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="./images/assets/tp-monogram.png" type="image/png">
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/mobile-overrides.css">
+    <link rel="stylesheet" href="./css/private-collection.css">
+    <link rel="stylesheet" href="./css/maison-styles.css">
+    <link rel="stylesheet" href="./css/collection-styles.css">
+    <link rel="stylesheet" href="./css/search-modal.css">
+    <link rel="stylesheet" href="./css/filter-counts.css">
+    <link rel="stylesheet" href="./css/loading-states.css">
+    <link rel="stylesheet" href="./css/services.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/currency-switcher.css">
+    
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content"> 
+            <div class="loading-text">TEMPUS PRIVÉ</div>
+            <img src="./images/assets/tp-monogram-background.png" 
+                 alt="Tempus Privé" 
+                 class="loading-logo">
+            <div class="loading-logo loading-logo-fallback">TP</div>
+        </div>
+    </div>
+    
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Brand Logo -->
+                <div class="nav-brand">
+                    <img src="./images/assets/tp-logo.png" 
+                         alt="Tempus Privé" 
+                         class="brand-logo brand-logo-img">
+                    <a href="#" class="brand-logo brand-logo-fallback">TP</a>
+                </div>
+
+                <!-- Desktop Navigation Menu -->
+                <ul class="nav-menu" id="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active" data-section="home">Showcase</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#collection" class="nav-link" data-section="collection">Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#maisons" class="nav-link" data-section="maisons">Maisons</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#private-lounge" class="nav-link" data-section="private-lounge">Private Lounge</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link" data-section="services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#heritage" class="nav-link" data-section="heritage">Heritage</a>
+                    </li>
+                </ul>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </div>
+
+                <!-- Navigation Actions -->
+                <div class="nav-actions">
+                  <!-- Currency Selector -->
+                  <div class="currency-selector-wrapper">
+                      <select id="currency-dropdown" aria-label="Select currency" title="Change display currency">
+                          <option value="GBP">GBP £</option>
+                          <option value="USD">USD $</option>
+                          <option value="EUR">EUR €</option>
+                          <option value="AED">AED د.إ</option>
+                      </select>
+                  </div>
+                  
+                  <button class="nav-action-btn" id="search-btn" aria-label="Search Collection">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <path d="M21 21l-4.35-4.35"></path>
+                      </svg>
+                  </button>
+                  <button class="nav-action-btn" id="collection-btn" aria-label="Private Collection">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                      </svg>
+                      <span class="collection-count" id="collection-count">0</span>
+                  </button>
+              </div>
+            </div>
+        </nav>
+    </header>
+
+<!-- Main Content -->
+<main class="main-content">
+    
+  <!-- HOME SECTION - Hero -->
+  <section id="home" class="section hero-section">
+      <div class="hero-container">
+          <div class="hero-content">
+              <h1 class="hero-title">Time Reserved for the Few</h1>
+              <p class="hero-subtitle">Discover the world's most exclusive timepieces, curated for the discerning collector</p>
+          </div>
+
+          <div class="hero-gallery">
+              <div class="hero-watches">
+                  <article class="hero-watch" data-watch="rolex-daytona">
+                      <div class="watch-card">
+                          <div class="watch-image-container">
+                              <img src="./images/products/rolex/rolex-daytona-white-main.png" 
+                                   alt="Rolex Daytona Cosmograph" 
+                                   class="watch-image">
+                              <div class="watch-image watch-image-fallback">ROLEX</div>
+                              <div class="watch-overlay">
+                                  <div class="watch-details">
+                                      <h3 class="watch-name">Daytona Cosmograph</h3>
+                                      <p class="watch-brand">Rolex</p>
+                                      <p class="watch-price" data-price-gbp="130000">£130,000</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+
+                  <article class="hero-watch" data-watch="rm-mclaren">
+                      <div class="watch-card">
+                          <div class="watch-image-container">
+                              <img src="./images/products/richard-mille/rm-11-03-mclaren-main.png" 
+                                   alt="Richard Mille RM 11-03 McLaren" 
+                                   class="watch-image">
+                              <div class="watch-image watch-image-fallback">RM</div>
+                              <div class="watch-overlay">
+                                  <div class="watch-details">
+                                      <h3 class="watch-name">RM 11-03 McLaren</h3>
+                                      <p class="watch-brand">Richard Mille</p>
+                                      <p class="watch-price" data-price-gbp="">By Private Consultation</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+
+                  <article class="hero-watch" data-watch="longines-master">
+                      <div class="watch-card">
+                          <div class="watch-image-container">
+                              <img src="./images/products/longines/longines-pocket-master-main.png" 
+                                   alt="Longines Master Collection Pocket Watch" 
+                                   class="watch-image">
+                              <div class="watch-image watch-image-fallback">LONGINES</div>
+                              <div class="watch-overlay">
+                                  <div class="watch-details">
+                                      <h3 class="watch-name">Master Collection</h3>
+                                      <p class="watch-brand">Longines</p>
+                                      <p class="watch-price" data-price-gbp="1890">£1,890</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </article>
+              </div>
+          </div>
+      </div>
+  </section>
+
+        <!-- COLLECTION SECTION -->
+        <section id="collection" class="section collection-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title">Curated Collection</h2>
+                    <p class="section-subtitle">Exceptional timepieces for the discerning collector</p>
+                </header>
+        
+                <div class="luxury-filters">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">
+                            <span class="tab-text">All Masterpieces</span>
+                            <span class="tab-count">16</span>
+                        </button>
+                        <button class="filter-tab" data-filter="investment">
+                            <span class="tab-text">Investment Pieces</span>
+                            <span class="tab-count">9</span>
+                        </button>
+                        <button class="filter-tab" data-filter="sport">
+                            <span class="tab-text">Sport Collection</span>
+                            <span class="tab-count">8</span>
+                        </button>
+                        <button class="filter-tab" data-filter="dress">
+                            <span class="tab-text">Dress Watches</span>
+                            <span class="tab-count">6</span>
+                        </button>
+                    </div>
+                    
+                    <div class="sort-control">
+                        <select id="luxury-sort">
+                            <option value="featured">Featured Selection</option>
+                            <option value="price-desc">Highest Value</option>
+                            <option value="price-asc">Entry Luxury</option>
+                            <option value="brand">By Maison</option>
+                            <option value="newest">Latest Arrivals</option>
+                        </select>
+                    </div>
+                </div>
+        
+                <div class="luxury-grid" id="luxury-products-grid">     <!-- Products will be loaded dynamically by JavaScript -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- MAISONS SECTION -->
+        <section id="maisons" class="section maisons-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title">Prestigious Maisons</h2>
+                    <p class="section-subtitle">Seven centuries of horological excellence</p>
+                </header>
+        
+                <div class="maisons-showcase">
+                    <div class="maison-card" data-brand="rolex">
+                        <img src="./images/brands/rolex-logo.png" 
+                             alt="Rolex Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">R</div>
+                        <h3 class="maison-name">Rolex</h3>
+                        <p class="maison-tagline">A Crown for Every Achievement</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1905</span>
+                            <span class="heritage-item">Geneva, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="patek-philippe">
+                        <img src="./images/brands/patek-philippe-logo.png" 
+                             alt="Patek Philippe Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">PP</div>
+                        <h3 class="maison-name">Patek Philippe</h3>
+                        <p class="maison-tagline">Geneva's Finest Since 1839</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1839</span>
+                            <span class="heritage-item">Geneva, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="audemars-piguet">
+                        <img src="./images/brands/audemars-piguet-logo.png" 
+                             alt="Audemars Piguet Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">AP</div>
+                        <h3 class="maison-name">Audemars Piguet</h3>
+                        <p class="maison-tagline">Master of Complications</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1875</span>
+                            <span class="heritage-item">Le Brassus, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="richard-mille">
+                        <img src="./images/brands/richard-mille-logo.png" 
+                             alt="Richard Mille Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">RM</div>
+                        <h3 class="maison-name">Richard Mille</h3>
+                        <p class="maison-tagline">Racing Machine on the Wrist</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 2001</span>
+                            <span class="heritage-item">Les Breuleux, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="cartier">
+                        <img src="./images/brands/cartier-logo.png" 
+                             alt="Cartier Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">C</div>
+                        <h3 class="maison-name">Cartier</h3>
+                        <p class="maison-tagline">Jeweler of Kings</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1847</span>
+                            <span class="heritage-item">Paris, France</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="hublot">
+                        <img src="./images/brands/hublot-logo.png" 
+                             alt="Hublot Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">H</div>
+                        <h3 class="maison-name">Hublot</h3>
+                        <p class="maison-tagline">Art of Fusion</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1980</span>
+                            <span class="heritage-item">Nyon, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+        
+                    <div class="maison-card" data-brand="longines">
+                        <img src="./images/brands/longines-logo.png" 
+                             alt="Longines Logo" 
+                             class="maison-logo maison-logo-img">
+                        <div class="maison-logo maison-logo-fallback">L</div>
+                        <h3 class="maison-name">Longines</h3>
+                        <p class="maison-tagline">Elegance is an Attitude</p>
+                        <div class="maison-heritage">
+                            <span class="heritage-item">Founded 1832</span>
+                            <span class="heritage-item">Saint-Imier, Switzerland</span>
+                        </div>
+                        <div class="maison-stats">
+                            <span class="stat-item">2 Timepieces</span>
+                        </div>
+                    </div>
+                    
+                    <div class="maison-card" data-brand="omega">
+                       <img src="./images/brands/omega-logo.png" 
+                            alt="Omega Logo" 
+                            class="maison-logo maison-logo-img">
+                       <div class="maison-logo maison-logo-fallback">Ω</div>
+                        <h3 class="maison-name">Omega</h3>
+                        <p class="maison-tagline">Masters of Precision Since 1848</p>
+                      <div class="maison-heritage">
+                           <span class="heritage-item">Founded 1848</span>
+                           <span class="heritage-item">Biel, Switzerland</span>
+                     </div>
+                     <div class="maison-stats">
+                        <span class="stat-item">2 Timepieces</span>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- PRIVATE LOUNGE SECTION -->
+        <section id="private-lounge" class="section private-lounge-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title">Private Lounge</h2>
+                    <p class="section-subtitle">Exclusive access for valued collectors</p>
+                </header>
+        
+                <div class="lounge-content">
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <div class="benefit-icon">🔒</div>
+                            <h3 class="benefit-title">Exclusive Previews</h3>
+                            <p class="benefit-description">First access to rare and limited edition timepieces before public release</p>
+                        </div>
+        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">👤</div>
+                            <h3 class="benefit-title">Personal Advisor</h3>
+                            <p class="benefit-description">Dedicated horological expert for personalized collection curation</p>
+                        </div>
+        
+                        <div class="benefit-card">
+                            <div class="benefit-icon">⭐</div>
+                            <h3 class="benefit-title">VIP Events</h3>
+                            <p class="benefit-description">Invitation-only exhibitions and exclusive manufacturer visits</p>
+                        </div>
+                    </div>
+        
+                    <div class="membership-access">
+                      <div class="access-card">
+                          <h3 class="access-title">Request Private Consultation</h3>
+                          <p class="access-subtitle">Exclusive access to the world's finest timepieces</p>
+                          <form id="private-consultation-form" class="access-form luxury-consultation-form">
+                              <div class="form-group">
+                                  <input 
+                                      type="text" 
+                                      name="fullName" 
+                                      placeholder="Your Full Name" 
+                                      class="luxury-input" 
+                                      id="consultation-name"
+                                      required
+                                      minlength="2"
+                                      maxlength="100"
+                                  >
+                              </div>
+                              
+                              <div class="form-group">
+                                  <input 
+                                      type="email" 
+                                      name="email"
+                                      placeholder="Your Email Address" 
+                                      class="luxury-input" 
+                                      id="consultation-email"
+                                      required
+                                  >
+                              </div>
+                              
+                              <div class="form-group">
+                                  <textarea 
+                                      name="enquiry"
+                                      placeholder="Which timepiece interests you? Describe your ideal acquisition..."
+                                      class="luxury-input luxury-textarea" 
+                                      id="consultation-enquiry"
+                                      rows="4"
+                                      required
+                                      minlength="10"
+                                      maxlength="1000"
+                                  ></textarea>
+                              </div>
+                              
+                              <button type="submit" class="btn-luxury-primary" id="submit-consultation">
+                                  <span>Request Private Consultation</span>
+                                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                                      <polyline points="12 5 19 12 12 19"></polyline>
+                                  </svg>
+                              </button>
+                          </form>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        
+<!-- SERVICES SECTION -->
+<section id="services" class="section services-section page-section">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">White-Glove Services</h2>
+        <p class="section-subtitle">Exceptional care for exceptional timepieces</p>
+      </header>
+  
+      <div class="services-showcase">
+        <!-- Authentication Card -->
+        <div class="service-card" onclick="showSection('authentication')">
+          <div class="service-icon">🔍</div>
+          <h3 class="service-title">Authentication</h3>
+          <p class="service-description">
+            Comprehensive verification by certified horological experts using advanced techniques
+          </p>
+          <ul class="service-features">
+            <li>Certificate of authenticity</li>
+            <li>Detailed condition report</li>
+            <li>Provenance documentation</li>
+          </ul>
+        </div>
+  
+        <!-- Global Delivery Card -->
+        <div class="service-card" onclick="showSection('delivery')">
+          <div class="service-icon">🌍</div>
+          <h3 class="service-title">Global Delivery</h3>
+          <p class="service-description">
+            Secure worldwide shipping with white-glove service
+          </p>
+          <ul class="service-features">
+            <li>Armored courier service</li>
+            <li>Real-time tracking</li>
+            <li>Full insurance coverage</li>
+          </ul>
+        </div>
+  
+        <!-- Insurance Card -->
+        <div class="service-card" onclick="showSection('insurance')">
+          <div class="service-icon">🛡️</div>
+          <h3 class="service-title">Insurance & Protection</h3>
+          <p class="service-description">
+            Comprehensive coverage for your horological investments
+          </p>
+          <ul class="service-features">
+            <li>Full replacement value</li>
+            <li>Worldwide coverage</li>
+            <li>Annual reappraisal</li>
+          </ul>
+        </div>
+  
+        <!-- Expert Servicing Card -->
+        <div class="service-card" onclick="showSection('servicing')">
+          <div class="service-icon">⚙️</div>
+          <h3 class="service-title">Expert Servicing</h3>
+          <p class="service-description">
+            Master watchmaker care using genuine parts
+          </p>
+          <ul class="service-features">
+            <li>Factory authorization</li>
+            <li>Genuine parts only</li>
+            <li>Comprehensive warranty</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Service Detail Pages – Authentication -->
+  <section id="authentication" class="section service-page page-section">
+    <div class="container">
+      <div class="service-content fade-in">
+        <div class="service-hero slide-up">
+          <h1>Authentication Services</h1>
+          <p>
+            Certified verification by master horologists ensuring authenticity and provenance with
+            forensic precision and documented expertise
+          </p>
+        </div>
+  
+        <div class="service-features">
+          <div class="feature-card">
+            <div class="feature-icon">🔬</div>
+            <h3 class="feature-title">Forensic Analysis</h3>
+            <p class="feature-description">
+              Microscopic examination of movement components, case construction, and dial printing
+              using state-of-the-art equipment to detect even the smallest inconsistencies.
+            </p>
+            <ul class="feature-details">
+              <li>Movement serial number verification</li>
+              <li>Case hallmark authentication</li>
+              <li>Dial microscopy and UV analysis</li>
+              <li>Component dating verification</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">📜</div>
+            <h3 class="feature-title">Documentation Research</h3>
+            <p class="feature-description">
+              Comprehensive archival research including manufacturer records, original purchase
+              documentation, and ownership history verification.
+            </p>
+            <ul class="feature-details">
+              <li>Manufacturer archive consultation</li>
+              <li>Extract from archives service</li>
+              <li>Previous auction record verification</li>
+              <li>Chain of ownership documentation</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">🏅</div>
+            <h3 class="feature-title">Expert Certification</h3>
+            <p class="feature-description">
+              Official authentication certificate signed by our panel of master horologists,
+              recognized globally by auction houses and collectors.
+            </p>
+            <ul class="feature-details">
+              <li>Detailed condition report</li>
+              <li>High-resolution photography</li>
+              <li>Database registration</li>
+              <li>Insurance valuation included</li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="back-section">
+          <button class="btn-primary" onclick="showSection('services')">Back to Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Service Detail Pages – Global Delivery -->
+  <section id="delivery" class="section service-page page-section">
+    <div class="container">
+      <div class="service-content fade-in">
+        <div class="service-hero slide-up">
+          <h1>Global Delivery</h1>
+          <p>
+            White-glove worldwide shipping with armored courier service, comprehensive insurance,
+            and concierge-level handling for the world's finest timepieces
+          </p>
+        </div>
+  
+        <div class="service-features">
+          <div class="feature-card">
+            <div class="feature-icon">🚛</div>
+            <h3 class="feature-title">Armored Transport</h3>
+            <p class="feature-description">
+              Secure courier service with GPS tracking, armed escorts, and specialized horological
+              transport cases for ultimate protection.
+            </p>
+            <ul class="feature-details">
+              <li>24/7 GPS monitoring and tracking</li>
+              <li>Armed security escorts for high-value shipments</li>
+              <li>Climate-controlled transport chambers</li>
+              <li>Shock-resistant horological cases</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Real-Time Tracking</h3>
+            <p class="feature-description">
+              Live updates throughout transit with estimated delivery windows, photographic proof of
+              delivery, and immediate notification systems.
+            </p>
+            <ul class="feature-details">
+              <li>Live GPS tracking with customer portal access</li>
+              <li>SMS and email notifications at every stage</li>
+              <li>Photographic delivery confirmation</li>
+              <li>Digital signature and identity verification</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">Global Coverage</h3>
+            <p class="feature-description">
+              Delivery to over 190 countries with customs handling, duty management, and local
+              concierge services ensuring seamless international delivery.
+            </p>
+            <ul class="feature-details">
+              <li>Comprehensive customs documentation</li>
+              <li>Pre-paid duty and tax management</li>
+              <li>Local courier partnerships worldwide</li>
+              <li>Diplomatic pouch services available</li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="back-section">
+          <button class="btn-primary" onclick="showSection('services')">Back to Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Service Detail Pages – Insurance & Protection -->
+  <section id="insurance" class="section service-page page-section">
+    <div class="container">
+      <div class="service-content fade-in">
+        <div class="service-hero slide-up">
+          <h1>Insurance & Protection</h1>
+          <p>
+            Comprehensive coverage protecting your horological investments worldwide with
+            specialized policies designed for collectors and connoisseurs
+          </p>
+        </div>
+  
+        <div class="service-features">
+          <div class="feature-card">
+            <div class="feature-icon">💎</div>
+            <h3 class="feature-title">Full Replacement Value</h3>
+            <p class="feature-description">
+              Coverage at current market value with annual reappraisal for appreciation, ensuring
+              your investment is protected against market fluctuations.
+            </p>
+            <ul class="feature-details">
+              <li>Annual professional reappraisal included</li>
+              <li>Market appreciation coverage</li>
+              <li>No depreciation clauses</li>
+              <li>Agreed value policies available</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3 class="feature-title">Worldwide Protection</h3>
+            <p class="feature-description">
+              Comprehensive coverage that travels with you, protecting your timepieces anywhere in
+              the world with no territorial restrictions.
+            </p>
+            <ul class="feature-details">
+              <li>International travel coverage</li>
+              <li>Hotel safe and transit protection</li>
+              <li>Exhibition and loan coverage</li>
+              <li>Mysterious disappearance included</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3 class="feature-title">Comprehensive Coverage</h3>
+            <p class="feature-description">
+              Protection against all risks including theft, damage, loss, and mechanical breakdown
+              with minimal exclusions and deductibles.
+            </p>
+            <ul class="feature-details">
+              <li>All-risk coverage as standard</li>
+              <li>Mechanical breakdown protection</li>
+              <li>Pairs and sets coverage</li>
+              <li>New acquisition automatic coverage</li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="back-section">
+          <button class="btn-primary" onclick="showSection('services')">Back to Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Service Detail Pages – Expert Servicing -->
+  <section id="servicing" class="section service-page page-section">
+    <div class="container">
+      <div class="service-content fade-in">
+        <div class="service-hero slide-up">
+          <h1>Expert Servicing</h1>
+          <p>
+            Master watchmaker maintenance using only genuine parts, preserving the integrity and
+            value of your precious timepieces
+          </p>
+        </div>
+  
+        <div class="service-features">
+          <div class="feature-card">
+            <div class="feature-icon">🏭</div>
+            <h3 class="feature-title">Factory Authorization</h3>
+            <p class="feature-description">
+              Official service center authorization from major Swiss manufacturers ensuring adherence
+              to strict factory standards and protocols.
+            </p>
+            <ul class="feature-details">
+              <li>Rolex, Patek Philippe, Audemars Piguet authorized</li>
+              <li>Factory-trained master watchmakers</li>
+              <li>Proprietary tools and equipment</li>
+              <li>Direct manufacturer parts access</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">Comprehensive Service</h3>
+            <p class="feature-description">
+              Complete movement overhaul, case refinishing, and bracelet restoration to factory
+              specifications with meticulous attention to detail.
+            </p>
+            <ul class="feature-details">
+              <li>Full movement disassembly and cleaning</li>
+              <li>Component replacement with genuine parts</li>
+              <li>Case and bracelet refinishing</li>
+              <li>Water resistance restoration</li>
+            </ul>
+          </div>
+  
+          <div class="feature-card">
+            <div class="feature-icon">📋</div>
+            <h3 class="feature-title">Service Guarantee</h3>
+            <p class="feature-description">
+              Comprehensive warranty coverage and detailed service documentation maintaining your
+              timepiece's provenance and value.
+            </p>
+            <ul class="feature-details">
+              <li>24-month international warranty</li>
+              <li>Detailed photographic documentation</li>
+              <li>Service history database entry</li>
+              <li>Original parts retention option</li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="back-section">
+          <button class="btn-primary" onclick="showSection('services')">Back to Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+        <!-- HERITAGE SECTION -->
+        <section id="heritage" class="section heritage-section">
+            <div class="container">
+                <header class="section-header">
+                    <h2 class="section-title">Heritage & Provenance</h2>
+                    <p class="section-subtitle">Every timepiece tells a story of excellence</p>
+                </header>
+        
+                <div class="heritage-content">
+                    <div class="heritage-narrative">
+                        <div class="narrative-text">
+                            <h3 class="narrative-title">Our Philosophy</h3>
+                            <p class="narrative-content">
+                                At Tempus Privé, we believe that time is the ultimate luxury. Each timepiece in our collection 
+                                has been carefully selected for its exceptional craftsmanship, historical significance, and 
+                                investment potential. We serve as custodians of horological heritage, connecting discerning 
+                                collectors with masterpieces that transcend generations.
+                            </p>
+                            
+                            <h3 class="narrative-title">Provenance Guarantee</h3>
+                            <p class="narrative-content">
+                                Every watch comes with complete documentation of its history, ensuring authenticity and 
+                                preserving its legacy for future generations. Our rigorous authentication process and 
+                                detailed provenance research guarantee that each timepiece meets the highest standards 
+                                of excellence expected by our clientele.
+                            </p>
+                        </div>
+                        
+                        <div class="narrative-visual">
+                            <div class="heritage-stats">
+                                <div class="stat-card">
+                                    <div class="stat-number">175+</div>
+                                    <div class="stat-label">Years Combined Heritage</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-number">8</div>
+                                    <div class="stat-label">Prestigious Maisons</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-number">100%</div>
+                                    <div class="stat-label">Authenticated</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-number">16</div>
+                                    <div class="stat-label">Curated Masterpieces</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="./images/assets/tp-logo.png" 
+                     alt="Tempus Privé" 
+                     class="footer-logo brand-logo-img">
+                <a href="#" class="footer-logo footer-logo-fallback">TP</a>
+                <p class="footer-tagline">Time Reserved for the Few</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Collection</h4>
+                <ul>
+                    <li><a href="#collection" data-collection-filter="sport">Sport Watches</a></li>
+                    <li><a href="#collection" data-collection-filter="dress">Dress Watches</a></li>
+                    <li><a href="#collection" data-collection-filter="investment">Investment Pieces</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#services">Authentication</a></li>
+                    <li><a href="#services">Global Delivery</a></li>
+                    <li><a href="#services">Insurance</a></li>
+                    <li><a href="#private-lounge">Private Lounge</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="tel:+442071234567">+44 207 123 4567</a></li>
+                    <li><a href="mailto:concierge@tempusprive.com">concierge@tempusprive.com</a></li>
+                    <li>St Mary's Boutique, Twickenham TW1 4SX</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-legal">
+                <p>&copy; 2025 Tempus Privé. All rights reserved.</p>
+                <div class="legal-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms & Conditions</a>
+                    <a href="#authenticity">Authenticity Guarantee</a>
+                </div>
+            </div>
+
+            <div class="footer-secret">
+                <button id="concierge-access" class="concierge-btn" aria-label="Concierge Access">
+                    <div class="tp-logo">TP</div>
+                </button>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    
+<!-- #####  Modals  ##### -->
+
+   <!-- Concierge Access Modal -->
+   <div id="concierge-modal" class="modal">
+        <div class="modal-content concierge-modal-content">
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <div class="concierge-login">
+                <div class="concierge-logo">TP</div>
+                <h3>Horological Access</h3>
+                <form id="concierge-form">
+                    <input type="password" id="concierge-password" placeholder="Access Code" class="concierge-input">
+                    <button type="submit" class="btn-primary">Access Concierge Panel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collection Modal -->
+<div id="collection-modal" class="modal">
+    <div class="modal-content collection-modal-content">
+        <button class="modal-close" aria-label="Close">&times;</button>
+        <div class="collection-header">
+            <h3>Your Private Collection</h3>
+            <p>Carefully curated timepieces for your consideration</p>
+        </div>
+        <div class="collection-items" id="collection-items">
+            <!-- Collection items will be populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- External JavaScript Files -->
+<!-- 1. Core product data and main functionality MUST load first -->
+<script src="./js/main.js" defer></script>
+<script src="./js/private-collection.js" defer></script>
+
+<!-- 2. Admin populate should come AFTER main.js to avoid conflicts -->
+<script src="admin-populate-all-watches-instructions.js" defer></script>
+
+<!-- 3. Core modules that other modules depend on -->
+<script src="./js/loading-states.js" defer></script>
+<script src="./js/filter-counts.js" defer></script>
+
+<!-- 4. Feature modules that depend on products being available -->
+<script src="./js/search.js" defer></script>
+<script src="./js/luxury-sections.js" defer></script>
+<script src="./js/services.js" defer></script>
+
+<!-- 5. Enhancement modules (no critical dependencies) -->
+<script src="./js/animations.js" defer></script>
+<script src="./js/footer.js" defer></script>
+<script src="./js/currency-service.js" defer></script>
+
+</body>
+</html>
+
+
+<!--###########################################################
+    ###       END OF MAIN INDEX PAGE                        ###
+    ########################################################### -->
+
+<!--
+=======================================================
+IMPLEMENTATION NOTES: MAIN INDEX PAGE
+=======================================================
+
+SINGLE-PAGE APPLICATION ARCHITECTURE:
+- SPA with section-based navigation (no page reloads)
+- History API integration for deep linking
+- Smooth scrolling with accessibility support
+- Progressive enhancement approach
+
+RESPONSIVE DESIGN (30% Assessment):
+- Mobile-first responsive breakpoints
+- Touch-friendly navigation targets (44px minimum)
+- Hamburger menu for mobile with slide-in drawer
+- Adaptive layout from 320px to 1440px+
+
+SEMANTIC HTML STRUCTURE:
+- Proper landmark elements (<main>, <nav>, <section>)
+- ARIA labels for accessibility
+- Meta tags for SEO and social sharing
+- Structured data potential for rich snippets
+
+MODAL SYSTEM:
+- Concierge access modal (admin entry)
+- Private collection modal
+- Keyboard navigation support (ESC to close)
+- Focus management for accessibility
+
+SCRIPT LOADING ORDER:
+1. Core data (main.js) loads first
+2. Admin populate after to avoid conflicts
+3. Feature modules with proper dependencies
+4. Enhancement modules last (non-critical)
+
+PERFORMANCE OPTIMIZATIONS:
+- All scripts deferred for non-blocking load
+- CSS split into modular files by feature
+- Image lazy loading where applicable
+- Minimal external dependencies
+=======================================================
+-->

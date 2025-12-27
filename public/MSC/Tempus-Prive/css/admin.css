@@ -1,0 +1,843 @@
+/* ###########################################################
+   ###   2418521	 		  Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - ADMIN STYLING MODULE               ###
+   ###   Last Updated: 02-07-2025                          ###
+   ########################################################### */
+
+/*
+===============================================
+Core styling for admin interface dashboard
+for inventory management system
+===============================================
+*/
+
+
+/* ###########################################################
+   ###   1. CSS Variables & Global Configuration           ###
+   ########################################################### */
+
+   :root {
+    --crown-navy: #0C1B2A;
+    --imperial-gold: #D4AF37;
+    --success-green: #10B981;
+    --error-red: #EF4444;
+    --warning-amber: #F59E0B;
+    --info-blue: #3B82F6;
+    --white: #FFFFFF;
+    --off-white: #FAFAFA;
+    --light-gray: #E5E5E5;
+    --medium-gray: #9CA3AF;
+    --dark-gray: #374151;
+  }
+  
+   /* ###########################################################
+     ###   2. Base Styles & Typography                       ###
+     ########################################################### */
+
+  body {
+    margin: 0;
+    font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0C1B2A 0%, #1a2332 100%);
+    color: white;
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+  }
+  
+  /* ###########################################################
+     ###   3. Header Section                                 ###
+     ########################################################### */
+
+  .admin-header {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .admin-logo {
+    height: 80px;
+    object-fit: contain;
+    max-width: 160px;
+  }
+  
+  .admin-title {
+    font-size: 1.75rem;
+    color: var(--imperial-gold);
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  
+  /* ###########################################################
+     ###   4. Main Content Area                              ###
+     ########################################################### */
+
+  .admin-main {
+    padding: 2rem;
+  }
+  
+  /* ###########################################################
+     ###   5. Statistics Dashboard                           ###
+     ########################################################### */
+     
+  .admin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .stat-card:hover {
+    border-color: rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--imperial-gold);
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+    /* ###########################################################
+     ###   6. Control Panel & Actions                        ###
+     ########################################################### */
+
+  .admin-controls {
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  /* ###########################################################
+     ###   7. Button Styles                                  ###
+     ########################################################### */
+  .btn-primary {
+    background: linear-gradient(135deg, #D4AF37 0%, #F5E06B 100%);
+    color: var(--crown-navy);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  .btn-secondary {
+    background: transparent;
+    color: var(--imperial-gold);
+    border: 1px solid var(--imperial-gold);
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+  }
+  
+  .btn-secondary:hover {
+    background: var(--imperial-gold);
+    color: var(--crown-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+  }
+  
+  .btn-danger {
+    background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+  }
+  
+  .btn-danger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  }
+  
+  .btn-submit {
+    width: 100%;
+    margin-top: 1rem;
+  }
+  
+  /* ###########################################################
+     ###   8. Table Styles                                   ###
+     ########################################################### */
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-table th,
+  .admin-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .admin-table th {
+    background: rgba(212, 175, 55, 0.2);
+    font-weight: 600;
+    color: var(--imperial-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+  }
+  
+  .admin-table td {
+    color: white;
+  }
+  
+  .admin-table img {
+    height: 60px;
+    width: auto;
+    max-width: 80px;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  
+  /* ###########################################################
+     ###   9. Modal Styles                                   ###
+     ########################################################### */
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal.active {
+    display: flex;
+  }
+  
+  .modal-content {
+    background: rgba(12, 27, 42, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    color: white;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-content.modal-delete {
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--imperial-gold);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .modal-close:hover {
+    background: rgba(212, 175, 55, 0.2);
+    transform: rotate(90deg);
+  }
+  
+  .modal-title {
+    color: var(--imperial-gold);
+    margin-bottom: 2rem;
+  }
+  
+  /* Delete Modal Specific */
+  .delete-icon {
+    font-size: 4rem;
+    color: var(--error-red);
+    margin-bottom: 1rem;
+  }
+  
+  .delete-title {
+    color: var(--error-red);
+    margin-bottom: 1rem;
+  }
+  
+  .delete-message {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+  
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  
+  /* ###########################################################
+     ###   10. Form Styles                                   ###
+     ########################################################### */
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--imperial-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.875rem;
+  }
+  
+  .form-input,
+  .form-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  .form-input:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: var(--imperial-gold);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+  
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .form-select option {
+    background: var(--crown-navy);
+    color: white;
+  }
+  
+  /* Form Validation States */
+  .form-input.error,
+  .form-select.error {
+    border-color: var(--error-red);
+    background: rgba(239, 68, 68, 0.1);
+  }
+  
+  .form-input.success,
+  .form-select.success {
+    border-color: var(--success-green);
+    background: rgba(16, 185, 129, 0.1);
+  }
+  
+  .error-message {
+    color: var(--error-red);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .success-message {
+    color: var(--success-green);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  /* ===== CATEGORY CHECKBOXES ===== */
+  .category-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .category-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .category-option:hover {
+    background: rgba(212, 175, 55, 0.1);
+  }
+  
+  .category-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--imperial-gold);
+  }
+  
+  /* ===== PRICE TOGGLE ===== */
+  .price-toggle {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .price-toggle input[type="checkbox"] {
+    accent-color: var(--imperial-gold);
+  }
+  
+  .price-toggle label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin: 0;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  
+  /* ===== IMAGE UPLOAD ===== */
+  .upload-area {
+    border: 2px dashed rgba(212, 175, 55, 0.5);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .upload-area:hover,
+  .upload-area.dragover {
+    border-color: var(--imperial-gold);
+    background: rgba(212, 175, 55, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .upload-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--imperial-gold);
+  }
+  
+  .upload-text {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: white;
+  }
+  
+  .upload-subtext {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+  
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .image-preview {
+    margin-top: 1rem;
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  
+  .preview-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 6px;
+    border: 2px solid var(--imperial-gold);
+    object-fit: contain;
+    background: white;
+    padding: 0.5rem;
+  }
+  
+  .remove-image {
+    margin-top: 0.5rem;
+    background: var(--error-red);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+  }
+  
+  .remove-image:hover {
+    background: #DC2626;
+  }
+  
+  /* ===== STATUS BADGES ===== */
+  .status-badge {
+    display: block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-right: 0;
+    margin-bottom: 0.25rem;
+    width: fit-content;
+}
+  
+  .badge-featured {
+    background: var(--imperial-gold);
+    color: var(--crown-navy);
+  }
+  
+  .badge-new {
+    background: var(--success-green);
+    color: white;
+  }
+  
+  .badge-investment {
+    background: #8B5CF6;
+    color: white;
+  }
+  
+  .badge-consultation {
+    background: var(--warning-amber);
+    color: var(--crown-navy);
+  }
+  
+  /* ===== MESSAGES ===== */
+  .message {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .message.success {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.5);
+    color: var(--success-green);
+  }
+  
+  .message.error {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.5);
+    color: var(--error-red);
+  }
+  
+  .message.warning {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.5);
+    color: var(--warning-amber);
+  }
+  
+  .message.info {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.5);
+    color: var(--info-blue);
+  }
+  
+  /* ###########################################################
+     ###   11. Notification System                           ###
+     ########################################################### */
+
+  .admin-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    color: white;
+    font-weight: 500;
+    z-index: 10000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .admin-notification-success {
+    background: var(--success-green);
+  }
+  
+  .admin-notification-error {
+    background: var(--error-red);
+  }
+  
+  .admin-notification-info {
+    background: var(--info-blue);
+  }
+  
+  /* ###########################################################
+     ###   12. Animations                                    ###
+     ########################################################### */
+
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+  }
+  
+
+  /* ###########################################################
+     ###   13. Responsive Design - Mobile First              ###
+     ########################################################### */
+
+  @media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .admin-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .admin-table {
+        font-size: 0.875rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.5rem;
+    }
+    
+    .admin-table img {
+        height: 40px;
+        max-width: 60px;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        max-width: none;
+        width: auto;
+        padding: 1.5rem;
+    }
+    
+    .category-checkboxes {
+        grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .admin-header {
+        padding: 0.5rem 0;
+    }
+    
+    .admin-logo {
+        height: 60px;
+    }
+    
+    .admin-title {
+        font-size: 1.25rem;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+  }
+  
+  /* ===== SCROLLBAR STYLING ===== */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.5);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.7);
+  }
+  
+  /* ###########################################################
+     ###   14. Print Styles                                  ###
+     ########################################################### */
+
+  @media print {
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .admin-header,
+    .admin-controls,
+    .modal {
+        display: none;
+    }
+    
+    .admin-table {
+        background: white;
+        box-shadow: none;
+    }
+    
+    .admin-table th {
+        background: #f0f0f0;
+        color: black;
+    }
+    
+    .admin-table td {
+        color: black;
+    }
+  }
+
+  /* ###########################################################
+   ###            END OF ADMIN STYLES                        ###
+   ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: ADMIN DASHBOARD STYLES
+=======================================================
+
+DASHBOARD LAYOUT:
+- Clean, professional design
+- Data table presentation
+- Form styling
+- Modal overlays
+
+STATISTICS CARDS:
+- Grid-based layout
+- Icon integration
+- Number formatting
+- Hover effects
+
+DATA TABLE:
+- Responsive design
+- Inline editing
+- Action buttons
+- Sorting indicators
+
+FORM DESIGN:
+- Consistent inputs
+- Validation states
+- Help text
+- Button hierarchy
+
+COLOR SCHEME:
+- Maintains brand colors
+- Professional tone
+- Clear contrasts
+- Status indicators
+
+RESPONSIVE BEHAVIOR:
+- Tablet adaptations
+- Mobile scroll tables
+- Stacked forms
+- Priority content
+=======================================================
+*/   

@@ -1,0 +1,643 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - MOBILE OVERRIDES STYLING MODULE    ###
+   ###   Last Updated: 03-07-2025                          ###
+   ########################################################### */
+
+/*
+===============================================
+Removes animations on touch devices while
+maintaining exact desktop layout in final state
+Enhances touch targets and improves mobile UX
+for luxury watch clientele on premium devices
+EXCEPTION: Collection cards retain animations for luxury feel
+===============================================
+*/
+
+/* ###########################################################
+   ###   1. CSS CUSTOM PROPERTIES - Mobile Specific        ###
+   ########################################################### */
+
+   :root {
+    /* ====== Touch Target Sizes ====== */
+    --touch-target-min: 44px;  /* iOS Human Interface Guidelines */
+    --touch-target-comfort: 48px;  /* Material Design recommendation */
+    
+    /* ====== Mobile Transitions ====== */
+    --mobile-transition-instant: 0.01ms;  /* For reduced motion */
+    --mobile-transition-fast: 150ms ease-out;
+    
+    /* ====== Mobile Spacing Adjustments ====== */
+    --mobile-padding-reduction: 0.85;  /* 85% of desktop padding */
+    --mobile-gap-reduction: 0.75;  /* 75% of desktop gaps */
+}
+
+/* ###########################################################
+   ###   2. GLOBAL MOBILE & TABLET OVERRIDES               ###
+   ########################################################### */
+
+/* ====== Primary Touch Device Detection ====== */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ===== Remove MOST Animations & Transitions ===== */
+    /* Prevents janky animations on lower-powered mobile devices */
+    /* EXCEPTION: Collection cards are excluded from this rule */
+    *:not(.product-card):not(.hero-watch):not(.luxury-product-card):not(.btn-add-collection):not(.watch-card),
+    *:not(.product-card):not(.hero-watch):not(.luxury-product-card):not(.btn-add-collection):not(.watch-card)::before,
+    *:not(.product-card):not(.hero-watch):not(.luxury-product-card):not(.btn-add-collection):not(.watch-card)::after {
+        /* Override any component-specific animations */
+        animation-duration: var(--mobile-transition-instant) !important;
+        animation-delay: 0s !important;
+        transition-duration: var(--mobile-transition-instant) !important;
+        transition-delay: 0s !important;
+    }
+    
+    /* Maintain smooth scrolling - critical for luxury UX */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* ===== Body Scroll Lock When Menu Open ===== */
+    body.menu-open {
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        /* Prevent iOS bounce scrolling */
+        -webkit-overflow-scrolling: auto;
+    }
+}
+
+/* ###########################################################
+   ###   3. MOBILE HEADER LAYOUT - 4 Element Design        ###
+   ########################################################### */
+
+@media (max-width: 768px) {
+    
+    /* ====== Hide Currency Dropdown Completely ====== */
+    .currency-selector-wrapper {
+        display: none !important;
+    }
+    
+    /* ====== Header Container Adjustments ====== */
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 1rem;
+        gap: 0.5rem;
+    }
+    
+    /* ====== Logo Section ====== */
+    .nav-brand {
+        flex: 0 0 auto;
+        order: 1;
+    }
+    
+    /* ====== Navigation Actions - Even Distribution ====== */
+    .nav-actions {
+        /* Reset any existing margins/positioning */
+        position: static;
+        margin: 0;
+        /* Create flex container for even spacing */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* Take up available space between logo and burger */
+        flex: 1;
+        padding: 0 2rem; /* Space from logo and burger */
+        order: 2;
+    }
+    
+    /* ====== Individual Action Buttons ====== */
+    .nav-action-btn {
+        min-width: var(--touch-target-min);
+        min-height: var(--touch-target-min);
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background-color 0.2s ease;
+    }
+    
+    .nav-action-btn:active {
+        background-color: rgba(var(--imperial-gold-rgb, 194, 157, 92), 0.1);
+    }
+    
+    /* ====== Mobile Menu Toggle ====== */
+    .mobile-menu-toggle {
+        flex: 0 0 auto;
+        order: 3;
+        min-width: var(--touch-target-min);
+        min-height: var(--touch-target-min);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* ====== Collection Count Badge ====== */
+    .collection-count {
+        font-size: 0.7rem;
+        padding: 1px 4px;
+        min-width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* ====== Responsive Header Adjustments ====== */
+@media (max-width: 480px) {
+    .nav-actions {
+        padding: 0 1rem; /* Reduced padding for small screens */
+    }
+    
+    .nav-action-btn {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 0.4rem;
+    }
+    
+    .nav-action-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ###########################################################
+   ###   4. COLLECTION CARDS                               ###
+   ########################################################### */
+
+/* ====== Re-enable Collection Card Animations on Mobile ====== */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Product/Collection Cards - KEEP Animations ====== */
+    .product-card,
+    .hero-watch,
+    .luxury-product-card,
+    .watch-card {
+        /* Restore original transitions */
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        cursor: pointer;
+    }
+    
+    /* ====== Touch-based Hover Effects ====== */
+    .product-card:active,
+    .hero-watch:active,
+    .luxury-product-card:active,
+    .watch-card:active {
+        /* Subtle lift effect on touch */
+        transform: translateY(-4px) !important;
+        box-shadow: 0 15px 40px rgba(12, 27, 42, 0.12) !important;
+    }
+    
+    /* ====== Product Images - KEEP Scale Effects ====== */
+    .product-image,
+    .watch-image {
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    .product-card:active .product-image,
+    .hero-watch:active .watch-image,
+    .luxury-product-card:active .product-image {
+        transform: scale(1.05) !important;
+    }
+    
+    /* ====== Product Overlays - KEEP Reveal Animation ====== */
+    .product-overlay,
+    .watch-overlay {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        /* Always visible on mobile but with subtle transparency */
+        opacity: 0.95 !important;
+        transform: translateY(0) !important;
+    }
+    
+    .product-card:active .product-overlay,
+    .hero-watch:active .watch-overlay {
+        opacity: 1 !important;
+    }
+    
+    /* ====== Collection Heart Button - KEEP Animations ====== */
+    .btn-add-collection {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    .btn-add-collection svg {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    /* Heart pop animation remains active */
+    .btn-add-collection.heart-pop svg {
+        animation: heart-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+    }
+    
+    .btn-add-collection.heart-pop.in-collection svg {
+        animation: heart-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+                   heart-glow 0.6s ease !important;
+    }
+    
+    /* ====== Product Action Buttons in Overlays ====== */
+    .btn-view-product {
+        transition: all 0.3s ease !important;
+        /* Ensure proper touch targets */
+        min-height: var(--touch-target-comfort);
+        padding: 0.75rem 1.5rem !important;
+    }
+    
+    .btn-view-product:active {
+        background: var(--crown-navy) !important;
+        transform: scale(0.98) !important;
+    }
+}
+
+/* ###########################################################
+   ###   5. SMALL MOBILE ADJUSTMENTS                       ###
+   ########################################################### */
+
+/* ====== Very Small Screens (iPhone SE, etc.) ====== */
+@media (max-width: 360px) {
+    
+    /* Only apply if content doesn't fit */
+    .product-actions {
+        /* Allow wrapping on very small screens */
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    
+    .btn-view-product {
+        /* Full width on very small screens */
+        min-width: 100% !important;
+    }
+    
+    /* Reduce padding to maximize content area */
+    .product-card,
+    .luxury-product-card {
+        padding: 1rem !important;
+    }
+    
+    .product-overlay {
+        padding: 1.5rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .loading-logo {
+        /* Disable the pulse animation on mobile */
+        animation: none !important;
+        height: auto;
+        width: auto;
+    }
+  
+  .loading-text {
+    font-size: 1.5rem; /* Better mobile size */
+    padding: 0.5rem 1.25rem;
+    z-index: 10; /* Ensure text is above background */
+    position: centre;
+    background: rgba(0, 0, 0, 0.5); /* Darker background for readability */
+    border-width: 1px; /* Thinner border on mobile */
+}
+}
+
+/* ###########################################################
+   ###   6. ACTION BUTTONS & TOUCH TARGETS                 ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Ensure All Buttons Meet Touch Standards ====== */
+    button,
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .nav-action-btn,
+    .filter-tab,
+    .concierge-btn {
+        /* Minimum touch target size */
+        min-height: var(--touch-target-min);
+        min-width: var(--touch-target-min);
+        /* Remove transitions for instant feedback (except collection cards) */
+        transition: none !important;
+    }
+    
+    /* ====== Active State Feedback ====== */
+    button:active,
+    .btn:active {
+        /* Subtle feedback without delay */
+        opacity: 0.9;
+        transform: scale(0.98);
+    }
+}
+
+/* ###########################################################
+   ###   7. BENEFIT CARDS & INFO SECTIONS                  ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Benefit Cards ====== */
+    .benefit-card {
+        /* Remove hover animations */
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .benefit-card:hover {
+        transform: none !important;
+        box-shadow: var(--shadow-luxury) !important;
+    }
+    
+    /* Icon animations disabled */
+    .benefit-icon {
+        transition: none !important;
+    }
+    
+    .benefit-card:hover .benefit-icon {
+        transform: none !important;
+    }
+}
+
+/* ###########################################################
+   ###   8. NAVIGATION & DESKTOP MENU PRESERVATION         ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Mobile Navigation Drawer ====== */
+    .mobile-menu {
+        /* Instant appearance for better perceived performance */
+        transition: none !important;
+    }
+    
+    /* Navigation links - larger touch targets */
+    .nav-link,
+    .mobile-nav-link {
+        min-height: var(--touch-target-comfort);
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* ###########################################################
+   ###   9. FORM ELEMENTS & INPUTS                         ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Touch-Optimized Inputs ====== */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="search"],
+    textarea,
+    select {
+        /* Larger touch targets */
+        min-height: var(--touch-target-comfort);
+        /* Prevent zoom on iOS */
+        font-size: 16px !important;
+        /* Remove transitions */
+        transition: none !important;
+    }
+    
+    /* Checkbox and radio buttons */
+    input[type="checkbox"],
+    input[type="radio"] {
+        /* Larger clickable area */
+        min-width: 24px;
+        min-height: 24px;
+    }
+}
+
+/* ###########################################################
+   ###   10. GENERAL ANIMATION REMOVALS                    ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Disable Parallax Effects ====== */
+    .hero-section,
+    .parallax-element,
+    [data-parallax] {
+        transform: none !important;
+        will-change: auto !important;
+    }
+    
+    /* ====== Disable Fade/Slide Animations ====== */
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-stagger-in,
+    .fade-in,
+    .slide-up,
+    [data-aos] {
+        /* Show content immediately */
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        transition: none !important;
+    }
+    
+    /* ====== Loading States ====== */
+    .skeleton-shimmer {
+        /* Disable shimmer animation on mobile */
+        animation: none !important;
+    }
+    
+    /* Keep spinner for critical loading states */
+    .loading-spinner {
+        /* Reduce animation speed for better performance */
+        animation-duration: 1.5s !important;
+    }
+}
+
+/* ###########################################################
+   ###   11. HOVER-CAPABLE DEVICES PRESERVATION            ###
+   ########################################################### */
+
+/* ====== Desktop/Laptop with Mouse - Keep All Animations ====== */
+@media (hover: hover) and (pointer: fine) {
+    /* All animations remain active - no overrides needed */
+    /* This ensures desktop experience remains premium */
+}
+
+/* ###########################################################
+   ###   12. ACCESSIBILITY - REDUCED MOTION                ###
+   ########################################################### */
+
+/* ====== Respect User Preference for Reduced Motion ====== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        /* Near-instant but not zero for a11y */
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        /* Remove delays entirely */
+        animation-delay: 0s !important;
+        transition-delay: 0s !important;
+    }
+    
+    /* Maintain smooth scroll even with reduced motion */
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* ###########################################################
+   ###   13. PERFORMANCE OPTIMIZATIONS                     ###
+   ########################################################### */
+
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+    
+    /* ====== Reduce Paint Complexity ====== */
+    /* EXCEPTION: Collection cards maintain will-change for animations */
+    .product-card,
+    .hero-watch,
+    .luxury-product-card,
+    .watch-card {
+        /* Enable GPU acceleration for smooth animations */
+        will-change: transform, box-shadow !important;
+    }
+    
+    /* Other cards disable expensive effects */
+    .benefit-card,
+    .service-card,
+    .info-card {
+        will-change: auto !important;
+        backdrop-filter: none !important;
+    }
+    
+    /* ====== Optimize Shadows for Performance ====== */
+    /* Simpler shadows render faster on mobile GPUs */
+    .benefit-card,
+    .service-card,
+    .info-card {
+        box-shadow: 0 4px 16px rgba(14, 21, 40, 0.08) !important;
+    }
+}
+
+/* ###########################################################
+   ###   14. IOS-SPECIFIC FIXES                            ###
+   ########################################################### */
+
+/* ====== iOS Safari Specific Overrides ====== */
+@supports (-webkit-touch-callout: none) {
+    /* Prevent tap highlight on buttons */
+    button,
+    .btn,
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Fix iOS momentum scrolling */
+    .scrollable-container {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Prevent selection of UI elements */
+    .btn,
+    .nav-link {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;  /* Standard property should come last */
+    }
+}
+
+/* ###########################################################
+   ###   15. NOTIFICATION SYSTEM - Mobile Size Reduction       ###
+   ########################################################### */
+
+   @media (max-width: 768px) {
+    /* Global notifications (main.js) */
+    .notification {
+        padding: 0.5rem 0.75rem !important;
+        font-size: 1.1rem;
+        top: 10px !important;
+        right: 10px !important;
+        
+        /* Scale down shadow and border radius */
+        border-radius: 4px !important;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .notification-content {
+        /* Adjust spacing between message and close button */
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .notification-message {
+        font-size: 1.1rem;
+    }
+    
+    .notification-close {
+        font-size: 1.1rem;
+        margin-left: 0.5rem !important;
+    }
+    
+    /* Currency-specific notifications */
+    .currency-notification {
+        padding: 0.375rem 0.5rem;
+        font-size: 1.1rem;
+        border-radius: 4px;
+    }
+    
+    /* Admin notifications */
+    .admin-notification {
+        padding: 0.5rem 0.75rem;
+        font-size: 1.1rem;
+        top: 10px;
+        right: 10px;
+        border-radius: 4px;
+    }
+}
+
+/* ###########################################################
+   ###            END OF MOBILE OVERRIDES                  ###
+   ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: MOBILE OVERRIDES 
+=======================================================
+
+MOBILE HEADER LAYOUT:
+- Clean 4-element design: Logo | Search | Heart | Burger
+- Currency dropdown moved to burger menu (top position)
+- Perfect touch targets (44px minimum)
+- Even spacing with flexbox distribution
+
+MOBILE MENU STRUCTURE:
+1. Currency selector (with label) - at top
+2. Navigation links (existing)
+3. Proper luxury styling throughout
+
+COLLECTION CARDS:
+- Restored beautiful animations for premium feel
+- Touch-based interactions replace hover
+- Heart button animations preserved
+- Performance optimized with selective animation control
+
+CURRENCY FUNCTIONALITY:
+- Hidden from header on mobile (clean layout)
+- Accessible via burger menu with luxury styling
+- Proper touch targets and iOS zoom prevention
+- Enhanced dropdown arrow and selection states
+
+RESPONSIVE BREAKPOINTS:
+- 480px: Mobile phones
+- 768px: Tablets
+- 1024px: Desktop threshold
+- Touch detection overrides
+
+PERFORMANCE OPTIMIZATIONS:
+- Reduced animations on mobile
+- Hardware acceleration
+- Minimal repaints
+- Battery friendly
+=======================================================
+*/

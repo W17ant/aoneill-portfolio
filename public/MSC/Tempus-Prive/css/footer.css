@@ -1,0 +1,127 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - FOOTER STYLING MODULE              ###
+   ###   Last Updated: 30-06-2025                          ###
+   ########################################################### */
+
+/*
+===============================================
+Most footer styles are already in main styles.css
+This file contains only footer-specific enhancements
+===============================================
+*/
+
+/* ###########################################################
+   ###   1. FOOTER COLLECTION LINKS                        ###
+   ########################################################### */
+
+/* ====== Collection Filter Links ====== */
+.footer-section a[data-collection-filter] {
+    position: relative;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* Subtle hover effect for luxury feel */
+.footer-section a[data-collection-filter]:hover {
+    transform: translateX(3px);
+}
+
+/* Arrow appears on hover to indicate navigation */
+.footer-section a[data-collection-filter]::after {
+    content: '→';
+    position: absolute;
+    right: -20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.footer-section a[data-collection-filter]:hover::after {
+    right: -18px;
+    opacity: 0.7;
+}
+
+/* ###########################################################
+   ###   2. ACTIVE STATE INDICATOR                         ###
+   ########################################################### */
+
+/* Highlight current section in footer nav */
+.footer-section a.footer-active {
+    color: var(--imperial-gold);
+    font-weight: 500;
+}
+
+/* ###########################################################
+   ###   3. ACCESSIBILITY - FOCUS STATES                   ###
+   ########################################################### */
+
+/* High contrast focus for keyboard users */
+.footer-section a:focus,
+.legal-links a:focus,
+.concierge-btn:focus {
+    outline: 2px solid var(--imperial-gold);
+    outline-offset: 2px;
+}
+
+/* ###########################################################
+   ###   4. REDUCED MOTION SUPPORT                         ###
+   ########################################################### */
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .footer-section a[data-collection-filter],
+    .footer-section a[data-collection-filter]::after {
+        transition: none;
+    }
+    
+    .footer-section a[data-collection-filter]:hover {
+        transform: none;
+    }
+}
+  
+/* ###########################################################
+   ###            END OF FOOTER STYLES                     ###
+   ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: FOOTER STYLES
+=======================================================
+
+FOOTER LAYOUT:
+- Multi-column grid
+- Brand section
+- Link sections
+- Contact info
+
+RESPONSIVE GRID:
+- Desktop 4-column
+- Tablet 2-column
+- Mobile single column
+- Flexible spacing
+
+SECRET BUTTON:
+- Subtle integration
+- Hover discovery
+- Professional look
+- Mobile accessible
+
+TYPOGRAPHY:
+- Smaller sizing
+- Muted colors
+- Clear hierarchy
+- Readable contrast
+
+LEGAL SECTION:
+- Copyright notice
+- Link separation
+- Mobile stacking
+- Adequate spacing
+
+BRAND CONSISTENCY:
+- Matches main design
+- Color palette
+- Typography scale
+- Spacing system
+=======================================================
+*/   

@@ -1,0 +1,877 @@
+{
+  "metadata": {
+    "version": "1.1",
+    "lastUpdated": "2024-06-26",
+    "currency": "GBP",
+    "totalProducts": 16,  
+    "brands": 8          
+  },
+  "categories": {
+    "sport": {
+      "name": "Sport Watches",
+      "description": "Built for adventure, designed for performance",
+      "count": 8
+    },
+    "dress": {
+      "name": "Dress Watches",
+      "description": "Sophisticated timepieces for life's most important moments",
+      "count": 6
+    },
+    "luxury": {
+      "name": "Luxury Collection",
+      "description": "Exceptional craftsmanship meets horological heritage",
+      "count": 3
+    },
+    "investment": {
+      "name": "Investment Pieces",
+      "description": "Ultra-premium timepieces with exceptional value retention",
+      "count": 6
+    },
+    "heritage": {
+      "name": "Heritage Collection",
+      "description": "Timepieces with historical significance and provenance",
+      "count": 3
+    }
+  },
+  "brands": {
+    "rolex": {
+      "name": "Rolex",
+      "logo": "./images/brands/rolex-logo.png",
+      "description": "A crown for every achievement",
+      "founded": 1905,
+      "origin": "Switzerland",
+      "specialty": "Sport and luxury watches"
+    },
+    "audemars-piguet": {
+      "name": "Audemars Piguet",
+      "logo": "./images/brands/audemars-piguet-logo.png",
+      "description": "Master of complications",
+      "founded": 1875,
+      "origin": "Le Brassus, Switzerland",
+      "specialty": "Luxury sport watches and complications"
+    },
+    "patek-philippe": {
+      "name": "Patek Philippe",
+      "logo": "./images/brands/patek-philippe-logo.png",
+      "description": "Geneva's finest since 1839",
+      "founded": 1839,
+      "origin": "Geneva, Switzerland",
+      "specialty": "Grand complications and dress watches"
+    },
+    "richard-mille": {
+      "name": "Richard Mille",
+      "logo": "./images/brands/richard-mille-logo.png",
+      "description": "Racing machine on the wrist",
+      "founded": 2001,
+      "origin": "Les Breuleux, Switzerland",
+      "specialty": "High-tech sports watches"
+    },
+    "cartier": {
+      "name": "Cartier",
+      "logo": "./images/brands/cartier-logo.png",
+      "description": "Jeweler of kings",
+      "founded": 1847,
+      "origin": "Paris, France",
+      "specialty": "Luxury jewelry watches"
+    },
+    "hublot": {
+      "name": "Hublot",
+      "logo": "./images/brands/hublot-logo.png",
+      "description": "Art of fusion",
+      "founded": 1980,
+      "origin": "Nyon, Switzerland",
+      "specialty": "Contemporary luxury sports watches"
+    },
+    "longines": {
+      "name": "Longines",
+      "logo": "./images/brands/longines-logo.png",
+      "description": "Elegance is an attitude",
+      "founded": 1832,
+      "origin": "Saint-Imier, Switzerland",
+      "specialty": "Elegant sports and dress watches"
+    },
+      "omega": {
+        "name": "Omega",
+        "logo": "./images/brands/omega-logo.png",
+        "description": "Masters of precision and innovation since 1848",
+        "founded": 1848,
+        "origin": "Biel/Bienne, Switzerland",
+        "specialty": "Precision chronometers and space-qualified timepieces",
+        "heritage": "Official timekeeper of the Olympics, chosen by NASA for space missions"
+      }
+  },
+
+  "products": [
+    {
+      "id": "rolex-daytona-white-001",
+      "name": "Daytona Cosmograph",
+      "brand": "rolex",
+      "model": "116500LN",
+      "reference": "116500LN",
+      "description": "The legendary Rolex Daytona with white dial represents the pinnacle of chronograph excellence. Originally designed for professional racing drivers, this iconic timepiece features a tachymetric scale and precise chronograph functions. The ceramic Cerachrom bezel offers exceptional scratch resistance while maintaining its deep black color.",
+      "category": [
+        "sport",
+        "investment"
+      ],
+      "price": {
+        "amount": 87000,
+        "display": "\u00a387,000",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/rolex/rolex-daytona-white-main.png",
+        "gallery": [
+          "./images/products/rolex/rolex-daytona-white-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "4130",
+        "caseSize": "40mm",
+        "caseMaterial": "Oystersteel",
+        "strapMaterial": "Oystersteel Bracelet",
+        "waterResistance": "100m",
+        "powerReserve": "72 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Chronograph",
+          "Tachymetric Scale"
+        ]
+      },
+      "availability": "by-request",
+      "condition": "new",
+      "warranty": "5 years international",
+      "certification": "COSC Certified Chronometer",
+      "featured": true,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": true,
+      "dateAdded": "2024-06-01"
+    },
+    {
+      "id": "rolex-submariner-hulk-002",
+      "name": "Submariner Date 'Hulk'",
+      "brand": "rolex",
+      "model": "126610LV",
+      "reference": "126610LV",
+      "description": "The iconic 'Hulk' Submariner with its distinctive green ceramic bezel and black dial. A discontinued model that has become highly sought after by collectors. Features the latest generation Caliber 3235 movement with extended power reserve and enhanced precision.",
+      "category": [
+        "sport",
+        "investment"
+      ],
+      "price": {
+        "amount": 87000,
+        "display": "\u00a387,000",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/rolex/rolex-submariner-hulk-main.png",
+        "gallery": [
+          "./images/products/rolex/rolex-submariner-hulk-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "3235",
+        "caseSize": "41mm",
+        "caseMaterial": "Oystersteel",
+        "strapMaterial": "Oystersteel Bracelet",
+        "waterResistance": "300m",
+        "powerReserve": "70 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date",
+          "Unidirectional Rotating Bezel"
+        ]
+      },
+      "availability": "limited",
+      "condition": "new",
+      "warranty": "5 years international",
+      "certification": "COSC Certified Chronometer",
+      "featured": false,
+      "newArrival": false,
+      "limitedEdition": true,
+      "investmentGrade": true,
+      "dateAdded": "2024-05-15"
+    },
+    {
+      "id": "ap-royal-oak-offshore-003",
+      "name": "Royal Oak Offshore",
+      "brand": "audemars-piguet",
+      "model": "26470ST.OO.A027CA.01",
+      "reference": "26470ST.OO.A027CA.01",
+      "description": "The Royal Oak Offshore represents Audemars Piguet's bold interpretation of their iconic octagonal design. This robust chronograph features the signature 'Tapisserie' dial pattern and integrated pushers. A true statement piece that combines sports functionality with luxury aesthetics.",
+      "category": [
+        "sport",
+        "luxury"
+      ],
+      "price": {
+        "amount": 32500,
+        "display": "\u00a332,500",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png",
+        "gallery": [
+          "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "3126/3840",
+        "caseSize": "42mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Integrated Steel Bracelet",
+        "waterResistance": "100m",
+        "powerReserve": "50 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Small Seconds",
+          "Date",
+          "Chronograph"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Manufacture Certified",
+      "featured": false,
+      "newArrival": true,
+      "limitedEdition": false,
+      "investmentGrade": true,
+      "dateAdded": "2024-06-10"
+    },
+    {
+      "id": "ap-royal-oak-jumbo-004",
+      "name": "Royal Oak Jumbo Extra-Thin",
+      "brand": "audemars-piguet",
+      "model": "15202ST.OO.1240ST.01",
+      "reference": "15202ST.OO.1240ST.01",
+      "description": "The original Royal Oak 'Jumbo' in its purest form, featuring the iconic blue 'Grande Tapisserie' dial designed by Gerald Genta. This ultra-thin masterpiece represents the birth of the luxury sports watch category and remains one of the most coveted timepieces in horology.",
+      "category": [
+        "dress",
+        "luxury",
+        "investment"
+      ],
+      "price": {
+        "amount": null,
+        "display": "By Private Consultation",
+        "type": "consultation"
+      },
+      "images": {
+        "main": "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png",
+        "gallery": [
+          "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "2121",
+        "caseSize": "39mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Integrated Steel Bracelet",
+        "waterResistance": "50m",
+        "powerReserve": "40 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date"
+        ]
+      },
+      "availability": "by-request",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Manufacture Certified",
+      "featured": true,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": true,
+      "dateAdded": "2024-05-20"
+    },
+    {
+      "id": "patek-nautilus-5711-005",
+      "name": "Nautilus 5711/1A",
+      "brand": "patek-philippe",
+      "model": "5711/1A-010",
+      "reference": "5711/1A-010",
+      "description": "The holy grail of modern collecting - the Patek Philippe Nautilus 5711 with blue dial. Inspired by a ship's porthole and designed by Gerald Genta, this discontinued model has achieved legendary status among collectors. Production ended in 2021, making existing pieces extremely valuable.",
+      "category": [
+        "sport",
+        "luxury",
+        "investment"
+      ],
+      "price": {
+        "amount": null,
+        "display": "By Private Consultation",
+        "type": "consultation"
+      },
+      "images": {
+        "main": "./images/products/patek-philippe/patek-nautilus-5711-main.png",
+        "gallery": [
+          "./images/products/patek-philippe/patek-nautilus-5711-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "26-330 S C",
+        "caseSize": "40mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Integrated Steel Bracelet",
+        "waterResistance": "120m",
+        "powerReserve": "45 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date"
+        ]
+      },
+      "availability": "by-request",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Patek Philippe Seal",
+      "featured": true,
+      "newArrival": false,
+      "limitedEdition": true,
+      "investmentGrade": true,
+      "dateAdded": "2024-04-30"
+    },
+    {
+      "id": "patek-calatrava-5227-006",
+      "name": "Calatrava 5227G",
+      "brand": "patek-philippe",
+      "model": "5227G-001",
+      "reference": "5227G-001",
+      "description": "The epitome of dress watch elegance, the Calatrava 5227G features a hobnail bezel and officer's case back. Crafted in white gold with a silvered dial, this timepiece represents Patek Philippe's mastery of classical watchmaking traditions.",
+      "category": [
+        "dress",
+        "luxury"
+      ],
+      "price": {
+        "amount": 38900,
+        "display": "\u00a338,900",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/patek-philippe/patek-calatrava-5227-detail.png",
+        "gallery": [
+          "./images/products/patek-philippe/patek-calatrava-5227-detail.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Manual Wind",
+        "caliber": "215 PS",
+        "caseSize": "38mm",
+        "caseMaterial": "18K White Gold",
+        "strapMaterial": "Alligator Leather",
+        "waterResistance": "30m",
+        "powerReserve": "44 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Small Seconds"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Patek Philippe Seal",
+      "featured": false,
+      "newArrival": true,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-15"
+    },
+    {
+      "id": "rm-mclaren-11-03-007",
+      "name": "RM 11-03 McLaren",
+      "brand": "richard-mille",
+      "model": "RM 11-03 McLaren",
+      "reference": "RM 11-03",
+      "description": "A fusion of Formula 1 technology and haute horlogerie, the RM 11-03 McLaren features a Carbon TPT case inspired by McLaren's racing heritage. The skeletonized movement showcases Richard Mille's innovative approach to modern watchmaking, combining extreme lightness with exceptional durability.",
+      "category": [
+        "sport",
+        "luxury",
+        "investment"
+      ],
+      "price": {
+        "amount": null,
+        "display": "By Private Consultation",
+        "type": "consultation"
+      },
+      "images": {
+        "main": "./images/products/richard-mille/rm-11-03-mclaren-main.png",
+        "gallery": [
+          "./images/products/richard-mille/rm-11-03-mclaren-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "RMAC3",
+        "caseSize": "49.94mm x 44.50mm",
+        "caseMaterial": "Carbon TPT",
+        "strapMaterial": "Rubber Strap",
+        "waterResistance": "50m",
+        "powerReserve": "55 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date",
+          "Chronograph",
+          "Annual Calendar"
+        ]
+      },
+      "availability": "by-request",
+      "condition": "new",
+      "warranty": "3 years international",
+      "certification": "Richard Mille Certified",
+      "featured": true,
+      "newArrival": false,
+      "limitedEdition": true,
+      "investmentGrade": true,
+      "dateAdded": "2024-05-05"
+    },
+    {
+      "id": "rm-67-02-extraflat-008",
+      "name": "RM 67-02 Extra Flat",
+      "brand": "richard-mille",
+      "model": "RM 67-02",
+      "reference": "RM 67-02",
+      "description": "The ultra-thin RM 67-02 represents Richard Mille's mastery of miniaturization. At just 7.75mm thick, this automatic timepiece showcases the brand's ability to create exceptional movements in impossibly slim profiles while maintaining their signature tonneau case design.",
+      "category": [
+        "dress",
+        "luxury",
+        "investment"
+      ],
+      "price": {
+        "amount": 87000,
+        "display": "\u00a387,000",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/richard-mille/rm-67-02-extraflat-main.png",
+        "gallery": [
+          "./images/products/richard-mille/rm-67-02-extraflat-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "CRMA7",
+        "caseSize": "38.70mm x 47.25mm",
+        "caseMaterial": "Quartz TPT",
+        "strapMaterial": "Rubber Strap",
+        "waterResistance": "30m",
+        "powerReserve": "50 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds"
+        ]
+      },
+      "availability": "limited",
+      "condition": "new",
+      "warranty": "3 years international",
+      "certification": "Richard Mille Certified",
+      "featured": false,
+      "newArrival": true,
+      "limitedEdition": true,
+      "investmentGrade": true,
+      "dateAdded": "2024-06-08"
+    },
+    {
+      "id": "cartier-santos-large-009",
+      "name": "Santos de Cartier Large",
+      "brand": "cartier",
+      "model": "WSSA0029",
+      "reference": "WSSA0029",
+      "description": "The Santos de Cartier, the world's first men's wristwatch, reimagined for the modern era. This large model features the iconic square case with exposed screws and Cartier's innovative QuickSwitch bracelet system, allowing effortless strap changes.",
+      "category": [
+        "sport",
+        "dress"
+      ],
+      "price": {
+        "amount": 6750,
+        "display": "\u00a36,750",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/cartier/cartier-santos-large-main.png",
+        "gallery": [
+          "./images/products/cartier/cartier-santos-large-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "1847 MC",
+        "caseSize": "39.8mm x 47.5mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Steel Bracelet with QuickSwitch",
+        "waterResistance": "100m",
+        "powerReserve": "42 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "8 years international",
+      "certification": "Cartier Certified",
+      "featured": false,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-12"
+    },
+    {
+      "id": "cartier-tank-must-010",
+      "name": "Tank Must Watch",
+      "brand": "cartier",
+      "model": "WSTA0041",
+      "reference": "WSTA0041",
+      "description": "The iconic Tank Must embodies Cartier's design philosophy with its rectangular case inspired by WWI military tanks. Featuring Roman numerals, blued-steel hands, and the signature sapphire cabochon crown, this timepiece represents timeless elegance.",
+      "category": [
+        "dress"
+      ],
+      "price": {
+        "amount": 2890,
+        "display": "\u00a32,890",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/cartier/cartier-tank-must-main.png",
+        "gallery": [
+          "./images/products/cartier/cartier-tank-must-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Quartz",
+        "caliber": "SolarBeat",
+        "caseSize": "33.7mm x 25.5mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Steel Bracelet",
+        "waterResistance": "30m",
+        "powerReserve": "16 years (solar)",
+        "functions": [
+          "Hours",
+          "Minutes"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "8 years international",
+      "certification": "Cartier Certified",
+      "featured": false,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-18"
+    },
+    {
+      "id": "hublot-big-bang-titanium-011",
+      "name": "Big Bang Unico Titanium",
+      "brand": "hublot",
+      "model": "441.NX.1171.RX",
+      "reference": "441.NX.1171.RX",
+      "description": "The Big Bang Unico represents Hublot's 'Art of Fusion' philosophy, combining titanium construction with a skeletonized in-house movement. The transparent dial showcases the intricate mechanics of the UNICO caliber, making it a true horological showcase piece.",
+      "category": [
+        "sport",
+        "luxury"
+      ],
+      "price": {
+        "amount": 18900,
+        "display": "\u00a318,900",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/hublot/hublot-big-bang-titanium-main.png",
+        "gallery": [
+          "./images/products/hublot/hublot-big-bang-titanium-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "HUB1242 UNICO",
+        "caseSize": "42mm",
+        "caseMaterial": "Titanium",
+        "strapMaterial": "Rubber Strap",
+        "waterResistance": "100m",
+        "powerReserve": "72 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date",
+          "Chronograph"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "COSC Certified",
+      "featured": false,
+      "newArrival": true,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-14"
+    },
+    {
+      "id": "hublot-classic-fusion-gold-012",
+      "name": "Classic Fusion King Gold",
+      "brand": "hublot",
+      "model": "542.OX.1181.LR",
+      "reference": "542.OX.1181.LR",
+      "description": "The Classic Fusion King Gold represents Hublot's refined side, featuring their proprietary King Gold alloy with a sophisticated black dial. This elegant timepiece combines traditional watchmaking with modern materials, creating a perfect balance of luxury and innovation.",
+      "category": [
+        "dress",
+        "luxury"
+      ],
+      "price": {
+        "amount": 24500,
+        "display": "\u00a324,500",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/hublot/hublot-classic-fusion-gold-main.png",
+        "gallery": [
+          "./images/products/hublot/hublot-classic-fusion-gold-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "HUB1112",
+        "caseSize": "42mm",
+        "caseMaterial": "King Gold",
+        "strapMaterial": "Alligator Leather",
+        "waterResistance": "50m",
+        "powerReserve": "42 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds",
+          "Date"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Hublot Certified",
+      "featured": false,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-05"
+    },
+    {
+      "id": "longines-pocket-master-013",
+      "name": "Master Collection Pocket Watch",
+      "brand": "longines",
+      "model": "L7.034.4.71.6",
+      "reference": "L7.034.4.71.6",
+      "description": "A magnificent pocket watch that celebrates Longines' heritage in precision timekeeping. Featuring a hunting case design with traditional chain, this timepiece represents the golden age of pocket watches while incorporating modern Swiss automatic movement technology.",
+      "category": [
+        "dress",
+        "luxury"
+      ],
+      "price": {
+        "amount": 1890,
+        "display": "\u00a31,890",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/longines/longines-pocket-master-main.png",
+        "gallery": [
+          "./images/products/longines/longines-pocket-master-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Automatic",
+        "caliber": "L619.2",
+        "caseSize": "50mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Traditional Chain",
+        "waterResistance": "30m",
+        "powerReserve": "42 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Seconds"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Longines Certified",
+      "featured": true,
+      "newArrival": false,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-20"
+    },
+    {
+      "id": "longines-pocket-heritage-014",
+      "name": "Heritage 1945 Pocket Watch",
+      "brand": "longines",
+      "model": "L2.813.4.23.2",
+      "reference": "L2.813.4.23.2",
+      "description": "Inspired by Longines' rich heritage in precision timekeeping, this open-face pocket watch pays homage to the classic designs of 1945. The elegant silvered dial with painted Arabic numerals captures the essence of mid-20th century Swiss watchmaking excellence.",
+      "category": [
+        "dress"
+      ],
+      "price": {
+        "amount": 1250,
+        "display": "\u00a31,250",
+        "type": "fixed"
+      },
+      "images": {
+        "main": "./images/products/longines/longines-pocket-heritage-main.png",
+        "gallery": [
+          "./images/products/longines/longines-pocket-heritage-main.png"
+        ]
+      },
+      "specifications": {
+        "movement": "Manual Wind",
+        "caliber": "L507.2",
+        "caseSize": "50mm",
+        "caseMaterial": "Stainless Steel",
+        "strapMaterial": "Traditional Chain",
+        "waterResistance": "30m",
+        "powerReserve": "45 hours",
+        "functions": [
+          "Hours",
+          "Minutes",
+          "Small Seconds"
+        ]
+      },
+      "availability": "in-stock",
+      "condition": "new",
+      "warranty": "2 years international",
+      "certification": "Longines Certified",
+      "featured": false,
+      "newArrival": true,
+      "limitedEdition": false,
+      "investmentGrade": false,
+      "dateAdded": "2024-06-22"
+    },
+      {
+        "id": "omega-chronometre-tourbillon-015",
+        "name": "Chronomètre à Tourbillon",
+        "brand": "omega",
+        "model": "Observatory Chronometer",
+        "reference": "1947 Tourbillon",
+        "description": "An extraordinarily rare and historically significant Omega tourbillon chronometer from 1947, representing the absolute pinnacle of Omega's precision engineering during the golden age of Swiss chronometry. This museum-quality timepiece showcases Omega's mastery of haute horlogerie complications and stands as testament to their pursuit of chronometric excellence.",
+        "category": [
+          "investment",
+          "heritage",
+          "luxury"
+        ],
+        "price": {
+          "amount": null,
+          "display": "By Private Consultation",
+          "type": "consultation",
+          "estimate": "£550,000+"
+        },
+        "images": {
+          "main": "./images/products/omega/omega-chronometre-tourbillon-main.png",
+          "gallery": [
+            "./images/products/omega/omega-chronometre-tourbillon-main.png"
+          ]
+        },
+        "specifications": {
+          "movement": "Manual Wind Tourbillon",
+          "caliber": "Observatory Chronometer",
+          "caseSize": "35mm (estimated)",
+          "caseMaterial": "18K Gold",
+          "strapMaterial": "Leather Strap",
+          "waterResistance": "30m",
+          "powerReserve": "36 hours",
+          "functions": [
+            "Hours",
+            "Minutes",
+            "Small Seconds",
+            "Tourbillon Complication"
+          ]
+        },
+        "availability": "in-stock",
+        "condition": "excellent",
+        "year": 1947,
+        "warranty": "Authenticity guarantee",
+        "certification": "Observatory Chronometer Certified",
+        "featured": true,
+        "newArrival": true,
+        "limitedEdition": true,
+        "investmentGrade": true,
+        "heritage": "1947 Observatory Competition",
+        "provenance": {
+          "box": false,
+          "papers": false,
+          "note": "Rare observatory timepiece - documentation available"
+        },
+        "dateAdded": "2024-06-26"
+      },
+      {
+        "id": "omega-speedmaster-145022-69-016",
+        "name": "Speedmaster Professional Ref. 145.022-69 ST",
+        "brand": "omega",
+        "model": "145.022-69",
+        "reference": "145.022-69 ST",
+        "description": "The iconic vintage Moonwatch variant featuring the coveted stepped dial and rare DON bezel, produced during the legendary Apollo era between 1969-1971. This exceptional example represents the golden age of space exploration when Omega's Speedmaster was the trusted companion of astronauts. A true collector's piece with documented provenance.",
+        "category": [
+          "sport",
+          "investment",
+          "heritage"
+        ],
+        "price": {
+          "amount": 12000,
+          "display": "£12,000",
+          "type": "fixed"
+        },
+        "images": {
+          "main": "./images/products/omega/omega-speedmaster-145022-69-main.png",
+          "gallery": [
+            "./images/products/omega/omega-speedmaster-145022-69-main.png"
+          ]
+        },
+        "specifications": {
+          "movement": "Manual Wind",
+          "caliber": "861",
+          "caseSize": "42mm",
+          "strapMaterial": "Stainless Steel Bracelet",
+          "waterResistance": "50m",
+          "powerReserve": "48 hours",
+          "functions": [
+            "Hours",
+            "Minutes",
+            "Small Seconds",
+            "Chronograph",
+            "Tachymetric Scale"
+          ]
+        },
+        "availability": "in-stock",
+        "condition": "very-good",
+        "year": 1970,
+        "warranty": "Authenticity guarantee",
+        "certification": "Vintage Speedmaster Verified",
+        "featured": false,
+        "newArrival": true,
+        "limitedEdition": true,
+        "investmentGrade": true,
+        "heritage": "Apollo Era 1969-1971",
+        "provenance": {
+          "box": true,
+          "papers": true,
+          "note": "Complete set with original documentation"
+        },
+        "dateAdded": "2024-06-26"
+      }
+    ]    
+}

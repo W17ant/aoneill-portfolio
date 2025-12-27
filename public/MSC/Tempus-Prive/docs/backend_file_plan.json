@@ -1,0 +1,29 @@
+{
+  "admin_backend": {
+    "admin.html": "Admin dashboard for managing inventory (secured via concierge modal)",
+    "admin.js": "Handles admin UI, CRUD functions, API integration",
+    "admin.css": "Custom styling for admin panel (optional if scoped within main styles)",
+    "api.js": "API interaction layer for CRUD (GET/POST/PUT/DELETE) with MongoDB backend",
+    "server.js": "Express.js Node server (routes, middleware, CORS, body-parser setup)",
+    "models/Product.js": "Mongoose schema for products, categories, brands",
+    "routes/products.js": "RESTful API routes for product CRUD operations",
+    ".env": "Secure config for DB URI, admin token, etc."
+  },
+  "database": {
+    "seed.js": "MongoDB seeder for initial product dataset (based on products.json)",
+    "products.json": "Source data (already present)"
+  },
+  "media_submission": {
+    "demo-video.mp4": "Walkthrough demo of full SPA + admin CRUD (mid/final submission)",
+    "TempusPrivee_Report.pdf": "PDF report explaining architecture, features, challenges, improvements",
+    "README.md": "Documentation with setup instructions, dependencies, etc."
+  },
+  "optional_enhancements": {
+    "auth.js": "Token-based or password-based admin authentication (for API protection)",
+    "validation.js": "Form validation utility functions",
+    "search.js": "Modularized search engine (if decoupling from main.js)",
+    "wishlist.js": "Separate script if wishlist grows in functionality",
+    "analytics.js": "(Optional) Basic user interaction tracking for demo purposes",
+    "email-service.js": "(Optional) Email trigger on concierge requests"
+  }
+}

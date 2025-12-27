@@ -1,0 +1,625 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - COLLECTION SECTION STYLES          ###
+   ###   Last Updated: 03-07-2025                          ###
+   ########################################################### */
+
+/* ###########################################################
+   ###   1. COLLECTION SECTION BASE                        ###
+   ########################################################### */
+
+   .collection-section {
+    background: var(--off-white);
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Subtle pattern overlay */
+  .collection-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 35px,
+        rgba(194, 157, 92, 0.03) 35px,
+        rgba(194, 157, 92, 0.03) 70px
+      );
+    pointer-events: none;
+  }
+  
+  /* ###########################################################
+     ###   2. LUXURY FILTERS CONTAINER                       ###
+     ########################################################### */
+  
+  .luxury-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* ###########################################################
+     ###   3. FILTER TABS STYLING                            ###
+     ########################################################### */
+  
+  .filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(12, 27, 42, 0.08);
+    flex-wrap: wrap;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Disabled state when brand filter active */
+  .filter-tabs.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    position: relative;
+  }
+  
+  .filter-tabs.disabled::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    cursor: not-allowed;
+  }
+  
+  /* Individual filter tab */
+  .filter-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    color: var(--dark-gray);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Tab hover effect */
+  .filter-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(212, 175, 55, 0.1);
+    transition: left 0.3s ease;
+  }
+  
+  .filter-tab:hover::before {
+    left: 0;
+  }
+  
+  .filter-tab:hover {
+    color: var(--crown-navy);
+  }
+  
+  /* Active tab state */
+  .filter-tab.active {
+    background: var(--crown-navy);
+    color: white;
+    box-shadow: 0 4px 12px rgba(12, 27, 42, 0.25);
+  }
+  
+  .filter-tab.active::before {
+    display: none;
+  }
+  
+  /* Tab content */
+  .tab-text {
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .tab-count {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.125rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-tab:not(.active) .tab-count {
+    background: rgba(194, 157, 92, 0.15);
+    color: var(--crown-navy);
+  }
+  
+  .filter-tab.active .tab-count {
+    background: var(--imperial-gold);
+  }
+  
+  /* ###########################################################
+     ###   4. SORT CONTROL STYLING                           ###
+     ########################################################### */
+  
+  .sort-control {
+    position: relative;
+  }
+  
+  .sort-control::after {
+    content: '▼';
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    color: var(--imperial-gold);
+    pointer-events: none;
+  }
+  
+  .sort-control select {
+    appearance: none;
+    background: white;
+    border: 1px solid var(--light-gray);
+    padding: 1rem 3rem 1rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--crown-navy);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(12, 27, 42, 0.05);
+    transition: all 0.3s ease;
+    min-width: 200px;
+  }
+  
+  .sort-control select:hover {
+    border-color: var(--imperial-gold);
+    box-shadow: 0 4px 12px rgba(12, 27, 42, 0.1);
+  }
+  
+  .sort-control select:focus {
+    outline: none;
+    border-color: var(--imperial-gold);
+    box-shadow: 0 0 0 3px rgba(194, 157, 92, 0.2);
+  }
+  
+  /* ###########################################################
+     ###   5. LUXURY PRODUCTS GRID                           ###
+     ########################################################### */
+  
+  .luxury-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Large screens - 4 columns */
+  @media (min-width: 1400px) {
+    .luxury-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Medium screens - 3 columns */
+  @media (min-width: 1024px) and (max-width: 1399px) {
+    .luxury-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Small screens - 2 columns */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .luxury-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+  
+  /* Mobile - 1 column */
+  @media (max-width: 639px) {
+    .luxury-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+  
+  /* ###########################################################
+     ###   6. PRODUCT CARD STYLING                           ###
+     ########################################################### */
+  
+  .product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(12, 27, 42, 0.08);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--imperial-gold) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(12, 27, 42, 0.15);
+  }
+  
+  .product-card:hover::before {
+    opacity: 1;
+  }
+  
+  /* Highlight animation for brand filtering */
+  .product-card.highlight {
+    animation: highlightPulse 2s ease;
+  }
+  
+  @keyframes highlightPulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(12, 27, 42, 0.08); }
+    50% { box-shadow: 0 8px 32px rgba(194, 157, 92, 0.4); }
+  }
+  
+  /* ###########################################################
+     ###   7. PRODUCT VISUAL SECTION                         ###
+     ########################################################### */
+  
+  .product-visual {
+    position: relative;
+    background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .product-image {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    border-radius: 16px;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .product-card:hover .product-image {
+    transform: scale(1.25);
+  }
+  
+  /* Product overlay with actions */
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(12, 27, 42, 0.95), transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+  
+  .product-actions {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  /* View product button */
+  .btn-view-product {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    background: var(--imperial-gold);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+  }
+  
+  .product-card:hover .btn-view-product {
+    transform: translateY(0);
+  }
+  
+  .btn-view-product:hover {
+    background: var(--crown-navy);
+    box-shadow: 0 4px 12px rgba(12, 27, 42, 0.3);
+  }
+  
+
+  /* ###########################################################
+     ###   8. PRODUCT INFO SECTION                           ###
+     ########################################################### */
+  
+  .product-info {
+    padding: 1.75rem;
+  }
+  
+  .product-brand {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--imperial-gold);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-name {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--crown-navy);
+    margin-bottom: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+  
+  .product-specs {
+    font-size: 0.875rem;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .product-price {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--crown-navy);
+    font-family: var(--font-serif);
+  }
+  
+  /* ###########################################################
+     ###   9. EMPTY STATE STYLING                            ###
+     ########################################################### */
+  
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(12, 27, 42, 0.05);
+  }
+  
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+  }
+  
+  .empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    color: var(--crown-navy);
+    margin-bottom: 1rem;
+  }
+  
+  .empty-state p {
+    color: var(--dark-gray);
+    margin-bottom: 2rem;
+  }
+  
+  .btn-secondary {
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid var(--imperial-gold);
+    color: var(--imperial-gold);
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: var(--imperial-gold);
+    color: white;
+  }
+  
+  /* ###########################################################
+     ###   10. LOADING STATES                                ###
+     ########################################################### */
+  
+  .product-skeleton {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(12, 27, 42, 0.08);
+  }
+  
+  .skeleton-visual {
+    aspect-ratio: 1;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+  
+  .skeleton-info {
+    padding: 1.75rem;
+  }
+  
+  .skeleton-line {
+    height: 1rem;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+  }
+  
+  .skeleton-line:last-child {
+    width: 60%;
+  }
+  
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  /* ###########################################################
+     ###   11. MOBILE RESPONSIVENESS                         ###
+     ########################################################### */
+  
+  @media (max-width: 768px) {
+    .luxury-filters {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+    
+    .filter-tabs {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .filter-tab {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+    }
+    
+    .sort-control select {
+      width: 100%;
+    }
+    
+    .product-card {
+      border-radius: 16px;
+    }
+    
+    .product-info {
+      padding: 1.25rem;
+    }
+    
+    .product-name {
+      font-size: 1.125rem;
+    }
+    
+    .product-price {
+      font-size: 1rem;
+    }
+  }
+  
+  /* ###########################################################
+     ###   12. ACCESSIBILITY ENHANCEMENTS                    ###
+     ########################################################### */
+  
+  /* Focus states */
+  .filter-tab:focus,
+  .btn-view-product:focus,
+  .btn-add-collection:focus,
+  .sort-control select:focus {
+    outline: 2px solid var(--imperial-gold);
+    outline-offset: 2px;
+  }
+  
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* Reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .product-card,
+    .product-image,
+    .product-overlay,
+    .btn-view-product,
+    .btn-add-collection,
+    .filter-tab::before {
+      transition: none;
+      animation: none;
+    }
+    
+    .product-card:hover {
+      transform: none;
+    }
+    
+    .product-card:hover .product-image {
+      transform: none;
+    }
+  }
+  
+  /* ###########################################################
+     ###   END OF COLLECTION STYLES                          ###
+     ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: COLLECTION SECTION STYLES
+=======================================================
+
+LUXURY GRID LAYOUT:
+- Auto-fit responsive columns
+- Consistent gaps and spacing
+- Card-based design
+- Hover effects (desktop only)
+
+FILTER INTERFACE:
+- Tab-based filtering
+- Active state indicators
+- Count badges
+- Smooth transitions
+
+PRODUCT CARDS:
+- Image aspect ratio maintained
+- Overlay information
+- Price formatting
+- Brand highlighting
+
+EMPTY STATES:
+- Elegant messaging
+- Icon integration
+- Clear CTAs
+- Brand consistency
+
+ANIMATIONS:
+- Card entrance effects
+- Filter transitions
+- Hover transformations
+- Loading states
+
+MOBILE ADAPTATIONS:
+- Single column on mobile
+- Touch-friendly cards
+- Simplified interactions
+- Optimized images
+=======================================================
+*/     

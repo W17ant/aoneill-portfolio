@@ -1,0 +1,668 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - SERVICE PAGES STYLING MODULE       ###
+   ###   Last Updated: 29-06-2025                          ###
+   ########################################################### */
+
+/*
+===============================================
+Animations, layouts, and service-specific styles
+Aligned with brand tone, performance, and accessibility
+===============================================
+*/
+
+/* ###########################################################
+   ###   1. SECTION VISIBILITY CONTROL                     ###
+   ########################################################### */
+
+/* ===== Section Visibility Control ===== */
+.section.service-page {
+    display: none;  /* ✅ Only hides service pages */
+}
+
+.section.active {
+    display: block;
+}
+
+/* ###########################################################
+   ###   2. CORE ANIMATIONS                                ###
+   ########################################################### */
+
+/* ===== Core Animations ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animation utility classes */
+.fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+.slide-up {
+    animation: slideUp 0.6s ease-out;
+}
+
+/* ###########################################################
+   ###   3. SERVICE OVERVIEW SECTION                       ###
+   ########################################################### */
+
+/* ===== Service Overview Section ===== */
+.service-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 2rem 0;
+}
+
+.service-hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    color: var(--crown-navy);
+}
+
+.service-hero p {
+    font-size: 1.25rem;
+    color: var(--medium-gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ###########################################################
+   ###   4. SERVICE FEATURES GRID                          ###
+   ########################################################### */
+
+/* ===== Service Feature Grid ===== */
+.service-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+/* ###########################################################
+   ###   5. SERVICE-PAGE FEATURE OVERRIDES                 ###
+   ########################################################### */
+
+/* ===== Feature Grid Overrides ===== */
+.service-page .service-features {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem; /* Match main services gap */
+    margin: 3rem 0;
+}
+
+/* ###########################################################
+   ###   6. FEATURE CARD STYLING                           ###
+   ########################################################### */
+
+/* ===== Feature Card ===== */
+.service-page .feature-card {
+    background: var(--off-white); /* Match service-card background */
+    border-radius: 20px;          /* Match service-card border-radius */
+    padding: 3rem 2.5rem;         /* Match service-card padding */
+    box-shadow: var(--shadow-luxury);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent; /* Match service-card border */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ###########################################################
+   ###   7. FEATURE CARD HOVER EFFECT                      ###
+   ########################################################### */
+
+/* ===== Feature Card Hover ===== */
+.service-page .feature-card:hover {
+    background: white;
+    border-color: var(--imperial-gold);
+    box-shadow: 0 12px 40px rgba(12, 27, 42, 0.1);
+    transform: translateY(-4px);
+}
+
+/* Remove sliding bar animation for consistency */
+.service-page .feature-card::before {
+    display: none;
+}
+
+/* ###########################################################
+   ###   8. FEATURE ICON                                   ###
+   ########################################################### */
+
+/* ===== Feature Icon ===== */
+.service-page .feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--crown-navy), #1a2332);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--imperial-gold);
+    margin: 0 auto 1.5rem;
+    transition: all 0.4s ease;
+    font-size: 2rem;
+}
+
+/* Icon hover effect */
+.service-page .feature-card:hover .feature-icon {
+    background: var(--imperial-gold);
+    color: var(--crown-navy);
+    transform: scale(1.05);
+}
+
+/* ###########################################################
+   ###   9. FEATURE TITLE                                  ###
+   ########################################################### */
+
+/* ===== Feature Title ===== */
+.service-page .feature-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    color: var(--crown-navy);
+}
+
+/* ###########################################################
+   ###   10. FEATURE DESCRIPTION                           ###
+   ########################################################### */
+
+/* ===== Feature Description ===== */
+.service-page .feature-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: var(--dark-gray);
+}
+
+/* ###########################################################
+   ###   11. FEATURE DETAILS LIST                          ###
+   ########################################################### */
+
+/* ===== Feature Details ===== */
+.service-page .feature-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.service-page .feature-details li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+}
+
+.service-page .feature-details li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--imperial-gold);
+    font-weight: bold;
+}
+
+/* ###########################################################
+   ###   12. RESPONSIVE ADJUSTMENTS                        ###
+   ########################################################### */
+
+/* ===== Responsive (≤768px) ===== */
+@media (max-width: 768px) {
+    .service-page .service-features {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .service-page .feature-card {
+        padding: 2.5rem 2rem;
+    }
+
+    .service-page .feature-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}
+
+/* ###########################################################
+   ###   13. LARGE SCREENS LAYOUT                          ###
+   ########################################################### */
+
+/* ===== Large Screens (≥1200px) ===== */
+@media (min-width: 1200px) {
+    .service-page .service-features {
+        max-width: 1200px;
+        margin: 3rem auto;
+    }
+}
+
+/* ###########################################################
+   ###   14. MEDIUM SCREENS TWO-COLUMN LAYOUT              ###
+   ########################################################### */
+
+/* ===== Medium Screens (768–991px) ===== */
+@media (min-width: 768px) and (max-width: 991px) {
+    .service-page .service-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ###########################################################
+   ###   15. SERVICE-PAGE CONTAINER                        ###
+   ########################################################### */
+
+/* ===== Service Page Wrapper ===== */
+.service-page {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 6rem 0;
+    min-height: 100vh;
+}
+
+/* ###########################################################
+   ###   16. CONTENT MAX-WIDTH                             ###
+   ########################################################### */
+
+/* ===== Service Content ===== */
+.service-content {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ###########################################################
+   ###   17. SERVICE DETAIL HERO                           ###
+   ########################################################### */
+
+/* ===== Detail Hero ===== */
+.service-page .service-hero {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--crown-navy) 0%, #1a2332 100%);
+    border-radius: 20px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hero overlay pattern */
+.service-page .service-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(194,157,92,0.1)"/></svg>') repeat;
+    opacity: 0.3;
+}
+
+/* Hero typography overrides */
+.service-page .service-hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.service-page .service-hero p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    color: rgba(255,255,255,0.9);
+}
+
+/* ###########################################################
+   ###   18. FEATURE DETAILS LIST (DETAIL PAGE)            ###
+   ########################################################### */
+
+/* ===== Detail Page Feature Details ===== */
+.feature-details {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.5rem;
+}
+
+.feature-details li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: var(--dark-gray);
+}
+
+.feature-details li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--imperial-gold);
+    font-weight: bold;
+}
+
+/* ###########################################################
+   ###   19. PROCESS FLOW                                  ###
+   ########################################################### */
+
+/* ===== Process Flow ===== */
+.process-flow {
+    margin: 4rem 0;
+    padding: 3rem;
+    background: var(--off-white);
+    border-radius: 16px;
+}
+
+.process-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: var(--crown-navy);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.process-step {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.process-step:hover {
+    transform: translateY(-5px);
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--imperial-gold);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+.step-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--crown-navy);
+}
+
+/* ###########################################################
+   ###   20. GUARANTEES GRID                               ###
+   ########################################################### */
+
+/* ===== Guarantees Grid ===== */
+.guarantees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.guarantee-item {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-luxury);
+}
+
+.guarantee-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.guarantee-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--crown-navy);
+}
+
+.guarantee-description {
+    color: var(--medium-gray);
+    line-height: 1.6;
+}
+
+/* ###########################################################
+   ###   21. CTA SECTIONS                                  ###
+   ########################################################### */
+
+/* ===== CTA Sections ===== */
+.contact-cta {
+    text-align: center;
+    padding: 3rem;
+    background: linear-gradient(135deg, var(--imperial-gold) 0%, #d4aa6a 100%);
+    border-radius: 16px;
+    color: white;
+    margin: 3rem 0;
+}
+
+.cta-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta-description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+/* ###########################################################
+   ###   22. BACK NAVIGATION                               ###
+   ########################################################### */
+
+/* ===== Back Navigation ===== */
+.back-section {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* ###########################################################
+   ###   23. BUTTON STYLES                                 ###
+   ########################################################### */
+
+/* ===== Button Styles ===== */
+.btn-primary,
+.btn-secondary {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary {
+    background: var(--crown-navy);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1a2332;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--crown-navy);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+/* ###########################################################
+   ###   24. RESPONSIVE DESIGN                             ###
+   ########################################################### */
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .service-hero h1 {
+        font-size: 2rem;
+    }
+
+    .service-hero p {
+        font-size: 1rem;
+    }
+
+    .service-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        padding: 2rem;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .guarantees-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-page {
+        padding: 3rem 0;
+    }
+
+    .service-page .service-hero {
+        padding: 2rem;
+    }
+}
+
+/* ###########################################################
+   ###   25. REDUCED MOTION SUPPORT                        ###
+   ########################################################### */
+
+/* ===== Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+    .section,
+    .fade-in,
+    .slide-up,
+    .feature-card,
+    .process-step {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* ###########################################################
+   ###   26. PRINT STYLES                                  ###
+   ########################################################### */
+
+/* ===== Print Styles ===== */
+@media print {
+    .section {
+        display: block !important;
+        page-break-before: always;
+    }
+
+    .back-section,
+    .btn-primary,
+    .btn-secondary {
+        display: none;
+    }
+}
+
+/* ###########################################################
+   ###            END OF SERVICES STYLES                   ###
+   ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: SERVICES SECTION STYLES
+=======================================================
+
+SERVICE CARDS:
+- Icon-centered design
+- Hover lift effect
+- Consistent spacing
+- Clear hierarchy
+
+DETAIL PAGES:
+- Full-section layouts
+- Hero imagery
+- Content sections
+- Form integration
+
+CALCULATOR TOOLS:
+- Input styling
+- Result display
+- Progress indicators
+- Interactive elements
+
+RESPONSIVE DESIGN:
+- Grid to stack transition
+- Mobile-friendly forms
+- Touch interactions
+- Optimized spacing
+
+BRAND CONSISTENCY:
+- Luxury aesthetics
+- Premium feel
+- Consistent colors
+- Typography hierarchy
+
+ANIMATIONS:
+- Smooth transitions
+- Hover feedback
+- Loading states
+- Micro-interactions
+=======================================================
+*/   

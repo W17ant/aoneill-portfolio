@@ -1,0 +1,270 @@
+<!-- #########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - ADMIN DASHBOARD                    ###
+   ###   Last Updated: 24-06-2025                          ###
+   ########################################################### -->  
+   
+<!-- ===============================================
+     TEMPUS PRIVÉ - admin.html - Admin Panel 
+     ===============================================    -->       
+     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempus Privé | Admin Panel</title>
+    
+    <!-- External Stylesheets -->
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="./css/filter-counts.css">
+    <link rel="stylesheet" href="./css/admin-search.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="./images/assets/tp-monogram.png" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="container">
+            <img src="./images/assets/tp-logo.png" alt="Tempus Privé" class="admin-logo" 
+                 onerror="this.style.display='none'" />
+            <h1 class="admin-title">Inventory Management</h1>
+        </div>
+    </header>
+
+    <!-- Main Panel -->
+    <main class="admin-main">
+        <div class="container">
+            <!-- Stats Dashboard -->
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-products">0</div>
+                    <div class="stat-label">Total Timepieces</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="investment-count">0</div>
+                    <div class="stat-label">Investment Pieces</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="featured-count">0</div>
+                    <div class="stat-label">Featured Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="brands-count">0</div>
+                    <div class="stat-label">Luxury Brands</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="admin-controls">
+                <button id="add-product-btn" class="btn-primary">+ Add New Timepiece</button>
+                <button id="populate-btn" class="btn-secondary">Populate Watches from Products.json</button>
+                <button id="export-btn" class="btn-secondary">Export Data</button>
+            </div>
+
+            <!-- Message Container -->
+            <div id="message-container"></div>
+
+            <!-- Product Table -->
+            <div class="admin-table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="product-table-body">
+                        <!-- Products will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+        <div class="modal-content modal-delete">
+            <div class="delete-icon">🗑️</div>
+            <h2 class="delete-title">Confirm Deletion</h2>
+            <p id="delete-message" class="delete-message">
+                Are you sure you want to delete this timepiece? This action cannot be undone.
+            </p>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancel-delete">Cancel</button>
+                <button class="btn-danger" id="confirm-delete">Delete Timepiece</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Product Modal -->
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <h2 id="modal-title" class="modal-title">Add New Timepiece</h2>
+            
+            <div id="form-message-container"></div>
+            
+            <form id="product-form" novalidate>
+                <input type="hidden" id="product-id" />
+                
+                <!-- Product Name -->
+                <div class="form-group">
+                    <label class="form-label" for="product-name">Product Name *</label>
+                    <input type="text" id="product-name" class="form-input" 
+                           placeholder="e.g., Daytona Cosmograph" required />
+                    <div class="error-message" id="name-error" style="display: none;"></div>
+                </div>
+
+                <!-- Brand -->
+                <div class="form-group">
+                    <label class="form-label" for="product-brand">Brand *</label>
+                    <select id="product-brand" class="form-select" required>
+                        <option value="">Select a brand...</option>
+                        <option value="rolex">Rolex</option>
+                        <option value="patek-philippe">Patek Philippe</option>
+                        <option value="audemars-piguet">Audemars Piguet</option>
+                        <option value="richard-mille">Richard Mille</option>
+                        <option value="cartier">Cartier</option>
+                        <option value="hublot">Hublot</option>
+                        <option value="longines">Longines</option>
+                        <option value="omega">Omega</option>
+                    </select>
+                    <div class="error-message" id="brand-error" style="display: none;"></div>
+                </div>
+
+                <!-- Price -->
+                <div class="form-group">
+                    <label class="form-label" for="product-price">Price (£)</label>
+                    <input type="text" id="product-price" class="form-input" 
+                           placeholder="e.g., 87500" />
+                    <div class="price-toggle">
+                        <input type="checkbox" id="price-consultation">
+                        <label for="price-consultation">Price by private consultation</label>
+                    </div>
+                    <div class="error-message" id="price-error" style="display: none;"></div>
+                </div>
+
+                <!-- Categories -->
+                <div class="form-group">
+                    <label class="form-label">Categories *</label>
+                    <div class="category-checkboxes">
+                        <div class="category-option">
+                            <input type="checkbox" id="cat-sport" class="category-checkbox" value="sport">
+                            <label for="cat-sport">Sport Watches</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="checkbox" id="cat-dress" class="category-checkbox" value="dress">
+                            <label for="cat-dress">Dress Watches</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="checkbox" id="cat-luxury" class="category-checkbox" value="luxury">
+                            <label for="cat-luxury">Luxury Collection</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="checkbox" id="cat-investment" class="category-checkbox" value="investment">
+                            <label for="cat-investment">Investment Pieces</label>
+                        </div>
+                        <div class="category-option">
+                            <input type="checkbox" id="cat-heritage" class="category-checkbox" value="heritage">
+                            <label for="cat-heritage">Heritage Collection</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="categories-error" style="display: none;"></div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="form-group">
+                    <label class="form-label">Product Image</label>
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">📸</div>
+                        <div class="upload-text">Drag & Drop or Click to Upload</div>
+                        <div class="upload-subtext">PNG, JPG up to 5MB</div>
+                        <input type="file" class="file-input" id="file-input" accept="image/*">
+                    </div>
+                    <div class="image-preview" id="image-preview">
+                        <img class="preview-image" id="preview-image" alt="Preview">
+                        <br>
+                        <button type="button" class="remove-image" id="remove-image">Remove Image</button>
+                    </div>
+                    <input type="hidden" id="product-image" />
+                    <div class="error-message" id="image-error" style="display: none;"></div>
+                </div>
+
+                <!-- Featured Toggle -->
+                <div class="form-group">
+                    <div class="price-toggle">
+                        <input type="checkbox" id="product-featured">
+                        <label for="product-featured">Featured timepiece</label>
+                    </div>
+                </div>
+
+                <!-- New Arrival Toggle -->
+                <div class="form-group">
+                    <div class="price-toggle">
+                        <input type="checkbox" id="product-new">
+                        <label for="product-new">New arrival</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit">
+                    Save Timepiece
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Load populate_all_watches.js first if needed -->
+    <script src="admin-populate-all-watches-instructions.js"></script>
+    
+    <!-- External JavaScript -->
+    <script src="./js/admin.js"></script>
+    <script src="./js/filter-counts.js"></script>
+    <script src="./js/admin-search.js"></script>
+</body>
+</html>
+
+<!--###########################################################
+    ###       END OF ADMIN DASHBOARD                        ###
+    ########################################################### -->
+
+<!--
+=======================================================
+IMPLEMENTATION NOTES: ADMIN DASHBOARD
+=======================================================
+
+SECURE ACCESS SYSTEM:
+- Protected by concierge modal authentication
+- Password stored in environment (for production)
+- Basic auth for demo purposes
+
+CRUD FUNCTIONALITY (50% Assessment):
+- Complete product management interface
+- Add/Edit/Delete operations with validation
+- Real-time inventory statistics
+- Search and filter capabilities
+
+DATA PERSISTENCE:
+- localStorage for demo environment
+- Ready for MongoDB integration
+- JSON data structure matching schema
+
+FORM VALIDATION:
+- Required field checking
+- Price format validation
+- Category selection validation
+- Image URL validation
+
+USER EXPERIENCE:
+- Inline editing for quick updates
+- Confirmation modals for destructive actions
+- Success/error notifications
+- Loading states during operations
+=======================================================
+-->

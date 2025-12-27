@@ -1,0 +1,361 @@
+
+/* ###########################################################
+   ###   2418521	 		  Antony O'Neill               ###
+   ###   TEMPUS PRIVÉ - CURRENCY SWITCHER STYLING MODULE   ###
+   ###   Last Updated: 0-07-2025                          ###
+   ########################################################### */
+/* ###########################################################
+   ###  1. Currency Dropdown Styles                        ###
+   ########################################################### */
+
+   #currency-dropdown {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(var(--royal-silver-rgb, 188, 192, 203), 0.3);
+    border-radius: 8px;
+    color: var(--dark-gray);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23c29d5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 12px;
+    min-width: 100px;
+}
+
+#currency-dropdown:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--imperial-gold);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-luxury);
+}
+
+#currency-dropdown:focus {
+    outline: none;
+    border-color: var(--imperial-gold);
+    box-shadow: 0 0 0 3px rgba(194, 157, 92, 0.2);
+}
+
+/* Dark option styles for better visibility */
+#currency-dropdown option {
+    background: var(--crown-navy);
+    color: var(--imperial-gold);
+    padding: 0.5rem;
+}
+
+/* ###########################################################
+   ###  2. Currency Container Positioning                  ###
+   ########################################################### */
+
+.currency-selector-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: 1rem;
+}
+
+/* Mobile positioning */
+@media (max-width: 768px) {
+    .currency-selector-wrapper {
+        position: absolute;
+        top: 1rem;
+        right: 4rem; /* Space for mobile menu */
+        margin: 0;
+    }
+    
+    #currency-dropdown {
+        font-size: 0.75rem;
+        padding: 0.4rem 2rem 0.4rem 0.75rem;
+        min-width: 80px;
+    }
+}
+
+/* ###########################################################
+   ###  3. Price Animation Styles                          ###
+   ########################################################### */
+
+/* Smooth price update animation */
+[data-price-gbp] {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+[data-price-gbp].price-updating {
+    animation: priceUpdate 0.3s ease-out;
+}
+
+@keyframes priceUpdate {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.98);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ###########################################################
+   ###  4. Currency Notification Styles                    ###
+   ########################################################### */
+
+.currency-notification {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: var(--shadow-luxury);
+    animation: slideIn 0.3s ease-out;
+    z-index: 1000;
+}
+
+.currency-notification.success {
+    background: rgba(16, 185, 129, 0.9);
+    color: white;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.currency-notification.error {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.currency-notification.info {
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.currency-notification.warning {
+    background: rgba(251, 191, 36, 0.9);
+    color: var(--crown-navy);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.currency-notification.fade-out {
+    animation: slideOut 0.3s ease-in forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ###########################################################
+   ###  5. Currency Badge Styles                           ###
+   ########################################################### */
+
+/* Currency indicator badge for product cards */
+.product-card .currency-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(var(--crown-navy-rgb, 14, 21, 40), 0.8);
+    color: var(--imperial-gold);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--imperial-gold-rgb, 194, 157, 92), 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .currency-badge {
+    opacity: 1;
+}
+
+/* ###########################################################
+   ###  6. Loading State Styles                            ###
+   ########################################################### */
+
+/* Loading shimmer for prices during updates */
+[data-price-gbp].loading {
+    position: relative;
+    color: transparent;
+    background: linear-gradient(
+        90deg,
+        rgba(var(--royal-silver-rgb, 188, 192, 203), 0.1) 0%,
+        rgba(var(--royal-silver-rgb, 188, 192, 203), 0.3) 50%,
+        rgba(var(--royal-silver-rgb, 188, 192, 203), 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* ###########################################################
+   ###  7. Accessibility Enhancements                      ###
+   ########################################################### */
+
+/* Focus visible for keyboard navigation */
+#currency-dropdown:focus-visible {
+    outline: 2px solid var(--imperial-gold);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    #currency-dropdown {
+        border-width: 2px;
+    }
+    
+    .currency-notification {
+        border-width: 2px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    [data-price-gbp],
+    [data-price-gbp].price-updating,
+    .currency-notification,
+    #currency-dropdown {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* ###########################################################
+   ###  8. Integration with Existing Components            ###
+   ########################################################### */
+
+/* Ensure currency dropdown aligns with collection badge */
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Adjust product card price display for currency */
+.product-price[data-price-gbp] {
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    letter-spacing: 0.02em;
+}
+
+/* Admin panel currency display */
+.admin-table .price-cell[data-price-gbp] {
+    font-family: 'Courier New', monospace;
+    text-align: right;
+}
+
+/* ###########################################################
+   ###  9. Dark Mode Support                               ###
+   ########################################################### */
+
+@media (prefers-color-scheme: dark) {
+    #currency-dropdown {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: rgba(var(--royal-silver-rgb, 188, 192, 203), 0.2);
+    }
+    
+    #currency-dropdown:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ###########################################################
+   ###  10. Print Styles                                   ###
+   ########################################################### */
+
+@media print {
+    #currency-dropdown,
+    .currency-selector-wrapper,
+    .currency-notification {
+        display: none !important;
+    }
+    
+    /* Show base currency (GBP) for all prices in print */
+    [data-price-gbp]::after {
+        content: " (GBP)";
+        font-size: 0.8em;
+        opacity: 0.7;
+    }
+}
+
+/* ###########################################################
+   ###         END OF CURRENCY SWITCHER STYLES             ###
+   ########################################################### */
+
+/*
+=======================================================
+IMPLEMENTATION NOTES: CURRENCY SWITCHER STYLES
+=======================================================
+
+DROPDOWN DESIGN:
+- Integrated with header
+- Glass morphism effect
+- Custom arrow icon
+- Hover states
+
+MOBILE INTEGRATION:
+- Moved to burger menu
+- Full-width on mobile
+- Touch-friendly size
+- Clear labeling
+
+PRICE UPDATES:
+- Loading shimmer effect
+- Smooth transitions
+- Format consistency
+- Error states
+
+NOTIFICATION TOAST:
+- Temporary display
+- Success feedback
+- Auto-dismiss
+- Non-intrusive
+
+ACCESSIBILITY:
+- Focus indicators
+- Color contrast
+- Screen reader text
+- Keyboard navigation
+
+PERFORMANCE:
+- CSS-only effects
+- GPU accelerated
+- Minimal reflows
+- Efficient selectors
+=======================================================
+*/   

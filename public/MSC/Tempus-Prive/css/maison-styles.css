@@ -1,0 +1,430 @@
+/* ###########################################################
+   ###   2418521        Antony O'Neill                     ###
+   ###   TEMPUS PRIVÉ - MAISON SECTION STYLES              ###
+   ###   Last Updated: 03-07-2025                          ###
+   ########################################################### */
+
+/* ###########################################################
+   ###   1. MAISONS SECTION BASE                           ###
+   ########################################################### */
+
+.maisons-section {
+  background: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.maisons-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(194, 157, 92, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ###########################################################
+   ###   2. MAISONS SHOWCASE GRID                          ###
+   ########################################################### */
+
+.maisons-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive grid adjustments */
+@media (min-width: 1200px) {
+  .maisons-showcase {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .maisons-showcase {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+/* ###########################################################
+   ###   3. MAISON CARD STYLING                            ###
+   ########################################################### */
+
+   .maison-card {
+    background: var(--off-white);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+}
+
+/* Luxury hover effect */
+.maison-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(194, 157, 92, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.maison-card:hover {
+  background: white;
+  border-color: var(--imperial-gold);
+  box-shadow: 0 12px 40px rgba(12, 27, 42, 0.1);
+  transform: translateY(-4px);
+}
+
+.maison-card:hover::before {
+  opacity: 1;
+}
+
+/* Active/Selected state */
+.maison-card.active {
+  border-color: var(--imperial-gold);
+  background: white;
+  box-shadow: 0 8px 32px rgba(194, 157, 92, 0.2);
+}
+
+/* ###########################################################
+   ###   4. MAISON LOGO STYLING                            ###
+   ########################################################### */
+
+.maison-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Image logo */
+.maison-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.4s ease;
+}
+
+.maison-card:hover .maison-logo-img {
+  filter: grayscale(0%);
+}
+
+/* Fallback logo */
+.maison-logo-fallback {
+  position: absolute;
+  inset: 0;
+  background: var(--imperial-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--crown-navy);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.maison-logo-img[src=""],
+.maison-logo-img:not([src]),
+.maison-logo-img[src*="undefined"] {
+  opacity: 0;
+}
+
+.maison-logo-img[src=""]:not([src]) ~ .maison-logo-fallback,
+.maison-logo-img[src*="undefined"] ~ .maison-logo-fallback {
+  opacity: 1;
+}
+
+/* Logo hover effect */
+.maison-card:hover .maison-logo-fallback {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(194, 157, 92, 0.3);
+}
+
+/* ###########################################################
+   ###   5. MAISON CONTENT TYPOGRAPHY                      ###
+   ########################################################### */
+
+.maison-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+  color: var(--crown-navy);
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+.maison-card:hover .maison-name {
+  color: var(--imperial-gold);
+}
+
+.maison-tagline {
+  font-size: 0.9rem;
+  color: var(--medium-gray);
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* ###########################################################
+   ###   6. MAISON HERITAGE BADGES                         ###
+   ########################################################### */
+
+.maison-heritage {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.heritage-item {
+  font-size: 0.8rem;
+  color: var(--dark-gray);
+  background: rgba(212, 175, 55, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.maison-card:hover .heritage-item {
+  border-color: var(--imperial-gold);
+  background: rgba(212, 175, 55, 0.15);
+}
+
+/* ###########################################################
+   ###   7. MAISON STATISTICS                              ###
+   ########################################################### */
+
+   .maison-stats {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--imperial-gold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto; /* Pushes to bottom */
+    padding-top: 1rem; /* Space from content above */
+    padding-bottom: 0.5rem; /* Space from card bottom */
+  }
+
+.stat-item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.stat-item::before {
+  content: '⌚';
+  position: absolute;
+  left: 0;
+  font-size: 1rem;
+}
+
+/* ###########################################################
+   ###   8. BRAND FILTER INDICATOR                         ###
+   ########################################################### */
+
+.brand-filter-indicator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(194, 157, 92, 0.1);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--imperial-gold);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.brand-filter-label {
+  font-size: 0.9rem;
+  color: var(--dark-gray);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.brand-tab {
+  background: var(--imperial-gold) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(194, 157, 92, 0.3);
+}
+
+.brand-tab:hover {
+  background: var(--imperial-gold) !important;
+  transform: scale(1.02);
+}
+
+/* Clear filter button */
+.clear-brand-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--dark-gray);
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.clear-brand-filter:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--crown-navy);
+  transform: rotate(90deg);
+}
+
+.clear-brand-filter svg {
+  transition: transform 0.3s ease;
+}
+
+/* ###########################################################
+   ###   9. LOADING & ANIMATION STATES                     ###
+   ########################################################### */
+
+.maison-card.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.maison-card.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border: 3px solid var(--imperial-gold);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ###########################################################
+   ###   10. MOBILE OPTIMIZATIONS                          ###
+   ########################################################### */
+
+@media (max-width: 768px) {
+  .maison-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .maison-logo {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .maison-name {
+    font-size: 1.25rem;
+  }
+  
+  .maison-tagline {
+    font-size: 0.85rem;
+  }
+  
+  .heritage-item {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+  }
+  
+  .brand-filter-indicator {
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .brand-filter-label {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ###########################################################
+   ###   11. ACCESSIBILITY ENHANCEMENTS                    ###
+   ########################################################### */
+
+/* Focus states for keyboard navigation */
+.maison-card:focus {
+  outline: 2px solid var(--imperial-gold);
+  outline-offset: 4px;
+}
+
+.clear-brand-filter:focus {
+  outline: 2px solid var(--imperial-gold);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .maison-card {
+    border: 2px solid var(--crown-navy);
+  }
+  
+  .maison-card:hover,
+  .maison-card.active {
+    border-color: var(--imperial-gold);
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .maison-card,
+  .maison-card::before,
+  .maison-logo-img,
+  .heritage-item,
+  .clear-brand-filter,
+  .brand-filter-indicator {
+    transition: none;
+    animation: none;
+  }
+  
+  .maison-card:hover {
+    transform: none;
+  }
+}
+
+/* ###########################################################
+   ###   END OF MAISON STYLES                              ###
+   ########################################################### */
