@@ -1,0 +1,87 @@
+Category,Item,Status,Priority,Notes,Hiring Impact
+Setup,Next.js 16 project initialization,Done,High,TypeScript + Tailwind CSS + App Router,Shows modern stack knowledge
+Setup,Theme system (light/dark mode),Done,High,CSS custom properties with data-theme attribute,Attention to UX details
+Setup,Layout structure (Navbar/Footer),Done,High,Responsive navigation with mobile menu,Standard requirement
+Setup,Metadata and SEO configuration,Done,High,OG images / favicons / meta tags,Professional presentation
+Setup,Git repository initialization,To Do,Critical,Initialize and push to GitHub,Employers WILL check your GitHub
+Setup,Vercel deployment,To Do,Critical,Connect GitHub repo to Vercel,Live demo is essential
+Setup,Environment variables on Vercel,To Do,High,Add RESEND_API_KEY,Backend integration proof
+Setup,Domain DNS configuration,To Do,High,Point aoneill.co.uk to Vercel,Professional custom domain
+Setup,Domain verification in Resend,To Do,High,Required for sending emails,Full-stack capability
+Setup,Custom email setup,To Do,Medium,Cloudflare Email Routing (free),Professional communication
+
+Pages,Home page,Done,High,Hero / Timeline / Featured Projects / Lab Preview / CTA,First impression
+Pages,Projects listing page,Done,High,Grid of project cards with filtering,Work showcase
+Pages,Project detail pages ([slug]),Done,High,Dynamic routes for each project,Deep dive capability
+Pages,Lab listing page,Done,High,Grid of experiment cards,Shows curiosity/learning
+Pages,Experiment detail pages ([slug]),Done,High,Dynamic routes for each experiment,Technical creativity
+Pages,Contact page,Done,High,2-column layout with terminal form,Conversion focused
+Pages,About/CV page,To Do,Critical,Detailed background / skills / downloadable CV,Employers need this
+Pages,Uses/Stack page,To Do,Medium,Tools and technologies you use daily,Shows depth of knowledge
+
+Components,Hero section with gradient,Done,High,Animated background with availability indicator,Eye-catching intro
+Components,Timeline component,Done,High,Vertical timeline with career/education entries,Career narrative
+Components,Project cards,Done,Medium,Hover effects and tech tags,Visual appeal
+Components,Elastic Lanyard (physics badge),Done,High,Canvas-based Verlet integration physics,Wow factor - memorable
+Components,Terminal Contact Form,Done,High,CLI-style interactive form,Unique personality
+Components,Skills visualization,To Do,High,Interactive skills chart or matrix,Quick skills assessment
+Components,GitHub activity integration,To Do,High,Show recent commits/contributions,Proves active coding
+Components,Testimonials/Recommendations,To Do,Medium,LinkedIn recommendations or client feedback,Social proof
+
+Features,Lanyard fixed right side (desktop),Done,High,Full-height canvas without clipping,Interactive element
+Features,Lanyard swing-in animation,Done,Medium,Initial velocity on page load,Polish and attention to detail
+Features,Contact form API integration,Done,High,Resend API for email sending,Backend skills proof
+Features,Theme toggle,Done,High,Persistent dark/light mode,UX awareness
+Features,Responsive design,Done,High,Mobile-first approach,Industry standard
+Features,CV/Resume download,To Do,Critical,PDF download button,Recruiters expect this
+Features,Copy email to clipboard,To Do,Low,One-click email copy,Convenience feature
+
+Content - Projects,KeepitWhat project,Done,High,Full case study with problem/solution/outcome,Shows process thinking
+Content - Projects,Critical Minerals project,Done,High,Data visualization / API work,Enterprise-level work
+Content - Projects,Tempus Prive project,Done,High,E-commerce / luxury brand,Commercial experience
+Content - Projects,AI Ethics Game project,Done,High,AI/ML relevance for MSc,Academic/research angle
+Content - Projects,MSc Dissertation project,To Do,Critical,Your main academic achievement,Shows research capability
+Content - Projects,Open source contributions,To Do,High,Any PRs or contributions,Community involvement
+Content - Projects,Hackathon projects,To Do,Medium,Quick problem-solving demos,Team collaboration proof
+
+Content - About,Professional summary,To Do,Critical,2-3 paragraph career narrative,Who you are
+Content - About,Technical skills matrix,To Do,Critical,Languages / Frameworks / Tools with proficiency,Quick scan for recruiters
+Content - About,Soft skills section,To Do,High,Communication / Leadership / Problem-solving,Often overlooked but valued
+Content - About,Education details,To Do,Critical,MSc details / relevant coursework / grades,Academic credentials
+Content - About,Work experience timeline,Done,High,17 years mechanical engineering + transition story,Unique background
+Content - About,Certifications,To Do,Medium,AWS / Google / relevant certs,Additional credibility
+Content - About,Languages spoken,To Do,Low,If multilingual,Global team fit
+
+Content - Blog,Technical blog posts,To Do,High,3-5 articles showing expertise,Thought leadership
+Content - Blog,MSc learnings/insights,To Do,High,AI/ML topics from your studies,Current knowledge
+Content - Blog,Career transition story,To Do,High,Engineering to dev journey,Compelling narrative
+Content - Blog,Tutorial/How-to posts,To Do,Medium,Teaching shows mastery,Helps others = good culture fit
+
+SEO & Discoverability,Structured data (JSON-LD),To Do,Medium,Person / WebSite / Article schemas,Better search results
+SEO & Discoverability,Sitemap.xml,To Do,Medium,Auto-generated sitemap,Search indexing
+SEO & Discoverability,robots.txt,To Do,Low,Search engine guidance,Standard practice
+SEO & Discoverability,LinkedIn optimization,To Do,High,Link portfolio + matching narrative,Where recruiters search
+SEO & Discoverability,GitHub profile README,To Do,High,Professional GitHub profile,First code impression
+
+Performance & Quality,Lighthouse 90+ scores,To Do,High,Performance / Accessibility / SEO / Best Practices,Shows quality standards
+Performance & Quality,Core Web Vitals pass,To Do,High,LCP / FID / CLS optimization,Google ranking factor
+Performance & Quality,Accessibility (WCAG 2.1),To Do,High,Screen reader / keyboard nav,Inclusive development
+Performance & Quality,Error boundaries,To Do,Medium,Graceful error handling,Production-ready code
+Performance & Quality,Loading states,To Do,Medium,Skeleton loaders / spinners,Polish
+
+Testing Evidence,Unit tests,To Do,High,Jest/Vitest for components,Quality assurance
+Testing Evidence,E2E tests,To Do,Medium,Playwright for critical paths,Real-world testing
+Testing Evidence,Test coverage badge,To Do,Medium,Show in GitHub README,Quality metric
+
+Analytics,Vercel Analytics,To Do,Low,Traffic and performance,Data-driven decisions
+Analytics,Privacy-friendly option,To Do,Low,Plausible or Fathom,GDPR awareness
+
+Deployment,Production deploy,To Do,Critical,Live at aoneill.co.uk,Must be live
+Deployment,Preview deployments,To Do,Medium,PR previews on Vercel,CI/CD understanding
+Deployment,Custom 404 page,To Do,Low,Branded error page,Attention to detail
+Deployment,Custom 500 page,To Do,Low,Graceful error handling,Production thinking
+
+Quick Wins,Add GitHub link to navbar,To Do,High,Direct link to your code,Easy access for recruiters
+Quick Wins,Add LinkedIn link to navbar,To Do,High,Professional network link,Recruiter preferred platform
+Quick Wins,Availability status automation,To Do,Low,Auto-update based on calendar,Shows automation thinking
+Quick Wins,Reading time on blog posts,To Do,Low,If blog added,User-friendly

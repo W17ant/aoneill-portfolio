@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { Zap, Target, Sparkles } from 'lucide-react';
 
 export default function MagneticCursor() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -153,9 +154,9 @@ export default function MagneticCursor() {
         {/* 3D Tilt cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { title: 'Physics', desc: 'Smooth interpolation and magnetic pull calculations', icon: '⚡' },
-            { title: '3D Transform', desc: 'Perspective-based rotation on mouse position', icon: '🎯' },
-            { title: 'Glow Effect', desc: 'Dynamic radial gradient follows cursor', icon: '✨' },
+            { title: 'Physics', desc: 'Smooth interpolation and magnetic pull calculations', Icon: Zap },
+            { title: '3D Transform', desc: 'Perspective-based rotation on mouse position', Icon: Target },
+            { title: 'Glow Effect', desc: 'Dynamic radial gradient follows cursor', Icon: Sparkles },
           ].map((card, i) => (
             <div
               key={card.title}
@@ -173,13 +174,13 @@ export default function MagneticCursor() {
               <div className="card-glow absolute inset-0 rounded-2xl pointer-events-none transition-all duration-200" />
 
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4"
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
                 style={{
                   background: 'rgba(96, 165, 250, 0.2)',
                   transform: 'translateZ(20px)',
                 }}
               >
-                {card.icon}
+                <card.Icon size={24} className="text-blue-400" />
               </div>
               <h3
                 className="text-lg font-bold text-white mb-2"

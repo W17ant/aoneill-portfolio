@@ -4,7 +4,7 @@
    ###   Last Updated: 27-12-2024                           ###
    ########################################################### */
 
-import { IdCard, Terminal, Magnet, FileText, type LucideIcon } from 'lucide-react';
+import { IdCard, Terminal, Magnet, Brain, type LucideIcon } from 'lucide-react';
 
 /* ###########################################################
    ###   1. Icon Mapping                                    ###
@@ -14,7 +14,7 @@ const iconMap: Record<string, LucideIcon> = {
   IdCard,
   Terminal,
   Magnet,
-  FileText,
+  Brain,
 };
 
 /* ###########################################################

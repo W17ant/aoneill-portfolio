@@ -18,9 +18,9 @@ const MagneticCursor = dynamic(() => import('./MagneticCursor'), {
   loading: () => <ExperimentPlaceholder name="Magnetic Cursor" />,
 });
 
-const TerminalContactForm = dynamic(() => import('./TerminalContactForm'), {
+const SnakeRL = dynamic(() => import('./SnakeRL'), {
   ssr: false,
-  loading: () => <ExperimentPlaceholder name="Terminal Contact Form" />,
+  loading: () => <ExperimentPlaceholder name="Snake Q-Learning" />,
 });
 
 function ExperimentPlaceholder({ name }: { name: string }) {
@@ -52,8 +52,8 @@ export default function ExperimentRenderer({ slug }: ExperimentRendererProps) {
       return <TerminalNavigator />;
     case 'magnetic-cursor':
       return <MagneticCursor />;
-    case 'terminal-form':
-      return <TerminalContactForm />;
+    case 'snake-rl':
+      return <SnakeRL />;
     default:
       return (
         <div
