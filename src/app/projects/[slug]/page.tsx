@@ -1,6 +1,7 @@
 import { getProjectBySlug, getProjects } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -31,84 +32,106 @@ export default async function ProjectPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-16">
+    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-3xl mx-auto px-5">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-[var(--primary)]"
-          style={{ color: 'var(--foreground-muted)' }}
+          className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-[var(--link)]"
+          style={{ color: 'var(--ink-secondary)' }}
         >
           &larr; Back to Projects
         </Link>
 
-        <header className="mb-10">
-          <h1 className="text-4xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
-            {project.title}
-          </h1>
-          <p className="text-xl mb-6" style={{ color: 'var(--foreground-muted)' }}>
-            {project.description}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="px-3 py-1 text-sm font-medium rounded-full"
+        <header className="mb-12">
+          <div className="flex items-start gap-5 mb-6">
+            {project.logo && (
+              <div
+                className="flex-shrink-0 w-20 h-20 rounded-2xl overflow-hidden flex items-center justify-center"
                 style={{
-                  background: 'var(--primary-light)',
-                  color: 'var(--primary)',
+                  background: 'var(--bg-surface)',
+                  border: '1px solid var(--stroke)',
                 }}
               >
+                <Image
+                  src={project.logo}
+                  alt={`${project.title} logo`}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+            )}
+            <div>
+              <h1 className="text-4xl font-semibold mb-2 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>
+                {project.title}
+              </h1>
+              <p className="text-lg leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                {project.description}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mb-6">
+            {project.tech.map((t) => (
+              <span key={t} className="tag">
                 {t}
               </span>
             ))}
           </div>
+
           {project.url && (
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-white transition-all hover:-translate-y-0.5"
-              style={{ background: 'var(--primary)' }}
+              className="btn-primary inline-flex items-center gap-2"
+              style={{ borderRadius: '100px' }}
             >
               View Live Site &rarr;
             </a>
           )}
         </header>
 
-        <article className="prose prose-lg max-w-none" style={{ color: 'var(--foreground)' }}>
+        <article>
           <section className="mb-10">
-            <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+            <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
               Overview
             </h2>
-            <p style={{ color: 'var(--foreground-muted)' }}>
+            <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
               {project.overview || project.description}
             </p>
           </section>
 
           {project.problem && (
             <section className="mb-10">
-              <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+              <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
                 The Problem
               </h2>
-              <p style={{ color: 'var(--foreground-muted)' }}>{project.problem}</p>
+              <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                {project.problem}
+              </p>
             </section>
           )}
 
           {project.approach && (
             <section className="mb-10">
-              <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+              <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
                 The Approach
               </h2>
-              <p style={{ color: 'var(--foreground-muted)' }}>{project.approach}</p>
+              <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                {project.approach}
+              </p>
             </section>
           )}
 
           {project.outcome && (
             <section className="mb-10">
-              <h2 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+              <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
                 Outcome
               </h2>
-              <p style={{ color: 'var(--foreground-muted)' }}>{project.outcome}</p>
+              <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                {project.outcome}
+              </p>
             </section>
           )}
         </article>

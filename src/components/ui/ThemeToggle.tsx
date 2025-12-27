@@ -3,7 +3,17 @@
 import { useTheme } from '@/context/ThemeContext';
 
 export default function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, mounted } = useTheme();
+
+  // Show a placeholder during SSR to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div
+        className="w-14 h-8 rounded-full"
+        style={{ background: 'linear-gradient(135deg, #60a5fa, #dbeafe)' }}
+      />
+    );
+  }
 
   return (
     <button

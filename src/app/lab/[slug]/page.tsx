@@ -1,6 +1,7 @@
 import { getExperimentBySlug, getExperiments } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ExperimentRenderer from '@/components/experiments/ExperimentRenderer';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -31,71 +32,54 @@ export default async function ExperimentPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-16">
-      <div className="max-w-4xl mx-auto px-5">
+    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
+      <div className="max-w-5xl mx-auto px-5">
         <Link
           href="/lab"
-          className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-[var(--primary)]"
-          style={{ color: 'var(--foreground-muted)' }}
+          className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-colors hover:text-[var(--link)]"
+          style={{ color: 'var(--ink-secondary)' }}
         >
           &larr; Back to Lab
         </Link>
 
         <header className="mb-10">
-          <h1 className="text-4xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+          <h1 className="text-4xl font-semibold mb-4 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>
             {experiment.title}
           </h1>
-          <p className="text-lg mb-6" style={{ color: 'var(--foreground-muted)' }}>
+          <p className="text-lg mb-6 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
             {experiment.description}
           </p>
           <div className="flex flex-wrap gap-2">
             {experiment.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 text-sm font-medium rounded-full"
-                style={{
-                  background: 'var(--accent-green-light)',
-                  color: 'var(--accent-green)',
-                }}
-              >
+              <span key={tag} className="tag">
                 {tag}
               </span>
             ))}
           </div>
         </header>
 
-        {/* Demo area - component will be rendered here */}
-        <section
-          className="rounded-2xl border overflow-hidden mb-10"
-          style={{
-            background: 'var(--background-secondary)',
-            borderColor: 'var(--card-border)',
-          }}
-        >
-          <div className="aspect-video flex items-center justify-center">
-            <p style={{ color: 'var(--foreground-muted)' }}>
-              Demo component: {experiment.component || slug}
-            </p>
-          </div>
+        {/* Demo area */}
+        <section className="mb-12">
+          <ExperimentRenderer slug={slug} />
         </section>
 
         {/* Explanation */}
-        <article>
+        <article className="max-w-3xl">
           <section className="mb-8">
-            <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
+            <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
               What this explores
             </h2>
-            <p style={{ color: 'var(--foreground-muted)' }}>
+            <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
               {experiment.explores || experiment.description}
             </p>
           </section>
 
           {experiment.principles && (
             <section className="mb-8">
-              <h2 className="text-xl font-bold mb-3" style={{ color: 'var(--foreground)' }}>
+              <h2 className="text-xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
                 Principles demonstrated
               </h2>
-              <ul className="list-disc list-inside space-y-1" style={{ color: 'var(--foreground-muted)' }}>
+              <ul className="list-disc list-inside space-y-1" style={{ color: 'var(--ink-secondary)' }}>
                 {experiment.principles.map((p, i) => (
                   <li key={i}>{p}</li>
                 ))}

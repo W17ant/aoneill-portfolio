@@ -1,8 +1,19 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   TIMELINE COMPONENT - Expandable career journey     ###
+   ###   with animated cards and external link handling     ###
+   ###   Last Updated: 27-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState } from 'react';
 import Link from 'next/link';
 import type { TimelineEntry } from '@/lib/content';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface TimelineProps {
   entries: TimelineEntry[];
@@ -144,26 +155,30 @@ export default function Timeline({ entries }: TimelineProps) {
 
                   {entry.links && entry.links.length > 0 && (
                     <div className="flex flex-wrap gap-2">
-                      {entry.links.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors hover:bg-[var(--primary-light)]"
-                          style={{ color: 'var(--primary)' }}
-                        >
-                          {link.label}
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                            <path
-                              d="M2 6H10M10 6L6 2M10 6L6 10"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </Link>
-                      ))}
+                      {entry.links.map((link) => {
+                        const isExternal = link.href.startsWith('http');
+                        return (
+                          <Link
+                            key={link.href}
+                            href={link.href}
+                            onClick={(e) => e.stopPropagation()}
+                            {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors hover:bg-[var(--primary-light)]"
+                            style={{ color: 'var(--primary)' }}
+                          >
+                            {link.label}
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                              <path
+                                d={isExternal ? "M4 2H2V10H10V8M6 6L10 2M10 2H7M10 2V5" : "M2 6H10M10 6L6 2M10 6L6 10"}
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </Link>
+                        );
+                      })}
                     </div>
                   )}
                 </div>

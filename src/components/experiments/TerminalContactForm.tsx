@@ -1,0 +1,386 @@
+'use client';
+
+import { useState, useRef, useEffect, useCallback } from 'react';
+
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface Step {
+  field: keyof FormData;
+  prompt: string;
+  placeholder: string;
+  validate: (val: string) => string | null;
+  multiline?: boolean;
+}
+
+const steps: Step[] = [
+  {
+    field: 'name',
+    prompt: 'Enter your name:',
+    placeholder: 'John Doe',
+    validate: (val) => (val.length >= 2 ? null : 'Name must be at least 2 characters'),
+  },
+  {
+    field: 'email',
+    prompt: 'Enter your email address:',
+    placeholder: 'you@example.com',
+    validate: (val) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? null : 'Please enter a valid email address'),
+  },
+  {
+    field: 'subject',
+    prompt: 'Enter subject:',
+    placeholder: 'Project Inquiry',
+    validate: (val) => (val.length >= 3 ? null : 'Subject must be at least 3 characters'),
+  },
+  {
+    field: 'message',
+    prompt: 'Enter your message (press Enter twice to submit):',
+    placeholder: 'Your message here...',
+    multiline: true,
+    validate: (val) => (val.length >= 10 ? null : 'Message must be at least 10 characters'),
+  },
+];
+
+interface OutputLine {
+  text: string;
+  className?: string;
+}
+
+export default function TerminalContactForm() {
+  const [currentStep, setCurrentStep] = useState(-1);
+  const [formData, setFormData] = useState<FormData>({ name: '', email: '', subject: '', message: '' });
+  const [output, setOutput] = useState<OutputLine[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
+  const lastEnterRef = useRef(0);
+
+  const addOutput = useCallback((text: string, className?: string) => {
+    setOutput((prev) => [...prev, { text, className }]);
+  }, []);
+
+  const scrollToBottom = useCallback(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+    }
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [output, scrollToBottom]);
+
+  // Initialize
+  useEffect(() => {
+    const init = async () => {
+      await delay(300);
+      addOutput('System initialized...', 'text-white/50');
+      await delay(400);
+      addOutput('Loading contact module...', 'text-white/50');
+      await delay(300);
+      addOutput('✓ Contact form ready', 'text-green-400');
+      await delay(200);
+      addOutput('─'.repeat(45), 'text-white/50');
+      await delay(300);
+      addOutput('Welcome! Please fill out the contact form below.', 'text-amber-400');
+      addOutput('Type your responses and press Enter to continue.', 'text-white/50');
+      addOutput('─'.repeat(45), 'text-white/50');
+      await delay(200);
+      setCurrentStep(0);
+    };
+    init();
+  }, [addOutput]);
+
+  // Prompt current step
+  useEffect(() => {
+    if (currentStep >= 0 && currentStep < steps.length) {
+      const step = steps[currentStep];
+      addOutput(`[${currentStep + 1}/${steps.length}] ${step.prompt}`, 'text-cyan-400');
+      setTimeout(() => inputRef.current?.focus(), 50);
+    } else if (currentStep >= steps.length && !isSubmitted) {
+      showSummary();
+    }
+  }, [currentStep, addOutput, isSubmitted]);
+
+  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const showSummary = async () => {
+    setIsSubmitted(true);
+    addOutput('─'.repeat(45), 'text-white/50');
+    await delay(300);
+    addOutput('Processing submission...', 'text-white/50');
+
+    // Progress animation - first half for validation
+    for (let i = 0; i <= 50; i += 10) {
+      await delay(80);
+      setProgress(i);
+    }
+
+    addOutput('✓ Form validated successfully!', 'text-green-400');
+    await delay(200);
+    addOutput('Sending message...', 'text-white/50');
+
+    // Actually send the email
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      // Progress animation - second half for sending
+      for (let i = 60; i <= 100; i += 10) {
+        await delay(80);
+        setProgress(i);
+      }
+
+      if (!response.ok) {
+        throw new Error('Failed to send');
+      }
+
+      await delay(200);
+      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('[ SUBMISSION SUMMARY ]', 'text-amber-400');
+      addOutput(`Name: ${formData.name}`, 'text-cyan-400');
+      addOutput(`Email: ${formData.email}`, 'text-cyan-400');
+      addOutput(`Subject: ${formData.subject}`, 'text-cyan-400');
+      addOutput(`Message: ${formData.message}`, 'text-cyan-400');
+      await delay(400);
+      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('✓ Message sent successfully!', 'text-green-400');
+      addOutput("Thank you for reaching out. I'll get back to you soon.", 'text-white/50');
+    } catch {
+      setProgress(100);
+      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('✗ Failed to send message.', 'text-red-400');
+      addOutput('Please try again or email directly: antony@aoneill.co.uk', 'text-white/50');
+    }
+
+    await delay(500);
+    addOutput('', 'text-white/50');
+    addOutput('Type "reset" to send another message.', 'text-white/50');
+  };
+
+  const processInput = () => {
+    const value = inputValue.trim();
+    const step = steps[currentStep];
+
+    addOutput(`→ ${value}`, 'text-pink-400');
+
+    const error = step.validate(value);
+    if (error) {
+      addOutput(`✗ Error: ${error}`, 'text-red-400');
+      setInputValue('');
+      inputRef.current?.focus();
+      return;
+    }
+
+    setFormData((prev) => ({ ...prev, [step.field]: value }));
+    addOutput(`✓ ${step.field} saved`, 'text-green-400');
+
+    setInputValue('');
+    setTimeout(() => setCurrentStep((s) => s + 1), 300);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isSubmitted) {
+      if (e.key === 'Enter' && inputValue.trim().toLowerCase() === 'reset') {
+        setCurrentStep(-1);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setOutput([]);
+        setIsSubmitted(false);
+        setProgress(0);
+        setInputValue('');
+        // Re-initialize after reset
+        setTimeout(() => {
+          setOutput([]);
+          const init = async () => {
+            await delay(300);
+            addOutput('System initialized...', 'text-white/50');
+            await delay(400);
+            addOutput('Loading contact module...', 'text-white/50');
+            await delay(300);
+            addOutput('✓ Contact form ready', 'text-green-400');
+            await delay(200);
+            setCurrentStep(0);
+          };
+          init();
+        }, 100);
+      }
+      return;
+    }
+
+    if (currentStep < 0 || currentStep >= steps.length) return;
+
+    const step = steps[currentStep];
+
+    if (step.multiline) {
+      if (e.key === 'Enter') {
+        const now = Date.now();
+        if (now - lastEnterRef.current < 500) {
+          e.preventDefault();
+          processInput();
+        }
+        lastEnterRef.current = now;
+      }
+    } else {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        processInput();
+      }
+    }
+  };
+
+  const currentStepData = currentStep >= 0 && currentStep < steps.length ? steps[currentStep] : null;
+
+  return (
+    <div
+      className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden font-mono"
+      style={{
+        background: '#0d0d0d',
+        border: '1px solid #333',
+        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 100px rgba(0, 255, 65, 0.1)',
+      }}
+    >
+      {/* Header */}
+      <div
+        className="flex items-center gap-2 px-4 py-3"
+        style={{
+          background: 'linear-gradient(180deg, #3d3d3d, #2d2d2d)',
+          borderBottom: '1px solid #1a1a1a',
+        }}
+      >
+        <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f56' }} />
+        <span className="w-3 h-3 rounded-full" style={{ background: '#ffbd2e' }} />
+        <span className="w-3 h-3 rounded-full" style={{ background: '#27ca40' }} />
+        <span className="flex-1 text-center text-[13px] text-[#999] mr-[52px]">
+          contact@terminal ~ bash
+        </span>
+      </div>
+
+      {/* Body */}
+      <div
+        ref={bodyRef}
+        className="p-5 min-h-[400px] max-h-[500px] overflow-y-auto"
+        style={{
+          background: `
+            linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px)
+          `,
+          backgroundSize: '20px 20px',
+        }}
+      >
+        {/* ASCII Art */}
+        <pre className="text-[10px] leading-tight text-[#00ff41] opacity-80 mb-4">
+{`   ______            __             __     ______
+  / ____/___  ____  / /_____ ______/ /_   / ____/___  _________ ___
+ / /   / __ \\/ __ \\/ __/ __ \`/ ___/ __/  / /_  / __ \\/ ___/ __ \`__ \\
+/ /___/ /_/ / / / / /_/ /_/ / /__/ /_   / __/ / /_/ / /  / / / / / /
+\\____/\\____/_/ /_/\\__/\\__,_/\\___/\\__/  /_/    \\____/_/  /_/ /_/ /_/  `}
+        </pre>
+
+        {/* Output */}
+        {output.map((line, i) => (
+          <div
+            key={i}
+            className={`mb-2 leading-relaxed ${line.className || 'text-[#00ff41]'}`}
+            style={{ animation: 'fadeInLine 0.3s ease forwards' }}
+            dangerouslySetInnerHTML={{ __html: line.text.replace(/\n/g, '<br>') }}
+          />
+        ))}
+
+        {/* Progress bar during submission */}
+        {isSubmitted && progress < 100 && (
+          <div className="w-48 h-1 bg-[#333] rounded-sm overflow-hidden my-2">
+            <div
+              className="h-full rounded-sm transition-all duration-100"
+              style={{
+                width: `${progress}%`,
+                background: 'linear-gradient(90deg, #00ff41, #27ca40)',
+              }}
+            />
+          </div>
+        )}
+
+        {/* Input */}
+        {currentStepData && (
+          <div className="flex items-start mt-3">
+            <span className="text-[#00ff41] mr-2 select-none">
+              <span className="text-[#ff79c6]">guest</span>
+              <span className="text-[#888]">@</span>
+              <span className="text-[#8be9fd]">contact</span>
+              <span className="text-[#888]">:~$</span>
+            </span>
+            <div className="flex-1">
+              {currentStepData.multiline ? (
+                <textarea
+                  ref={inputRef as React.RefObject<HTMLTextAreaElement>}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={currentStepData.placeholder}
+                  rows={3}
+                  className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none resize-none placeholder:text-[#444]"
+                  style={{ caretColor: '#00ff41' }}
+                />
+              ) : (
+                <input
+                  ref={inputRef as React.RefObject<HTMLInputElement>}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={currentStepData.placeholder}
+                  autoComplete="off"
+                  className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
+                  style={{ caretColor: '#00ff41' }}
+                />
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Reset input when submitted */}
+        {isSubmitted && (
+          <div className="flex items-start mt-3">
+            <span className="text-[#00ff41] mr-2 select-none">
+              <span className="text-[#ff79c6]">guest</span>
+              <span className="text-[#888]">@</span>
+              <span className="text-[#8be9fd]">contact</span>
+              <span className="text-[#888]">:~$</span>
+            </span>
+            <input
+              ref={inputRef as React.RefObject<HTMLInputElement>}
+              type="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Type reset to start over..."
+              autoComplete="off"
+              className="flex-1 bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
+              style={{ caretColor: '#00ff41' }}
+            />
+          </div>
+        )}
+      </div>
+
+      <style jsx>{`
+        @keyframes fadeInLine {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

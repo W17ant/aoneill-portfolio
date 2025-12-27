@@ -1,0 +1,26 @@
+{
+  "name": "Antony O'Neill - Full-Stack Developer",
+  "short_name": "AO Portfolio",
+  "description": "Full-stack developer focused on shipping clean, fast, reliable web products. Next.js, React, TypeScript.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#060a13",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/images/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "development", "technology"],
+  "lang": "en-GB"
+}

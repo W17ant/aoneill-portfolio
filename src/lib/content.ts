@@ -1,11 +1,18 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   CONTENT LIBRARY - Data management for timeline,    ###
+   ###   projects, and lab experiments                      ###
+   ###   Last Updated: 27-12-2024                           ###
+   ########################################################### */
+
 /**
  * Content management for timeline, projects, and experiments.
  * Data-driven approach - easy to add/remove without refactoring.
  */
 
-// ============================================
-// TYPES
-// ============================================
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 export interface TimelineEntry {
   id: string;
@@ -27,6 +34,7 @@ export interface Project {
   url?: string;
   repo?: string;
   featured: boolean;
+  logo?: string;
   overview?: string;
   problem?: string;
   approach?: string;
@@ -44,9 +52,9 @@ export interface Experiment {
   principles?: string[];
 }
 
-// ============================================
-// TIMELINE DATA
-// ============================================
+/* ###########################################################
+   ###   2. Timeline Data                                   ###
+   ########################################################### */
 
 const timeline: TimelineEntry[] = [
   {
@@ -122,9 +130,9 @@ const timeline: TimelineEntry[] = [
   },
 ];
 
-// ============================================
-// PROJECTS DATA
-// ============================================
+/* ###########################################################
+   ###   3. Projects Data                                   ###
+   ########################################################### */
 
 const projects: Project[] = [
   {
@@ -135,6 +143,7 @@ const projects: Project[] = [
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
     url: 'https://keepitwhat.com',
     featured: true,
+    logo: '/images/keepitwhat-logo.png',
     overview:
       'A full-featured e-commerce platform specialising in custom engraved and printed gifts.',
     problem:
@@ -152,6 +161,7 @@ const projects: Project[] = [
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
     url: 'https://criticalmineralstomorrow.com',
     featured: true,
+    logo: '/images/critical-minerals-logo.png',
     overview:
       'Corporate website for an international strategic advisory firm in the critical minerals sector.',
     problem:
@@ -169,6 +179,7 @@ const projects: Project[] = [
     tech: ['JavaScript', 'CSS', 'E-commerce', 'Responsive Design'],
     url: 'https://aoneill.co.uk/MSC/Tempus-Prive/',
     featured: false,
+    logo: '/images/tp-logo.webp',
     overview:
       'Academic project showcasing e-commerce fundamentals with a luxury watch theme.',
     problem:
@@ -197,16 +208,16 @@ const projects: Project[] = [
   },
 ];
 
-// ============================================
-// EXPERIMENTS DATA
-// ============================================
+/* ###########################################################
+   ###   4. Experiments Data                                ###
+   ########################################################### */
 
 const experiments: Experiment[] = [
   {
     slug: 'lanyard',
     title: 'Elastic Lanyard',
     description: 'Physics-based lanyard with tension, elasticity, and drag interaction.',
-    icon: '🎫',
+    icon: 'IdCard',
     tags: ['Physics', 'Canvas', 'Interaction'],
     component: 'ElasticLanyard',
     explores:
@@ -222,7 +233,7 @@ const experiments: Experiment[] = [
     slug: 'terminal-nav',
     title: 'Terminal Navigator',
     description: 'Command-line style navigation with typing animation and suggestions.',
-    icon: '💻',
+    icon: 'Terminal',
     tags: ['Terminal', 'Navigation', 'Typing'],
     component: 'TerminalNavigator',
     explores:
@@ -238,7 +249,7 @@ const experiments: Experiment[] = [
     slug: 'magnetic-cursor',
     title: 'Magnetic Cursor',
     description: 'Custom cursor with magnetic pull on interactive elements.',
-    icon: '🧲',
+    icon: 'Magnet',
     tags: ['Cursor', 'Magnetic', '3D'],
     component: 'MagneticCursor',
     explores:
@@ -254,7 +265,7 @@ const experiments: Experiment[] = [
     slug: 'terminal-form',
     title: 'Terminal Contact Form',
     description: 'Step-by-step contact form styled as a terminal interface.',
-    icon: '📝',
+    icon: 'FileText',
     tags: ['Terminal', 'Form', 'Validation'],
     component: 'TerminalContactForm',
     explores:
@@ -268,9 +279,9 @@ const experiments: Experiment[] = [
   },
 ];
 
-// ============================================
-// CONTENT FUNCTIONS
-// ============================================
+/* ###########################################################
+   ###   5. Content Accessor Functions                      ###
+   ########################################################### */
 
 export async function getTimeline(): Promise<TimelineEntry[]> {
   return timeline;

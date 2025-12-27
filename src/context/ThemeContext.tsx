@@ -1,6 +1,17 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   THEME CONTEXT - Light/dark mode state management   ###
+   ###   with localStorage persistence and system detection ###
+   ###   Last Updated: 27-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 type Theme = 'light' | 'dark';
 
@@ -8,9 +19,23 @@ interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
+  mounted: boolean;
 }
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+/* ###########################################################
+   ###   2. Context Creation                                ###
+   ########################################################### */
+
+const ThemeContext = createContext<ThemeContextType>({
+  theme: 'light',
+  toggleTheme: () => {},
+  setTheme: () => {},
+  mounted: false,
+});
+
+/* ###########################################################
+   ###   3. Theme Provider Component                        ###
+   ########################################################### */
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
@@ -44,26 +69,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeState(newTheme);
   }, []);
 
-  // Prevent flash of wrong theme
-  if (!mounted) {
-    return (
-      <div style={{ visibility: 'hidden' }}>
-        {children}
-      </div>
-    );
-  }
-
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, mounted }}>
       {children}
     </ThemeContext.Provider>
   );
 }
 
+/* ###########################################################
+   ###   4. Custom Hook                                     ###
+   ########################################################### */
+
 export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+  return useContext(ThemeContext);
 }
+
+/* ###########################################################
+   ###           END OF THEME CONTEXT                       ###
+   ########################################################### */
