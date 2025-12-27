@@ -197,6 +197,7 @@ const projects: Project[] = [
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
     url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
     featured: false,
+    logo: '/images/credit-algorithm-logo.png',
     overview:
       'Educational game exploring ethical dilemmas in AI decision-making for credit applications.',
     problem:
