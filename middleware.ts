@@ -13,6 +13,7 @@ export function middleware(request: NextRequest) {
 
   // Build CSP header with nonce for scripts, allow inline styles for Next.js/React
   // 'unsafe-inline' and https: are ignored by modern browsers but provide backward compatibility
+  // Trusted Types with default policy for React/Next.js compatibility
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https: http:;
@@ -25,6 +26,8 @@ export function middleware(request: NextRequest) {
     form-action 'self';
     object-src 'none';
     upgrade-insecure-requests;
+    require-trusted-types-for 'script';
+    trusted-types default nextjs nextjs#bundler;
   `.replace(/\s{2,}/g, ' ').trim();
 
   // Clone the request headers

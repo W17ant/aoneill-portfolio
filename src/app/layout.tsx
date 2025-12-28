@@ -128,6 +128,31 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        {/* Trusted Types policy for CSP compliance */}
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (window.trustedTypes && trustedTypes.createPolicy) {
+                trustedTypes.createPolicy('default', {
+                  createHTML: (s) => s,
+                  createScript: (s) => s,
+                  createScriptURL: (s) => s,
+                });
+                trustedTypes.createPolicy('nextjs', {
+                  createHTML: (s) => s,
+                  createScript: (s) => s,
+                  createScriptURL: (s) => s,
+                });
+                trustedTypes.createPolicy('nextjs#bundler', {
+                  createHTML: (s) => s,
+                  createScript: (s) => s,
+                  createScriptURL: (s) => s,
+                });
+              }
+            `,
+          }}
+        />
         {/* JSON-LD Structured Data for Person */}
         <script
           type="application/ld+json"
