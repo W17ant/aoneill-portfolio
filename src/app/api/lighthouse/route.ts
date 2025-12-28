@@ -26,8 +26,8 @@ interface CacheEntry {
 
 // Fallback scores to show when API is rate-limited or unavailable
 const FALLBACK_SCORES: LighthouseScores = {
-  performance: 98,
-  accessibility: 100,
+  performance: 100,
+  accessibility: 96,
   bestPractices: 100,
   seo: 100,
   fetchedAt: new Date().toISOString(),
