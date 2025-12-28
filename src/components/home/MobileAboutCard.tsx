@@ -175,7 +175,7 @@ export default function MobileAboutCard() {
                   src="/images/Selfie.webp"
                   alt="Antony O'Neill"
                   width={300}
-                  height={300}
+                  height={260}
                   className="w-full h-full object-cover opacity-90"
                 />
               </div>
