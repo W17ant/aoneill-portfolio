@@ -46,20 +46,20 @@ export default function Timeline({ entries }: TimelineProps) {
             >
               {/* Timeline dot */}
               <div
-                className={`absolute left-1.5 md:left-4.5 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-2 transition-colors ${
+                className={`absolute left-1.5 md:left-4.5 w-3 h-3 rounded-full border-2 transition-colors ${
                   entry.tone === 'current'
                     ? 'border-[var(--accent-green)] bg-[var(--accent-green)]'
                     : entry.tone === 'growth'
                     ? 'border-[var(--accent-blue)] bg-[var(--accent-blue)]'
                     : 'border-[var(--primary)] bg-[var(--primary)]'
                 }`}
-                style={{ top: '0.875rem' }}
+                style={{ top: '1.25rem' }}
               />
 
               {/* Card */}
               <button
                 onClick={() => toggleExpand(entry.id)}
-                className="w-full text-left px-3 py-2.5 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+                className="w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
                 style={{
                   background: 'var(--card)',
                   borderColor: isExpanded ? 'var(--primary)' : 'var(--card-border)',
@@ -68,20 +68,20 @@ export default function Timeline({ entries }: TimelineProps) {
                 aria-expanded={isExpanded}
               >
                 {/* Header */}
-                <div className="flex items-start justify-between gap-2 md:gap-4">
+                <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 md:gap-3 mb-0.5 md:mb-1">
+                    <div className="flex items-center gap-3 mb-1">
                       <span
-                        className="text-xs md:text-sm font-semibold"
+                        className="text-sm font-semibold"
                         style={{ color: 'var(--foreground-subtle)' }}
                       >
                         {entry.date}
                       </span>
-                      <div className="flex gap-1">
+                      <div className="flex gap-1.5">
                         {entry.tags.slice(0, 2).map((tag) => (
                           <span
                             key={tag}
-                            className="px-1.5 py-0.5 text-[10px] md:text-xs font-medium rounded-full"
+                            className="px-2 py-0.5 text-xs font-medium rounded-full"
                             style={{
                               background: 'var(--background-secondary)',
                               color: 'var(--foreground-subtle)',
@@ -93,13 +93,13 @@ export default function Timeline({ entries }: TimelineProps) {
                       </div>
                     </div>
                     <h3
-                      className="text-sm md:text-lg font-bold leading-tight"
+                      className="text-lg font-bold mb-1"
                       style={{ color: 'var(--foreground)' }}
                     >
                       {entry.title}
                     </h3>
                     <p
-                      className="text-xs md:text-sm mt-0.5"
+                      className="text-sm"
                       style={{ color: 'var(--foreground-muted)' }}
                     >
                       {entry.subtitle}
@@ -108,7 +108,7 @@ export default function Timeline({ entries }: TimelineProps) {
 
                   {/* Expand indicator */}
                   <span
-                    className={`flex-shrink-0 w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full transition-transform ${
+                    className={`flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-transform ${
                       isExpanded ? 'rotate-180' : ''
                     }`}
                     style={{
@@ -116,7 +116,7 @@ export default function Timeline({ entries }: TimelineProps) {
                       color: 'var(--foreground-subtle)',
                     }}
                   >
-                    <svg className="w-2.5 h-2.5 md:w-3 md:h-3" viewBox="0 0 12 12" fill="none">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                       <path
                         d="M2 4L6 8L10 4"
                         stroke="currentColor"
