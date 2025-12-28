@@ -116,7 +116,9 @@ export default function Timeline({ entries }: TimelineProps) {
                     top: 40,
                     bottom: -16,
                     width: 2,
-                    background: 'var(--card-border)',
+                    background: 'linear-gradient(to bottom, var(--primary), var(--accent-blue), var(--accent-green))',
+                    opacity: 0.5,
+                    borderRadius: 1,
                   }}
                 />
               )}
