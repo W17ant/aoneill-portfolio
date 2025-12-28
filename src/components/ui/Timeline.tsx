@@ -34,7 +34,7 @@ export default function Timeline({ entries }: TimelineProps) {
         style={{ background: 'var(--card-border)' }}
       />
 
-      <div className="flex flex-col">
+      <div>
         {entries.map((entry, index) => {
           const isExpanded = expandedId === entry.id;
 
@@ -42,10 +42,8 @@ export default function Timeline({ entries }: TimelineProps) {
             <div
               key={entry.id}
               className="relative pl-8 md:pl-14"
-              style={{ marginTop: index === 0 ? 0 : undefined }}
+              style={{ marginTop: index === 0 ? 0 : 8 }}
             >
-              {/* Spacer between cards - more reliable than gap on Safari */}
-              {index > 0 && <div className="h-2 md:h-6" />}
               {/* Timeline dot */}
               <div
                 className={`absolute left-1.5 md:left-4.5 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full border-2 transition-colors ${
