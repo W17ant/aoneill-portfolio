@@ -11,11 +11,11 @@ export function middleware(request: NextRequest) {
   // Generate a random nonce for this request
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
-  // Build CSP header with nonce
+  // Build CSP header with nonce for scripts, allow inline styles for Next.js/React
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
-    style-src 'self' 'nonce-${nonce}';
+    style-src 'self' 'unsafe-inline';
     img-src 'self' data: blob: https:;
     font-src 'self' data:;
     connect-src 'self' https://www.googleapis.com https://pagespeedonline.googleapis.com;

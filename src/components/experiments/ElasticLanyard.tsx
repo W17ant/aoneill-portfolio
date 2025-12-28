@@ -529,6 +529,15 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [initRope]);
 
+  // Listen for external flip event (from navbar About button)
+  useEffect(() => {
+    const handleFlipEvent = () => {
+      setIsFlipped(prev => !prev);
+    };
+    window.addEventListener('flipLanyard', handleFlipEvent);
+    return () => window.removeEventListener('flipLanyard', handleFlipEvent);
+  }, []);
+
   return (
     <div
       ref={sceneRef}

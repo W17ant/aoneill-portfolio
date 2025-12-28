@@ -25,11 +25,15 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
-  { href: '/#about', label: 'About', icon: User, mobileOnly: true },
   { href: '/#timeline', label: 'Timeline', icon: Clock },
   { href: '/projects', label: 'Projects', icon: FolderOpen },
   { href: '/lab', label: 'Lab', icon: FlaskConical },
   { href: '/contact', label: 'Contact', icon: Mail },
+];
+
+// Mobile-only links (scroll to section)
+const mobileOnlyLinks: NavLink[] = [
+  { href: '/#about', label: 'About', icon: User },
 ];
 
 export default function Navbar() {
@@ -67,9 +71,26 @@ export default function Navbar() {
         />
       </Link>
 
-      {/* Desktop Navigation - excludes mobileOnly links */}
+      {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-1">
-        {navLinks.filter(link => !link.mobileOnly).map((link) => {
+        {/* About button - triggers lanyard flip on homepage */}
+        <button
+          onClick={() => {
+            if (pathname === '/') {
+              window.dispatchEvent(new CustomEvent('flipLanyard'));
+            } else {
+              window.location.href = '/#about';
+            }
+          }}
+          className="flex items-center gap-1.5 rounded-full transition-all duration-300 px-2.5 py-2"
+          style={{
+            background: 'transparent',
+            color: 'var(--ink-secondary)',
+          }}
+        >
+          <User size={16} strokeWidth={2} />
+        </button>
+        {navLinks.map((link) => {
           const Icon = link.icon;
           const isHashLink = link.href.startsWith('/#');
           const isActive = isHashLink
@@ -151,7 +172,7 @@ export default function Navbar() {
 
       {/* Mobile: Expanding Toggle Menu - Inside header */}
       <div className="flex items-center gap-1 md:hidden">
-        {navLinks.map((link) => {
+        {[...mobileOnlyLinks, ...navLinks].map((link) => {
           const Icon = link.icon;
           const isHashLink = link.href.startsWith('/#');
           const hash = isHashLink ? link.href.replace('/', '') : '';
