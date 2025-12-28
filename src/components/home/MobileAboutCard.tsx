@@ -1,13 +1,29 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   MOBILE ABOUT CARD - Flippable ID badge component   ###
+   ###   Animated lanyard card for mobile devices with      ###
+   ###   swing-in animation and 3D flip functionality       ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+
+/* ###########################################################
+   ###   1. Mobile About Card Component                     ###
+   ########################################################### */
 
 export default function MobileAboutCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasSwungIn, setHasSwungIn] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Intersection observer for swing-in animation
+  /* ###########################################################
+   ###   2. Animation Effects                                ###
+   ########################################################### */
+
+  // Trigger swing-in animation when card enters viewport
   useEffect(() => {
     if (!containerRef.current || hasSwungIn) return;
 
@@ -26,6 +42,10 @@ export default function MobileAboutCard() {
     observer.observe(containerRef.current);
     return () => observer.disconnect();
   }, [hasSwungIn]);
+
+  /* ###########################################################
+   ###   3. Render                                           ###
+   ########################################################### */
 
   return (
     <div className="lg:hidden flex justify-center py-8 px-5">
@@ -168,6 +188,7 @@ export default function MobileAboutCard() {
               }}
             >
               <span>ID: AO-2025</span>
+              {/* Flip card to show About section */}
               <button
                 onClick={() => setIsFlipped(true)}
                 className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors hover:bg-[rgba(2,6,23,.08)]"
@@ -250,6 +271,7 @@ export default function MobileAboutCard() {
               <span className="text-[11px]" style={{ color: 'rgba(2,6,23,.45)' }}>
                 MSc CS & AI · St Mary's
               </span>
+              {/* Flip card back to show Profile */}
               <button
                 onClick={() => setIsFlipped(false)}
                 className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors hover:bg-[rgba(2,6,23,.08)]"

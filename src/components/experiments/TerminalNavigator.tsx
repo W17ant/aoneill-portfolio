@@ -1,12 +1,32 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   TERMINAL NAVIGATOR - Interactive terminal nav      ###
+   ###   Terminal-style navigation with command interface   ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface Route {
   key: string;
   label: string;
   path: string;
 }
+
+interface Line {
+  kind: 'in' | 'out' | 'sys';
+  text: string;
+}
+
+/* ###########################################################
+   ###   2. Configuration                                   ###
+   ########################################################### */
 
 const routes: Route[] = [
   { key: 'home', label: 'Home', path: '/' },
@@ -19,11 +39,7 @@ const routes: Route[] = [
 const commands = ['help', 'ls', 'menu', 'open', 'cd', 'cat', 'clear', 'whoami'];
 const PROMPT = 'antony@aoneill:~/portfolio$';
 
-interface Line {
-  kind: 'in' | 'out' | 'sys';
-  text: string;
-}
-
+// Demo script for typing animation
 const demoScript: Line[] = [
   { kind: 'sys', text: 'booting...' },
   { kind: 'out', text: 'Welcome, Antony.' },
@@ -34,7 +50,14 @@ const demoScript: Line[] = [
   { kind: 'sys', text: 'interactive mode ready — type "help"' },
 ];
 
+/* ###########################################################
+   ###   3. Component                                       ###
+   ########################################################### */
+
 export default function TerminalNavigator() {
+  /* ###########################################################
+     ###   State & Refs                                       ###
+     ########################################################### */
   const [lines, setLines] = useState<Line[]>([{ kind: 'sys', text: 'Scroll to start...' }]);
   const [rendered, setRendered] = useState<string[]>(['Scroll to start...']);
   const [interactive, setInteractive] = useState(false);
@@ -48,20 +71,28 @@ export default function TerminalNavigator() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Scroll to bottom
+  /* ###########################################################
+     ###   Helper Functions                                  ###
+     ########################################################### */
+
+  // Scroll to bottom of terminal
   const scrollToBottom = useCallback(() => {
     if (bodyRef.current) {
       bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
     }
   }, []);
 
-  // Add output line
+  // Add output lines to terminal
   const push = useCallback((...newLines: Line[]) => {
     setLines((prev) => [...prev, ...newLines]);
     setRendered((prev) => [...prev, ...newLines.map((l) => l.text)]);
   }, []);
 
-  // Run typing demo
+  /* ###########################################################
+     ###   Typing Animation                                  ###
+     ########################################################### */
+
+  // Run typing animation demo
   const runTypingDemo = useCallback(async () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -100,7 +131,11 @@ export default function TerminalNavigator() {
     setInteractive(true);
   }, []);
 
-  // Intersection observer
+  /* ###########################################################
+     ###   Initialization & Effects                          ###
+     ########################################################### */
+
+  // Intersection observer to trigger animation on scroll
   useEffect(() => {
     if (!containerRef.current || started) return;
 
@@ -134,7 +169,11 @@ export default function TerminalNavigator() {
     scrollToBottom();
   }, [rendered, scrollToBottom]);
 
-  // Run command
+  /* ###########################################################
+     ###   Command Processing                                ###
+     ########################################################### */
+
+  // Parse and execute terminal command
   const runCommand = useCallback(
     (raw: string) => {
       const cmd = raw.trim().replace(/\s+/g, ' ');
@@ -238,7 +277,7 @@ export default function TerminalNavigator() {
     [push]
   );
 
-  // Get suggestions
+  // Get command suggestions based on input
   const getSuggestions = useCallback(() => {
     const v = inputValue.trim().toLowerCase();
     if (!v) return ['menu', 'help', 'open projects', 'open lab', 'open lanyard'];
@@ -264,7 +303,11 @@ export default function TerminalNavigator() {
     return [];
   }, [inputValue]);
 
-  // Handle key down
+  /* ###########################################################
+     ###   Event Handlers                                    ###
+     ########################################################### */
+
+  // Handle keyboard input and navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (!interactive) return;
 

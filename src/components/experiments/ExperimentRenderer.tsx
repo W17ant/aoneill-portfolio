@@ -1,8 +1,19 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   EXPERIMENT RENDERER - Dynamic component loader     ###
+   ###   Handles lazy loading of experiment components      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import dynamic from 'next/dynamic';
 
-// Dynamically import experiment components
+/* ###########################################################
+   ###   1. Dynamic Imports                                 ###
+   ########################################################### */
+
+// Dynamically import experiment components with loading states
 const InteractiveLanyard = dynamic(() => import('./InteractiveLanyard'), {
   ssr: false,
   loading: () => <ExperimentPlaceholder name="Interactive Lanyard" />,
@@ -33,7 +44,11 @@ const PasswordStrength = dynamic(() => import('./PasswordStrength'), {
   loading: () => <ExperimentPlaceholder name="Password Strength" />,
 });
 
+/* ###########################################################
+   ###   2. Helper Components                               ###
+   ########################################################### */
 
+// Loading placeholder shown while experiment loads
 function ExperimentPlaceholder({ name }: { name: string }) {
   return (
     <div
@@ -51,10 +66,19 @@ function ExperimentPlaceholder({ name }: { name: string }) {
   );
 }
 
+/* ###########################################################
+   ###   3. Type Definitions                                ###
+   ########################################################### */
+
 interface ExperimentRendererProps {
   slug: string;
 }
 
+/* ###########################################################
+   ###   4. Main Component                                  ###
+   ########################################################### */
+
+// Render experiment based on slug
 export default function ExperimentRenderer({ slug }: ExperimentRendererProps) {
   switch (slug) {
     case 'lanyard':

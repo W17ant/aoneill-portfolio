@@ -1,16 +1,35 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   PROJECT DETAIL PAGE - Individual project showcase  ###
+   ###   with Schema.org markup and related projects        ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 import { getProjectBySlug, getProjects } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+/* ###########################################################
+   ###   2. Static Generation                               ###
+   ########################################################### */
 
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((project) => ({ slug: project.slug }));
 }
+
+/* ###########################################################
+   ###   3. SEO Metadata                                    ###
+   ########################################################### */
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
@@ -38,7 +57,10 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-// Schema.org structured data for project
+/* ###########################################################
+   ###   4. Schema.org Structured Data                      ###
+   ########################################################### */
+
 function ProjectSchema({ project, slug }: { project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>, slug: string }) {
   const schema = {
     '@context': 'https://schema.org',
@@ -62,6 +84,10 @@ function ProjectSchema({ project, slug }: { project: NonNullable<Awaited<ReturnT
     />
   );
 }
+
+/* ###########################################################
+   ###   5. Page Component                                  ###
+   ########################################################### */
 
 export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params;

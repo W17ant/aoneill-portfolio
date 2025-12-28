@@ -1,6 +1,17 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   ELASTIC LANYARD - Physics-based elastic simulation ###
+   ###   Interactive badge with realistic rope physics      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useRef, useEffect, useCallback, useState } from 'react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface Point {
   x: number;
@@ -24,6 +35,10 @@ interface ElasticLanyardProps {
   showTensionBar?: boolean;
 }
 
+/* ###########################################################
+   ###   2. Configuration                                   ###
+   ########################################################### */
+
 const config = {
   segments: 16,
   segmentLength: 10,
@@ -35,7 +50,15 @@ const config = {
   maxStretch: 2.2,
 };
 
+/* ###########################################################
+   ###   3. Component                                       ###
+   ########################################################### */
+
 export default function ElasticLanyard({ onTensionChange, showTensionBar = true }: ElasticLanyardProps) {
+  /* ###########################################################
+     ###   State & Refs                                       ###
+     ########################################################### */
+
   const sceneRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
@@ -49,7 +72,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
   const [mounted, setMounted] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Create a point
+  /* ###########################################################
+     ###   Physics Initialization                            ###
+     ########################################################### */
+
+  // Create a physics point
   const createPoint = useCallback((x: number, y: number, pinned = false): Point => ({
     x,
     y,
@@ -59,7 +86,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     mass: 1,
   }), []);
 
-  // Create a constraint
+  // Create a constraint between two points
   const createConstraint = useCallback((p1: Point, p2: Point, length: number): Constraint => ({
     p1,
     p2,
@@ -68,7 +95,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     stretch: 1,
   }), []);
 
-  // Initialize the rope
+  // Initialize the rope physics system with optional swing-in animation
   const initRope = useCallback((swingIn = false) => {
     if (!sceneRef.current) return;
 
@@ -105,7 +132,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     constraintsRef.current = constraints;
   }, [createPoint, createConstraint]);
 
-  // Update point physics
+  /* ###########################################################
+     ###   Physics Update Functions                          ###
+     ########################################################### */
+
+  // Update point physics using Verlet integration
   const updatePoint = useCallback((point: Point) => {
     if (point.pinned) return;
 
@@ -119,7 +150,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     point.y += vy + config.gravity;
   }, []);
 
-  // Resolve constraint
+  // Resolve constraint to maintain rope segment length
   const resolveConstraint = useCallback((c: Constraint) => {
     const dx = c.p2.x - c.p1.x;
     const dy = c.p2.y - c.p1.y;
@@ -149,7 +180,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     }
   }, []);
 
-  // Draw pin at anchor
+  /* ###########################################################
+     ###   Rendering Functions                               ###
+     ########################################################### */
+
+  // Draw pin at anchor point
   const drawPin = useCallback((ctx: CanvasRenderingContext2D) => {
     const points = pointsRef.current;
     if (points.length === 0) return;
@@ -179,7 +214,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     ctx.fill();
   }, []);
 
-  // Draw lanyard
+  // Draw lanyard with dynamic colors based on stretch
   const drawLanyard = useCallback((ctx: CanvasRenderingContext2D) => {
     const constraints = constraintsRef.current;
     if (constraints.length === 0) return;
@@ -307,7 +342,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     ctx.restore();
   }, []);
 
-  // Position badge
+  // Position badge at end of rope with rotation
   const positionBadge = useCallback(() => {
     const points = pointsRef.current;
     if (points.length < 2 || !badgeRef.current) return;
@@ -323,7 +358,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     badgeRef.current.style.transform = `translate(-50%, 0) rotate(${angleDeg}deg)`;
   }, []);
 
-  // Animation loop
+  /* ###########################################################
+     ###   Animation Loop                                    ###
+     ########################################################### */
+
+  // Main animation loop with physics updates and rendering
   useEffect(() => {
     if (!mounted) {
       setMounted(true);
@@ -410,7 +449,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     };
   }, [mounted, initRope, updatePoint, resolveConstraint, drawPin, drawLanyard, drawConnector, positionBadge]);
 
-  // Event handlers
+  /* ###########################################################
+     ###   Event Handlers                                    ###
+     ########################################################### */
+
+  // Get mouse/touch position relative to canvas
   const getEventPos = useCallback((e: MouseEvent | TouchEvent) => {
     if (!sceneRef.current) return { x: 0, y: 0 };
     const rect = sceneRef.current.getBoundingClientRect();
@@ -426,6 +469,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     };
   }, []);
 
+  // Handle mouse/touch drag start
   const handleDragStart = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     isDraggingRef.current = true;
@@ -464,7 +508,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     };
   }, [getEventPos]);
 
-  // Double click to flick
+  // Handle double-click to flick the badge
   const handleDoubleClick = useCallback(() => {
     const points = pointsRef.current;
     if (points.length > 0) {

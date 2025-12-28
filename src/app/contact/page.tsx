@@ -1,5 +1,16 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   CONTACT PAGE - Enquiry form with availability      ###
+   ###   status and terminal-style contact form             ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 import { availability } from '@/lib/availability';
 import TerminalContactForm from '@/components/experiments/TerminalContactForm';
+
+/* ###########################################################
+   ###   1. SEO Metadata                                    ###
+   ########################################################### */
 
 export const metadata = {
   title: 'Contact | Antony O\'Neill - Hire a Full-Stack Developer',
@@ -14,6 +25,10 @@ export const metadata = {
     canonical: 'https://aoneill.co.uk/contact',
   },
 };
+
+/* ###########################################################
+   ###   2. Page Component                                  ###
+   ########################################################### */
 
 export default function ContactPage() {
   const { status, responseTime, nextStart, headline, description } = availability;

@@ -1,3 +1,10 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   CI/CD PIPELINE - Interactive deployment simulator  ###
+   ###   Visualizes build, test & deploy stages with logs   ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback, ReactNode } from 'react';
@@ -12,6 +19,10 @@ import {
   Link,
   Globe,
 } from 'lucide-react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface Stage {
   id: string;
@@ -37,6 +48,10 @@ interface LogEntry {
   message: string;
   type: 'info' | 'success' | 'error' | 'warning';
 }
+
+/* ###########################################################
+   ###   2. Configuration                                   ###
+   ########################################################### */
 
 const iconSize = 24;
 const iconSizeSm = 20;
@@ -73,7 +88,15 @@ const pipelines: Record<string, Pipeline> = {
   },
 };
 
+/* ###########################################################
+   ###   3. Component                                       ###
+   ########################################################### */
+
 export default function CICDPipeline() {
+  /* ###########################################################
+     ###   State & Refs                                       ###
+     ########################################################### */
+
   const [currentPipeline, setCurrentPipeline] = useState('simple');
   const [isRunning, setIsRunning] = useState(false);
   const [stageStates, setStageStates] = useState<Record<string, StageState>>({});
@@ -86,6 +109,11 @@ export default function CICDPipeline() {
   const logsRef = useRef<HTMLDivElement>(null);
   const abortRef = useRef(false);
 
+  /* ###########################################################
+     ###   Helper Functions                                  ###
+     ########################################################### */
+
+  // Add log entry with timestamp
   const addLog = useCallback((message: string, type: LogEntry['type'] = 'info') => {
     const now = new Date();
     const timestamp = now.toTimeString().split(' ')[0];
@@ -102,6 +130,7 @@ export default function CICDPipeline() {
     addLog('Pipeline initialized. Ready to run.', 'info');
   }, [addLog]);
 
+  // Reset pipeline to initial state
   const resetPipeline = useCallback(() => {
     setStageStates({});
     setActiveConnectors(new Set());
@@ -116,6 +145,7 @@ export default function CICDPipeline() {
 
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  // Run a single pipeline stage with simulated delay
   const runStage = async (stage: Stage, allStages: Stage[], stageIndex: number): Promise<void> => {
     if (abortRef.current) throw new Error('Pipeline stopped');
 
@@ -156,6 +186,7 @@ export default function CICDPipeline() {
     setProgress(((stageIndex + 1) / allStages.length) * 100);
   };
 
+  // Run entire pipeline sequentially
   const runPipeline = async () => {
     if (isRunning) return;
 
@@ -197,6 +228,7 @@ export default function CICDPipeline() {
     setIsRunning(false);
   };
 
+  // Stop running pipeline
   const stopPipeline = () => {
     if (!isRunning) return;
     abortRef.current = true;
@@ -208,6 +240,11 @@ export default function CICDPipeline() {
   const pipeline = pipelines[currentPipeline];
   const isFullPipeline = currentPipeline === 'full';
 
+  /* ###########################################################
+     ###   Render Helpers                                    ###
+     ########################################################### */
+
+  // Get icon classes based on stage status
   const getIconClasses = (status: StageStatus) => {
     const base = `rounded-full flex items-center justify-center border-2 transition-all ${
       isFullPipeline ? 'w-9 h-9 sm:w-11 sm:h-11' : 'w-11 h-11 sm:w-14 sm:h-14'
@@ -224,6 +261,7 @@ export default function CICDPipeline() {
     }
   };
 
+  // Get status text color
   const getStatusColor = (status: StageStatus) => {
     switch (status) {
       case 'running':
@@ -237,6 +275,7 @@ export default function CICDPipeline() {
     }
   };
 
+  // Render individual stage with icon and connector
   const renderStage = (stage: Stage, index: number, showConnectorInline: boolean) => {
     const state = stageStates[stage.id] || { status: 'pending' as StageStatus };
     const showConnector = showConnectorInline && index < pipeline.stages.length - 1;
@@ -270,7 +309,7 @@ export default function CICDPipeline() {
     );
   };
 
-  // Reversed stage for bottom row - connector AFTER icon, fills right-to-left
+  // Render stage reversed for bottom row (U-shaped flow)
   const renderStageReversed = (stage: Stage, index: number, showConnector: boolean, connectorIndex: number) => {
     const state = stageStates[stage.id] || { status: 'pending' as StageStatus };
     const connectorActive = activeConnectors.has(connectorIndex);

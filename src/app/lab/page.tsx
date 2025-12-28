@@ -1,6 +1,17 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   LAB PAGE - Interactive experiments showcase        ###
+   ###   featuring physics, AI/ML, and creative coding      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 import { getExperiments } from '@/lib/content';
 import Link from 'next/link';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
+
+/* ###########################################################
+   ###   1. SEO Metadata                                    ###
+   ########################################################### */
 
 export const metadata = {
   title: 'Lab | Antony O\'Neill - Interactive Web Experiments',
@@ -15,6 +26,10 @@ export const metadata = {
     canonical: 'https://aoneill.co.uk/lab',
   },
 };
+
+/* ###########################################################
+   ###   2. Page Component                                  ###
+   ########################################################### */
 
 export default async function LabPage() {
   const experiments = await getExperiments();

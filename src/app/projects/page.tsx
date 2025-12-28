@@ -1,7 +1,18 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   PROJECTS PAGE - Portfolio project listing with     ###
+   ###   GitHub link and project cards                      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 import { getProjects } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github } from 'lucide-react';
+
+/* ###########################################################
+   ###   1. SEO Metadata                                    ###
+   ########################################################### */
 
 export const metadata = {
   title: 'Projects | Antony O\'Neill - Full-Stack Developer Portfolio',
@@ -16,6 +27,10 @@ export const metadata = {
     canonical: 'https://aoneill.co.uk/projects',
   },
 };
+
+/* ###########################################################
+   ###   2. Page Component                                  ###
+   ########################################################### */
 
 export default async function ProjectsPage() {
   const projects = await getProjects();

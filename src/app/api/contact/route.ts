@@ -1,13 +1,34 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   CONTACT API ROUTE - Email handling endpoint        ###
+   ###   Processes contact form submissions via Resend      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
+/* ###########################################################
+   ###   1. Imports                                         ###
+   ########################################################### */
+
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
+/* ###########################################################
+   ###   2. Configuration                                   ###
+   ########################################################### */
+
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+/* ###########################################################
+   ###   3. API Handler                                     ###
+   ########################################################### */
 
 export async function POST(request: Request) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    // Validate input
+    /* ========================================
+       Validate input
+       ======================================== */
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'All fields are required' },
@@ -15,7 +36,9 @@ export async function POST(request: Request) {
       );
     }
 
-    // Send notification to you
+    /* ========================================
+       Send notification to you
+       ======================================== */
     const { error: notifyError } = await resend.emails.send({
       from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
       to: ['Antony@aoneill.co.uk'],
@@ -47,7 +70,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
 
-    // Send auto-reply to the sender
+    /* ========================================
+       Send auto-reply to the sender
+       ======================================== */
     await resend.emails.send({
       from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
       to: [email],

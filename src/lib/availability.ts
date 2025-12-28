@@ -1,7 +1,13 @@
-/**
- * Single source of truth for availability status.
- * Update this to change status across the entire site.
- */
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   AVAILABILITY CONFIG - Status management            ###
+   ###   Single source of truth for availability status     ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 export type AvailabilityStatus = 'available' | 'limited' | 'unavailable';
 
@@ -13,6 +19,10 @@ interface AvailabilityConfig {
   description: string;
   ctaText: string;
 }
+
+/* ###########################################################
+   ###   2. Status Configuration                            ###
+   ########################################################### */
 
 const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
   available: {
@@ -41,16 +51,21 @@ const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
   },
 };
 
-// ========================================
+/* ###########################################################
+   ###   3. Current Status Setting                          ###
+   ########################################################### */
+
 // SET YOUR CURRENT STATUS HERE
-// ========================================
 const CURRENT_STATUS: AvailabilityStatus = 'available';
-// ========================================
 
 export const availability: AvailabilityConfig = {
   status: CURRENT_STATUS,
   ...config[CURRENT_STATUS],
 };
+
+/* ###########################################################
+   ###   4. Helper Functions                                ###
+   ########################################################### */
 
 export function getStatusColor(status: AvailabilityStatus) {
   switch (status) {

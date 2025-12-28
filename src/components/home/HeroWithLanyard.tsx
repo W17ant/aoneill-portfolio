@@ -1,6 +1,18 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   HERO WITH LANYARD - Hero section wrapper component ###
+   ###   Positions the elastic lanyard on desktop and       ###
+   ###   displays interactive instructions for users        ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import HeroLanyard from './HeroLanyard';
+
+/* ###########################################################
+   ###   1. Hero With Lanyard Component                     ###
+   ########################################################### */
 
 export default function HeroWithLanyard() {
   return (

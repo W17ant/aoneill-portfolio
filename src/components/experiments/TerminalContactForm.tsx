@@ -1,6 +1,17 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   TERMINAL CONTACT FORM - Terminal-style contact UI  ###
+   ###   Interactive form with typing animation & validation###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface FormData {
   name: string;
@@ -16,6 +27,15 @@ interface Step {
   validate: (val: string) => string | null;
   multiline?: boolean;
 }
+
+interface OutputLine {
+  text: string;
+  className?: string;
+}
+
+/* ###########################################################
+   ###   2. Configuration                                   ###
+   ########################################################### */
 
 const steps: Step[] = [
   {
@@ -45,12 +65,14 @@ const steps: Step[] = [
   },
 ];
 
-interface OutputLine {
-  text: string;
-  className?: string;
-}
+/* ###########################################################
+   ###   3. Component                                       ###
+   ########################################################### */
 
 export default function TerminalContactForm() {
+  /* ###########################################################
+     ###   State & Refs                                       ###
+     ########################################################### */
   const [currentStep, setCurrentStep] = useState(-1);
   const [formData, setFormData] = useState<FormData>({ name: '', email: '', subject: '', message: '' });
   const [output, setOutput] = useState<OutputLine[]>([]);
@@ -61,10 +83,16 @@ export default function TerminalContactForm() {
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const lastEnterRef = useRef(0);
 
+  /* ###########################################################
+     ###   Helper Functions                                  ###
+     ########################################################### */
+
+  // Add output line to terminal
   const addOutput = useCallback((text: string, className?: string) => {
     setOutput((prev) => [...prev, { text, className }]);
   }, []);
 
+  // Auto-scroll to bottom
   const scrollToBottom = useCallback(() => {
     if (bodyRef.current) {
       bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
@@ -75,7 +103,11 @@ export default function TerminalContactForm() {
     scrollToBottom();
   }, [output, scrollToBottom]);
 
-  // Initialize
+  /* ###########################################################
+     ###   Initialization                                    ###
+     ########################################################### */
+
+  // Initialize terminal with welcome messages
   useEffect(() => {
     const init = async () => {
       await delay(300);
@@ -109,6 +141,11 @@ export default function TerminalContactForm() {
 
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  /* ###########################################################
+     ###   Form Submission                                   ###
+     ########################################################### */
+
+  // Show summary and send email
   const showSummary = async () => {
     setIsSubmitted(true);
     addOutput('─'.repeat(45), 'text-white/50');
@@ -166,6 +203,7 @@ export default function TerminalContactForm() {
     addOutput('Type "reset" to send another message.', 'text-white/50');
   };
 
+  // Process user input and validate
   const processInput = () => {
     const value = inputValue.trim();
     const step = steps[currentStep];
@@ -187,6 +225,11 @@ export default function TerminalContactForm() {
     setTimeout(() => setCurrentStep((s) => s + 1), 300);
   };
 
+  /* ###########################################################
+     ###   Event Handlers                                    ###
+     ########################################################### */
+
+  // Handle keyboard input
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isSubmitted) {
       if (e.key === 'Enter' && inputValue.trim().toLowerCase() === 'reset') {

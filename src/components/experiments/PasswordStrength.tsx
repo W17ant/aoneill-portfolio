@@ -1,6 +1,17 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   PASSWORD STRENGTH - Interactive password analyzer  ###
+   ###   Tests password strength & generates secure ones    ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface Checks {
   length: boolean;
@@ -10,7 +21,15 @@ interface Checks {
   special: boolean;
 }
 
+/* ###########################################################
+   ###   2. Component                                       ###
+   ########################################################### */
+
 export default function PasswordStrength() {
+  /* ###########################################################
+     ###   State & Refs                                       ###
+     ########################################################### */
+
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [score, setScore] = useState(0);
@@ -24,6 +43,11 @@ export default function PasswordStrength() {
   const [crackTime, setCrackTime] = useState('-');
   const [toast, setToast] = useState<{ message: string; color: string } | null>(null);
 
+  /* ###########################################################
+     ###   Helper Functions                                  ###
+     ########################################################### */
+
+  // Format crack time in human-readable format
   const formatTime = (seconds: number): string => {
     if (seconds < 1) return 'Instant';
     if (seconds < 60) return Math.round(seconds) + ' seconds';
@@ -37,6 +61,7 @@ export default function PasswordStrength() {
     return 'Billions of years';
   };
 
+  // Calculate time to crack password based on character space and length
   const calculateCrackTime = useCallback((pwd: string): string => {
     if (!pwd) return '-';
 
@@ -53,6 +78,7 @@ export default function PasswordStrength() {
     return formatTime(seconds);
   }, []);
 
+  // Analyze password strength and update checks
   const analyzePassword = useCallback(
     (pwd: string) => {
       if (!pwd) {
@@ -101,6 +127,7 @@ export default function PasswordStrength() {
     analyzePassword(password);
   }, [password, analyzePassword]);
 
+  // Get strength level and color based on score
   const getStrengthInfo = () => {
     if (score < 20) return { level: 'Weak', color: '#ff4444', gradient: 'from-red-500 to-red-400' };
     if (score < 40) return { level: 'Fair', color: '#ff9800', gradient: 'from-orange-500 to-orange-400' };
@@ -109,6 +136,7 @@ export default function PasswordStrength() {
     return { level: 'Excellent', color: '#4caf50', gradient: 'from-green-500 to-green-400' };
   };
 
+  // Generate secure random password
   const generatePassword = () => {
     const length = 16;
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -136,6 +164,7 @@ export default function PasswordStrength() {
     setShowPassword(true);
   };
 
+  // Copy password to clipboard
   const copyToClipboard = async () => {
     if (!password) {
       setToast({ message: 'No password to copy!', color: '#ff9800' });
@@ -156,6 +185,10 @@ export default function PasswordStrength() {
       return () => clearTimeout(timer);
     }
   }, [toast]);
+
+  /* ###########################################################
+     ###   Render Data                                       ###
+     ########################################################### */
 
   const strengthInfo = getStrengthInfo();
 

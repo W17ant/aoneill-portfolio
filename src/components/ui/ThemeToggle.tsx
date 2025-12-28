@@ -1,6 +1,18 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   THEME TOGGLE - Light/dark theme toggle component   ###
+   ###   Animated switch with sun/moon icons and decorative ###
+   ###   elements (stars/clouds) for theme transitions      ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { useTheme } from '@/context/ThemeContext';
+
+/* ###########################################################
+   ###   1. Theme Toggle Component                          ###
+   ########################################################### */
 
 export default function ThemeToggle() {
   const { theme, toggleTheme, mounted } = useTheme();

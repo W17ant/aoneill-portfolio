@@ -1,15 +1,32 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   AVAILABILITY BADGE - Status availability indicator ###
+   ###   Displays current project availability with         ###
+   ###   animated status indicator and color coding         ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
 'use client';
 
 import { availability, getStatusColor } from '@/lib/availability';
+
+/* ###########################################################
+   ###   1. Type Definitions                                ###
+   ########################################################### */
 
 interface AvailabilityBadgeProps {
   compact?: boolean;
 }
 
+/* ###########################################################
+   ###   2. Availability Badge Component                    ###
+   ########################################################### */
+
 export default function AvailabilityBadge({ compact = false }: AvailabilityBadgeProps) {
   const { status } = availability;
   const colors = getStatusColor(status);
 
+  // Determine status label based on current availability
   const label =
     status === 'available'
       ? 'Available'
@@ -17,6 +34,7 @@ export default function AvailabilityBadge({ compact = false }: AvailabilityBadge
       ? 'Limited'
       : 'Unavailable';
 
+  // Compact version for smaller spaces
   if (compact) {
     return (
       <div
@@ -36,6 +54,7 @@ export default function AvailabilityBadge({ compact = false }: AvailabilityBadge
     );
   }
 
+  // Full version with ping animation
   return (
     <div
       className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold cursor-default"
