@@ -75,7 +75,7 @@ export default function Navbar() {
         boxShadow: 'var(--shadow-sm)',
       }}
     >
-      {/* Brand - Monogram + NYE Countdown */}
+      {/* Brand - Monogram + NYE Countdown (desktop) */}
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center">
           <img
@@ -85,7 +85,9 @@ export default function Navbar() {
             style={{ filter: 'var(--monogram-filter)' }}
           />
         </Link>
-        <NewYearCountdown />
+        <div className="hidden md:block">
+          <NewYearCountdown />
+        </div>
       </div>
 
       {/* Desktop Navigation */}
@@ -255,6 +257,18 @@ export default function Navbar() {
         }}
       >
         <ThemeToggle />
+      </div>
+
+      {/* Mobile: NYE Countdown - Under header, left side */}
+      <div
+        className="absolute top-full left-0 mt-3 z-50 md:hidden px-2 py-1 rounded-full backdrop-blur-[20px] saturate-[1.2] border"
+        style={{
+          background: 'var(--navbar-bg)',
+          borderColor: 'var(--stroke)',
+          boxShadow: 'var(--shadow-sm)',
+        }}
+      >
+        <NewYearCountdown />
       </div>
     </nav>
   );

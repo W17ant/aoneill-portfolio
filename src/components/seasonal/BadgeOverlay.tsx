@@ -94,7 +94,12 @@ function PartyHat({ size }: { size: number }) {
       {/* Party hat cone */}
       <path
         d="M50 5 L75 85 L25 85 Z"
-        fill="url(#partyGradient)"
+        fill="#2563eb"
+      />
+      {/* Highlight stripe */}
+      <path
+        d="M50 5 L58 45 L42 45 Z"
+        fill="#3b82f6"
       />
       {/* Year text */}
       <text
@@ -113,13 +118,6 @@ function PartyHat({ size }: { size: number }) {
       <circle cx="48" cy="6" r="3" fill="#FFF8DC" opacity="0.6" />
       {/* Brim */}
       <ellipse cx="50" cy="85" rx="28" ry="6" fill="#1d4ed8" />
-      <defs>
-        <linearGradient id="partyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#2563eb" />
-          <stop offset="50%" stopColor="#3b82f6" />
-          <stop offset="100%" stopColor="#2563eb" />
-        </linearGradient>
-      </defs>
     </svg>
   );
 }
