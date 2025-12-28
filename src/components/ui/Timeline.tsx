@@ -75,7 +75,7 @@ export default function Timeline({ entries }: TimelineProps) {
           >
             {/* Left column: dot and line */}
             <div className="relative" style={{ width: 24 }}>
-              {/* Dot with scale-in animation */}
+              {/* Dot */}
               <div
                 className="rounded-full"
                 style={{
@@ -91,9 +91,6 @@ export default function Timeline({ entries }: TimelineProps) {
                       ? 'var(--accent-blue)'
                       : 'var(--primary)',
                   boxShadow: isCurrent ? '0 0 0 4px rgba(34, 197, 94, 0.2)' : undefined,
-                  transform: isVisible ? 'scale(1)' : 'scale(0)',
-                  transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                  transitionDelay: '0.2s',
                 }}
               />
               {/* Pulse ring for current items */}
@@ -190,72 +187,59 @@ export default function Timeline({ entries }: TimelineProps) {
                   </span>
                 </div>
 
-                {/* Expanded content with smooth transition */}
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateRows: isExpanded ? '1fr' : '0fr',
-                    transition: 'grid-template-rows 0.3s ease',
-                  }}
-                >
-                  <div style={{ overflow: 'hidden' }}>
-                    <div className="mt-4 pt-4 border-t" style={{ borderColor: 'var(--card-border)' }}>
-                      <p className="text-sm mb-4" style={{ color: 'var(--foreground-muted)' }}>
-                        {entry.description}
-                      </p>
+                {/* Expanded content */}
+                {isExpanded && (
+                  <div className="mt-4 pt-4 border-t" style={{ borderColor: 'var(--card-border)' }}>
+                    <p className="text-sm mb-4" style={{ color: 'var(--foreground-muted)' }}>
+                      {entry.description}
+                    </p>
 
-                      <ul className="space-y-2 mb-4">
-                        {entry.bullets.map((bullet, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 text-sm"
-                            style={{
-                              color: 'var(--foreground-muted)',
-                              opacity: isExpanded ? 1 : 0,
-                              transform: isExpanded ? 'translateX(0)' : 'translateX(-10px)',
-                              transition: `opacity 0.3s ease ${i * 50}ms, transform 0.3s ease ${i * 50}ms`,
-                            }}
-                          >
-                            <span
-                              className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                              style={{ background: 'var(--accent-green)' }}
-                            />
-                            {bullet}
-                          </li>
-                        ))}
-                      </ul>
+                    <ul className="space-y-2 mb-4">
+                      {entry.bullets.map((bullet, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-sm"
+                          style={{ color: 'var(--foreground-muted)' }}
+                        >
+                          <span
+                            className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                            style={{ background: 'var(--accent-green)' }}
+                          />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
 
-                      {entry.links && entry.links.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {entry.links.map((link) => {
-                            const isExternal = link.href.startsWith('http');
-                            return (
-                              <Link
-                                key={link.href}
-                                href={link.href}
-                                onClick={(e) => e.stopPropagation()}
-                                {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors hover:bg-[var(--primary-light)]"
-                                style={{ color: 'var(--primary)' }}
-                              >
-                                {link.label}
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                  <path
-                                    d={isExternal ? 'M4 2H2V10H10V8M6 6L10 2M10 2H7M10 2V5' : 'M2 6H10M10 6L6 2M10 6L6 10'}
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      )}
-                    </div>
+                    {entry.links && entry.links.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {entry.links.map((link) => {
+                          const isExternal = link.href.startsWith('http');
+                          return (
+                            <Link
+                              key={link.href}
+                              href={link.href}
+                              onClick={(e) => e.stopPropagation()}
+                              {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                              className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors hover:bg-[var(--primary-light)]"
+                              style={{ color: 'var(--primary)' }}
+                            >
+                              {link.label}
+                              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path
+                                  d={isExternal ? 'M4 2H2V10H10V8M6 6L10 2M10 2H7M10 2V5' : 'M2 6H10M10 6L6 2M10 6L6 10'}
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
-                </div>
+                )}
               </button>
             </div>
           </div>
