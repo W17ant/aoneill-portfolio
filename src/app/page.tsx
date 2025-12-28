@@ -115,12 +115,12 @@ export default async function HomePage() {
       {/* =====================================================
           TIMELINE SECTION - Career journey and milestones
           ===================================================== */}
-      <section id="timeline" className="py-24 md:py-32" style={{ background: 'var(--bg-base)' }}>
+      <section id="timeline" className="py-16 md:py-32" style={{ background: 'var(--bg-base)' }}>
         <div className="max-w-4xl mx-auto px-5">
           <h2 className="text-3xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
             Timeline
           </h2>
-          <p className="text-base mb-12" style={{ color: 'var(--ink-secondary)' }}>
+          <p className="text-base mb-8 md:mb-12" style={{ color: 'var(--ink-secondary)' }}>
             How I got here, what I&apos;ve built, and where I&apos;m heading.
           </p>
 

@@ -34,7 +34,7 @@ export default function Timeline({ entries }: TimelineProps) {
         style={{ background: 'var(--card-border)' }}
       />
 
-      <div className="space-y-4 md:space-y-6">
+      <div className="flex flex-col gap-3 md:gap-6">
         {entries.map((entry) => {
           const isExpanded = expandedId === entry.id;
 
