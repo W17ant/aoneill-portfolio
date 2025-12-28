@@ -6,7 +6,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import type { TimelineEntry } from '@/lib/content';
 
@@ -16,6 +16,41 @@ interface TimelineProps {
 
 export default function Timeline({ entries }: TimelineProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [visibleItems, setVisibleItems] = useState<Set<string>>(new Set());
+  const itemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+
+  // Intersection Observer for staggered reveal
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (observerEntries) => {
+        observerEntries.forEach((observerEntry) => {
+          if (observerEntry.isIntersecting) {
+            const id = observerEntry.target.getAttribute('data-id');
+            if (id) {
+              const index = entries.findIndex((e) => e.id === id);
+              setTimeout(() => {
+                setVisibleItems((prev) => new Set([...prev, id]));
+              }, index * 150);
+            }
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => observer.disconnect();
+  }, [entries]);
+
+  const setItemRef = useCallback(
+    (id: string) => (el: HTMLDivElement | null) => {
+      if (el) itemRefs.current.set(id, el);
+    },
+    []
+  );
 
   return (
     <div>
@@ -23,9 +58,21 @@ export default function Timeline({ entries }: TimelineProps) {
         const isExpanded = expandedId === entry.id;
         const isLast = index === entries.length - 1;
         const isCurrent = entry.tone === 'current';
+        const isVisible = visibleItems.has(entry.id);
 
         return (
-          <div key={entry.id} className="flex" style={{ marginBottom: isLast ? 0 : 16 }}>
+          <div
+            key={entry.id}
+            ref={setItemRef(entry.id)}
+            data-id={entry.id}
+            className="flex"
+            style={{
+              marginBottom: isLast ? 0 : 16,
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.5s ease, transform 0.5s ease',
+            }}
+          >
             {/* Left column: dot and line */}
             <div className="relative" style={{ width: 24 }}>
               {/* Dot */}
