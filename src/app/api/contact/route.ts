@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   CONTACT API ROUTE - Email handling endpoint        ###
    ###   Processes contact form submissions via Resend      ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 28-12-2025                           ###
    ########################################################### */
 
 /* ###########################################################
@@ -11,6 +11,7 @@
 
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
 
 /* ###########################################################
    ###   2. Configuration                                   ###
@@ -18,13 +19,65 @@ import { NextResponse } from 'next/server';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Rate limit: 3 submissions per hour per IP
+const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
+
 /* ###########################################################
-   ###   3. API Handler                                     ###
+   ###   3. Helper Functions                               ###
+   ########################################################### */
+
+// Basic HTML sanitization to prevent XSS in emails
+function sanitizeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/* ###########################################################
+   ###   4. API Handler                                     ###
    ########################################################### */
 
 export async function POST(request: Request) {
   try {
-    const { name, email, subject, message } = await request.json();
+    /* ========================================
+       Rate Limiting
+       ======================================== */
+    const clientIP = getClientIP(request);
+    const rateLimit = checkRateLimit(clientIP, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: 'Too many requests',
+          message: `Please try again in ${Math.ceil(rateLimit.resetIn / 60)} minutes`,
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimit.resetIn),
+            'X-RateLimit-Remaining': '0',
+          },
+        }
+      );
+    }
+
+    const body = await request.json();
+    const { name, email, subject, message, website } = body;
+
+    /* ========================================
+       Honeypot Check (spam prevention)
+       ======================================== */
+    // The 'website' field is a honeypot - should always be empty
+    // Bots typically fill all fields, humans won't see this field
+    if (website) {
+      // Silently reject but return success to not tip off bots
+      console.log('Honeypot triggered from IP:', clientIP);
+      return NextResponse.json({ success: true });
+    }
 
     /* ========================================
        Validate input
@@ -35,6 +88,45 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email address' },
+        { status: 400 }
+      );
+    }
+
+    // Length validation
+    if (name.length < 2 || name.length > 100) {
+      return NextResponse.json(
+        { error: 'Name must be between 2 and 100 characters' },
+        { status: 400 }
+      );
+    }
+
+    if (subject.length < 3 || subject.length > 200) {
+      return NextResponse.json(
+        { error: 'Subject must be between 3 and 200 characters' },
+        { status: 400 }
+      );
+    }
+
+    if (message.length < 10 || message.length > 5000) {
+      return NextResponse.json(
+        { error: 'Message must be between 10 and 5000 characters' },
+        { status: 400 }
+      );
+    }
+
+    /* ========================================
+       Sanitize input for HTML emails
+       ======================================== */
+    const safeName = sanitizeHtml(name);
+    const safeEmail = sanitizeHtml(email);
+    const safeSubject = sanitizeHtml(subject);
+    const safeMessage = sanitizeHtml(message);
 
     /* ========================================
        Send notification to you
@@ -52,14 +144,15 @@ export async function POST(request: Request) {
           </div>
 
           <div style="background: #1e293b; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-            <p style="margin: 0 0 12px 0;"><span style="color: #94a3b8;">Name:</span> <strong style="color: #f8fafc;">${name}</strong></p>
-            <p style="margin: 0 0 12px 0;"><span style="color: #94a3b8;">Email:</span> <strong style="color: #f8fafc;">${email}</strong></p>
-            <p style="margin: 0;"><span style="color: #94a3b8;">Subject:</span> <strong style="color: #f8fafc;">${subject}</strong></p>
+            <p style="margin: 0 0 12px 0;"><span style="color: #94a3b8;">Name:</span> <strong style="color: #f8fafc;">${safeName}</strong></p>
+            <p style="margin: 0 0 12px 0;"><span style="color: #94a3b8;">Email:</span> <strong style="color: #f8fafc;">${safeEmail}</strong></p>
+            <p style="margin: 0 0 12px 0;"><span style="color: #94a3b8;">Subject:</span> <strong style="color: #f8fafc;">${safeSubject}</strong></p>
+            <p style="margin: 0;"><span style="color: #94a3b8;">IP:</span> <span style="color: #64748b; font-size: 12px;">${clientIP}</span></p>
           </div>
 
           <div style="background: #1e293b; padding: 20px; border-radius: 8px;">
             <h3 style="color: #60a5fa; margin: 0 0 12px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Message</h3>
-            <p style="color: #e2e8f0; margin: 0; white-space: pre-wrap; line-height: 1.6;">${message}</p>
+            <p style="color: #e2e8f0; margin: 0; white-space: pre-wrap; line-height: 1.6;">${safeMessage}</p>
           </div>
         </div>
       `,
@@ -72,6 +165,7 @@ export async function POST(request: Request) {
 
     /* ========================================
        Send auto-reply to the sender
+       (Only sent after rate limit check passes)
        ======================================== */
     await resend.emails.send({
       from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
@@ -88,11 +182,11 @@ export async function POST(request: Request) {
           <!-- Body -->
           <div style="background: #ffffff; padding: 30px; border: 1px solid #e2e8f0; border-top: none;">
             <p style="color: #1e293b; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Hi ${name.split(' ')[0]},
+              Hi ${safeName.split(' ')[0]},
             </p>
 
             <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0;">
-              Thanks for reaching out through my portfolio. I've received your message about <strong>"${subject}"</strong> and will get back to you as soon as possible.
+              Thanks for reaching out through my portfolio. I've received your message about <strong>"${safeSubject}"</strong> and will get back to you as soon as possible.
             </p>
 
             <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0;">
@@ -125,7 +219,14 @@ export async function POST(request: Request) {
       `,
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json(
+      { success: true },
+      {
+        headers: {
+          'X-RateLimit-Remaining': String(rateLimit.remaining),
+        },
+      }
+    );
   } catch (error) {
     console.error('Contact API error:', error);
     return NextResponse.json(

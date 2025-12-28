@@ -79,6 +79,7 @@ export default function TerminalContactForm() {
   const [inputValue, setInputValue] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [honeypot, setHoneypot] = useState(''); // Spam prevention
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
   const lastEnterRef = useRef(0);
@@ -167,7 +168,7 @@ export default function TerminalContactForm() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, website: honeypot }),
       });
 
       // Progress animation - second half for sending
@@ -177,7 +178,11 @@ export default function TerminalContactForm() {
       }
 
       if (!response.ok) {
-        throw new Error('Failed to send');
+        const data = await response.json();
+        if (response.status === 429) {
+          throw new Error(data.message || 'Too many requests. Please try again later.');
+        }
+        throw new Error(data.error || 'Failed to send');
       }
 
       await delay(200);
@@ -318,6 +323,26 @@ export default function TerminalContactForm() {
           backgroundSize: '20px 20px',
         }}
       >
+        {/* Honeypot field - hidden from humans, bots will fill it */}
+        <input
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          autoComplete="off"
+          tabIndex={-1}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            left: '-9999px',
+            top: '-9999px',
+            opacity: 0,
+            height: 0,
+            width: 0,
+            pointerEvents: 'none',
+          }}
+        />
+
         {/* ASCII Art - hidden on small screens */}
         <pre className="hidden sm:block text-[10px] leading-tight text-[#00ff41] opacity-80 mb-4">
 {`   ______            __             __     ______

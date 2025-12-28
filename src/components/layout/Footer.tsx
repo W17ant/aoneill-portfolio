@@ -10,6 +10,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import LighthouseScores from '@/components/ui/LighthouseScores';
+import ObfuscatedEmail from '@/components/ui/ObfuscatedEmail';
 
 /* ###########################################################
    ###   1. Footer Component                                ###
@@ -41,12 +42,11 @@ export default function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-6">
-            <a
-              href="mailto:Antony@aoneill.co.uk"
+            <ObfuscatedEmail
+              user="Antony"
+              domain="aoneill.co.uk"
               className="text-[13px] font-medium transition-opacity hover:opacity-100 opacity-70"
-            >
-              Antony@aoneill.co.uk
-            </a>
+            />
 
             <div className="flex items-center gap-2">
               <a

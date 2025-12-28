@@ -7,6 +7,7 @@
 
 import { availability } from '@/lib/availability';
 import TerminalContactForm from '@/components/experiments/TerminalContactForm';
+import ObfuscatedEmail from '@/components/ui/ObfuscatedEmail';
 
 /* ###########################################################
    ###   1. SEO Metadata                                    ###
@@ -56,13 +57,12 @@ export default function ContactPage() {
               <p className="text-sm mb-2" style={{ color: 'var(--ink-secondary)' }}>
                 Prefer email directly?
               </p>
-              <a
-                href="mailto:Antony@aoneill.co.uk"
+              <ObfuscatedEmail
+                user="Antony"
+                domain="aoneill.co.uk"
                 className="font-semibold transition-colors hover:text-[var(--link)]"
                 style={{ color: 'var(--ink)' }}
-              >
-                Antony@aoneill.co.uk
-              </a>
+              />
             </div>
           </div>
 

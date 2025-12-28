@@ -12,6 +12,7 @@ import Timeline from '@/components/ui/Timeline';
 import HeroWithLanyard from '@/components/home/HeroWithLanyard';
 import MobileAboutCard from '@/components/home/MobileAboutCard';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
+import EmailButton from '@/components/ui/EmailButton';
 
 /* ###########################################################
    ###   1. Page Component                                  ###
@@ -262,13 +263,14 @@ export default async function HomePage() {
             >
               {availability.ctaText}
             </Link>
-            <a
-              href="mailto:Antony@aoneill.co.uk"
+            <EmailButton
+              user="Antony"
+              domain="aoneill.co.uk"
               className="btn px-8 py-3 border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/30"
               style={{ borderRadius: '100px' }}
             >
               Email directly
-            </a>
+            </EmailButton>
           </div>
         </div>
       </section>
