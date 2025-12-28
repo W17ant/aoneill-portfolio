@@ -796,20 +796,6 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
             </div>
           </div>
         </div>
-
-        {/* Instructions - floating below the badge */}
-        {!showTensionBar && (
-          <div
-            className="mt-4 text-[11px] text-white/60 text-center px-3 py-2 rounded-xl pointer-events-none"
-            style={{
-              background: 'rgba(0,0,0,.22)',
-              border: '1px solid rgba(255,255,255,.10)',
-              backdropFilter: 'blur(6px)',
-            }}
-          >
-            Drag · Double-click to flick · <span className="font-semibold">About</span> to flip · <kbd className="font-mono px-1 py-0.5 rounded bg-white/10">R</kbd> reset
-          </div>
-        )}
       </div>
 
       {/* Tension indicator - only show if showTensionBar is true */}
