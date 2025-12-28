@@ -23,6 +23,17 @@ const SnakeRL = dynamic(() => import('./SnakeRL'), {
   loading: () => <ExperimentPlaceholder name="Snake Q-Learning" />,
 });
 
+const CICDPipeline = dynamic(() => import('./CICDPipeline'), {
+  ssr: false,
+  loading: () => <ExperimentPlaceholder name="CI/CD Pipeline" />,
+});
+
+const PasswordStrength = dynamic(() => import('./PasswordStrength'), {
+  ssr: false,
+  loading: () => <ExperimentPlaceholder name="Password Strength" />,
+});
+
+
 function ExperimentPlaceholder({ name }: { name: string }) {
   return (
     <div
@@ -54,6 +65,10 @@ export default function ExperimentRenderer({ slug }: ExperimentRendererProps) {
       return <MagneticCursor />;
     case 'snake-rl':
       return <SnakeRL />;
+    case 'cicd-pipeline':
+      return <CICDPipeline />;
+    case 'password-strength':
+      return <PasswordStrength />;
     default:
       return (
         <div

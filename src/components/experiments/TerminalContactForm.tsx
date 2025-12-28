@@ -85,11 +85,11 @@ export default function TerminalContactForm() {
       await delay(300);
       addOutput('✓ Contact form ready', 'text-green-400');
       await delay(200);
-      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('─'.repeat(35), 'text-white/50');
       await delay(300);
       addOutput('Welcome! Please fill out the contact form below.', 'text-amber-400');
       addOutput('Type your responses and press Enter to continue.', 'text-white/50');
-      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('─'.repeat(35), 'text-white/50');
       await delay(200);
       setCurrentStep(0);
     };
@@ -144,19 +144,19 @@ export default function TerminalContactForm() {
       }
 
       await delay(200);
-      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('─'.repeat(35), 'text-white/50');
       addOutput('[ SUBMISSION SUMMARY ]', 'text-amber-400');
       addOutput(`Name: ${formData.name}`, 'text-cyan-400');
       addOutput(`Email: ${formData.email}`, 'text-cyan-400');
       addOutput(`Subject: ${formData.subject}`, 'text-cyan-400');
       addOutput(`Message: ${formData.message}`, 'text-cyan-400');
       await delay(400);
-      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('─'.repeat(35), 'text-white/50');
       addOutput('✓ Message sent successfully!', 'text-green-400');
       addOutput("Thank you for reaching out. I'll get back to you soon.", 'text-white/50');
     } catch {
       setProgress(100);
-      addOutput('─'.repeat(45), 'text-white/50');
+      addOutput('─'.repeat(35), 'text-white/50');
       addOutput('✗ Failed to send message.', 'text-red-400');
       addOutput('Please try again or email directly: antony@aoneill.co.uk', 'text-white/50');
     }
@@ -240,7 +240,7 @@ export default function TerminalContactForm() {
 
   return (
     <div
-      className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden font-mono"
+      className="w-full max-w-2xl mx-auto rounded-lg overflow-hidden font-mono text-sm sm:text-base"
       style={{
         background: '#0d0d0d',
         border: '1px solid #333',
@@ -249,16 +249,16 @@ export default function TerminalContactForm() {
     >
       {/* Header */}
       <div
-        className="flex items-center gap-2 px-4 py-3"
+        className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3"
         style={{
           background: 'linear-gradient(180deg, #3d3d3d, #2d2d2d)',
           borderBottom: '1px solid #1a1a1a',
         }}
       >
-        <span className="w-3 h-3 rounded-full" style={{ background: '#ff5f56' }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: '#ffbd2e' }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: '#27ca40' }} />
-        <span className="flex-1 text-center text-[13px] text-[#999] mr-[52px]">
+        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ background: '#ff5f56' }} />
+        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ background: '#ffbd2e' }} />
+        <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full" style={{ background: '#27ca40' }} />
+        <span className="flex-1 text-center text-[11px] sm:text-[13px] text-[#999] mr-[40px] sm:mr-[52px]">
           contact@terminal ~ bash
         </span>
       </div>
@@ -266,7 +266,7 @@ export default function TerminalContactForm() {
       {/* Body */}
       <div
         ref={bodyRef}
-        className="p-5 min-h-[400px] max-h-[500px] overflow-y-auto"
+        className="p-3 sm:p-5 min-h-[300px] sm:min-h-[400px] max-h-[400px] sm:max-h-[500px] overflow-y-auto overflow-x-hidden"
         style={{
           background: `
             linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
@@ -275,21 +275,30 @@ export default function TerminalContactForm() {
           backgroundSize: '20px 20px',
         }}
       >
-        {/* ASCII Art */}
-        <pre className="text-[10px] leading-tight text-[#00ff41] opacity-80 mb-4">
+        {/* ASCII Art - hidden on small screens */}
+        <pre className="hidden sm:block text-[10px] leading-tight text-[#00ff41] opacity-80 mb-4">
 {`   ______            __             __     ______
   / ____/___  ____  / /_____ ______/ /_   / ____/___  _________ ___
  / /   / __ \\/ __ \\/ __/ __ \`/ ___/ __/  / /_  / __ \\/ ___/ __ \`__ \\
 / /___/ /_/ / / / / /_/ /_/ / /__/ /_   / __/ / /_/ / /  / / / / / /
 \\____/\\____/_/ /_/\\__/\\__,_/\\___/\\__/  /_/    \\____/_/  /_/ /_/ /_/  `}
         </pre>
+        {/* Mobile ASCII - simplified */}
+        <pre className="block sm:hidden text-[8px] leading-tight text-[#00ff41] opacity-80 mb-3">
+{`  _____         _           _
+ / ____|       | |         | |
+| |     ___  __| | ___ __ _| |_
+| |    / _ \\/ _\` |/ __/ _\` | __|
+| |___| (_) | (_| | (_| (_| | |_
+ \\_____\\___/\\__,_|\\___\\__,_|\\__|`}
+        </pre>
 
         {/* Output */}
         {output.map((line, i) => (
           <div
             key={i}
-            className={`mb-2 leading-relaxed ${line.className || 'text-[#00ff41]'}`}
-            style={{ animation: 'fadeInLine 0.3s ease forwards' }}
+            className={`mb-2 leading-relaxed break-words text-xs sm:text-sm ${line.className || 'text-[#00ff41]'}`}
+            style={{ animation: 'fadeInLine 0.3s ease forwards', wordBreak: 'break-word' }}
             dangerouslySetInnerHTML={{ __html: line.text.replace(/\n/g, '<br>') }}
           />
         ))}
@@ -310,10 +319,10 @@ export default function TerminalContactForm() {
         {/* Input */}
         {currentStepData && (
           <div className="flex items-start mt-3">
-            <span className="text-[#00ff41] mr-2 select-none">
+            <span className="text-[#00ff41] mr-2 select-none text-xs sm:text-sm whitespace-nowrap">
               <span className="text-[#ff79c6]">guest</span>
               <span className="text-[#888]">@</span>
-              <span className="text-[#8be9fd]">contact</span>
+              <span className="text-[#8be9fd] hidden sm:inline">contact</span>
               <span className="text-[#888]">:~$</span>
             </span>
             <div className="flex-1">
@@ -348,10 +357,10 @@ export default function TerminalContactForm() {
         {/* Reset input when submitted */}
         {isSubmitted && (
           <div className="flex items-start mt-3">
-            <span className="text-[#00ff41] mr-2 select-none">
+            <span className="text-[#00ff41] mr-2 select-none text-xs sm:text-sm whitespace-nowrap">
               <span className="text-[#ff79c6]">guest</span>
               <span className="text-[#888]">@</span>
-              <span className="text-[#8be9fd]">contact</span>
+              <span className="text-[#8be9fd] hidden sm:inline">contact</span>
               <span className="text-[#888]">:~$</span>
             </span>
             <input

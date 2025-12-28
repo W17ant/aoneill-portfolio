@@ -24,6 +24,7 @@ interface GameState {
   direction: number; // 0=up, 1=right, 2=down, 3=left
   score: number;
   gameOver: boolean;
+  stepsSinceFood: number; // Prevents infinite loops
 }
 
 /* ###########################################################
@@ -270,6 +271,14 @@ export default function SnakeRL() {
     avgScore: 0,
     epsilon: 1.0
   });
+  const [logs, setLogs] = useState<{ text: string; type: 'info' | 'success' | 'danger' | 'warning' }[]>([
+    { text: 'Agent initialized. Press Train to start learning.', type: 'info' }
+  ]);
+  const logRef = useRef<HTMLDivElement>(null);
+
+  const addLog = useCallback((text: string, type: 'info' | 'success' | 'danger' | 'warning' = 'info') => {
+    setLogs(prev => [...prev.slice(-50), { text, type }]); // Keep last 50 logs
+  }, []);
 
   const GRID_SIZE = 20;
   const CELL_SIZE = 15;
@@ -286,7 +295,8 @@ export default function SnakeRL() {
       food: spawnFood([{ x: startX, y: startY }]),
       direction: 1, // right
       score: 0,
-      gameOver: false
+      gameOver: false,
+      stepsSinceFood: 0
     };
   }, []);
 
@@ -301,7 +311,9 @@ export default function SnakeRL() {
     return food;
   }
 
-  const step = useCallback((game: GameState, action: number): { game: GameState; reward: number } => {
+  const MAX_STEPS_WITHOUT_FOOD = 200; // Prevents infinite loops
+
+  const step = useCallback((game: GameState, action: number): { game: GameState; reward: number; timeout?: boolean } => {
     // Action: 0=straight, 1=right, 2=left
     const dirChanges = [0, 1, -1];
     const newDir = (game.direction + dirChanges[action] + 4) % 4;
@@ -337,13 +349,25 @@ export default function SnakeRL() {
       newSnake.pop();
     }
 
+    const newStepsSinceFood = ateFood ? 0 : game.stepsSinceFood + 1;
+
+    // Check for timeout (stuck in loop)
+    if (newStepsSinceFood >= MAX_STEPS_WITHOUT_FOOD) {
+      return {
+        game: { ...game, gameOver: true, direction: newDir, stepsSinceFood: newStepsSinceFood },
+        reward: -5, // Smaller penalty for timeout vs collision
+        timeout: true
+      };
+    }
+
     return {
       game: {
         snake: newSnake,
         food: ateFood ? spawnFood(newSnake) : game.food,
         direction: newDir,
         score: game.score + (ateFood ? 1 : 0),
-        gameOver: false
+        gameOver: false,
+        stepsSinceFood: newStepsSinceFood
       },
       reward: ateFood ? 10 : 0
     };
@@ -418,10 +442,22 @@ export default function SnakeRL() {
     let game = gameRef.current;
 
     if (game.gameOver) {
-      // Update stats
+      // Update stats and log death
       setStats(prev => {
         const newGames = prev.games + 1;
         const newAvg = ((prev.avgScore * prev.games) + game.score) / newGames;
+        const isNewHighScore = game.score > prev.highScore;
+
+        // Log game over
+        if (isNewHighScore && game.score > 0) {
+          addLog(`New high score! ${game.score} points`, 'success');
+        }
+
+        // Milestone logs
+        if (newGames % 100 === 0) {
+          addLog(`Completed ${newGames} games. Avg: ${Math.round(newAvg * 10) / 10}`, 'info');
+        }
+
         return {
           games: newGames,
           score: 0,
@@ -432,26 +468,67 @@ export default function SnakeRL() {
       });
       game = initGame();
       gameRef.current = game;
+      addLog('New game started', 'info');
     }
 
     const state = agent.getState(game, GRID_SIZE);
+    const isExploring = Math.random() < agent.epsilon;
     const action = agent.getAction(state);
-    const { game: newGame, reward } = step(game, action);
+    const { game: newGame, reward, timeout } = step(game, action);
     const nextState = agent.getState(newGame, GRID_SIZE);
 
+    // Log significant events
+    if (reward === 10) {
+      addLog(`Food eaten! Score: ${newGame.score}`, 'success');
+    } else if (timeout) {
+      addLog(`Timeout: Stuck in loop (Score: ${game.score})`, 'warning');
+    } else if (reward === -10) {
+      const head = game.snake[0];
+      const moves = [{ x: 0, y: -1 }, { x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 0 }];
+      const dirChanges = [0, 1, -1];
+      const newDir = (game.direction + dirChanges[action] + 4) % 4;
+      const newHead = { x: head.x + moves[newDir].x, y: head.y + moves[newDir].y };
+      const hitWall = newHead.x < 0 || newHead.x >= GRID_SIZE || newHead.y < 0 || newHead.y >= GRID_SIZE;
+      addLog(`Death: ${hitWall ? 'Hit wall' : 'Hit self'} (Score: ${game.score})`, 'danger');
+    }
+
+    // Occasionally log exploration status
+    if (Math.random() < 0.02 && isExploring) {
+      addLog(`Exploring... (ε=${Math.round(agent.epsilon * 100)}%)`, 'warning');
+    }
+
     agent.remember(state, action, reward, nextState, newGame.gameOver);
+
+    // Check epsilon before replay (which decays it)
+    const prevEpsilon = agent.epsilon;
     agent.replay();
+
+    // Log epsilon milestones
+    const epsilonThresholds = [0.5, 0.25, 0.1, 0.05];
+    for (const threshold of epsilonThresholds) {
+      if (prevEpsilon > threshold && agent.epsilon <= threshold) {
+        addLog(`Epsilon dropped to ${Math.round(threshold * 100)}% - less random exploration`, 'info');
+        break;
+      }
+    }
 
     gameRef.current = newGame;
     setStats(prev => ({ ...prev, score: newGame.score, epsilon: Math.round(agent.epsilon * 100) / 100 }));
     draw(newGame);
-  }, [initGame, step, draw]);
+  }, [initGame, step, draw, addLog]);
 
   useEffect(() => {
     agentRef.current = new QLearningAgent();
     gameRef.current = initGame();
     draw(gameRef.current);
   }, [initGame, draw]);
+
+  // Auto-scroll logs
+  useEffect(() => {
+    if (logRef.current) {
+      logRef.current.scrollTop = logRef.current.scrollHeight;
+    }
+  }, [logs]);
 
   useEffect(() => {
     if (!isTraining) {
@@ -479,21 +556,66 @@ export default function SnakeRL() {
     agentRef.current = new QLearningAgent();
     gameRef.current = initGame();
     setStats({ games: 0, score: 0, highScore: 0, avgScore: 0, epsilon: 1.0 });
+    setLogs([{ text: 'Agent reset. Press Train to start learning.', type: 'info' }]);
     draw(gameRef.current!);
   };
 
   return (
     <div className="flex flex-col items-center gap-6">
-      {/* Canvas */}
-      <div
-        className="rounded-xl overflow-hidden border"
-        style={{ borderColor: 'var(--stroke)', background: '#0a0f1a' }}
-      >
-        <canvas
-          ref={canvasRef}
-          width={GRID_SIZE * CELL_SIZE}
-          height={GRID_SIZE * CELL_SIZE}
-        />
+      {/* Canvas and Logs Container */}
+      <div className="flex flex-col md:flex-row gap-4 w-full max-w-2xl">
+        {/* Canvas */}
+        <div
+          className="rounded-xl overflow-hidden border shrink-0"
+          style={{ borderColor: 'var(--stroke)', background: '#0a0f1a' }}
+        >
+          <canvas
+            ref={canvasRef}
+            width={GRID_SIZE * CELL_SIZE}
+            height={GRID_SIZE * CELL_SIZE}
+          />
+        </div>
+
+        {/* Live Activity Log */}
+        <div
+          className="flex-1 rounded-xl border overflow-hidden flex flex-col"
+          style={{
+            borderColor: 'var(--stroke)',
+            background: 'var(--background-secondary)',
+            minHeight: '200px',
+            maxHeight: `${GRID_SIZE * CELL_SIZE}px`
+          }}
+        >
+          <div
+            className="px-3 py-2 text-xs font-semibold border-b"
+            style={{ borderColor: 'var(--stroke)', color: 'var(--ink-muted)' }}
+          >
+            Live Activity
+          </div>
+          <div
+            ref={logRef}
+            className="flex-1 overflow-y-auto p-2 space-y-1 text-xs font-mono"
+          >
+            {logs.map((log, i) => (
+              <div
+                key={i}
+                className="px-2 py-1 rounded"
+                style={{
+                  background: log.type === 'success' ? 'rgba(34, 197, 94, 0.1)' :
+                              log.type === 'danger' ? 'rgba(239, 68, 68, 0.1)' :
+                              log.type === 'warning' ? 'rgba(245, 158, 11, 0.1)' :
+                              'rgba(255, 255, 255, 0.03)',
+                  color: log.type === 'success' ? '#22c55e' :
+                         log.type === 'danger' ? '#ef4444' :
+                         log.type === 'warning' ? '#f59e0b' :
+                         'var(--ink-muted)'
+                }}
+              >
+                {log.text}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Stats */}
@@ -523,7 +645,10 @@ export default function SnakeRL() {
       {/* Controls */}
       <div className="flex items-center gap-4">
         <button
-          onClick={() => setIsTraining(!isTraining)}
+          onClick={() => {
+            setIsTraining(!isTraining);
+            addLog(isTraining ? 'Training paused' : 'Training started...', 'info');
+          }}
           className="px-6 py-2.5 rounded-lg font-medium text-sm transition-all"
           style={{
             background: isTraining ? 'var(--danger, #ef4444)' : 'var(--accent)',

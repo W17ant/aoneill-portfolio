@@ -278,6 +278,38 @@ const experiments: Experiment[] = [
       'Real-time training visualization',
     ],
   },
+  {
+    slug: 'cicd-pipeline',
+    title: 'CI/CD Pipeline',
+    description: 'Visualize and simulate continuous integration and deployment pipelines.',
+    icon: 'GitBranch',
+    tags: ['DevOps', 'Visualization', 'Pipeline'],
+    component: 'CICDPipeline',
+    explores:
+      'Interactive simulation of CI/CD pipelines with multiple configurations including parallel job execution.',
+    principles: [
+      'Pipeline stage visualization',
+      'Parallel vs sequential execution',
+      'Real-time logging and progress tracking',
+      'State machine patterns',
+    ],
+  },
+  {
+    slug: 'password-strength',
+    title: 'Password Strength',
+    description: 'Analyze password security with real-time feedback and crack time estimates.',
+    icon: 'KeyRound',
+    tags: ['Security', 'Analysis', 'Interactive'],
+    component: 'PasswordStrength',
+    explores:
+      'Real-time password strength analysis with entropy calculation and estimated crack time visualization.',
+    principles: [
+      'Password entropy calculation',
+      'Brute-force time estimation',
+      'Real-time validation feedback',
+      'Secure password generation',
+    ],
+  },
 ];
 
 /* ###########################################################

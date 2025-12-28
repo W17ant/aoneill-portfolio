@@ -1,6 +1,7 @@
 import { getProjects } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Github } from 'lucide-react';
 
 export const metadata = {
   title: 'Projects | Antony O\'Neill',
@@ -17,9 +18,19 @@ export default async function ProjectsPage() {
           <h1 className="text-4xl font-semibold mb-4 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>
             Projects
           </h1>
-          <p className="text-lg" style={{ color: 'var(--ink-secondary)' }}>
+          <p className="text-lg mb-4" style={{ color: 'var(--ink-secondary)' }}>
             Complete, real-world work. Each project demonstrates decision-making, not just output.
           </p>
+          <a
+            href="https://github.com/aoneillmark"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80"
+            style={{ color: 'var(--link)' }}
+          >
+            <Github size={18} />
+            View my GitHub
+          </a>
         </header>
 
         <div className="grid gap-6">

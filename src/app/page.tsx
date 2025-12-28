@@ -10,6 +10,7 @@ import { getTimeline, getFeaturedProjects, getExperiments } from '@/lib/content'
 import { availability } from '@/lib/availability';
 import Timeline from '@/components/ui/Timeline';
 import HeroWithLanyard from '@/components/home/HeroWithLanyard';
+import MobileAboutCard from '@/components/home/MobileAboutCard';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
 
 /* ###########################################################
@@ -103,6 +104,13 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* =====================================================
+          MOBILE ABOUT CARD - Static flippable lanyard card
+          ===================================================== */}
+      <div style={{ background: 'linear-gradient(180deg, var(--hero-end), var(--bg-base))' }}>
+        <MobileAboutCard />
+      </div>
 
       {/* =====================================================
           TIMELINE SECTION - Career journey and milestones
