@@ -17,7 +17,42 @@ import { useState, useEffect, useRef } from 'react';
 export default function MobileAboutCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [hasSwungIn, setHasSwungIn] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Listen for hash change and scroll to trigger flip from About menu
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#about') {
+        // Delay to let user skim read the front before flipping
+        setTimeout(() => {
+          setIsFlipped(true);
+        }, 2000);
+      }
+    };
+
+    // Check on mount
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Also check periodically for a short time after mount (handles Next.js navigation)
+    const checkHash = setInterval(() => {
+      if (window.location.hash === '#about' && !isFlipped) {
+        setTimeout(() => setIsFlipped(true), 2000);
+        clearInterval(checkHash);
+      }
+    }, 100);
+
+    // Stop checking after 3 seconds
+    setTimeout(() => clearInterval(checkHash), 3000);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      clearInterval(checkHash);
+    };
+  }, [isFlipped]);
 
   /* ###########################################################
    ###   2. Animation Effects                                ###
@@ -48,7 +83,7 @@ export default function MobileAboutCard() {
    ########################################################### */
 
   return (
-    <div className="lg:hidden flex justify-center py-8 px-5">
+    <div id="about" className="lg:hidden flex justify-center py-8 px-5 scroll-mt-24">
       {/* Card container */}
       <div
         ref={containerRef}
@@ -207,7 +242,9 @@ export default function MobileAboutCard() {
 
           {/* BACK SIDE - About Me */}
           <div
-            className="w-full rounded-[18px] overflow-hidden absolute top-0 left-0"
+            className={`w-full rounded-[18px] absolute top-0 left-0 flex flex-col transition-all duration-300 ${
+              isExpanded ? '' : 'h-full'
+            }`}
             style={{
               background: 'rgba(255,255,255,.92)',
               color: 'rgba(2,6,23,.92)',
@@ -219,7 +256,7 @@ export default function MobileAboutCard() {
           >
             {/* Top bar */}
             <div
-              className="px-4 py-3.5 flex items-center justify-between"
+              className="px-4 py-3.5 flex items-center justify-between flex-shrink-0"
               style={{ borderBottom: '1px solid rgba(2,6,23,.08)' }}
             >
               <div
@@ -232,48 +269,78 @@ export default function MobileAboutCard() {
                 className="text-[11px] font-extrabold tracking-wider uppercase"
                 style={{ color: 'rgba(2,6,23,.45)' }}
               >
-                Antony O'Neill
+                Antony O&apos;Neill
               </div>
             </div>
 
             {/* About content */}
-            <div className="p-4">
+            <div className={`p-4 flex-grow ${isExpanded ? '' : 'overflow-hidden'}`}>
               <p
-                className="text-[12px] leading-relaxed mb-3"
+                className="text-[13px] leading-relaxed mb-3 text-justify"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                I'm an MSc Computer Science & AI student at St Mary's University,
+                I&apos;m an MSc Computer Science & AI student at St Mary&apos;s University,
                 focused on machine learning, full-stack development, and building
-                AI systems that solve real problems. Currently exploring
-                reinforcement learning and ethical AI.
+                AI systems that solve real problems.
               </p>
+
               <p
-                className="text-[12px] leading-relaxed"
+                className="text-[13px] leading-relaxed mb-3 text-justify"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
+                Currently exploring reinforcement learning and ethical AI.
                 My background in mechanical engineering gives me a unique
                 perspective on problem-solving — I approach software with
                 the same systematic thinking used to diagnose complex physical
-                systems. I'm seeking graduate roles in software engineering
-                or AI/ML where I can apply both technical depth and practical
-                experience.
+                systems.
               </p>
+
+              {isExpanded ? (
+                <p
+                  className="text-[13px] leading-relaxed text-justify"
+                  style={{ color: 'rgba(2,6,23,.75)' }}
+                >
+                  I&apos;m seeking graduate roles in software engineering or AI/ML
+                  where I can apply both technical depth and practical experience.
+                </p>
+              ) : (
+                <button
+                  onClick={() => setIsExpanded(true)}
+                  className="text-[13px] font-medium transition-colors"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  ...more
+                </button>
+              )}
             </div>
 
             {/* Footer with flip back button */}
             <div
-              className="px-4 py-3 flex items-center justify-between font-mono text-xs"
+              className="px-4 py-3 flex items-center justify-between font-mono text-xs flex-shrink-0"
               style={{
                 borderTop: '1px solid rgba(2,6,23,.08)',
                 color: 'rgba(2,6,23,.62)',
               }}
             >
-              <span className="text-[11px]" style={{ color: 'rgba(2,6,23,.45)' }}>
-                MSc CS & AI · St Mary's
-              </span>
+              {isExpanded ? (
+                <button
+                  onClick={() => setIsExpanded(false)}
+                  className="text-[11px] font-medium transition-colors"
+                  style={{ color: 'var(--primary)' }}
+                >
+                  Show less
+                </button>
+              ) : (
+                <span className="text-[11px]" style={{ color: 'rgba(2,6,23,.45)' }}>
+                  MSc CS & AI · St Mary&apos;s
+                </span>
+              )}
               {/* Flip card back to show Profile */}
               <button
-                onClick={() => setIsFlipped(false)}
+                onClick={() => {
+                  setIsFlipped(false);
+                  setIsExpanded(false);
+                }}
                 className="flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors hover:bg-[rgba(2,6,23,.08)]"
                 style={{ color: 'rgba(2,6,23,.62)' }}
               >

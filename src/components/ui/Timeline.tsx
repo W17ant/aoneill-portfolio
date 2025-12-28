@@ -34,7 +34,7 @@ export default function Timeline({ entries }: TimelineProps) {
         style={{ background: 'var(--card-border)' }}
       />
 
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {entries.map((entry) => {
           const isExpanded = expandedId === entry.id;
 
@@ -55,7 +55,7 @@ export default function Timeline({ entries }: TimelineProps) {
               {/* Card */}
               <button
                 onClick={() => toggleExpand(entry.id)}
-                className="w-full text-left p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+                className="w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
                 style={{
                   background: 'var(--card)',
                   borderColor: isExpanded ? 'var(--primary)' : 'var(--card-border)',

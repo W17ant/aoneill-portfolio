@@ -213,7 +213,7 @@ export default async function HomePage() {
           </div>
 
           <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-            {experiments.slice(0, 4).map((exp) => (
+            {experiments.slice(0, 6).map((exp) => (
               <Link
                 key={exp.slug}
                 href={`/lab/${exp.slug}`}
