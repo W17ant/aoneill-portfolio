@@ -2,10 +2,11 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   ROOT LAYOUT - App shell with theme, nav & footer   ###
    ###   Includes SEO metadata and font configuration       ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   Last Updated: 28-12-2024                           ###
    ########################################################### */
 
 import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/layout/Navbar';
@@ -112,11 +113,15 @@ export const metadata: Metadata = {
    ###   3. Root Layout Component                           ###
    ########################################################### */
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Get nonce from middleware for CSP
+  const headersList = await headers();
+  const nonce = headersList.get('x-nonce') || '';
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -124,6 +129,7 @@ export default function RootLayout({
         {/* JSON-LD Structured Data for Person */}
         <script
           type="application/ld+json"
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
@@ -157,6 +163,7 @@ export default function RootLayout({
         />
         {/* Theme flash prevention - applies theme before paint */}
         <script
+          nonce={nonce}
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
