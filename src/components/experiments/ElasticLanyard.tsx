@@ -649,8 +649,10 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
                 }}
               >
                 <img
-                  src="/images/Selfie.png"
+                  src="/images/Selfie.webp"
                   alt="Antony O'Neill"
+                  width={300}
+                  height={300}
                   className="w-full h-full object-cover opacity-90"
                 />
               </div>

@@ -79,8 +79,10 @@ export default function Navbar() {
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center">
           <img
-            src="/images/monogram-transparent-background.png"
+            src="/images/monogram.png"
             alt="Antony O'Neill"
+            width={128}
+            height={71}
             className="h-8 w-auto"
             style={{ filter: 'var(--monogram-filter)' }}
           />
