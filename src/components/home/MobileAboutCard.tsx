@@ -20,38 +20,26 @@ export default function MobileAboutCard() {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Listen for hash change and scroll to trigger flip from About menu
+  // Listen for custom event from navbar About button (mobile)
   useEffect(() => {
-    const handleHashChange = () => {
-      if (window.location.hash === '#about') {
-        // Delay to let user skim read the front before flipping
-        setTimeout(() => {
-          setIsFlipped(true);
-        }, 2000);
-      }
+    const handleFlipEvent = () => {
+      // Scroll to card first
+      containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // Delay to let user skim read the front before flipping
+      setTimeout(() => {
+        setIsFlipped(true);
+      }, 2000);
     };
 
-    // Check on mount
-    handleHashChange();
+    window.addEventListener('flipMobileCard', handleFlipEvent);
+    return () => window.removeEventListener('flipMobileCard', handleFlipEvent);
+  }, []);
 
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-
-    // Also check periodically for a short time after mount (handles Next.js navigation)
-    const checkHash = setInterval(() => {
-      if (window.location.hash === '#about' && !isFlipped) {
-        setTimeout(() => setIsFlipped(true), 2000);
-        clearInterval(checkHash);
-      }
-    }, 100);
-
-    // Stop checking after 3 seconds
-    setTimeout(() => clearInterval(checkHash), 3000);
-
-    return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      clearInterval(checkHash);
-    };
+  // Also check hash on mount for direct navigation to #about
+  useEffect(() => {
+    if (window.location.hash === '#about' && !isFlipped) {
+      setTimeout(() => setIsFlipped(true), 2000);
+    }
   }, [isFlipped]);
 
   /* ###########################################################

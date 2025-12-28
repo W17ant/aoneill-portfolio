@@ -176,6 +176,7 @@ export default function Navbar() {
           const Icon = link.icon;
           const isHashLink = link.href.startsWith('/#');
           const hash = isHashLink ? link.href.replace('/', '') : '';
+          const isAboutLink = link.href === '/#about';
           // Hash links active when clicked, regular links active by pathname
           const isActive = isHashLink
             ? activeHash === hash
@@ -185,7 +186,13 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => isHashLink && handleHashClick(hash)}
+              onClick={() => {
+                if (isHashLink) handleHashClick(hash);
+                // Dispatch event for mobile card flip with delay
+                if (isAboutLink && pathname === '/') {
+                  window.dispatchEvent(new CustomEvent('flipMobileCard'));
+                }
+              }}
               className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${
                 isActive ? 'px-3 py-2' : 'px-2.5 py-2'
               }`}
