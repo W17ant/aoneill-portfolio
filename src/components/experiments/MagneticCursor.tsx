@@ -150,7 +150,7 @@ export default function MagneticCursor() {
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      min-height: 100vh;
+      min-height: 100svh;
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow: hidden;
@@ -160,7 +160,7 @@ export default function MagneticCursor() {
     .container {
       position: relative;
       width: 100%;
-      min-height: 100vh;
+      min-height: 100svh;
       padding: 60px 40px;
       overflow: hidden;
     }

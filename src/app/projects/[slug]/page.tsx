@@ -104,7 +104,7 @@ export default async function ProjectPage({ params }: PageProps) {
   return (
     <>
       <ProjectSchema project={project} slug={slug} />
-      <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
+      <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-3xl mx-auto px-5">
         <Link
           href="/projects"

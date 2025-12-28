@@ -34,7 +34,7 @@ export default function ContactPage() {
   const { status, responseTime, nextStart, headline, description } = availability;
 
   return (
-    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
+    <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-6xl mx-auto px-5">
         <header className="mb-12 text-center">
           <h1 className="text-4xl font-semibold mb-4 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>

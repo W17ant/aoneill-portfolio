@@ -538,7 +538,7 @@ export default function InteractiveLanyard() {
 
     /* CUSTOMIZE: Change background gradient colors here */
     body {
-      min-height: 100vh;
+      min-height: 100svh;
       overflow: hidden;
       background: linear-gradient(135deg, #1e293b, #334155, #1e40af);
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

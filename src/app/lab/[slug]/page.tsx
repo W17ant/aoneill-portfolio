@@ -59,7 +59,7 @@ export default async function ExperimentPage({ params }: PageProps) {
   }
 
   return (
-    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
+    <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-5xl mx-auto px-5">
         <Link
           href="/lab"

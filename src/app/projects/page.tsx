@@ -36,7 +36,7 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
 
   return (
-    <main className="min-h-screen pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
+    <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-4xl mx-auto px-5">
         <header className="mb-12">
           <h1 className="text-4xl font-semibold mb-4 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>
