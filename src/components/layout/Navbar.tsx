@@ -103,15 +103,16 @@ export default function Navbar() {
         {navLinks.map((link) => {
           const Icon = link.icon;
           const isHashLink = link.href.startsWith('/#');
+          const hash = isHashLink ? link.href.replace('/', '') : '';
           const isActive = isHashLink
-            ? pathname === '/'
-            : pathname.startsWith(link.href.replace('/#', '/'));
+            ? activeHash === hash
+            : pathname.startsWith(link.href);
 
           return (
             <Link
               key={link.href}
               href={link.href}
-              onClick={() => setActiveHash('')}
+              onClick={() => setActiveHash(isHashLink ? hash : '')}
               className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${
                 isActive ? 'px-3 py-2' : 'px-2.5 py-2'
               }`}
