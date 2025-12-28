@@ -33,7 +33,7 @@ export default function HeroWithLanyard() {
           backdropFilter: 'blur(6px)',
         }}
       >
-        Drag to stretch &bull; Double-click to flick &bull; Click <span className="font-semibold">About</span> to flip &bull; <kbd className="font-mono px-1.5 py-0.5 rounded bg-white/10">R</kbd> to reset
+        Drag to stretch &bull; Double-click to flick &bull; Click <span className="font-semibold">About</span> to flip
       </div>
     </>
   );
