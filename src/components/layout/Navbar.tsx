@@ -76,19 +76,29 @@ export default function Navbar() {
         {/* About button - triggers lanyard flip on homepage */}
         <button
           onClick={() => {
+            setActiveHash('#about');
             if (pathname === '/') {
               window.dispatchEvent(new CustomEvent('flipLanyard'));
             } else {
               window.location.href = '/#about';
             }
           }}
-          className="flex items-center gap-1.5 rounded-full transition-all duration-300 px-2.5 py-2"
+          className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${
+            activeHash === '#about' ? 'px-3 py-2' : 'px-2.5 py-2'
+          }`}
           style={{
-            background: 'transparent',
-            color: 'var(--ink-secondary)',
+            background: activeHash === '#about' ? 'var(--primary)' : 'transparent',
+            color: activeHash === '#about' ? 'white' : 'var(--ink-secondary)',
           }}
         >
           <User size={16} strokeWidth={2} />
+          <span
+            className={`text-[13px] font-medium whitespace-nowrap overflow-hidden transition-all duration-300 ${
+              activeHash === '#about' ? 'max-w-[80px] opacity-100' : 'max-w-0 opacity-0'
+            }`}
+          >
+            About
+          </span>
         </button>
         {navLinks.map((link) => {
           const Icon = link.icon;
@@ -101,6 +111,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setActiveHash('')}
               className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${
                 isActive ? 'px-3 py-2' : 'px-2.5 py-2'
               }`}
