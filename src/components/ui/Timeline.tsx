@@ -36,8 +36,7 @@ export default function Timeline({ entries }: TimelineProps) {
           return (
             <div
               key={entry.id}
-              className="relative pl-8 md:pl-14"
-              style={{ marginTop: index === 0 ? 0 : 8 }}
+              className={`relative pl-8 md:pl-14 ${index === 0 ? '' : 'mt-2'}`}
             >
               {/* Vertical line segment - only between items, not after last */}
               {!isLast && (
