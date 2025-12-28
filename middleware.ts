@@ -12,9 +12,10 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   // Build CSP header with nonce for scripts, allow inline styles for Next.js/React
+  // 'unsafe-inline' and https: are ignored by modern browsers but provide backward compatibility
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic';
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline' https: http:;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: blob: https:;
     font-src 'self' data:;
@@ -39,6 +40,7 @@ export function middleware(request: NextRequest) {
 
   // Set security headers
   response.headers.set('Content-Security-Policy', cspHeader);
+  response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
