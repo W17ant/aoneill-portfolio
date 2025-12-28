@@ -126,10 +126,11 @@ export default function Timeline({ entries }: TimelineProps) {
             <div style={{ flex: 1, paddingLeft: 12 }}>
               <button
                 onClick={() => setExpandedId(isExpanded ? null : entry.id)}
-                className="w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+                className="w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-300 hover:shadow-lg hover:border-[var(--primary)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)] group"
                 style={{
                   background: 'var(--card)',
                   borderColor: isExpanded ? 'var(--primary)' : 'var(--card-border)',
+                  boxShadow: isExpanded ? '0 8px 24px var(--card-shadow)' : undefined,
                 }}
                 aria-expanded={isExpanded}
               >
@@ -157,7 +158,7 @@ export default function Timeline({ entries }: TimelineProps) {
                       ))}
                     </div>
                     <h3
-                      className="text-base md:text-lg font-bold mb-1"
+                      className="text-base md:text-lg font-bold mb-1 transition-colors duration-200 group-hover:text-[var(--primary)]"
                       style={{ color: 'var(--foreground)' }}
                     >
                       {entry.title}
@@ -168,10 +169,10 @@ export default function Timeline({ entries }: TimelineProps) {
                   </div>
 
                   <span
-                    className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-transform duration-200"
+                    className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full transition-all duration-300 group-hover:scale-110"
                     style={{
-                      background: 'var(--background-secondary)',
-                      color: 'var(--foreground-subtle)',
+                      background: isExpanded ? 'var(--primary)' : 'var(--background-secondary)',
+                      color: isExpanded ? 'white' : 'var(--foreground-subtle)',
                       transform: isExpanded ? 'rotate(180deg)' : undefined,
                     }}
                   >
