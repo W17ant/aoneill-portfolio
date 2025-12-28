@@ -28,6 +28,7 @@ export default function Timeline({ entries }: TimelineProps) {
           <div key={entry.id} className="flex" style={{ marginBottom: isLast ? 0 : 16 }}>
             {/* Left column: dot and line */}
             <div className="relative" style={{ width: 24 }}>
+              {/* Dot */}
               <div
                 className="rounded-full"
                 style={{
@@ -45,6 +46,21 @@ export default function Timeline({ entries }: TimelineProps) {
                   boxShadow: isCurrent ? '0 0 0 4px rgba(34, 197, 94, 0.2)' : undefined,
                 }}
               />
+              {/* Pulse ring for current items */}
+              {isCurrent && (
+                <div
+                  className="rounded-full animate-ping"
+                  style={{
+                    position: 'absolute',
+                    left: 6,
+                    top: 20,
+                    width: 12,
+                    height: 12,
+                    backgroundColor: 'var(--accent-green)',
+                    opacity: 0.4,
+                  }}
+                />
+              )}
               {!isLast && (
                 <div
                   style={{
