@@ -36,8 +36,11 @@ function getParticleType(holiday: Holiday, season: Season): ParticleType {
   // Holiday-specific particles
   switch (holiday) {
     case 'christmas':
+      return 'snow';
     case 'newyear':
-      return holiday === 'newyear' ? 'confetti' : 'snow';
+      // Confetti only on Jan 1st
+      const now = new Date();
+      return (now.getMonth() === 0 && now.getDate() === 1) ? 'confetti' : 'none';
     case 'valentine':
       return 'none';
     case 'stpatrick':

@@ -83,6 +83,8 @@ export default function BadgeOverlay() {
    ########################################################### */
 
 function PartyHat({ size }: { size: number }) {
+  const newYear = new Date().getFullYear() + 1;
+
   return (
     <svg
       width={size}
@@ -94,9 +96,18 @@ function PartyHat({ size }: { size: number }) {
         d="M50 5 L75 85 L25 85 Z"
         fill="url(#partyGradient)"
       />
-      {/* Stripes */}
-      <path d="M50 5 L40 45 L60 45 Z" fill="rgba(255,255,255,0.25)" />
-      <path d="M35 55 L65 55 L70 75 L30 75 Z" fill="rgba(255,255,255,0.15)" />
+      {/* Year text */}
+      <text
+        x="50"
+        y="58"
+        textAnchor="middle"
+        fontSize="16"
+        fontWeight="bold"
+        fill="#FFD700"
+        style={{ fontFamily: 'system-ui, sans-serif' }}
+      >
+        {newYear}
+      </text>
       {/* Pom pom */}
       <circle cx="50" cy="8" r="8" fill="#FFD700" />
       <circle cx="48" cy="6" r="3" fill="#FFF8DC" opacity="0.6" />
