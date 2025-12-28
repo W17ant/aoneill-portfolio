@@ -139,73 +139,73 @@ const projects: Project[] = [
     slug: 'keepitwhat',
     title: 'Keep It What',
     description:
-      'Personalised gifts e-commerce platform with custom engraving and printing services.',
+      'Full-stack e-commerce platform for personalised gifts featuring real-time product customisation, secure Stripe payments, and a complete admin dashboard.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
     url: 'https://keepitwhat.com',
     featured: true,
     logo: '/images/keepitwhat-logo.png',
     overview:
-      'A full-featured e-commerce platform specialising in custom engraved and printed gifts.',
+      'A production e-commerce platform built from the ground up for a personalised gifts business. Features include a real-time product customiser with live preview, Stripe payment integration, Supabase backend with authentication, and a custom admin dashboard for order management. Built with Next.js 15 App Router and React Server Components for optimal performance.',
     problem:
-      'The client needed a modern, fast e-commerce site that could handle product customisation previews and secure payments.',
+      'The client needed a modern, high-performance e-commerce solution that could handle complex product customisation (engraving, printing) with live previews, process secure payments, and provide an intuitive admin interface for managing orders and inventory.',
     approach:
-      'Built with Next.js App Router for optimal performance, Supabase for the backend, and Stripe for payments. Focus on mobile-first design and fast page loads.',
+      'Developed using Next.js App Router with React Server Components for SEO and performance. Implemented Supabase for database, authentication, and file storage. Integrated Stripe for secure payment processing with webhook handling. Created a custom product customiser using Canvas API for real-time previews. Mobile-first responsive design with Tailwind CSS.',
     outcome:
-      'Launched successfully with strong conversion rates. The product customiser significantly reduces customer support queries.',
+      'Successfully launched with strong conversion rates. The product customiser significantly reduced customer support queries by letting customers preview their personalised items before purchase. Fast page loads and SEO optimisation improved organic traffic.',
   },
   {
     slug: 'critical-minerals',
     title: 'Critical Minerals Tomorrow',
     description:
-      'Strategic advisory website for critical minerals, rare earths, and battery metals consultancy.',
+      'Professional corporate website for an international strategic advisory firm, built with Next.js and optimised for SEO with schema markup and fast page loads.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
     url: 'https://criticalmineralstomorrow.com',
     featured: true,
     logo: '/images/critical-minerals-logo.png',
     overview:
-      'Corporate website for an international strategic advisory firm in the critical minerals sector.',
+      'Corporate website for Critical Minerals Tomorrow, a strategic advisory firm specialising in critical minerals, rare earths, and battery metals. The site establishes professional credibility through clean design, comprehensive content, and strong SEO performance. Built with Next.js for static generation and optimal Core Web Vitals.',
     problem:
-      'Lee Constable needed a professional web presence that established credibility in a specialised industry.',
+      'Lee Constable needed a professional web presence that would establish credibility in the specialised critical minerals sector, attract potential clients through organic search, and clearly communicate the firm\'s expertise and services.',
     approach:
-      'Clean, authoritative design with comprehensive SEO including schema markup and Google Search Console integration.',
+      'Designed a clean, authoritative layout with clear information architecture. Implemented comprehensive technical SEO including schema markup (Organization, Person, Service), meta tags, Open Graph, and XML sitemap. Integrated Google Search Console and Analytics. Optimised for Core Web Vitals with image optimisation and efficient loading.',
     outcome:
-      'Strong organic search visibility and professional client acquisition channel.',
+      'Achieved strong organic search visibility for targeted keywords in the critical minerals sector. The professional design and clear messaging successfully established credibility with potential clients. Fast loading times and mobile responsiveness improved user engagement.',
   },
   {
     slug: 'tempus-prive',
     title: 'Tempus Prive',
     description:
-      'Luxury watch e-commerce platform developed for MSc Web Technologies assessment.',
+      'Responsive luxury watch e-commerce prototype demonstrating vanilla JavaScript DOM manipulation, shopping cart functionality, and mobile-first design principles.',
     tech: ['JavaScript', 'CSS', 'E-commerce', 'Responsive Design'],
     url: 'https://aoneill.co.uk/MSC/Tempus-Prive/',
     featured: false,
     logo: '/images/tp-logo.webp',
     overview:
-      'Academic project showcasing e-commerce fundamentals with a luxury watch theme.',
+      'Academic project developed for MSc Web Technologies assessment, demonstrating core e-commerce patterns and vanilla JavaScript skills. Features a product catalog with filtering, shopping cart with localStorage persistence, and fully responsive design for all device sizes.',
     problem:
-      'Demonstrate understanding of e-commerce patterns, responsive design, and JavaScript DOM manipulation.',
+      'Demonstrate comprehensive understanding of e-commerce user experience patterns, JavaScript DOM manipulation without frameworks, responsive CSS techniques, and web accessibility fundamentals.',
     approach:
-      'Vanilla JavaScript with focus on product catalog, cart functionality, and mobile responsiveness.',
+      'Built entirely with vanilla JavaScript to demonstrate core language proficiency. Implemented product filtering, cart functionality with localStorage persistence, and quantity management. Created responsive layouts using CSS Grid and Flexbox with mobile-first breakpoints.',
     outcome:
-      'Successful assessment submission demonstrating core web development skills.',
+      'Successful assessment submission demonstrating strong fundamentals in JavaScript, CSS, and e-commerce UX patterns. The project showcases the ability to build functional web applications without relying on frameworks.',
   },
   {
     slug: 'ai-ethics-game',
     title: 'The Credit Algorithm',
     description:
-      'Interactive choose-your-own-adventure exploring ethical challenges in AI-powered credit scoring.',
+      'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
     url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
     featured: false,
     logo: '/images/credit-algorithm-logo.png',
     overview:
-      'Educational game exploring ethical dilemmas in AI decision-making for credit applications.',
+      'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
     problem:
-      'Make AI ethics concepts accessible and engaging through interactive storytelling.',
+      'Make complex AI ethics concepts accessible and engaging for a general audience through interactive storytelling, rather than traditional academic presentation.',
     approach:
-      'Branching narrative with ethical framework scoring and shareable ending cards.',
+      'Designed a branching narrative structure with multiple decision points and consequences. Implemented an ethical framework scoring system that tracks player choices across different ethical dimensions. Created shareable ending cards that summarise the player\'s ethical approach.',
     outcome:
-      'Engaging way to explore complex AI ethics topics through interactive fiction.',
+      'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
   },
 ];
 

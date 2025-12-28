@@ -25,7 +25,7 @@ interface ElasticLanyardProps {
 }
 
 const config = {
-  segments: 19,
+  segments: 16,
   segmentLength: 10,
   gravity: 0.35,
   damping: 0.97,
@@ -74,7 +74,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
 
     const rect = sceneRef.current.getBoundingClientRect();
     const anchorX = rect.width / 2;
-    const anchorY = 0;
+    const anchorY = 50;
 
     const points: Point[] = [];
     const constraints: Constraint[] = [];
@@ -387,7 +387,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
       if (points.length > 0 && scene) {
         const rect = scene.getBoundingClientRect();
         points[0].x = rect.width / 2;
-        points[0].y = 0;
+        points[0].y = 50;
       }
 
       // Render

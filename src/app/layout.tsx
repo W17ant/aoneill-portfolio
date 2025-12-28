@@ -33,18 +33,35 @@ const jetbrainsMono = JetBrains_Mono({
    ########################################################### */
 
 export const metadata: Metadata = {
-  title: 'Antony O\'Neill | Full-Stack Developer',
+  title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
   description:
-    'Full-stack developer focused on shipping clean, fast, reliable web products. Next.js, React, TypeScript.',
+    'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building fast, accessible, production-ready web applications. Available for freelance projects and collaborations.',
   metadataBase: new URL('https://aoneill.co.uk'),
   keywords: [
     'Full-Stack Developer',
-    'Next.js',
-    'React',
-    'TypeScript',
-    'Web Development',
+    'Software Engineer',
+    'Web Developer',
+    'Frontend Developer',
+    'Backend Developer',
+    'Next.js Developer',
+    'React Developer',
+    'TypeScript Developer',
+    'JavaScript Developer',
+    'Node.js Developer',
     'Freelance Developer',
+    'Freelance Web Developer UK',
+    'Manchester Developer',
     'UK Developer',
+    'Web Development',
+    'Web Application Development',
+    'E-commerce Development',
+    'Responsive Web Design',
+    'UI/UX Development',
+    'API Development',
+    'Supabase',
+    'Tailwind CSS',
+    'Portfolio',
+    'Hire Developer',
   ],
   authors: [{ name: 'Antony O\'Neill' }],
   creator: 'Antony O\'Neill',
@@ -63,24 +80,27 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: 'https://aoneill.co.uk',
     siteName: 'Antony O\'Neill',
-    title: 'Antony O\'Neill | Full-Stack Developer',
+    title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
     description:
-      'Full-stack developer focused on shipping clean, fast, reliable web products.',
+      'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building fast, accessible, production-ready web applications.',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Antony O\'Neill - Full-Stack Developer',
+        alt: 'Antony O\'Neill - Full-Stack Developer & Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Antony O\'Neill | Full-Stack Developer',
+    title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
     description:
-      'Full-stack developer focused on shipping clean, fast, reliable web products.',
+      'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building production-ready web applications.',
     images: ['/images/og-image.png'],
+  },
+  alternates: {
+    canonical: 'https://aoneill.co.uk',
   },
   robots: {
     index: true,
@@ -101,6 +121,40 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
+        {/* JSON-LD Structured Data for Person */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: 'Antony O\'Neill',
+              url: 'https://aoneill.co.uk',
+              image: 'https://aoneill.co.uk/images/og-image.png',
+              jobTitle: 'Full-Stack Developer',
+              description: 'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript.',
+              sameAs: [
+                'https://github.com/aoneillmark',
+                'https://www.linkedin.com/in/antony-o-neill-96601a104/',
+              ],
+              knowsAbout: [
+                'Next.js',
+                'React',
+                'TypeScript',
+                'JavaScript',
+                'Node.js',
+                'Web Development',
+                'E-commerce',
+                'Supabase',
+                'Tailwind CSS',
+              ],
+              worksFor: {
+                '@type': 'Organization',
+                name: 'Freelance',
+              },
+            }),
+          }}
+        />
         {/* Theme flash prevention - applies theme before paint */}
         <script
           dangerouslySetInnerHTML={{

@@ -3,8 +3,17 @@ import Link from 'next/link';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
 
 export const metadata = {
-  title: 'Lab | Antony O\'Neill',
-  description: 'Experiments exploring interaction, motion, and systems.',
+  title: 'Lab | Antony O\'Neill - Interactive Web Experiments',
+  description: 'Interactive experiments exploring physics simulations, AI/ML visualizations, UI interactions, and creative coding. Built with React, Canvas, and modern web technologies.',
+  keywords: ['Web Experiments', 'Interactive Demos', 'Physics Simulation', 'Canvas Animation', 'React Experiments', 'Creative Coding', 'UI Interactions', 'Machine Learning Visualization'],
+  openGraph: {
+    title: 'Lab | Antony O\'Neill - Interactive Web Experiments',
+    description: 'Interactive experiments exploring physics simulations, AI/ML visualizations, and creative coding.',
+    url: 'https://aoneill.co.uk/lab',
+  },
+  alternates: {
+    canonical: 'https://aoneill.co.uk/lab',
+  },
 };
 
 export default async function LabPage() {

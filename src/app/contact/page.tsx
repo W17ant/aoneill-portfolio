@@ -2,8 +2,17 @@ import { availability } from '@/lib/availability';
 import TerminalContactForm from '@/components/experiments/TerminalContactForm';
 
 export const metadata = {
-  title: 'Contact | Antony O\'Neill',
-  description: 'Get in touch for project enquiries and collaborations.',
+  title: 'Contact | Antony O\'Neill - Hire a Full-Stack Developer',
+  description: 'Get in touch for web development projects, freelance enquiries, and collaborations. Manchester-based full-stack developer available for Next.js, React, and TypeScript projects.',
+  keywords: ['Hire Developer', 'Freelance Web Developer', 'Contact Developer', 'Web Development Enquiry', 'Project Collaboration', 'Manchester Web Developer'],
+  openGraph: {
+    title: 'Contact | Antony O\'Neill',
+    description: 'Get in touch for web development projects, freelance enquiries, and collaborations.',
+    url: 'https://aoneill.co.uk/contact',
+  },
+  alternates: {
+    canonical: 'https://aoneill.co.uk/contact',
+  },
 };
 
 export default function ContactPage() {

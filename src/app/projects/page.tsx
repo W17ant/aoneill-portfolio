@@ -4,8 +4,17 @@ import Image from 'next/image';
 import { Github } from 'lucide-react';
 
 export const metadata = {
-  title: 'Projects | Antony O\'Neill',
-  description: 'Real-world projects demonstrating decision-making and delivery.',
+  title: 'Projects | Antony O\'Neill - Full-Stack Developer Portfolio',
+  description: 'Explore my web development portfolio featuring e-commerce platforms, corporate websites, and custom web applications built with Next.js, React, and TypeScript.',
+  keywords: ['Web Development Projects', 'Next.js Projects', 'React Portfolio', 'E-commerce Development', 'Freelance Developer Work', 'Web Application Examples'],
+  openGraph: {
+    title: 'Projects | Antony O\'Neill',
+    description: 'Explore my web development portfolio featuring e-commerce platforms, corporate websites, and custom web applications.',
+    url: 'https://aoneill.co.uk/projects',
+  },
+  alternates: {
+    canonical: 'https://aoneill.co.uk/projects',
+  },
 };
 
 export default async function ProjectsPage() {
