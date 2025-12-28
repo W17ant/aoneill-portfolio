@@ -28,15 +28,10 @@ export default function Timeline({ entries }: TimelineProps) {
 
   return (
     <div className="relative">
-      {/* Vertical line */}
-      <div
-        className="absolute left-3 md:left-6 top-0 bottom-0 w-0.5"
-        style={{ background: 'var(--card-border)' }}
-      />
-
       <div>
         {entries.map((entry, index) => {
           const isExpanded = expandedId === entry.id;
+          const isLast = index === entries.length - 1;
 
           return (
             <div
@@ -44,6 +39,18 @@ export default function Timeline({ entries }: TimelineProps) {
               className="relative pl-8 md:pl-14"
               style={{ marginTop: index === 0 ? 0 : 8 }}
             >
+              {/* Vertical line segment - only between items, not after last */}
+              {!isLast && (
+                <div
+                  className="absolute left-3 md:left-6 w-0.5"
+                  style={{
+                    background: 'var(--card-border)',
+                    top: '2rem',
+                    bottom: '-0.5rem',
+                  }}
+                />
+              )}
+
               {/* Timeline dot */}
               <div
                 className={`absolute left-1.5 md:left-4.5 w-3 h-3 rounded-full border-2 transition-colors ${
