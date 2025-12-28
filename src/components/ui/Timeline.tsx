@@ -205,7 +205,12 @@ export default function Timeline({ entries }: TimelineProps) {
                         <li
                           key={i}
                           className="flex items-start gap-2 text-sm"
-                          style={{ color: 'var(--foreground-muted)' }}
+                          style={{
+                            color: 'var(--foreground-muted)',
+                            opacity: isExpanded ? 1 : 0,
+                            transform: isExpanded ? 'translateX(0)' : 'translateX(-10px)',
+                            transition: `opacity 0.3s ease ${i * 50}ms, transform 0.3s ease ${i * 50}ms`,
+                          }}
                         >
                           <span
                             className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
