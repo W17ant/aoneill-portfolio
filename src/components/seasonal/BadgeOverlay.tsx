@@ -1,0 +1,228 @@
+/* ###########################################################
+   ###   ANTONY O'NEILL - PORTFOLIO                         ###
+   ###   BADGE OVERLAY - Seasonal badge decorations         ###
+   ###   Christmas hat, party hat, bunny ears, etc          ###
+   ###   Last Updated: 28-12-2024                           ###
+   ########################################################### */
+
+'use client';
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { getHoliday, type Holiday } from '@/lib/seasonal';
+
+interface BadgeOverlayProps {
+  size?: number;
+  className?: string;
+}
+
+export default function BadgeOverlay({ size = 95, className = '' }: BadgeOverlayProps) {
+  const [holiday, setHoliday] = useState<Holiday>(null);
+
+  useEffect(() => {
+    setHoliday(getHoliday());
+  }, []);
+
+  if (!holiday) return null;
+
+  // Render the appropriate overlay based on holiday
+  switch (holiday) {
+    case 'christmas':
+      return (
+        <Image
+          src="/images/christmas-hat.png"
+          alt="Christmas hat"
+          width={size}
+          height={size}
+          className={className}
+          style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+        />
+      );
+
+    case 'newyear':
+      return <PartyHat size={size} className={className} />;
+
+    case 'valentine':
+      return <HeartAccessory size={size} className={className} />;
+
+    case 'stpatrick':
+      return <LeprechaunHat size={size} className={className} />;
+
+    case 'easter':
+      return <BunnyEars size={size} className={className} />;
+
+    case 'halloween':
+      return <WitchHat size={size} className={className} />;
+
+    default:
+      return null;
+  }
+}
+
+/* ###########################################################
+   ###   SVG Accessories                                    ###
+   ########################################################### */
+
+function PartyHat({ size, className }: { size: number; className: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      className={className}
+      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+    >
+      {/* Party hat cone */}
+      <path
+        d="M50 5 L75 85 L25 85 Z"
+        fill="url(#partyGradient)"
+      />
+      {/* Stripes */}
+      <path d="M50 5 L40 45 L60 45 Z" fill="rgba(255,255,255,0.3)" />
+      <path d="M35 55 L65 55 L70 75 L30 75 Z" fill="rgba(255,255,255,0.2)" />
+      {/* Pom pom */}
+      <circle cx="50" cy="8" r="8" fill="#FFD700" />
+      <circle cx="48" cy="6" r="3" fill="#FFF8DC" opacity="0.6" />
+      {/* Brim */}
+      <ellipse cx="50" cy="85" rx="28" ry="6" fill="#C0C0C0" />
+      <defs>
+        <linearGradient id="partyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#FFD700" />
+          <stop offset="50%" stopColor="#C0C0C0" />
+          <stop offset="100%" stopColor="#FFD700" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+}
+
+function HeartAccessory({ size, className }: { size: number; className: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      className={className}
+      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+    >
+      {/* Headband */}
+      <path
+        d="M10 70 Q50 50 90 70"
+        fill="none"
+        stroke="#e91e63"
+        strokeWidth="4"
+      />
+      {/* Hearts on springs */}
+      <path d="M30 70 Q30 40 35 30" fill="none" stroke="#ff6b9d" strokeWidth="2" />
+      <path d="M70 70 Q70 45 65 35" fill="none" stroke="#ff6b9d" strokeWidth="2" />
+      {/* Left heart */}
+      <path
+        d="M35 30 C35 25 30 20 25 20 C15 20 15 30 15 30 C15 45 35 50 35 50 C35 50 55 45 55 30 C55 30 55 20 45 20 C40 20 35 25 35 30"
+        fill="#e91e63"
+        transform="translate(-5, -15) scale(0.6)"
+      />
+      {/* Right heart */}
+      <path
+        d="M35 30 C35 25 30 20 25 20 C15 20 15 30 15 30 C15 45 35 50 35 50 C35 50 55 45 55 30 C55 30 55 20 45 20 C40 20 35 25 35 30"
+        fill="#ec407a"
+        transform="translate(45, -10) scale(0.5)"
+      />
+    </svg>
+  );
+}
+
+function LeprechaunHat({ size, className }: { size: number; className: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      className={className}
+      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+    >
+      {/* Hat brim */}
+      <ellipse cx="50" cy="78" rx="45" ry="10" fill="#1B5E20" />
+      <ellipse cx="50" cy="76" rx="42" ry="8" fill="#2E7D32" />
+      {/* Hat body */}
+      <rect x="25" y="25" width="50" height="53" rx="3" fill="#2E7D32" />
+      <rect x="27" y="27" width="15" height="51" fill="#388E3C" opacity="0.4" />
+      {/* Hat top */}
+      <ellipse cx="50" cy="25" rx="25" ry="6" fill="#1B5E20" />
+      {/* Black band */}
+      <rect x="25" y="60" width="50" height="12" fill="#1a1a1a" />
+      {/* Gold buckle */}
+      <rect x="40" y="58" width="20" height="16" rx="2" fill="#FFD700" />
+      <rect x="44" y="62" width="12" height="8" rx="1" fill="#1a1a1a" />
+    </svg>
+  );
+}
+
+function BunnyEars({ size, className }: { size: number; className: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      className={className}
+      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+    >
+      {/* Headband */}
+      <path
+        d="M15 85 Q50 70 85 85"
+        fill="none"
+        stroke="#F8BBD9"
+        strokeWidth="6"
+      />
+      {/* Left ear outer */}
+      <ellipse cx="30" cy="40" rx="12" ry="35" fill="#FFFFFF" />
+      {/* Left ear inner */}
+      <ellipse cx="30" cy="42" rx="6" ry="25" fill="#FFCDD2" />
+      {/* Right ear outer */}
+      <ellipse cx="70" cy="35" rx="12" ry="35" fill="#FFFFFF" transform="rotate(10, 70, 35)" />
+      {/* Right ear inner */}
+      <ellipse cx="70" cy="37" rx="6" ry="25" fill="#FFCDD2" transform="rotate(10, 70, 37)" />
+    </svg>
+  );
+}
+
+function WitchHat({ size, className }: { size: number; className: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      className={className}
+      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
+    >
+      {/* Hat cone */}
+      <path
+        d="M50 2 Q55 30 70 50 L75 80 L25 80 L30 50 Q45 30 50 2"
+        fill="#1a1a1a"
+      />
+      {/* Hat tip bend */}
+      <path
+        d="M50 2 Q70 5 75 25"
+        fill="none"
+        stroke="#1a1a1a"
+        strokeWidth="8"
+        strokeLinecap="round"
+      />
+      {/* Highlight */}
+      <path
+        d="M40 25 Q45 40 42 55"
+        fill="none"
+        stroke="#333"
+        strokeWidth="3"
+        opacity="0.5"
+      />
+      {/* Brim */}
+      <ellipse cx="50" cy="80" rx="45" ry="12" fill="#1a1a1a" />
+      <ellipse cx="50" cy="78" rx="42" ry="10" fill="#2d2d2d" />
+      {/* Purple band */}
+      <rect x="28" y="68" width="44" height="8" fill="#7B1FA2" />
+      {/* Buckle */}
+      <rect x="42" y="66" width="16" height="12" rx="2" fill="#FF6D00" />
+      <rect x="45" y="69" width="10" height="6" rx="1" fill="#1a1a1a" />
+    </svg>
+  );
+}

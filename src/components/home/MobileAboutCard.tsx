@@ -9,7 +9,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import ChristmasHat from '@/components/seasonal/ChristmasHat';
+import BadgeOverlay from '@/components/seasonal/BadgeOverlay';
 
 /* ###########################################################
    ###   1. Mobile About Card Component                     ###
@@ -125,8 +125,8 @@ export default function MobileAboutCard() {
               transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
             }}
           >
-          {/* Christmas hat overlay */}
-          <ChristmasHat
+          {/* Seasonal badge overlay */}
+          <BadgeOverlay
             size={95}
             className="absolute -top-[30px] -right-[50px] z-20 rotate-[17deg]"
           />
