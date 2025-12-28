@@ -75,7 +75,7 @@ export default function Timeline({ entries }: TimelineProps) {
           >
             {/* Left column: dot and line */}
             <div className="relative" style={{ width: 24 }}>
-              {/* Dot */}
+              {/* Dot with scale-in animation */}
               <div
                 className="rounded-full"
                 style={{
@@ -91,6 +91,9 @@ export default function Timeline({ entries }: TimelineProps) {
                       ? 'var(--accent-blue)'
                       : 'var(--primary)',
                   boxShadow: isCurrent ? '0 0 0 4px rgba(34, 197, 94, 0.2)' : undefined,
+                  transform: isVisible ? 'scale(1)' : 'scale(0)',
+                  transition: 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                  transitionDelay: '0.2s',
                 }}
               />
               {/* Pulse ring for current items */}
