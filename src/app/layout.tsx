@@ -11,6 +11,7 @@ import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import Snowfall from '@/components/seasonal/Snowfall';
 import './globals.css';
 
 /* ###########################################################
@@ -182,6 +183,7 @@ export default async function RootLayout({
       </head>
       <body className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider>
+          <Snowfall />
           <Navbar />
           {children}
           <Footer />
