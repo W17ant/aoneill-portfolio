@@ -80,7 +80,9 @@ export default function Navbar() {
             if (pathname === '/') {
               window.dispatchEvent(new CustomEvent('flipLanyard'));
             } else {
-              window.location.href = '/#about';
+              // Set flag to flip lanyard after page loads and swing-in completes
+              sessionStorage.setItem('flipLanyardAfterLoad', 'true');
+              window.location.href = '/';
             }
           }}
           className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${

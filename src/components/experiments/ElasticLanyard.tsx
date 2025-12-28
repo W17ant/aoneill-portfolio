@@ -538,6 +538,18 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
     return () => window.removeEventListener('flipLanyard', handleFlipEvent);
   }, []);
 
+  // Check if we should flip after page load (coming from another page)
+  useEffect(() => {
+    const shouldFlip = sessionStorage.getItem('flipLanyardAfterLoad');
+    if (shouldFlip) {
+      sessionStorage.removeItem('flipLanyardAfterLoad');
+      // Wait for swing-in animation to complete (~1.5s) then flip
+      setTimeout(() => {
+        setIsFlipped(true);
+      }, 1500);
+    }
+  }, []);
+
   return (
     <div
       ref={sceneRef}
