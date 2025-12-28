@@ -127,8 +127,8 @@
   --footer-bg: #030508;
   --footer-text: rgba(255, 255, 255, 0.7);
 
-  /* Monogram - invert for dark mode */
-  --monogram-filter: invert(1);
+  /* Monogram - pure white for dark mode */
+  --monogram-filter: brightness(0) invert(1);
 }
 
 @theme inline {

@@ -30,19 +30,19 @@ export default function Timeline({ entries }: TimelineProps) {
     <div className="relative">
       {/* Vertical line */}
       <div
-        className="absolute left-4 md:left-6 top-0 bottom-0 w-0.5"
+        className="absolute left-3 md:left-6 top-0 bottom-0 w-0.5"
         style={{ background: 'var(--card-border)' }}
       />
 
-      <div className="flex flex-col gap-3 md:gap-6">
+      <div className="flex flex-col gap-2 md:gap-6">
         {entries.map((entry) => {
           const isExpanded = expandedId === entry.id;
 
           return (
-            <div key={entry.id} className="relative pl-10 md:pl-14">
+            <div key={entry.id} className="relative pl-8 md:pl-14">
               {/* Timeline dot */}
               <div
-                className={`absolute left-2.5 md:left-4.5 w-3 h-3 rounded-full border-2 transition-colors ${
+                className={`absolute left-1.5 md:left-4.5 w-3 h-3 rounded-full border-2 transition-colors ${
                   entry.tone === 'current'
                     ? 'border-[var(--accent-green)] bg-[var(--accent-green)]'
                     : entry.tone === 'growth'
@@ -55,7 +55,7 @@ export default function Timeline({ entries }: TimelineProps) {
               {/* Card */}
               <button
                 onClick={() => toggleExpand(entry.id)}
-                className="w-full text-left p-4 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
+                className="w-full text-left p-3 md:p-5 rounded-xl border transition-all duration-200 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--primary)]"
                 style={{
                   background: 'var(--card)',
                   borderColor: isExpanded ? 'var(--primary)' : 'var(--card-border)',
@@ -89,7 +89,7 @@ export default function Timeline({ entries }: TimelineProps) {
                       </div>
                     </div>
                     <h3
-                      className="text-lg font-bold mb-1"
+                      className="text-base md:text-lg font-bold mb-0.5 md:mb-1"
                       style={{ color: 'var(--foreground)' }}
                     >
                       {entry.title}
