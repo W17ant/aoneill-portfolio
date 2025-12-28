@@ -131,6 +131,7 @@ export default function MobileAboutCard() {
             className="mt-3 w-[300px] relative"
             style={{
               transformStyle: 'preserve-3d',
+              WebkitTransformStyle: 'preserve-3d',
               transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
               transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
             }}
@@ -144,6 +145,7 @@ export default function MobileAboutCard() {
               border: '1px solid rgba(255,255,255,.70)',
               boxShadow: '0 26px 60px rgba(0,0,0,.55), 0 1px 0 rgba(255,255,255,.55) inset',
               backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
             }}
           >
             {/* Top bar */}
@@ -251,6 +253,7 @@ export default function MobileAboutCard() {
               border: '1px solid rgba(255,255,255,.70)',
               boxShadow: '0 26px 60px rgba(0,0,0,.55), 0 1px 0 rgba(255,255,255,.55) inset',
               backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
               transform: 'rotateY(180deg)',
             }}
           >
