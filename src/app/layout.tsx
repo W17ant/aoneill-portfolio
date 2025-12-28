@@ -12,9 +12,7 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import SeasonalParticles from '@/components/seasonal/SeasonalParticles';
-import SummerSunshine from '@/components/seasonal/SummerSunshine';
 import HalloweenEffects from '@/components/seasonal/HalloweenEffects';
-import EasterEgg from '@/components/seasonal/EasterEgg';
 import './globals.css';
 
 /* ###########################################################
@@ -188,9 +186,7 @@ export default async function RootLayout({
         <ThemeProvider>
           {/* Seasonal decorations */}
           <SeasonalParticles />
-          <SummerSunshine />
           <HalloweenEffects />
-          <EasterEgg />
           <Navbar />
           {children}
           <Footer />

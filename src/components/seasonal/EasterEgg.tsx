@@ -18,11 +18,16 @@ export default function EasterEgg() {
     if (!isEaster()) return;
     setShow(true);
 
-    // Random position (avoiding edges)
-    setPosition({
-      x: Math.random() * 60 + 20,
-      y: Math.random() * 40 + 40,
-    });
+    // Position near edges so it peeks out from behind containers
+    const positions = [
+      { x: 5, y: 85 },   // Bottom left
+      { x: 92, y: 70 },  // Right side
+      { x: 3, y: 45 },   // Left side middle
+      { x: 88, y: 30 },  // Right side upper
+      { x: 50, y: 92 },  // Bottom center
+    ];
+    const randomPos = positions[Math.floor(Math.random() * positions.length)];
+    setPosition(randomPos);
 
     // Check if already found this session
     const wasFound = sessionStorage.getItem('easterEggFound');
@@ -51,7 +56,7 @@ export default function EasterEgg() {
         }
       `}</style>
       <div
-        className={`fixed z-40 cursor-pointer transition-all ${found ? 'pointer-events-none' : ''}`}
+        className={`fixed z-0 cursor-pointer transition-all ${found ? 'pointer-events-none' : ''}`}
         style={{
           left: `${position.x}%`,
           top: `${position.y}%`,

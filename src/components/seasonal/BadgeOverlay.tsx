@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   BADGE OVERLAY - Seasonal badge decorations         ###
    ###   Christmas hat, party hat, bunny ears, etc          ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 28-12-2025                           ###
    ########################################################### */
 
 'use client';
@@ -11,48 +11,67 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { getHoliday, type Holiday } from '@/lib/seasonal';
 
-interface BadgeOverlayProps {
-  size?: number;
-  className?: string;
-}
+// Per-holiday positioning
+const holidayStyles: Record<string, { top: string; right: string; rotate: string; size: number }> = {
+  christmas: { top: '-30px', right: '-50px', rotate: '17deg', size: 95 },
+  newyear: { top: '-80px', right: '-46px', rotate: '20deg', size: 105 },
+  stpatrick: { top: '-64px', right: '-33px', rotate: '17deg', size: 95 },
+  halloween: { top: '-66px', right: '-35px', rotate: '24deg', size: 100 },
+};
 
-export default function BadgeOverlay({ size = 95, className = '' }: BadgeOverlayProps) {
+export default function BadgeOverlay() {
   const [holiday, setHoliday] = useState<Holiday>(null);
 
   useEffect(() => {
     setHoliday(getHoliday());
   }, []);
 
-  if (!holiday) return null;
+  if (!holiday || !holidayStyles[holiday]) return null;
+
+  const style = holidayStyles[holiday];
+  const wrapperStyle = {
+    position: 'absolute' as const,
+    top: style.top,
+    right: style.right,
+    transform: `rotate(${style.rotate})`,
+    zIndex: 20,
+    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))',
+  };
 
   // Render the appropriate overlay based on holiday
   switch (holiday) {
     case 'christmas':
       return (
-        <Image
-          src="/images/christmas-hat.png"
-          alt="Christmas hat"
-          width={size}
-          height={size}
-          className={className}
-          style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
-        />
+        <div style={wrapperStyle}>
+          <Image
+            src="/images/christmas-hat.png"
+            alt="Christmas hat"
+            width={style.size}
+            height={style.size}
+          />
+        </div>
       );
 
     case 'newyear':
-      return <PartyHat size={size} className={className} />;
-
-    case 'valentine':
-      return <HeartAccessory size={size} className={className} />;
+      return (
+        <div style={wrapperStyle}>
+          <PartyHat size={style.size} />
+        </div>
+      );
 
     case 'stpatrick':
-      return <LeprechaunHat size={size} className={className} />;
-
-    case 'easter':
-      return <BunnyEars size={size} className={className} />;
+      return (
+        <div style={wrapperStyle}>
+          <LeprechaunHat size={style.size} />
+        </div>
+      );
 
     case 'halloween':
-      return <WitchHat size={size} className={className} />;
+      return (
+        <div style={wrapperStyle}>
+          <WitchHat size={style.size} />
+        </div>
+      );
 
     default:
       return null;
@@ -63,14 +82,12 @@ export default function BadgeOverlay({ size = 95, className = '' }: BadgeOverlay
    ###   SVG Accessories                                    ###
    ########################################################### */
 
-function PartyHat({ size, className }: { size: number; className: string }) {
+function PartyHat({ size }: { size: number }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      className={className}
-      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
     >
       {/* Party hat cone */}
       <path
@@ -78,18 +95,18 @@ function PartyHat({ size, className }: { size: number; className: string }) {
         fill="url(#partyGradient)"
       />
       {/* Stripes */}
-      <path d="M50 5 L40 45 L60 45 Z" fill="rgba(255,255,255,0.3)" />
-      <path d="M35 55 L65 55 L70 75 L30 75 Z" fill="rgba(255,255,255,0.2)" />
+      <path d="M50 5 L40 45 L60 45 Z" fill="rgba(255,255,255,0.25)" />
+      <path d="M35 55 L65 55 L70 75 L30 75 Z" fill="rgba(255,255,255,0.15)" />
       {/* Pom pom */}
       <circle cx="50" cy="8" r="8" fill="#FFD700" />
       <circle cx="48" cy="6" r="3" fill="#FFF8DC" opacity="0.6" />
       {/* Brim */}
-      <ellipse cx="50" cy="85" rx="28" ry="6" fill="#C0C0C0" />
+      <ellipse cx="50" cy="85" rx="28" ry="6" fill="#1d4ed8" />
       <defs>
         <linearGradient id="partyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#FFD700" />
-          <stop offset="50%" stopColor="#C0C0C0" />
-          <stop offset="100%" stopColor="#FFD700" />
+          <stop offset="0%" stopColor="#2563eb" />
+          <stop offset="50%" stopColor="#3b82f6" />
+          <stop offset="100%" stopColor="#2563eb" />
         </linearGradient>
       </defs>
     </svg>
@@ -131,14 +148,12 @@ function HeartAccessory({ size, className }: { size: number; className: string }
   );
 }
 
-function LeprechaunHat({ size, className }: { size: number; className: string }) {
+function LeprechaunHat({ size }: { size: number }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      className={className}
-      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
     >
       {/* Hat brim */}
       <ellipse cx="50" cy="78" rx="45" ry="10" fill="#1B5E20" />
@@ -185,14 +200,12 @@ function BunnyEars({ size, className }: { size: number; className: string }) {
   );
 }
 
-function WitchHat({ size, className }: { size: number; className: string }) {
+function WitchHat({ size }: { size: number }) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 100 100"
-      className={className}
-      style={{ filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))' }}
     >
       {/* Hat cone */}
       <path

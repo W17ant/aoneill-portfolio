@@ -15,10 +15,27 @@ export type Holiday =
   | null;
 
 /* ###########################################################
+   ###   Debug Override (for testing)                       ###
+   ########################################################### */
+
+function getOverride(): { holiday: Holiday; season: Season } | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const stored = localStorage.getItem('__seasonalDebug');
+    if (stored) return JSON.parse(stored);
+  } catch {}
+  return null;
+}
+
+/* ###########################################################
    ###   Season Detection                                   ###
    ########################################################### */
 
 export function getSeason(): Season {
+  // Check for debug override
+  const override = getOverride();
+  if (override) return override.season;
+
   const month = new Date().getMonth(); // 0-11
 
   if (month >= 2 && month <= 4) return 'spring';   // Mar-May
@@ -51,6 +68,10 @@ function getEasterDate(year: number): Date {
 }
 
 export function getHoliday(): Holiday {
+  // Check for debug override
+  const override = getOverride();
+  if (override) return override.holiday;
+
   const now = new Date();
   const month = now.getMonth();
   const day = now.getDate();
@@ -66,11 +87,6 @@ export function getHoliday(): Holiday {
     return 'christmas';
   }
 
-  // Christmas continues: Jan 3 - Jan 6
-  if (month === 0 && day >= 3 && day <= 6) {
-    return 'christmas';
-  }
-
   // Valentine's Day: Feb 10 - Feb 15
   if (month === 1 && day >= 10 && day <= 15) {
     return 'valentine';
@@ -81,15 +97,6 @@ export function getHoliday(): Holiday {
     return 'stpatrick';
   }
 
-  // Easter: Easter Sunday -3 days to +2 days
-  const easter = getEasterDate(year);
-  const easterStart = new Date(easter);
-  easterStart.setDate(easter.getDate() - 3);
-  const easterEnd = new Date(easter);
-  easterEnd.setDate(easter.getDate() + 2);
-  if (now >= easterStart && now <= easterEnd) {
-    return 'easter';
-  }
 
   // Halloween: Oct 20 - Nov 1
   if ((month === 9 && day >= 20) || (month === 10 && day <= 1)) {

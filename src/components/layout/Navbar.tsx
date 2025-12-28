@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   NAVBAR COMPONENT - Floating navigation with        ###
    ###   responsive mobile menu and theme toggle            ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 28-12-2025                           ###
    ########################################################### */
 
 'use client';
@@ -12,6 +12,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from '@/components/ui/ThemeToggle';
 import { Clock, FolderOpen, FlaskConical, Mail, User, type LucideIcon } from 'lucide-react';
+import { getHoliday } from '@/lib/seasonal';
+import NewYearCountdown from '@/components/seasonal/NewYearCountdown';
 
 /* ###########################################################
    ###   1. Navigation Configuration                        ###
@@ -39,6 +41,12 @@ const mobileOnlyLinks: NavLink[] = [
 export default function Navbar() {
   const pathname = usePathname();
   const [activeHash, setActiveHash] = useState('');
+  const [holiday, setHoliday] = useState<string | null>(null);
+
+  // Detect holiday for seasonal styling
+  useEffect(() => {
+    setHoliday(getHoliday());
+  }, []);
 
   // Clear active hash when navigating to a different page
   useEffect(() => {
@@ -52,6 +60,12 @@ export default function Navbar() {
     setActiveHash(hash);
   };
 
+  // St Patrick's Day green styling
+  const isStPatrick = holiday === 'stpatrick';
+  const navActiveColor = isStPatrick
+    ? '#2E7D32' // Muted sage green for active nav items
+    : 'var(--primary)';
+
   return (
     <nav
       className="fixed top-4 left-4 right-4 md:sticky md:left-auto md:right-auto md:mx-6 z-50 px-4 py-3 rounded-[14px] backdrop-blur-[20px] saturate-[1.2] border flex items-center justify-between gap-4"
@@ -61,15 +75,18 @@ export default function Navbar() {
         boxShadow: 'var(--shadow-sm)',
       }}
     >
-      {/* Brand - Monogram */}
-      <Link href="/" className="flex items-center">
-        <img
-          src="/images/monogram-transparent-background.png"
-          alt="Antony O'Neill"
-          className="h-8 w-auto"
-          style={{ filter: 'var(--monogram-filter)' }}
-        />
-      </Link>
+      {/* Brand - Monogram + NYE Countdown */}
+      <div className="flex items-center gap-3">
+        <Link href="/" className="flex items-center">
+          <img
+            src="/images/monogram-transparent-background.png"
+            alt="Antony O'Neill"
+            className="h-8 w-auto"
+            style={{ filter: 'var(--monogram-filter)' }}
+          />
+        </Link>
+        <NewYearCountdown />
+      </div>
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center gap-1">
@@ -89,7 +106,7 @@ export default function Navbar() {
             activeHash === '#about' ? 'px-3 py-2' : 'px-2.5 py-2'
           }`}
           style={{
-            background: activeHash === '#about' ? 'var(--primary)' : 'transparent',
+            background: activeHash === '#about' ? navActiveColor : 'transparent',
             color: activeHash === '#about' ? 'white' : 'var(--ink-secondary)',
           }}
         >
@@ -119,7 +136,7 @@ export default function Navbar() {
                 isActive ? 'px-3 py-2' : 'px-2.5 py-2'
               }`}
               style={{
-                background: isActive ? 'var(--primary)' : 'transparent',
+                background: isActive ? navActiveColor : 'transparent',
                 color: isActive ? 'white' : 'var(--ink-secondary)',
               }}
             >
@@ -211,7 +228,7 @@ export default function Navbar() {
                 isActive ? 'px-3 py-2' : 'px-2.5 py-2'
               }`}
               style={{
-                background: isActive ? 'var(--primary)' : 'transparent',
+                background: isActive ? navActiveColor : 'transparent',
                 color: isActive ? 'white' : 'var(--ink-secondary)',
               }}
             >

@@ -126,10 +126,7 @@ export default function MobileAboutCard() {
             }}
           >
           {/* Seasonal badge overlay */}
-          <BadgeOverlay
-            size={95}
-            className="absolute -top-[30px] -right-[50px] z-20 rotate-[17deg]"
-          />
+          <BadgeOverlay />
           {/* FRONT SIDE - Profile */}
           <div
             className="w-full rounded-[18px] overflow-hidden"

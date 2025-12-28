@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   SEASONAL PARTICLES - Unified particle effects      ###
    ###   Snowfall, hearts, shamrocks, leaves, confetti      ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 28-12-2025                           ###
    ########################################################### */
 
 'use client';
@@ -30,7 +30,7 @@ interface Particle {
   color?: string;
 }
 
-type ParticleType = 'snow' | 'hearts' | 'shamrocks' | 'leaves' | 'confetti' | 'none';
+type ParticleType = 'snow' | 'hearts' | 'shamrocks' | 'leaves' | 'confetti' | 'ghosts' | 'none';
 
 function getParticleType(holiday: Holiday, season: Season): ParticleType {
   // Holiday-specific particles
@@ -39,24 +39,17 @@ function getParticleType(holiday: Holiday, season: Season): ParticleType {
     case 'newyear':
       return holiday === 'newyear' ? 'confetti' : 'snow';
     case 'valentine':
-      return 'hearts';
+      return 'none';
     case 'stpatrick':
-      return 'shamrocks';
+      return 'none'; // Just hat, no particles
     case 'halloween':
-      return 'none'; // Halloween has different effects
+      return 'none'; // Just hat + spider webs/bats
     case 'easter':
       return 'none'; // Easter uses pastel theme instead
   }
 
-  // Season-specific particles
-  switch (season) {
-    case 'winter':
-      return 'snow';
-    case 'autumn':
-      return 'leaves';
-    default:
-      return 'none';
-  }
+  // No season-specific particles (winter snow handled by christmas holiday)
+  return 'none';
 }
 
 /* ###########################################################
@@ -86,20 +79,26 @@ function HeartShape({ size, opacity, color }: { size: number; opacity: number; c
   );
 }
 
-function ShamrockShape({ size, opacity, color }: { size: number; opacity: number; color: string }) {
+function FourLeafClover({ size, opacity, color }: { size: number; opacity: number; color: string }) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 100 100"
       fill={color}
       style={{ opacity }}
     >
-      <path d="M12 2C9.5 2 7.5 4 7.5 6.5c0 1.5.7 2.8 1.8 3.7C7.3 10.9 6 12.7 6 15c0 2.8 2.2 5 5 5h2c2.8 0 5-2.2 5-5 0-2.3-1.3-4.1-3.3-4.8 1.1-.9 1.8-2.2 1.8-3.7C16.5 4 14.5 2 12 2zm0 2c1.4 0 2.5 1.1 2.5 2.5S13.4 9 12 9 9.5 7.9 9.5 6.5 10.6 4 12 4zm-3 8c0-.6.1-1.1.3-1.6.8.4 1.7.6 2.7.6s1.9-.2 2.7-.6c.2.5.3 1 .3 1.6 0 1.7-1.3 3-3 3s-3-1.3-3-3z" />
-      <circle cx="8" cy="9" r="3" />
-      <circle cx="16" cy="9" r="3" />
-      <circle cx="12" cy="6" r="3" />
-      <rect x="11" y="14" width="2" height="8" rx="1" />
+      {/* Four heart-shaped leaves */}
+      {/* Top leaf */}
+      <path d="M50 10 C50 10 35 10 35 25 C35 35 50 45 50 45 C50 45 65 35 65 25 C65 10 50 10 50 10" />
+      {/* Bottom leaf */}
+      <path d="M50 90 C50 90 35 90 35 75 C35 65 50 55 50 55 C50 55 65 65 65 75 C65 90 50 90 50 90" />
+      {/* Left leaf */}
+      <path d="M10 50 C10 50 10 35 25 35 C35 35 45 50 45 50 C45 50 35 65 25 65 C10 65 10 50 10 50" />
+      {/* Right leaf */}
+      <path d="M90 50 C90 50 90 35 75 35 C65 35 55 50 55 50 C55 50 65 65 75 65 C90 65 90 50 90 50" />
+      {/* Stem */}
+      <rect x="47" y="55" width="6" height="30" rx="3" fill={color} />
     </svg>
   );
 }
@@ -133,6 +132,28 @@ function ConfettiShape({ size, opacity, color, rotation }: { size: number; opaci
   );
 }
 
+function GhostShape({ size, opacity }: { size: number; opacity: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 100 100"
+      style={{ opacity }}
+    >
+      {/* Ghost body */}
+      <path
+        d="M50 10 C25 10 15 35 15 55 L15 85 L25 75 L35 85 L45 75 L55 85 L65 75 L75 85 L85 75 L85 55 C85 35 75 10 50 10"
+        fill="rgba(255,255,255,0.9)"
+      />
+      {/* Eyes */}
+      <ellipse cx="38" cy="45" rx="8" ry="10" fill="#1a1a1a" />
+      <ellipse cx="62" cy="45" rx="8" ry="10" fill="#1a1a1a" />
+      {/* Mouth */}
+      <ellipse cx="50" cy="65" rx="10" ry="8" fill="#1a1a1a" />
+    </svg>
+  );
+}
+
 /* ###########################################################
    ###   Main Component                                     ###
    ########################################################### */
@@ -140,6 +161,22 @@ function ConfettiShape({ size, opacity, color, rotation }: { size: number; opaci
 export default function SeasonalParticles() {
   const [particles, setParticles] = useState<Particle[]>([]);
   const [particleType, setParticleType] = useState<ParticleType>('none');
+  const [visible, setVisible] = useState(true);
+
+  // Track scroll position to hide particles past hero
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const heroHeight = window.innerHeight;
+      // Fade out by 80% of hero height
+      setVisible(scrollY < heroHeight * 0.8);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const holiday = getHoliday();
@@ -149,7 +186,7 @@ export default function SeasonalParticles() {
 
     if (type === 'none') return;
 
-    const count = type === 'confetti' ? 80 : 50;
+    const count = type === 'confetti' ? 80 : type === 'ghosts' ? 25 : 50;
     const colors = getColors(type);
 
     const newParticles = Array.from({ length: count }, (_, i) => ({
@@ -173,7 +210,10 @@ export default function SeasonalParticles() {
   return (
     <>
       <style>{animation}</style>
-      <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
+      <div
+        className="fixed inset-0 pointer-events-none z-30 overflow-hidden transition-opacity duration-700"
+        style={{ opacity: visible ? 1 : 0 }}
+      >
         {particles.map((particle) => (
           <div
             key={particle.id}
@@ -181,7 +221,11 @@ export default function SeasonalParticles() {
             style={{
               left: `${particle.x}%`,
               top: -20,
-              animation: `${particleType}-fall ${particle.duration}s linear ${particle.delay}s infinite`,
+              animationName: `${particleType}-fall`,
+              animationDuration: `${particle.duration}s`,
+              animationTimingFunction: 'linear',
+              animationDelay: `${particle.delay}s`,
+              animationIterationCount: 'infinite',
             }}
           >
             {renderParticle(particleType, particle)}
@@ -203,6 +247,7 @@ function getSize(type: ParticleType): number {
     case 'shamrocks': return Math.random() * 14 + 12;
     case 'leaves': return Math.random() * 16 + 14;
     case 'confetti': return Math.random() * 6 + 4;
+    case 'ghosts': return Math.random() * 20 + 20;
     default: return 4;
   }
 }
@@ -214,6 +259,7 @@ function getDuration(type: ParticleType): number {
     case 'shamrocks': return Math.random() * 10 + 8;
     case 'leaves': return Math.random() * 12 + 10;
     case 'confetti': return Math.random() * 6 + 4;
+    case 'ghosts': return Math.random() * 12 + 12;
     default: return 10;
   }
 }
@@ -225,11 +271,42 @@ function getColors(type: ParticleType): string[] {
     case 'shamrocks': return ['#009A44', '#2E7D32', '#4CAF50', '#81C784'];
     case 'leaves': return ['#FF8A65', '#FF7043', '#A1887F', '#FFB74D', '#D84315'];
     case 'confetti': return ['#FFD700', '#C0C0C0', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+    case 'ghosts': return ['#ffffff'];
     default: return ['#ffffff'];
   }
 }
 
 function getAnimation(type: ParticleType): string {
+  if (type === 'ghosts') {
+    return `
+      @keyframes ghosts-fall {
+        0% {
+          transform: translateY(-20px) translateX(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: var(--particle-opacity, 0.6);
+        }
+        25% {
+          transform: translateY(25vh) translateX(30px);
+        }
+        50% {
+          transform: translateY(50vh) translateX(-30px);
+        }
+        75% {
+          transform: translateY(75vh) translateX(30px);
+        }
+        90% {
+          opacity: var(--particle-opacity, 0.6);
+        }
+        100% {
+          transform: translateY(100vh) translateX(0);
+          opacity: 0;
+        }
+      }
+    `;
+  }
+
   const sway = type === 'leaves' ? 'translateX(100px)' : 'translateX(20px)';
   const spin = type === 'leaves' || type === 'confetti' ? 'rotate(720deg)' : 'rotate(360deg)';
 
@@ -263,11 +340,13 @@ function renderParticle(type: ParticleType, particle: Particle) {
     case 'hearts':
       return <HeartShape size={particle.size} opacity={particle.opacity} color={particle.color!} />;
     case 'shamrocks':
-      return <ShamrockShape size={particle.size} opacity={particle.opacity} color={particle.color!} />;
+      return <FourLeafClover size={particle.size} opacity={particle.opacity} color={particle.color!} />;
     case 'leaves':
       return <LeafShape size={particle.size} opacity={particle.opacity} color={particle.color!} rotation={particle.rotation!} />;
     case 'confetti':
       return <ConfettiShape size={particle.size} opacity={particle.opacity} color={particle.color!} rotation={particle.rotation!} />;
+    case 'ghosts':
+      return <GhostShape size={particle.size} opacity={particle.opacity} />;
     default:
       return null;
   }
