@@ -362,7 +362,7 @@ const makes: Make[] = [
   {
     slug: 'thingiverse',
     title: 'Thingiverse Designs',
-    description: '11 3D printable designs including electronics enclosures, tools, and functional prints.',
+    description: '3D printable designs including electronics enclosures, tools, and functional prints.',
     icon: 'Printer',
     tags: ['3D Printing', 'CAD', 'Maker'],
     url: 'https://www.thingiverse.com/BIGT1987/designs',
