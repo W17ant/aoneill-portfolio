@@ -1,10 +1,10 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   EXPERIMENT ICON - Maps icon names to Lucide SVGs   ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   Last Updated: 30-12-2024                           ###
    ########################################################### */
 
-import { IdCard, Terminal, Magnet, Brain, GitBranch, KeyRound, ScanFace, Network, type LucideIcon } from 'lucide-react';
+import { IdCard, Terminal, Magnet, Brain, GitBranch, KeyRound, ScanFace, Network, Printer, type LucideIcon } from 'lucide-react';
 
 /* ###########################################################
    ###   1. Icon Mapping                                    ###
@@ -19,6 +19,7 @@ const iconMap: Record<string, LucideIcon> = {
   KeyRound,
   ScanFace,
   Network,
+  Printer,
 };
 
 /* ###########################################################

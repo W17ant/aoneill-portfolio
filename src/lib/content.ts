@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   CONTENT LIBRARY - Data management for timeline,    ###
    ###   projects, and lab experiments                      ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   Last Updated: 30-12-2024                           ###
    ########################################################### */
 
 /**
@@ -50,6 +50,16 @@ export interface Experiment {
   component?: string;
   explores?: string;
   principles?: string[];
+}
+
+export interface Make {
+  slug: string;
+  title: string;
+  description: string;
+  icon: string;
+  tags: string[];
+  url: string;
+  platform: 'thingiverse' | 'printables' | 'github';
 }
 
 /* ###########################################################
@@ -345,7 +355,23 @@ const experiments: Experiment[] = [
 ];
 
 /* ###########################################################
-   ###   5. Content Accessor Functions                      ###
+   ###   5. Makes Data                                      ###
+   ########################################################### */
+
+const makes: Make[] = [
+  {
+    slug: '30-days-case',
+    title: '30 Days Lost in Space Case',
+    description: 'All-in-one 3D printed enclosure for HERO board, keypad, and breadboard.',
+    icon: 'Printer',
+    tags: ['3D Printing', 'Arduino', 'Electronics'],
+    url: 'https://www.thingiverse.com/thing:6417016',
+    platform: 'thingiverse',
+  },
+];
+
+/* ###########################################################
+   ###   6. Content Accessor Functions                      ###
    ########################################################### */
 
 export async function getTimeline(): Promise<TimelineEntry[]> {
@@ -376,4 +402,8 @@ export async function getExperiments(): Promise<Experiment[]> {
 
 export async function getExperimentBySlug(slug: string): Promise<Experiment | undefined> {
   return experiments.find((e) => e.slug === slug);
+}
+
+export async function getMakes(): Promise<Make[]> {
+  return makes;
 }

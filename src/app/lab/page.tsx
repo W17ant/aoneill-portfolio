@@ -2,12 +2,13 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   LAB PAGE - Interactive experiments showcase        ###
    ###   featuring physics, AI/ML, and creative coding      ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 30-12-2024                           ###
    ########################################################### */
 
-import { getExperiments } from '@/lib/content';
+import { getExperiments, getMakes } from '@/lib/content';
 import Link from 'next/link';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
+import { ExternalLink } from 'lucide-react';
 
 /* ###########################################################
    ###   1. SEO Metadata                                    ###
@@ -33,6 +34,7 @@ export const metadata = {
 
 export default async function LabPage() {
   const experiments = await getExperiments();
+  const makes = await getMakes();
 
   return (
     <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
@@ -47,38 +49,88 @@ export default async function LabPage() {
           </p>
         </header>
 
-        <div className="grid gap-6 sm:grid-cols-2">
-          {experiments.map((exp) => (
-            <Link
-              key={exp.slug}
-              href={`/lab/${exp.slug}`}
-              className="card card-interactive group p-6"
-            >
-              <div
-                className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4"
-                style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+        {/* Experiments Section */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--ink)' }}>
+            Experiments
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {experiments.map((exp) => (
+              <Link
+                key={exp.slug}
+                href={`/lab/${exp.slug}`}
+                className="card card-interactive group p-6"
               >
-                <ExperimentIcon name={exp.icon} size={24} />
-              </div>
-              <h2
-                className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
-                style={{ color: 'var(--ink)' }}
-              >
-                {exp.title}
-              </h2>
-              <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
-                {exp.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {exp.tags.map((tag) => (
-                  <span key={tag} className="tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </Link>
-          ))}
-        </div>
+                <div
+                  className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4"
+                  style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+                >
+                  <ExperimentIcon name={exp.icon} size={24} />
+                </div>
+                <h3
+                  className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
+                  style={{ color: 'var(--ink)' }}
+                >
+                  {exp.title}
+                </h3>
+                <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                  {exp.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {exp.tags.map((tag) => (
+                    <span key={tag} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Makes Section */}
+        {makes.length > 0 && (
+          <section>
+            <h2 className="text-2xl font-semibold mb-6" style={{ color: 'var(--ink)' }}>
+              Makes
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {makes.map((make) => (
+                <a
+                  key={make.slug}
+                  href={make.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="card card-interactive group p-6"
+                >
+                  <div
+                    className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4"
+                    style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+                  >
+                    <ExperimentIcon name={make.icon} size={24} />
+                  </div>
+                  <h3
+                    className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors flex items-center gap-2"
+                    style={{ color: 'var(--ink)' }}
+                  >
+                    {make.title}
+                    <ExternalLink size={16} style={{ color: 'var(--ink-tertiary)' }} />
+                  </h3>
+                  <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                    {make.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {make.tags.map((tag) => (
+                      <span key={tag} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </main>
   );
