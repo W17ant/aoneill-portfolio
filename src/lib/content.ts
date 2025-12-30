@@ -360,12 +360,12 @@ const experiments: Experiment[] = [
 
 const makes: Make[] = [
   {
-    slug: '30-days-case',
-    title: '30 Days Lost in Space Case',
-    description: 'All-in-one 3D printed enclosure for HERO board, keypad, and breadboard.',
+    slug: 'thingiverse',
+    title: 'Thingiverse Designs',
+    description: '11 3D printable designs including electronics enclosures, tools, and functional prints.',
     icon: 'Printer',
-    tags: ['3D Printing', 'Arduino', 'Electronics'],
-    url: 'https://www.thingiverse.com/thing:6417016',
+    tags: ['3D Printing', 'CAD', 'Maker'],
+    url: 'https://www.thingiverse.com/BIGT1987/designs',
     platform: 'thingiverse',
   },
 ];
