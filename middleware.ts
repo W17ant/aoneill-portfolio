@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: blob: https:;
     font-src 'self' data:;
-    connect-src 'self' https://www.googleapis.com https://pagespeedonline.googleapis.com;
+    connect-src 'self' https://www.googleapis.com https://pagespeedonline.googleapis.com https://api.github.com;
     frame-ancestors 'none';
     base-uri 'self';
     form-action 'self';
