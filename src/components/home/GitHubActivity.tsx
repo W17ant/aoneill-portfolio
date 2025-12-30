@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   GITHUB ACTIVITY - Recent commits/activity widget   ###
    ###   Fetches and displays recent GitHub activity        ###
-   ###   Last Updated: 30-12-2024                           ###
+   ###   Last Updated: 30-12-2024 (+ contributions graph)   ###
    ########################################################### */
 
 'use client';
@@ -43,6 +43,21 @@ interface RepoInfo {
   updated_at: string;
 }
 
+interface ContributionDay {
+  contributionCount: number;
+  date: string;
+  weekday: number;
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
+interface ContributionsData {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+}
+
 /* ###########################################################
    ###   2. Configuration                                   ###
    ########################################################### */
@@ -58,9 +73,10 @@ const MAX_REPOS = 3;
 export default function GitHubActivity() {
   const [events, setEvents] = useState<GitHubEvent[]>([]);
   const [repos, setRepos] = useState<RepoInfo[]>([]);
+  const [contributions, setContributions] = useState<ContributionsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'activity' | 'repos'>('activity');
+  const [activeTab, setActiveTab] = useState<'contributions' | 'activity' | 'repos'>('contributions');
 
   useEffect(() => {
     async function fetchGitHubData() {
@@ -68,10 +84,11 @@ export default function GitHubActivity() {
         setLoading(true);
         setError(null);
 
-        // Fetch recent events and repos in parallel
-        const [eventsRes, reposRes] = await Promise.all([
+        // Fetch recent events, repos, and contributions in parallel
+        const [eventsRes, reposRes, contributionsRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=30`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=10`),
+          fetch('/api/github/contributions'),
         ]);
 
         if (!eventsRes.ok || !reposRes.ok) {
@@ -80,6 +97,12 @@ export default function GitHubActivity() {
 
         const eventsData = await eventsRes.json();
         const reposData = await reposRes.json();
+
+        // Contributions may fail if token not configured - that's ok
+        if (contributionsRes.ok) {
+          const contributionsData = await contributionsRes.json();
+          setContributions(contributionsData);
+        }
 
         // Filter for meaningful events (pushes, creates, stars)
         const filteredEvents = eventsData
@@ -231,6 +254,19 @@ export default function GitHubActivity() {
 
         {/* Tabs */}
         <div className="flex gap-4 mt-3">
+          {contributions && (
+            <button
+              onClick={() => setActiveTab('contributions')}
+              className={`text-xs font-medium pb-1 border-b-2 transition-colors ${
+                activeTab === 'contributions'
+                  ? 'border-current'
+                  : 'border-transparent opacity-60 hover:opacity-80'
+              }`}
+              style={{ color: activeTab === 'contributions' ? 'var(--link)' : 'var(--ink-secondary)' }}
+            >
+              Contributions
+            </button>
+          )}
           <button
             onClick={() => setActiveTab('activity')}
             className={`text-xs font-medium pb-1 border-b-2 transition-colors ${
@@ -258,7 +294,7 @@ export default function GitHubActivity() {
 
       {/* Content */}
       <div className="p-4">
-        {activeTab === 'activity' ? (
+        {activeTab === 'activity' && (
           <div className="space-y-3">
             {events.length === 0 ? (
               <p className="text-sm" style={{ color: 'var(--ink-muted)' }}>No recent activity</p>
@@ -290,7 +326,9 @@ export default function GitHubActivity() {
               ))
             )}
           </div>
-        ) : (
+        )}
+
+        {activeTab === 'repos' && (
           <div className="space-y-3">
             {repos.map((repo) => (
               <a
@@ -339,6 +377,132 @@ export default function GitHubActivity() {
                 )}
               </a>
             ))}
+          </div>
+        )}
+
+        {activeTab === 'contributions' && contributions && (
+          <div>
+            {/* Total contributions */}
+            <div className="mb-3">
+              <span className="text-sm" style={{ color: 'var(--ink-muted)' }}>
+                <span className="font-semibold" style={{ color: 'var(--ink)' }}>
+                  {contributions.totalContributions}
+                </span>
+                {' '}contributions in the last year
+              </span>
+            </div>
+
+            {/* Contribution Graph - GitHub Style */}
+            <div className="overflow-x-auto pb-2">
+              <div className="w-full">
+                {/* Month labels */}
+                <div className="flex mb-1 justify-between" style={{ marginLeft: '28px' }}>
+                  {(() => {
+                    const months: { label: string; col: number }[] = [];
+                    let lastMonth = -1;
+                    contributions.weeks.forEach((week, i) => {
+                      const firstDay = week.contributionDays[0];
+                      if (firstDay) {
+                        const month = new Date(firstDay.date).getMonth();
+                        if (month !== lastMonth) {
+                          months.push({
+                            label: new Date(firstDay.date).toLocaleDateString('en-US', { month: 'short' }),
+                            col: i,
+                          });
+                          lastMonth = month;
+                        }
+                      }
+                    });
+                    return months.map((m, i) => (
+                      <span
+                        key={i}
+                        className="text-[10px] flex-1"
+                        style={{ color: 'var(--ink-muted)' }}
+                      >
+                        {m.label}
+                      </span>
+                    ));
+                  })()}
+                </div>
+
+                {/* Graph with day labels */}
+                <div className="flex">
+                  {/* Day labels */}
+                  <div className="flex flex-col mr-1 justify-between" style={{ height: '88px' }}>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)', opacity: 0 }}>S</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)' }}>Mon</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)', opacity: 0 }}>T</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)' }}>Wed</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)', opacity: 0 }}>T</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)' }}>Fri</span>
+                    <span className="text-[10px] h-[11px]" style={{ color: 'var(--ink-muted)', opacity: 0 }}>S</span>
+                  </div>
+
+                  {/* Contribution squares */}
+                  <div className="flex gap-[3px]">
+                    {contributions.weeks.map((week, weekIndex) => (
+                      <div key={weekIndex} className="flex flex-col gap-[3px]">
+                        {week.contributionDays.map((day, dayIndex) => {
+                          const level = day.contributionCount === 0 ? 0
+                            : day.contributionCount <= 3 ? 1
+                            : day.contributionCount <= 6 ? 2
+                            : day.contributionCount <= 9 ? 3
+                            : 4;
+                          const colors = [
+                            '#161b22',
+                            '#0e4429',
+                            '#006d32',
+                            '#26a641',
+                            '#39d353',
+                          ];
+                          return (
+                            <div
+                              key={dayIndex}
+                              className="w-[11px] h-[11px] rounded-sm"
+                              style={{
+                                background: colors[level],
+                                outline: '1px solid rgba(27, 31, 35, 0.06)',
+                              }}
+                              title={`${new Date(day.date).toLocaleDateString('en-US', {
+                                weekday: 'long',
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric'
+                              })}: ${day.contributionCount} contribution${day.contributionCount !== 1 ? 's' : ''}`}
+                            />
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Legend */}
+            <div className="flex items-center justify-end gap-1 mt-2 text-[10px]" style={{ color: 'var(--ink-muted)' }}>
+              <span>Less</span>
+              {[0, 1, 2, 3, 4].map((level) => {
+                const colors = [
+                  '#161b22',
+                  '#0e4429',
+                  '#006d32',
+                  '#26a641',
+                  '#39d353',
+                ];
+                return (
+                  <div
+                    key={level}
+                    className="w-[10px] h-[10px] rounded-sm"
+                    style={{
+                      background: colors[level],
+                      outline: '1px solid rgba(27, 31, 35, 0.06)',
+                    }}
+                  />
+                );
+              })}
+              <span>More</span>
+            </div>
           </div>
         )}
       </div>

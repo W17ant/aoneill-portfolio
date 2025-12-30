@@ -205,9 +205,7 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <div className="max-w-md">
-            <GitHubActivity />
-          </div>
+          <GitHubActivity />
         </div>
       </section>
 
