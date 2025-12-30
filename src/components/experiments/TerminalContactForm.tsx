@@ -110,23 +110,35 @@ export default function TerminalContactForm() {
 
   // Initialize terminal with welcome messages
   useEffect(() => {
+    let cancelled = false;
+
     const init = async () => {
       await delay(300);
+      if (cancelled) return;
       addOutput('System initialized...', 'text-white/50');
       await delay(400);
+      if (cancelled) return;
       addOutput('Loading contact module...', 'text-white/50');
       await delay(300);
+      if (cancelled) return;
       addOutput('✓ Contact form ready', 'text-green-400');
       await delay(200);
+      if (cancelled) return;
       addOutput('─'.repeat(35), 'text-white/50');
       await delay(300);
+      if (cancelled) return;
       addOutput('Welcome! Please fill out the contact form below.', 'text-amber-400');
       addOutput('Type your responses and press Enter to continue.', 'text-white/50');
       addOutput('─'.repeat(35), 'text-white/50');
       await delay(200);
+      if (cancelled) return;
       setCurrentStep(0);
     };
     init();
+
+    return () => {
+      cancelled = true;
+    };
   }, [addOutput]);
 
   // Prompt current step
@@ -344,22 +356,29 @@ export default function TerminalContactForm() {
         />
 
         {/* ASCII Art - hidden on small screens */}
-        <pre className="hidden sm:block text-[10px] leading-tight text-[#00ff41] opacity-80 mb-4">
-{`   ______            __             __     ______
-  / ____/___  ____  / /_____ ______/ /_   / ____/___  _________ ___
- / /   / __ \\/ __ \\/ __/ __ \`/ ___/ __/  / /_  / __ \\/ ___/ __ \`__ \\
-/ /___/ /_/ / / / / /_/ /_/ / /__/ /_   / __/ / /_/ / /  / / / / / /
-\\____/\\____/_/ /_/\\__/\\__,_/\\___/\\__/  /_/    \\____/_/  /_/ /_/ /_/  `}
-        </pre>
+        <div className="hidden sm:block mb-4">
+          <pre className="text-[9px] leading-tight text-[#00ff41] opacity-80">
+{` █████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗
+██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║
+███████║██║   ██║██╔██╗ ██║█████╗  ██║██║     ██║
+██╔══██║██║   ██║██║╚██╗██║██╔══╝  ██║██║     ██║
+██║  ██║╚██████╔╝██║ ╚████║███████╗██║███████╗███████╗
+╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝╚══════╝╚══════╝`}
+          </pre>
+          <div className="text-[11px] text-cyan-400 tracking-[0.3em] mt-1 ml-1">CONTACT FORM</div>
+        </div>
         {/* Mobile ASCII - simplified */}
-        <pre className="block sm:hidden text-[8px] leading-tight text-[#00ff41] opacity-80 mb-3">
-{`  _____         _           _
- / ____|       | |         | |
-| |     ___  __| | ___ __ _| |_
-| |    / _ \\/ _\` |/ __/ _\` | __|
-| |___| (_) | (_| | (_| (_| | |_
- \\_____\\___/\\__,_|\\___\\__,_|\\__|`}
-        </pre>
+        <div className="block sm:hidden mb-3">
+          <pre className="text-[7px] leading-tight text-[#00ff41] opacity-80">
+{`█████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗
+██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║
+███████║██║   ██║██╔██╗ ██║█████╗  ██║██║     ██║
+██╔══██║██║   ██║██║╚██╗██║██╔══╝  ██║██║     ██║
+██║  ██║╚██████╔╝██║ ╚████║███████╗██║███████╗███████╗
+╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝╚══════╝╚══════╝`}
+          </pre>
+          <div className="text-[9px] text-cyan-400 tracking-[0.2em] mt-1">CONTACT FORM</div>
+        </div>
 
         {/* Output */}
         {output.map((line, i) => (

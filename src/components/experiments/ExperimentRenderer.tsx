@@ -44,6 +44,11 @@ const PasswordStrength = dynamic(() => import('./PasswordStrength'), {
   loading: () => <ExperimentPlaceholder name="Password Strength" />,
 });
 
+const BotDetector = dynamic(() => import('./BotDetector'), {
+  ssr: false,
+  loading: () => <ExperimentPlaceholder name="Bot Detector" />,
+});
+
 /* ###########################################################
    ###   2. Helper Components                               ###
    ########################################################### */
@@ -93,6 +98,8 @@ export default function ExperimentRenderer({ slug }: ExperimentRendererProps) {
       return <CICDPipeline />;
     case 'password-strength':
       return <PasswordStrength />;
+    case 'bot-detector':
+      return <BotDetector />;
     default:
       return (
         <div

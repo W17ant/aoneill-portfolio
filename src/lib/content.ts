@@ -310,6 +310,22 @@ const experiments: Experiment[] = [
       'Secure password generation',
     ],
   },
+  {
+    slug: 'bot-detector',
+    title: 'Bot Detector',
+    description: 'ML-powered analysis of mouse movements and behavior to detect bots.',
+    icon: 'ScanFace',
+    tags: ['AI', 'Security', 'ML'],
+    component: 'BotDetector',
+    explores:
+      'Real-time behavioral biometrics using a neural network trained to distinguish human mouse patterns from bot automation.',
+    principles: [
+      'Behavioral biometrics analysis',
+      'Neural network classification',
+      'Feature extraction from movement data',
+      'Real-time anomaly detection',
+    ],
+  },
 ];
 
 /* ###########################################################
