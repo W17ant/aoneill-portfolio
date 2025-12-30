@@ -165,7 +165,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-[var(--radius-sm)] transition-colors duration-150 hover:bg-[rgba(255,255,255,0.04)]"
-            aria-label="GitHub"
+            aria-label="GitHub profile (opens in new tab)"
           >
             <svg
               width="16"
@@ -182,7 +182,7 @@ export default function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-[var(--radius-sm)] transition-colors duration-150 hover:bg-[rgba(255,255,255,0.04)]"
-            aria-label="LinkedIn"
+            aria-label="LinkedIn profile (opens in new tab)"
           >
             <svg
               width="16"

@@ -326,6 +326,22 @@ const experiments: Experiment[] = [
       'Real-time anomaly detection',
     ],
   },
+  {
+    slug: 'dependency-graph',
+    title: 'Dependency Graph',
+    description: 'Visualize npm package dependencies as an interactive force-directed graph.',
+    icon: 'Network',
+    tags: ['Visualization', 'GitHub API', 'Canvas'],
+    component: 'DependencyGraph',
+    explores:
+      'Force-directed graph visualization with physics simulation. Fetch package.json from any GitHub repo to explore its dependency tree.',
+    principles: [
+      'Force-directed graph layout algorithm',
+      'Canvas rendering with physics simulation',
+      'GitHub API integration',
+      'Interactive drag and zoom controls',
+    ],
+  },
 ];
 
 /* ###########################################################

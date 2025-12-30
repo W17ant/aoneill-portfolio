@@ -54,7 +54,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-[var(--radius-sm)] transition-all hover:bg-white/5"
-                aria-label="GitHub"
+                aria-label="GitHub profile (opens in new tab)"
               >
                 <svg
                   width="18"
@@ -71,7 +71,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-[var(--radius-sm)] transition-all hover:bg-white/5"
-                aria-label="LinkedIn"
+                aria-label="LinkedIn profile (opens in new tab)"
               >
                 <svg
                   width="18"

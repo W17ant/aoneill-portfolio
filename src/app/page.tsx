@@ -13,6 +13,7 @@ import HeroWithLanyard from '@/components/home/HeroWithLanyard';
 import MobileAboutCard from '@/components/home/MobileAboutCard';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
 import EmailButton from '@/components/ui/EmailButton';
+import GitHubActivity from '@/components/home/GitHubActivity';
 
 /* ###########################################################
    ###   1. Page Component                                  ###
@@ -186,6 +187,27 @@ export default async function HomePage() {
           >
             View all projects &rarr;
           </Link>
+        </div>
+      </section>
+
+      {/* =====================================================
+          GITHUB ACTIVITY - Recent commits and repositories
+          ===================================================== */}
+      <section className="py-24 md:py-32" style={{ background: 'var(--bg-base)' }}>
+        <div className="max-w-4xl mx-auto px-5">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-3xl font-semibold mb-2 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
+                Open Source
+              </h2>
+              <p style={{ color: 'var(--ink-secondary)' }}>
+                Recent activity and contributions.
+              </p>
+            </div>
+          </div>
+          <div className="max-w-md">
+            <GitHubActivity />
+          </div>
         </div>
       </section>
 

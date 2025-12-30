@@ -138,6 +138,7 @@ export default function Timeline({ entries }: TimelineProps) {
                   boxShadow: isExpanded ? '0 8px 24px var(--card-shadow)' : undefined,
                 }}
                 aria-expanded={isExpanded}
+                aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${entry.title} - ${entry.date}`}
               >
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3">

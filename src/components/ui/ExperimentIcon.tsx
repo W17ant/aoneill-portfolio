@@ -4,7 +4,7 @@
    ###   Last Updated: 27-12-2024                           ###
    ########################################################### */
 
-import { IdCard, Terminal, Magnet, Brain, GitBranch, KeyRound, ScanFace, type LucideIcon } from 'lucide-react';
+import { IdCard, Terminal, Magnet, Brain, GitBranch, KeyRound, ScanFace, Network, type LucideIcon } from 'lucide-react';
 
 /* ###########################################################
    ###   1. Icon Mapping                                    ###
@@ -18,6 +18,7 @@ const iconMap: Record<string, LucideIcon> = {
   GitBranch,
   KeyRound,
   ScanFace,
+  Network,
 };
 
 /* ###########################################################

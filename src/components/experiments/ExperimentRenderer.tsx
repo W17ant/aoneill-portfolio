@@ -49,6 +49,11 @@ const BotDetector = dynamic(() => import('./BotDetector'), {
   loading: () => <ExperimentPlaceholder name="Bot Detector" />,
 });
 
+const DependencyGraph = dynamic(() => import('./DependencyGraph'), {
+  ssr: false,
+  loading: () => <ExperimentPlaceholder name="Dependency Graph" />,
+});
+
 /* ###########################################################
    ###   2. Helper Components                               ###
    ########################################################### */
@@ -100,6 +105,8 @@ export default function ExperimentRenderer({ slug }: ExperimentRendererProps) {
       return <PasswordStrength />;
     case 'bot-detector':
       return <BotDetector />;
+    case 'dependency-graph':
+      return <DependencyGraph />;
     default:
       return (
         <div

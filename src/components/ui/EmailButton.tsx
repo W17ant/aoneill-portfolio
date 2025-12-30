@@ -52,6 +52,7 @@ export default function EmailButton({
       className={className}
       style={style}
       type="button"
+      aria-label={email ? `Send email to ${email}` : 'Loading email address'}
     >
       {children}
     </button>
