@@ -206,6 +206,53 @@ export default async function RootLayout({
             `,
           }}
         />
+        {/* Console Easter Egg */}
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var styles = {
+                  banner: 'color: #10b981; font-family: monospace; font-size: 12px; line-height: 1.4;',
+                  accent: 'color: #3b82f6; font-weight: bold;',
+                  link: 'color: #8b5cf6;',
+                  subtle: 'color: #6b7280;'
+                };
+
+                console.log('%c' + [
+                  '',
+                  '╔═══════════════════════════════════════════════════════════════╗',
+                  '║                                                               ║',
+                  '║   █████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗            ║',
+                  '║  ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║            ║',
+                  '║  ███████║██║   ██║██╔██╗ ██║█████╗  ██║██║     ██║            ║',
+                  '║  ██╔══██║██║   ██║██║╚██╗██║██╔══╝  ██║██║     ██║            ║',
+                  '║  ██║  ██║╚██████╔╝██║ ╚████║███████╗██║███████╗███████╗       ║',
+                  '║  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝╚══════╝╚══════╝       ║',
+                  '║                                                               ║',
+                  '║                 A. O N E I L L                                ║',
+                  '║                                                               ║',
+                  '╠═══════════════════════════════════════════════════════════════╣',
+                  '║                                                               ║',
+                  '║  Full-Stack Developer & Software Engineer                     ║',
+                  '║  Manchester, UK                                               ║',
+                  '║                                                               ║',
+                  '║  Built with: Next.js · React · TypeScript · Tailwind          ║',
+                  '║  Focus: Performance · Accessibility · Security                ║',
+                  '║                                                               ║',
+                  '║  github.com/W17ANT                                            ║',
+                  '║                                                               ║',
+                  '╚═══════════════════════════════════════════════════════════════╝',
+                  '',
+                  '  Looking to hire? Let\\'s talk: Antony@aoneill.co.uk',
+                  ''
+                ].join('\\n'), styles.banner);
+
+                console.log('%c👋 Thanks for checking out the console!', styles.accent);
+              })();
+            `,
+          }}
+        />
       </head>
       <body className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider>
