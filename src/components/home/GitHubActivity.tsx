@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   GITHUB ACTIVITY - Recent commits/activity widget   ###
    ###   Fetches and displays recent GitHub activity        ###
-   ###   Last Updated: 30-12-2024 (+ contributions graph)   ###
+   ###   Last Updated: 31-12-2024                           ###
    ########################################################### */
 
 'use client';
@@ -56,6 +56,7 @@ interface ContributionWeek {
 interface ContributionsData {
   totalContributions: number;
   weeks: ContributionWeek[];
+  year: number;
 }
 
 /* ###########################################################
@@ -388,7 +389,7 @@ export default function GitHubActivity() {
                 <span className="font-semibold" style={{ color: 'var(--ink)' }}>
                   {contributions.totalContributions}
                 </span>
-                {' '}contributions in the last year
+                {' '}contributions in {contributions.year}
               </span>
             </div>
 

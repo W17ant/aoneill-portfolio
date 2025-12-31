@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   GITHUB CONTRIBUTIONS API - Fetches contribution    ###
    ###   data via GitHub GraphQL API                        ###
-   ###   Last Updated: 30-12-2024                           ###
+   ###   Last Updated: 31-12-2024                           ###
    ########################################################### */
 
 import { NextResponse } from 'next/server';
@@ -19,9 +19,9 @@ const GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql';
    ########################################################### */
 
 const CONTRIBUTIONS_QUERY = `
-  query($username: String!) {
+  query($username: String!, $from: DateTime!, $to: DateTime!) {
     user(login: $username) {
-      contributionsCollection {
+      contributionsCollection(from: $from, to: $to) {
         contributionCalendar {
           totalContributions
           weeks {
@@ -69,8 +69,14 @@ interface GitHubGraphQLResponse {
    ###   4. API Handler                                     ###
    ########################################################### */
 
-export async function GET() {
+export async function GET(request: Request) {
   const token = process.env.GITHUB_TOKEN;
+  const { searchParams } = new URL(request.url);
+  const year = parseInt(searchParams.get('year') || new Date().getFullYear().toString());
+
+  // Calculate date range for the calendar year
+  const from = `${year}-01-01T00:00:00Z`;
+  const to = `${year}-12-31T23:59:59Z`;
 
   if (!token) {
     return NextResponse.json(
@@ -88,7 +94,7 @@ export async function GET() {
       },
       body: JSON.stringify({
         query: CONTRIBUTIONS_QUERY,
-        variables: { username: GITHUB_USERNAME },
+        variables: { username: GITHUB_USERNAME, from, to },
       }),
       next: { revalidate: 3600 }, // Cache for 1 hour
     });
@@ -112,6 +118,7 @@ export async function GET() {
     return NextResponse.json({
       totalContributions: calendar.totalContributions,
       weeks: calendar.weeks,
+      year,
     });
   } catch (error) {
     console.error('GitHub contributions error:', error);
