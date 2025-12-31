@@ -397,7 +397,7 @@ export default function GitHubActivity() {
             <div className="overflow-x-auto pb-2">
               <div className="w-full">
                 {/* Month labels */}
-                <div className="flex mb-1 justify-between" style={{ marginLeft: '28px' }}>
+                <div className="relative mb-1" style={{ marginLeft: '28px', height: '13px' }}>
                   {(() => {
                     const months: { label: string; col: number }[] = [];
                     let lastMonth = -1;
@@ -414,11 +414,15 @@ export default function GitHubActivity() {
                         }
                       }
                     });
+                    // 11px square + 3px gap = 14px per week
                     return months.map((m, i) => (
                       <span
                         key={i}
-                        className="text-[10px] flex-1"
-                        style={{ color: 'var(--ink-muted)' }}
+                        className="absolute text-[10px]"
+                        style={{
+                          color: 'var(--ink-muted)',
+                          left: `${m.col * 14}px`,
+                        }}
                       >
                         {m.label}
                       </span>
