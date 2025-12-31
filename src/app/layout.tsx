@@ -212,43 +212,45 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                var styles = {
-                  banner: 'color: #10b981; font-family: monospace; font-size: 12px; line-height: 1.4;',
-                  accent: 'color: #3b82f6; font-weight: bold;',
-                  link: 'color: #8b5cf6;',
-                  subtle: 'color: #6b7280;'
-                };
+                var font = 'font-family: monospace; font-size: 12px;';
+                var cyan = 'color: #22d3ee; ' + font;
+                var pink = 'color: #f472b6; ' + font;
+                var purple = 'color: #c084fc; ' + font;
+                var blue = 'color: #60a5fa; ' + font;
+                var teal = 'color: #2dd4bf; ' + font;
+                var green = 'color: #4ade80; ' + font;
+                var yellow = 'color: #facc15; ' + font;
+                var white = 'color: rgba(255,255,255,0.8); ' + font;
+                var dim = 'color: rgba(255,255,255,0.6); ' + font;
 
-                console.log('%c' + [
-                  '',
-                  '╔═══════════════════════════════════════════════════════════════╗',
-                  '║                                                               ║',
-                  '║   █████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗            ║',
-                  '║  ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║            ║',
-                  '║  ███████║██║   ██║██╔██╗ ██║█████╗  ██║██║     ██║            ║',
-                  '║  ██╔══██║██║   ██║██║╚██╗██║██╔══╝  ██║██║     ██║            ║',
-                  '║  ██║  ██║╚██████╔╝██║ ╚████║███████╗██║███████╗███████╗       ║',
-                  '║  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝╚══════╝╚══════╝       ║',
-                  '║                                                               ║',
-                  '║                 A. O N E I L L                                ║',
-                  '║                                                               ║',
-                  '╠═══════════════════════════════════════════════════════════════╣',
-                  '║                                                               ║',
-                  '║  Full-Stack Developer & Software Engineer                     ║',
-                  '║  Manchester, UK                                               ║',
-                  '║                                                               ║',
-                  '║  Built with: Next.js · React · TypeScript · Tailwind          ║',
-                  '║  Focus: Performance · Accessibility · Security                ║',
-                  '║                                                               ║',
-                  '║  github.com/W17ANT                                            ║',
-                  '║                                                               ║',
-                  '╚═══════════════════════════════════════════════════════════════╝',
-                  '',
-                  '  Looking to hire? Let\\'s talk: Antony@aoneill.co.uk',
-                  ''
-                ].join('\\n'), styles.banner);
+                console.log(
+                  '%c╔═══════════════════════════════════════════════════════════════╗\\n' +
+                  '║                                                               ║\\n' +
+                  '%c║   █████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗            ║\\n' +
+                  '%c║  ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║            ║\\n' +
+                  '%c║  ███████║██║   ██║██╔██╗ ██║█████╗  ██║██║     ██║            ║\\n' +
+                  '%c║  ██╔══██║██║   ██║██║╚██╗██║██╔══╝  ██║██║     ██║            ║\\n' +
+                  '%c║  ██║  ██║╚██████╔╝██║ ╚████║███████╗██║███████╗███████╗       ║\\n' +
+                  '%c║  ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝╚══════╝╚══════╝       ║\\n' +
+                  '%c║                                                               ║\\n' +
+                  '%c║                 A. O N E I L L                                ║\\n' +
+                  '%c║                                                               ║\\n' +
+                  '╠═══════════════════════════════════════════════════════════════╣\\n' +
+                  '║                                                               ║\\n' +
+                  '%c║  Full-Stack Developer & Software Engineer                     ║\\n' +
+                  '║  Manchester, UK                                               ║\\n' +
+                  '%c║                                                               ║\\n' +
+                  '%c║  Built with: Next.js · React · TypeScript · Tailwind          ║\\n' +
+                  '║  Focus: Performance · Accessibility · Security                ║\\n' +
+                  '%c║                                                               ║\\n' +
+                  '%c║  github.com/W17ANT                                            ║\\n' +
+                  '%c║                                                               ║\\n' +
+                  '╚═══════════════════════════════════════════════════════════════╝\\n\\n' +
+                  '%c  Looking to hire? Let\\'s talk: Antony@aoneill.co.uk\\n',
+                  cyan, pink, purple, blue, cyan, teal, green, cyan, yellow, cyan, white, cyan, dim, cyan, blue, cyan, green
+                );
 
-                console.log('%c👋 Thanks for checking out the console!', styles.accent);
+                console.log('%c👋 Thanks for checking out the console!', 'color: #60a5fa; font-weight: bold;');
               })();
             `,
           }}

@@ -34,6 +34,7 @@ interface Constraint {
 interface ElasticLanyardProps {
   onTensionChange?: (tension: number) => void;
   showTensionBar?: boolean;
+  showBadgeOverlay?: boolean;
 }
 
 /* ###########################################################
@@ -55,7 +56,7 @@ const config = {
    ###   3. Component                                       ###
    ########################################################### */
 
-export default function ElasticLanyard({ onTensionChange, showTensionBar = true }: ElasticLanyardProps) {
+export default function ElasticLanyard({ onTensionChange, showTensionBar = true, showBadgeOverlay = true }: ElasticLanyardProps) {
   /* ###########################################################
      ###   State & Refs                                       ###
      ########################################################### */
@@ -602,7 +603,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true 
           }}
         >
           {/* Seasonal badge overlay */}
-          <BadgeOverlay />
+          {showBadgeOverlay && <BadgeOverlay />}
           {/* FRONT SIDE - Profile */}
           <div
             className="w-full rounded-[18px] overflow-hidden pointer-events-auto cursor-grab active:cursor-grabbing"
