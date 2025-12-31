@@ -78,6 +78,8 @@ export default function GitHubActivity() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'contributions' | 'activity' | 'repos'>('contributions');
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     async function fetchGitHubData() {
@@ -85,11 +87,10 @@ export default function GitHubActivity() {
         setLoading(true);
         setError(null);
 
-        // Fetch recent events, repos, and contributions in parallel
-        const [eventsRes, reposRes, contributionsRes] = await Promise.all([
+        // Fetch recent events and repos
+        const [eventsRes, reposRes] = await Promise.all([
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=30`),
           fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=10`),
-          fetch('/api/github/contributions'),
         ]);
 
         if (!eventsRes.ok || !reposRes.ok) {
@@ -98,12 +99,6 @@ export default function GitHubActivity() {
 
         const eventsData = await eventsRes.json();
         const reposData = await reposRes.json();
-
-        // Contributions may fail if token not configured - that's ok
-        if (contributionsRes.ok) {
-          const contributionsData = await contributionsRes.json();
-          setContributions(contributionsData);
-        }
 
         // Filter for meaningful events (pushes, creates, stars)
         const filteredEvents = eventsData
@@ -129,6 +124,22 @@ export default function GitHubActivity() {
 
     fetchGitHubData();
   }, []);
+
+  // Fetch contributions when year changes
+  useEffect(() => {
+    async function fetchContributions() {
+      try {
+        const res = await fetch(`/api/github/contributions?year=${selectedYear}`);
+        if (res.ok) {
+          const data = await res.json();
+          setContributions(data);
+        }
+      } catch (err) {
+        console.error('Contributions fetch error:', err);
+      }
+    }
+    fetchContributions();
+  }, [selectedYear]);
 
   /* ###########################################################
      ###   Helper Functions                                   ###
@@ -383,14 +394,34 @@ export default function GitHubActivity() {
 
         {activeTab === 'contributions' && contributions && (
           <div>
-            {/* Total contributions */}
-            <div className="mb-3">
+            {/* Header with total and year selector */}
+            <div className="flex items-center justify-between mb-3">
               <span className="text-sm" style={{ color: 'var(--ink-muted)' }}>
                 <span className="font-semibold" style={{ color: 'var(--ink)' }}>
                   {contributions.totalContributions}
                 </span>
                 {' '}contributions in {contributions.year}
               </span>
+              {/* Year selector */}
+              <div className="flex flex-col gap-1">
+                {[currentYear, currentYear - 1, currentYear - 2].map((year) => (
+                  <button
+                    key={year}
+                    onClick={() => setSelectedYear(year)}
+                    className={`px-2 py-0.5 text-[10px] rounded transition-colors ${
+                      selectedYear === year
+                        ? 'font-semibold'
+                        : 'opacity-60 hover:opacity-100'
+                    }`}
+                    style={{
+                      color: selectedYear === year ? 'var(--link)' : 'var(--ink-muted)',
+                      background: selectedYear === year ? 'var(--accent-bg)' : 'transparent',
+                    }}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Contribution Graph - GitHub Style */}
