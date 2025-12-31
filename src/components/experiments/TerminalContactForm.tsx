@@ -24,6 +24,7 @@ interface Step {
   field: keyof FormData;
   prompt: string;
   placeholder: string;
+  ariaLabel: string;
   validate: (val: string) => string | null;
   multiline?: boolean;
 }
@@ -41,25 +42,29 @@ const steps: Step[] = [
   {
     field: 'name',
     prompt: 'Enter your name:',
-    placeholder: 'John Doe',
+    placeholder: 'Your name',
+    ariaLabel: 'Your name',
     validate: (val) => (val.length >= 2 ? null : 'Name must be at least 2 characters'),
   },
   {
     field: 'email',
     prompt: 'Enter your email address:',
-    placeholder: 'you@example.com',
+    placeholder: 'your@email.com',
+    ariaLabel: 'Email address',
     validate: (val) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? null : 'Please enter a valid email address'),
   },
   {
     field: 'subject',
     prompt: 'Enter subject:',
-    placeholder: 'Project Inquiry',
+    placeholder: 'What is this about?',
+    ariaLabel: 'Message subject',
     validate: (val) => (val.length >= 3 ? null : 'Subject must be at least 3 characters'),
   },
   {
     field: 'message',
     prompt: 'Enter your message (press Enter twice to submit):',
-    placeholder: 'Your message here...',
+    placeholder: 'Tell me about your project...',
+    ariaLabel: 'Your message',
     multiline: true,
     validate: (val) => (val.length >= 10 ? null : 'Message must be at least 10 characters'),
   },
@@ -420,6 +425,7 @@ export default function TerminalContactForm() {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={currentStepData.placeholder}
+                  aria-label={currentStepData.ariaLabel}
                   rows={3}
                   className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none resize-none placeholder:text-[#444]"
                   style={{ caretColor: '#00ff41' }}
@@ -427,12 +433,13 @@ export default function TerminalContactForm() {
               ) : (
                 <input
                   ref={inputRef as React.RefObject<HTMLInputElement>}
-                  type="text"
+                  type={currentStepData.field === 'email' ? 'email' : 'text'}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={currentStepData.placeholder}
-                  autoComplete="off"
+                  aria-label={currentStepData.ariaLabel}
+                  autoComplete={currentStepData.field === 'email' ? 'email' : currentStepData.field === 'name' ? 'name' : 'off'}
                   className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
                   style={{ caretColor: '#00ff41' }}
                 />
@@ -457,6 +464,7 @@ export default function TerminalContactForm() {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Type reset to start over..."
+              aria-label="Type reset to start a new message"
               autoComplete="off"
               className="flex-1 bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
               style={{ caretColor: '#00ff41' }}

@@ -408,6 +408,8 @@ export default function GitHubActivity() {
                   <button
                     key={year}
                     onClick={() => setSelectedYear(year)}
+                    aria-label={`Show ${year} contributions`}
+                    aria-pressed={selectedYear === year}
                     className={`px-2 py-0.5 text-[10px] rounded transition-colors ${
                       selectedYear === year
                         ? 'font-semibold'

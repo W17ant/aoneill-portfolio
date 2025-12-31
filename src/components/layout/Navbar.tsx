@@ -68,6 +68,7 @@ export default function Navbar() {
 
   return (
     <nav
+      aria-label="Main navigation"
       className="fixed top-4 left-4 right-4 md:sticky md:left-auto md:right-auto md:mx-6 z-50 px-4 py-3 rounded-[14px] backdrop-blur-[20px] saturate-[1.2] border flex items-center justify-between gap-4"
       style={{
         background: 'var(--navbar-bg)',
@@ -106,6 +107,7 @@ export default function Navbar() {
               window.location.href = '/';
             }
           }}
+          aria-label="About me"
           className={`flex items-center gap-1.5 rounded-full transition-all duration-300 ${
             activeHash === '#about' ? 'px-3 py-2' : 'px-2.5 py-2'
           }`}
