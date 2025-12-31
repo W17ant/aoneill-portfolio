@@ -123,7 +123,7 @@ export default function LighthouseScores() {
   return (
     <div className="flex flex-col items-center gap-3">
       <div className="text-[10px] uppercase tracking-wider opacity-50 font-medium">
-        Lighthouse Scores
+        Live Lighthouse Scores
       </div>
       <div className="flex items-center gap-4">
         {loading ? (
@@ -142,9 +142,9 @@ export default function LighthouseScores() {
           </>
         ) : null}
       </div>
-      {scores && (
+      {scores && !scores.fallback && (
         <div className="text-[9px] opacity-30">
-          {scores.fallback ? 'Live scores' : `Updated ${new Date(scores.fetchedAt).toLocaleDateString()}`}
+          Updated {new Date(scores.fetchedAt).toLocaleDateString()}
         </div>
       )}
     </div>
