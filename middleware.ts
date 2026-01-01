@@ -54,11 +54,11 @@ export function middleware(request: NextRequest) {
   return response;
 }
 
-// Apply middleware to all routes except static files
+// Apply middleware to all routes except static files and MSC folder
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico|images|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|images|MSC|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
