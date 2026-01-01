@@ -42,11 +42,11 @@ class SearchModal {
     }
 
 /* ###########################################################
-   ###  2. Initialization Methods                          ###
+   ###  2. Initialisation Methods                          ###
    ########################################################### */
 
     /**
-     * Initializes the search modal by injecting HTML and setting up events.
+     * Initialises the search modal by injecting HTML and setting up events.
      * Entry point for all search functionality.
      */
     init() {
@@ -55,7 +55,7 @@ class SearchModal {
         this.setupEventListeners();
         this.loadProducts();
         
-        console.log('🔍 Search Modal Initialized');
+        console.log('🔍 Search Modal Initialised');
     }
 
     /**
@@ -205,20 +205,19 @@ class SearchModal {
 
     /**
      * Performs search across multiple product fields.
-     * Implements performance monitoring for optimization.
+     * Implements performance monitoring for optimisation.
      * @param {string} query - User's search input
      */
     performSearch(query) {
-        const trimmedQuery = query.trim();
+        const searchTerm = query.trim();
         
-        if (trimmedQuery.length === 0) {
+        if (searchTerm.length === 0) {
             this.displayResults([]);
             return;
         }
         
-        const results = this.searchProducts(trimmedQuery);
-        console.log(`🔍 Search performed: "${trimmedQuery}" | Found ${results.length} matches`);
-        this.displayResults(results);
+        // ====== Performance Monitoring Start ======
+        const startTime = performance.now();
 
         // ====== Multi-field Search ======
         this.searchResults = this.products.filter(product => {
@@ -245,16 +244,17 @@ class SearchModal {
             
             // Join all fields and search
             const searchableText = searchFields.join(' ').toLowerCase();
-            return searchableText.includes(searchTerm);
+            return searchableText.includes(searchTerm.toLowerCase());
         });
 
         // ====== Performance Monitoring ======
-        // Log slow searches for optimization opportunities
+        // Log slow searches for optimisation opportunities
         const searchTime = performance.now() - startTime;
         if (searchTime > 50) {
             console.warn(`Search took ${searchTime.toFixed(2)}ms`);
         }
 
+        console.log(`🔍 Search performed: "${searchTerm}" | Found ${this.searchResults.length} matches`);
         this.displayResults(searchTerm);
     }
 
@@ -288,7 +288,7 @@ class SearchModal {
                         <img src="${product.image}" 
                              alt="${product.name}" 
                              class="result-image"
-                             onerror="this.src='./images/assets/placeholder-watch.png'">
+                             onerror="this.src='./images/assets/placeholder-watch.webp'">
                         <div class="result-content">
                             <div class="result-brand">${highlightedBrand}</div>
                             <div class="result-name">${highlightedName}</div>
@@ -650,7 +650,7 @@ class SearchModal {
 }
 
 /* ###########################################################
-   ###  9. Module Initialization                           ###
+   ###  9. Module Initialisation                           ###
    ########################################################### */
 
 // ====== Global Variable Declaration ======
@@ -713,7 +713,7 @@ INTEGRATION:
 - Works with global product data
 - Updates on admin changes
 - Connects to product viewing
-- Mobile-optimized interface
+- Mobile-optimised interface
 
 ACCESSIBILITY:
 - ARIA live regions for results
@@ -721,4 +721,4 @@ ACCESSIBILITY:
 - Proper focus management
 - Semantic markup
 =======================================================
-*/   
+*/

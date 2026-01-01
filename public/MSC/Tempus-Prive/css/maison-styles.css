@@ -342,7 +342,7 @@
 }
 
 /* ###########################################################
-   ###   10. MOBILE OPTIMIZATIONS                          ###
+   ###   10. MOBILE optimisationS                          ###
    ########################################################### */
 
 @media (max-width: 768px) {
@@ -351,8 +351,8 @@
   }
   
   .maison-logo {
-    width: 60px;
-    height: 60px;
+    width: 80%;
+    height: auto;
   }
   
   .maison-name {

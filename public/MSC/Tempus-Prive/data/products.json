@@ -36,7 +36,7 @@
   "brands": {
     "rolex": {
       "name": "Rolex",
-      "logo": "./images/brands/rolex-logo.png",
+      "logo": "./images/brands/rolex-logo.webp",
       "description": "A crown for every achievement",
       "founded": 1905,
       "origin": "Switzerland",
@@ -44,7 +44,7 @@
     },
     "audemars-piguet": {
       "name": "Audemars Piguet",
-      "logo": "./images/brands/audemars-piguet-logo.png",
+      "logo": "./images/brands/audemars-piguet-logo.webp",
       "description": "Master of complications",
       "founded": 1875,
       "origin": "Le Brassus, Switzerland",
@@ -52,7 +52,7 @@
     },
     "patek-philippe": {
       "name": "Patek Philippe",
-      "logo": "./images/brands/patek-philippe-logo.png",
+      "logo": "./images/brands/patek-philippe-logo.webp",
       "description": "Geneva's finest since 1839",
       "founded": 1839,
       "origin": "Geneva, Switzerland",
@@ -60,7 +60,7 @@
     },
     "richard-mille": {
       "name": "Richard Mille",
-      "logo": "./images/brands/richard-mille-logo.png",
+      "logo": "./images/brands/richard-mille-logo.webp",
       "description": "Racing machine on the wrist",
       "founded": 2001,
       "origin": "Les Breuleux, Switzerland",
@@ -68,7 +68,7 @@
     },
     "cartier": {
       "name": "Cartier",
-      "logo": "./images/brands/cartier-logo.png",
+      "logo": "./images/brands/cartier-logo.webp",
       "description": "Jeweler of kings",
       "founded": 1847,
       "origin": "Paris, France",
@@ -76,7 +76,7 @@
     },
     "hublot": {
       "name": "Hublot",
-      "logo": "./images/brands/hublot-logo.png",
+      "logo": "./images/brands/hublot-logo.webp",
       "description": "Art of fusion",
       "founded": 1980,
       "origin": "Nyon, Switzerland",
@@ -84,7 +84,7 @@
     },
     "longines": {
       "name": "Longines",
-      "logo": "./images/brands/longines-logo.png",
+      "logo": "./images/brands/longines-logo.webp",
       "description": "Elegance is an attitude",
       "founded": 1832,
       "origin": "Saint-Imier, Switzerland",
@@ -92,7 +92,7 @@
     },
       "omega": {
         "name": "Omega",
-        "logo": "./images/brands/omega-logo.png",
+        "logo": "./images/brands/omega-logo.webp",
         "description": "Masters of precision and innovation since 1848",
         "founded": 1848,
         "origin": "Biel/Bienne, Switzerland",
@@ -108,7 +108,7 @@
       "brand": "rolex",
       "model": "116500LN",
       "reference": "116500LN",
-      "description": "The legendary Rolex Daytona with white dial represents the pinnacle of chronograph excellence. Originally designed for professional racing drivers, this iconic timepiece features a tachymetric scale and precise chronograph functions. The ceramic Cerachrom bezel offers exceptional scratch resistance while maintaining its deep black color.",
+      "description": "The legendary Rolex Daytona with white dial represents the pinnacle of chronograph excellence. Originally designed for professional racing drivers, this iconic timepiece features a tachymetric scale and precise chronograph functions. The ceramic Cerachrom bezel offers exceptional scratch resistance while maintaining its deep black colour.",
       "category": [
         "sport",
         "investment"
@@ -119,9 +119,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/rolex/rolex-daytona-white-main.png",
+        "main": "./images/products/rolex/rolex-daytona-white-main.webp",
         "gallery": [
-          "./images/products/rolex/rolex-daytona-white-main.png"
+          "./images/products/rolex/rolex-daytona-white-main.webp"
         ]
       },
       "specifications": {
@@ -167,9 +167,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/rolex/rolex-submariner-hulk-main.png",
+        "main": "./images/products/rolex/rolex-submariner-hulk-main.webp",
         "gallery": [
-          "./images/products/rolex/rolex-submariner-hulk-main.png"
+          "./images/products/rolex/rolex-submariner-hulk-main.webp"
         ]
       },
       "specifications": {
@@ -215,9 +215,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png",
+        "main": "./images/products/audemars-piguet/ap-royal-oak-offshore-main.webp",
         "gallery": [
-          "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png"
+          "./images/products/audemars-piguet/ap-royal-oak-offshore-main.webp"
         ]
       },
       "specifications": {
@@ -264,9 +264,9 @@
         "type": "consultation"
       },
       "images": {
-        "main": "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png",
+        "main": "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.webp",
         "gallery": [
-          "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png"
+          "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.webp"
         ]
       },
       "specifications": {
@@ -312,9 +312,9 @@
         "type": "consultation"
       },
       "images": {
-        "main": "./images/products/patek-philippe/patek-nautilus-5711-main.png",
+        "main": "./images/products/patek-philippe/patek-nautilus-5711-main.webp",
         "gallery": [
-          "./images/products/patek-philippe/patek-nautilus-5711-main.png"
+          "./images/products/patek-philippe/patek-nautilus-5711-main.webp"
         ]
       },
       "specifications": {
@@ -359,9 +359,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/patek-philippe/patek-calatrava-5227-detail.png",
+        "main": "./images/products/patek-philippe/patek-calatrava-5227-detail.webp",
         "gallery": [
-          "./images/products/patek-philippe/patek-calatrava-5227-detail.png"
+          "./images/products/patek-philippe/patek-calatrava-5227-detail.webp"
         ]
       },
       "specifications": {
@@ -406,9 +406,9 @@
         "type": "consultation"
       },
       "images": {
-        "main": "./images/products/richard-mille/rm-11-03-mclaren-main.png",
+        "main": "./images/products/richard-mille/rm-11-03-mclaren-main.webp",
         "gallery": [
-          "./images/products/richard-mille/rm-11-03-mclaren-main.png"
+          "./images/products/richard-mille/rm-11-03-mclaren-main.webp"
         ]
       },
       "specifications": {
@@ -456,9 +456,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/richard-mille/rm-67-02-extraflat-main.png",
+        "main": "./images/products/richard-mille/rm-67-02-extraflat-main.webp",
         "gallery": [
-          "./images/products/richard-mille/rm-67-02-extraflat-main.png"
+          "./images/products/richard-mille/rm-67-02-extraflat-main.webp"
         ]
       },
       "specifications": {
@@ -502,9 +502,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/cartier/cartier-santos-large-main.png",
+        "main": "./images/products/cartier/cartier-santos-large-main.webp",
         "gallery": [
-          "./images/products/cartier/cartier-santos-large-main.png"
+          "./images/products/cartier/cartier-santos-large-main.webp"
         ]
       },
       "specifications": {
@@ -548,9 +548,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/cartier/cartier-tank-must-main.png",
+        "main": "./images/products/cartier/cartier-tank-must-main.webp",
         "gallery": [
-          "./images/products/cartier/cartier-tank-must-main.png"
+          "./images/products/cartier/cartier-tank-must-main.webp"
         ]
       },
       "specifications": {
@@ -593,9 +593,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/hublot/hublot-big-bang-titanium-main.png",
+        "main": "./images/products/hublot/hublot-big-bang-titanium-main.webp",
         "gallery": [
-          "./images/products/hublot/hublot-big-bang-titanium-main.png"
+          "./images/products/hublot/hublot-big-bang-titanium-main.webp"
         ]
       },
       "specifications": {
@@ -641,9 +641,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/hublot/hublot-classic-fusion-gold-main.png",
+        "main": "./images/products/hublot/hublot-classic-fusion-gold-main.webp",
         "gallery": [
-          "./images/products/hublot/hublot-classic-fusion-gold-main.png"
+          "./images/products/hublot/hublot-classic-fusion-gold-main.webp"
         ]
       },
       "specifications": {
@@ -688,9 +688,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/longines/longines-pocket-master-main.png",
+        "main": "./images/products/longines/longines-pocket-master-main.webp",
         "gallery": [
-          "./images/products/longines/longines-pocket-master-main.png"
+          "./images/products/longines/longines-pocket-master-main.webp"
         ]
       },
       "specifications": {
@@ -733,9 +733,9 @@
         "type": "fixed"
       },
       "images": {
-        "main": "./images/products/longines/longines-pocket-heritage-main.png",
+        "main": "./images/products/longines/longines-pocket-heritage-main.webp",
         "gallery": [
-          "./images/products/longines/longines-pocket-heritage-main.png"
+          "./images/products/longines/longines-pocket-heritage-main.webp"
         ]
       },
       "specifications": {
@@ -781,9 +781,9 @@
           "estimate": "£550,000+"
         },
         "images": {
-          "main": "./images/products/omega/omega-chronometre-tourbillon-main.png",
+          "main": "./images/products/omega/omega-chronometre-tourbillon-main.webp",
           "gallery": [
-            "./images/products/omega/omega-chronometre-tourbillon-main.png"
+            "./images/products/omega/omega-chronometre-tourbillon-main.webp"
           ]
         },
         "specifications": {
@@ -836,9 +836,9 @@
           "type": "fixed"
         },
         "images": {
-          "main": "./images/products/omega/omega-speedmaster-145022-69-main.png",
+          "main": "./images/products/omega/omega-speedmaster-145022-69-main.webp",
           "gallery": [
-            "./images/products/omega/omega-speedmaster-145022-69-main.png"
+            "./images/products/omega/omega-speedmaster-145022-69-main.webp"
           ]
         },
         "specifications": {

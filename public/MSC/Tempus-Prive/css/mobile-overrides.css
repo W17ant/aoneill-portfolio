@@ -1,7 +1,7 @@
 /* ###########################################################
    ###   2418521        Antony O'Neill                     ###
    ###   TEMPUS PRIVÉ - MOBILE OVERRIDES STYLING MODULE    ###
-   ###   Last Updated: 03-07-2025                          ###
+   ###   Last Updated: 08-07-2025                          ###
    ########################################################### */
 
 /*
@@ -71,7 +71,7 @@ EXCEPTION: Collection cards retain animations for luxury feel
    ###   3. MOBILE HEADER LAYOUT - 4 Element Design        ###
    ########################################################### */
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     
     /* ====== Hide Currency Dropdown Completely ====== */
     .currency-selector-wrapper {
@@ -167,194 +167,321 @@ EXCEPTION: Collection cards retain animations for luxury feel
 }
 
 /* ###########################################################
-   ###   4. COLLECTION CARDS                               ###
+   ###   4. HEADER OVERFLOW FIX (1127px - 767px)           ###
    ########################################################### */
 
-/* ====== Re-enable Collection Card Animations on Mobile ====== */
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-    
-    /* ====== Product/Collection Cards - KEEP Animations ====== */
-    .product-card,
-    .hero-watch,
-    .luxury-product-card,
-    .watch-card {
-        /* Restore original transitions */
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        cursor: pointer;
+/* ====== Show Burger Menu from 1100px ====== */
+@media (max-width: 1100px) {
+    /* Hide desktop navigation */
+    .nav-menu {
+        display: none !important;
     }
     
-    /* ====== Touch-based Hover Effects ====== */
-    .product-card:active,
-    .hero-watch:active,
-    .luxury-product-card:active,
-    .watch-card:active {
-        /* Subtle lift effect on touch */
-        transform: translateY(-4px) !important;
-        box-shadow: 0 15px 40px rgba(12, 27, 42, 0.12) !important;
+    /* Show mobile menu toggle */
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+}
+
+/* Ensure desktop nav shows above 1100px */
+@media (min-width: 1101px) {
+    .nav-menu {
+        display: flex !important;
     }
     
-    /* ====== Product Images - KEEP Scale Effects ====== */
-    .product-image,
-    .watch-image {
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* ====== Fix Header Overflow Between 1127px - 767px ====== */
+@media (max-width: 1127px) and (min-width: 768px) {
+    /* Adjust nav container to prevent overflow */
+    .nav-container {
+        padding: 0 1rem;
+        gap: 1rem;
     }
     
-    .product-card:active .product-image,
-    .hero-watch:active .watch-image,
-    .luxury-product-card:active .product-image {
-        transform: scale(1.05) !important;
+    /* Reduce nav menu gap */
+    .nav-menu {
+        gap: var(--space-6); /* Reduced from var(--space-8) */
     }
     
-    /* ====== Product Overlays - KEEP Reveal Animation ====== */
-    .product-overlay,
-    .watch-overlay {
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        /* Always visible on mobile but with subtle transparency */
-        opacity: 0.95 !important;
-        transform: translateY(0) !important;
+    /* Smaller nav links */
+    .nav-link {
+        font-size: 0.875rem; /* Slightly smaller */
+        padding: var(--space-1) 0;
     }
     
-    .product-card:active .product-overlay,
-    .hero-watch:active .watch-overlay {
-        opacity: 1 !important;
+    /* Compact nav actions */
+    .nav-actions {
+        gap: var(--space-2); /* Reduced from var(--space-3) */
     }
     
-    /* ====== Collection Heart Button - KEEP Animations ====== */
-    .btn-add-collection {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    /* Smaller action buttons */
+    .nav-action-btn {
+        padding: 0.375rem; /* Reduced padding */
     }
     
-    .btn-add-collection svg {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    /* Adjust brand logo if needed */
+    .nav-brand img {
+        max-height: 40px; /* Ensure logo doesn't force header height */
+    }
+}
+
+/* ====== Currency selector adjustment for mid-range screens ====== */
+@media (max-width: 1200px) {
+    .navbar {
+        padding: 0 1rem;
     }
     
-    /* Heart pop animation remains active */
-    .btn-add-collection.heart-pop svg {
-        animation: heart-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
-    }
-    
-    .btn-add-collection.heart-pop.in-collection svg {
-        animation: heart-pop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-                   heart-glow 0.6s ease !important;
-    }
-    
-    /* ====== Product Action Buttons in Overlays ====== */
-    .btn-view-product {
-        transition: all 0.3s ease !important;
-        /* Ensure proper touch targets */
-        min-height: var(--touch-target-comfort);
-        padding: 0.75rem 1.5rem !important;
-    }
-    
-    .btn-view-product:active {
-        background: var(--crown-navy) !important;
-        transform: scale(0.98) !important;
+    /* Hide currency selector earlier to save space */
+    .currency-selector-wrapper {
+        display: none;
     }
 }
 
 /* ###########################################################
-   ###   5. SMALL MOBILE ADJUSTMENTS                       ###
+   ###   5. MOBILE MENU STRUCTURE                          ###
    ########################################################### */
 
-/* ====== Very Small Screens (iPhone SE, etc.) ====== */
-@media (max-width: 360px) {
-    
-    /* Only apply if content doesn't fit */
-    .product-actions {
-        /* Allow wrapping on very small screens */
-        flex-wrap: wrap !important;
-        gap: 0.5rem !important;
+@media (max-width: 1100px) {
+    /* ====== Mobile Menu Container ====== */
+    .nav-menu.mobile-open {
+        display: flex !important;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+        z-index: 999;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
-    .btn-view-product {
-        /* Full width on very small screens */
-        min-width: 100% !important;
+    /* ====== Currency Selector in Mobile Menu ====== */
+    .mobile-currency-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--light-gray);
+        margin-bottom: 1rem;
     }
     
-    /* Reduce padding to maximize content area */
-    .product-card,
-    .luxury-product-card {
-        padding: 1rem !important;
+    .mobile-currency-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--medium-gray);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
     
-    .product-overlay {
-        padding: 1.5rem !important;
+    /* Currency dropdown styling for mobile menu */
+    .mobile-currency-wrapper #currency-dropdown {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 2px solid var(--light-gray);
+        border-radius: 8px;
+        background: white;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23c29d5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        background-size: 12px;
     }
-}
-
-@media (max-width: 768px) {
-    .loading-logo {
-        /* Disable the pulse animation on mobile */
-        animation: none !important;
-        height: auto;
-        width: auto;
+    
+    /* ====== Navigation Links in Mobile ====== */
+    .nav-menu.mobile-open .nav-link {
+        font-size: 1.2rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--light-gray);
+        display: block;
+        text-align: left;
     }
-  
-  .loading-text {
-    font-size: 1.5rem; /* Better mobile size */
-    padding: 0.5rem 1.25rem;
-    z-index: 10; /* Ensure text is above background */
-    position: centre;
-    background: rgba(0, 0, 0, 0.5); /* Darker background for readability */
-    border-width: 1px; /* Thinner border on mobile */
-}
+    
+    .nav-menu.mobile-open .nav-link:last-child {
+        border-bottom: none;
+    }
 }
 
 /* ###########################################################
-   ###   6. ACTION BUTTONS & TOUCH TARGETS                 ###
+   ###   6. WHITE GLOVE SERVICE OVERFLOW FIX               ###
    ########################################################### */
 
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+/* ====== Fix White Glove Service Overflow 1625px - 1424px ====== */
+@media (max-width: 1625px) {
+    /* Global containment for service pages */
+    .service-page {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
     
-    /* ====== Ensure All Buttons Meet Touch Standards ====== */
-    button,
-    .btn,
+    /* Service content container */
+    .service-content {
+        max-width: 100%;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+    
+    /* Service hero containment */
+    .service-page .service-hero {
+        max-width: calc(100vw - 4rem);
+        margin: 0 auto 5rem;
+        box-sizing: border-box;
+    }
+    
+    /* Service features grid adjustment */
+    .service-features {
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto;
+        box-sizing: border-box;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+        gap: 1.5rem;
+    }
+    
+    /* Feature cards containment */
+    .feature-card {
+        max-width: 100%;
+        box-sizing: border-box;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    /* Process steps containment */
+    .process-steps {
+        max-width: 100%;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Guarantees grid containment */
+    .guarantees-grid {
+        max-width: 100%;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Contact CTA containment */
+    .contact-cta {
+        max-width: calc(100% - 2rem);
+        margin: 3rem auto;
+        box-sizing: border-box;
+    }
+    
+    /* Button containment */
     .btn-primary,
     .btn-secondary,
-    .nav-action-btn,
-    .filter-tab,
-    .concierge-btn {
-        /* Minimum touch target size */
-        min-height: var(--touch-target-min);
-        min-width: var(--touch-target-min);
-        /* Remove transitions for instant feedback (except collection cards) */
-        transition: none !important;
+    .btn-luxury {
+        max-width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
     }
     
-    /* ====== Active State Feedback ====== */
-    button:active,
-    .btn:active {
-        /* Subtle feedback without delay */
-        opacity: 0.9;
-        transform: scale(0.98);
+    /* Text elements containment */
+    .service-page h1,
+    .service-page h2,
+    .service-page h3,
+    .service-page p {
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+    
+    /* List items containment */
+    .feature-details li,
+    .service-page ul li,
+    .service-page ol li {
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Specific range targeting for more aggressive containment */
+@media (max-width: 1625px) and (min-width: 1424px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .section {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Reduce feature card padding to prevent overflow */
+    .feature-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ====== Additional responsive breakpoint for smoother transition ====== */
+@media (max-width: 1400px) {
+    /* Container adjustments */
+    .container {
+        max-width: 100%;
+        padding: 0 2rem;
+    }
+    
+    /* Service features responsive grid */
+    .service-features {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
 /* ###########################################################
-   ###   7. BENEFIT CARDS & INFO SECTIONS                  ###
+   ###   7. COLLECTION CARDS - Premium Touch Interactions  ###
    ########################################################### */
 
-@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-    
-    /* ====== Benefit Cards ====== */
-    .benefit-card {
-        /* Remove hover animations */
-        transition: none !important;
-        transform: none !important;
+@media (max-width: 1100px), (hover: none) and (pointer: coarse) {
+    /* ====== Product Card Touch States ====== */
+    .product-card,
+    .luxury-product-card,
+    .watch-card {
+        /* Maintain premium feel with subtle transitions */
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     
-    .benefit-card:hover {
-        transform: none !important;
-        box-shadow: var(--shadow-luxury) !important;
+    /* Active/pressed state for touch */
+    .product-card:active,
+    .luxury-product-card:active,
+    .watch-card:active {
+        transform: scale(0.98);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     
-    /* Icon animations disabled */
-    .benefit-icon {
-        transition: none !important;
+    /* ====== Heart Button Touch Enhancement ====== */
+    .btn-add-collection {
+        /* Larger touch target on mobile */
+        min-width: var(--touch-target-comfort);
+        min-height: var(--touch-target-comfort);
+        /* Maintain animation for luxury feel */
+        transition: transform 0.2s ease, background-color 0.2s ease;
     }
     
-    .benefit-card:hover .benefit-icon {
-        transform: none !important;
+    .btn-add-collection:active {
+        transform: scale(0.9);
+        background-color: rgba(var(--imperial-gold-rgb, 194, 157, 92), 0.1);
+    }
+    
+    /* Keep heart animation */
+    .btn-add-collection.added svg {
+        animation: heartBeat 0.6s ease-out;
+    }
+    
+    @keyframes heartBeat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.3); }
+        50% { transform: scale(1.1); }
     }
 }
 
@@ -451,69 +578,90 @@ EXCEPTION: Collection cards retain animations for luxury feel
 }
 
 /* ###########################################################
-   ###   11. HOVER-CAPABLE DEVICES PRESERVATION            ###
+   ###   11. FILTER & SORT CONTROLS                        ###
    ########################################################### */
 
-/* ====== Desktop/Laptop with Mouse - Keep All Animations ====== */
-@media (hover: hover) and (pointer: fine) {
-    /* All animations remain active - no overrides needed */
-    /* This ensures desktop experience remains premium */
-}
-
-/* ###########################################################
-   ###   12. ACCESSIBILITY - REDUCED MOTION                ###
-   ########################################################### */
-
-/* ====== Respect User Preference for Reduced Motion ====== */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        /* Near-instant but not zero for a11y */
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        /* Remove delays entirely */
-        animation-delay: 0s !important;
-        transition-delay: 0s !important;
+@media (max-width: 768px) {
+    /* ====== Filter Tabs ====== */
+    .filter-tabs {
+        /* Horizontal scroll for filters */
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 0.5rem;
+        padding: 0.5rem 0;
+        /* Hide scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
     
-    /* Maintain smooth scroll even with reduced motion */
-    html {
-        scroll-behavior: smooth;
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .filter-tab {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        min-width: fit-content;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    /* ====== Sort Control ====== */
+    .sort-control {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .sort-control select {
+        width: 100%;
     }
 }
 
 /* ###########################################################
-   ###   13. PERFORMANCE OPTIMIZATIONS                     ###
+   ###   12. SCROLL PERFORMANCE OPTIMIZATIONS              ###
    ########################################################### */
 
 @media (max-width: 1024px), (hover: none) and (pointer: coarse) {
-    
-    /* ====== Reduce Paint Complexity ====== */
-    /* EXCEPTION: Collection cards maintain will-change for animations */
-    .product-card,
-    .hero-watch,
-    .luxury-product-card,
-    .watch-card {
-        /* Enable GPU acceleration for smooth animations */
-        will-change: transform, box-shadow !important;
+    /* ====== Optimize Scrolling ====== */
+    .scrollable-container,
+    .product-grid,
+    .luxury-grid {
+        /* Prevent repaints during scroll */
+        will-change: scroll-position;
+        /* Smooth momentum scrolling on iOS */
+        -webkit-overflow-scrolling: touch;
     }
     
-    /* Other cards disable expensive effects */
-    .benefit-card,
-    .service-card,
-    .info-card {
-        will-change: auto !important;
-        backdrop-filter: none !important;
+    /* Remove will-change after scroll */
+    .scrollable-container:not(:hover),
+    .product-grid:not(:hover),
+    .luxury-grid:not(:hover) {
+        will-change: auto;
     }
-    
-    /* ====== Optimize Shadows for Performance ====== */
-    /* Simpler shadows render faster on mobile GPUs */
-    .benefit-card,
-    .service-card,
-    .info-card {
-        box-shadow: 0 4px 16px rgba(14, 21, 40, 0.08) !important;
+}
+
+/* ###########################################################
+   ###   13. TOUCH FEEDBACK & STATES                       ###
+   ########################################################### */
+
+@media (hover: none) and (pointer: coarse) {
+    /* ====== Button Press States ====== */
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-luxury {
+        /* Remove hover effects on touch devices */
+        &:hover {
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Active state for touch feedback */
+        &:active {
+            transform: scale(0.97);
+            transition: transform 0.1s ease;
+        }
     }
 }
 
@@ -547,10 +695,10 @@ EXCEPTION: Collection cards retain animations for luxury feel
 }
 
 /* ###########################################################
-   ###   15. NOTIFICATION SYSTEM - Mobile Size Reduction       ###
+   ###   15. NOTIFICATION SYSTEM - Mobile Size Reduction   ###
    ########################################################### */
 
-   @media (max-width: 768px) {
+@media (max-width: 768px) {
     /* Global notifications (main.js) */
     .notification {
         padding: 0.5rem 0.75rem !important;
@@ -577,6 +725,12 @@ EXCEPTION: Collection cards retain animations for luxury feel
     .notification-close {
         font-size: 1.1rem;
         margin-left: 0.5rem !important;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     /* Currency-specific notifications */
@@ -593,6 +747,58 @@ EXCEPTION: Collection cards retain animations for luxury feel
         top: 10px;
         right: 10px;
         border-radius: 4px;
+    }
+}
+
+/* ###########################################################
+   ###   16. GENERAL OVERFLOW PREVENTION                   ###
+   ########################################################### */
+
+/* Prevent horizontal scroll on all viewports */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Ensure all sections respect viewport bounds */
+.section {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Container overflow safety */
+.container {
+    max-width: min(1400px, calc(100% - 2rem));
+}
+
+/* ###########################################################
+   ###   17. SMOOTH TRANSITIONS FOR BREAKPOINTS            ###
+   ########################################################### */
+
+/* Add smooth transitions for responsive changes */
+@media (min-width: 768px) {
+    .nav-container,
+    .nav-menu,
+    .nav-actions,
+    .service-features,
+    .container {
+        transition: all 0.3s ease;
+    }
+}
+
+/* Disable transitions on mobile for performance */
+@media (max-width: 767px) {
+    * {
+        transition-duration: 0s !important;
+    }
+    
+    /* Exception: Keep transitions for collection cards */
+    .product-card,
+    .luxury-product-card,
+    .watch-card,
+    .btn-add-collection {
+        transition-duration: 0.2s !important;
     }
 }
 
@@ -632,6 +838,9 @@ RESPONSIVE BREAKPOINTS:
 - 480px: Mobile phones
 - 768px: Tablets
 - 1024px: Desktop threshold
+- 1100px: Burger menu appears (NEW)
+- 1127px: Header overflow fix
+- 1424px-1625px: White glove service fix (ENHANCED)
 - Touch detection overrides
 
 PERFORMANCE OPTIMIZATIONS:
@@ -639,5 +848,11 @@ PERFORMANCE OPTIMIZATIONS:
 - Hardware acceleration
 - Minimal repaints
 - Battery friendly
+
+NEW FIXES ADDED:
+- Header overflow prevention (1127px-767px)
+- White glove service containment (1625px-1424px)
+- General overflow prevention rules
+- Smooth transition management
 =======================================================
 */

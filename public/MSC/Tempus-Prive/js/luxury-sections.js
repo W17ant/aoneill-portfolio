@@ -26,7 +26,7 @@ Enhanced with brand filtering capability
 
 /**
  * Orchestrates all luxury section interactions and state management.
- * Handles filtering, sorting, and dynamic product display with performance optimizations.
+ * Handles filtering, sorting, and dynamic product display with performance optimisations.
  * @class LuxurySectionsManager
  */
 class LuxurySectionsManager {
@@ -40,14 +40,14 @@ class LuxurySectionsManager {
     this.init();
   }
 
-  // ====== Handler: Core Initialization ======
+  // ====== Handler: Core Initialisation ======
   init() {
     this.initializeCollectionSection();
     this.initializeMaisonsSection();
     this.initializePrivateLounge();
     this.initializeServices();
     
-    console.log('✨ Luxury Sections Initialized');
+    console.log('✨ Luxury Sections Initialised');
   }
 
   /* ###########################################################
@@ -250,7 +250,7 @@ return [...products].sort((a, b) => {
                alt="${product.name}" 
                class="product-image"
                loading="lazy"
-               onerror="this.src='./images/assets/placeholder-watch.png'">
+               onerror="this.src='./images/assets/placeholder-watch.webp'">
           <div class="product-overlay">
             <div class="product-actions">
               <button class="btn-add-collection ${isInCollection ? 'in-collection' : ''}" 
@@ -318,14 +318,11 @@ return [...products].sort((a, b) => {
           }
           
           // Update button state
-          const svg = this.querySelector('svg');
-          if (svg) {
-          if (!isInCollection) {
-          svg.setAttribute('fill', 'currentColor');  // Now IN collection
-        } else {
-    svg.setAttribute('fill', 'none');  // Now NOT in collection
-  }
-}
+          this.classList.toggle('in-collection');
+          this.setAttribute('aria-pressed', !isInCollection);
+          this.setAttribute('aria-label', 
+            !isInCollection ? 'Remove from collection' : 'Add to collection'
+          );
         }
       });
     });
@@ -822,7 +819,7 @@ return [...products].sort((a, b) => {
 }
 
 /* ###########################################################
-   ###  9. Module Initialization                           ###
+   ###  9. Module Initialisation                           ###
    ########################################################### */
 
 // Initialize when DOM is ready
@@ -899,13 +896,13 @@ SERVICES SECTION:
 - Fallback to notifications
 - Service name extraction
 
-INITIALIZATION:
+Initialisation:
 - Waits for luxuryProducts availability
 - Retry mechanism with 100ms intervals
 - Global exposure as luxurySectionsManager
 - Dependencies on main.js data
 
-PERFORMANCE OPTIMIZATIONS:
+PERFORMANCE optimisationS:
 - Single render pass for filtered products
 - Event delegation where possible
 - Minimal DOM queries with caching

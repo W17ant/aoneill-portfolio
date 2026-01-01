@@ -7,7 +7,7 @@
 /*
 ===============================================
 Core application entry point and orchestrator
-Manages product data, SPA navigation, and module initialization
+Manages product data, SPA navigation, and module Initialisation
 Establishes global state and coordinates all features
 ===============================================
 */
@@ -27,7 +27,7 @@ const luxuryProducts = [
         price: 130000, 
         priceDisplay: "£130,000", 
         category: ["sport", "investment"],
-        image: "./images/products/rolex/rolex-daytona-white-main.png",
+        image: "./images/products/rolex/rolex-daytona-white-main.webp",
         featured: true,
         newArrival: false,
         specs: {
@@ -43,7 +43,7 @@ const luxuryProducts = [
         price: null, // null indicates "By Private Consultation" - common for high-value pieces
         priceDisplay: "By Private Consultation",
         category: ["sport", "investment", "heritage"],
-        image: "./images/products/patek-philippe/patek-nautilus-5711-main.png",
+        image: "./images/products/patek-philippe/patek-nautilus-5711-main.webp",
         featured: true,
         newArrival: false,
         specs: {
@@ -59,7 +59,7 @@ const luxuryProducts = [
         price: null,
         priceDisplay: "By Private Consultation",
         category: ["sport", "investment", "heritage"],
-        image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png",
+        image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.webp",
         featured: true,
         newArrival: false,
         specs: {
@@ -76,7 +76,7 @@ const luxuryProducts = [
         price: 185000,
         priceDisplay: "£185,000",
         category: ["sport", "investment"],
-        image: "./images/products/richard-mille/rm-67-02-extraflat-main.png",
+        image: "./images/products/richard-mille/rm-67-02-extraflat-main.webp",
         featured: false,
         newArrival: true,
         specs: {
@@ -92,7 +92,7 @@ const luxuryProducts = [
         price: 42000,
         priceDisplay: "£42,000",
         category: ["dress", "heritage"],
-        image: "./images/products/patek-philippe/patek-calatrava-5227-detail.png",
+        image: "./images/products/patek-philippe/patek-calatrava-5227-detail.webp",
         featured: false,
         newArrival: true,
         specs: {
@@ -109,7 +109,7 @@ const luxuryProducts = [
         price: 32000,
         priceDisplay: "£32,000",
         category: ["sport", "investment"],
-        image: "./images/products/rolex/rolex-submariner-hulk-main.png",
+        image: "./images/products/rolex/rolex-submariner-hulk-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -125,7 +125,7 @@ const luxuryProducts = [
         price: 48000,
         priceDisplay: "£48,000",
         category: ["sport"],
-        image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png",
+        image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -141,7 +141,7 @@ const luxuryProducts = [
         price: null,
         priceDisplay: "By Private Consultation",
         category: ["sport", "investment"],
-        image: "./images/products/richard-mille/rm-11-03-mclaren-main.png",
+        image: "./images/products/richard-mille/rm-11-03-mclaren-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -158,7 +158,7 @@ const luxuryProducts = [
         price: null,
         priceDisplay: "By Private Consultation", 
         category: ["heritage", "investment"],
-        image: "./images/products/omega/omega-chronometre-tourbillon-main.png",
+        image: "./images/products/omega/omega-chronometre-tourbillon-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -174,7 +174,7 @@ const luxuryProducts = [
         price: 1890,
         priceDisplay: "£1,890",
         category: ["heritage"],
-        image: "./images/products/longines/longines-pocket-heritage-main.png",
+        image: "./images/products/longines/longines-pocket-heritage-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -191,7 +191,7 @@ const luxuryProducts = [
         price: 7800,
         priceDisplay: "£7,800",
         category: ["dress", "sport"],
-        image: "./images/products/cartier/cartier-santos-large-main.png",
+        image: "./images/products/cartier/cartier-santos-large-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -207,7 +207,7 @@ const luxuryProducts = [
         price: 22000,
         priceDisplay: "£22,000",
         category: ["sport", "dress"],
-        image: "./images/products/hublot/hublot-classic-fusion-gold-main.png",
+        image: "./images/products/hublot/hublot-classic-fusion-gold-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -224,7 +224,7 @@ const luxuryProducts = [
         price: 18500,
         priceDisplay: "£18,500",
         category: ["sport"],
-        image: "./images/products/hublot/hublot-big-bang-titanium-main.png",
+        image: "./images/products/hublot/hublot-big-bang-titanium-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -240,7 +240,7 @@ const luxuryProducts = [
         price: 3200,
         priceDisplay: "£3,200",
         category: ["dress"],
-        image: "./images/products/cartier/cartier-tank-must-main.png",
+        image: "./images/products/cartier/cartier-tank-must-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -256,7 +256,7 @@ const luxuryProducts = [
         price: 12500,
         priceDisplay: "£12,500",
         category: ["heritage"],
-        image: "./images/products/longines/longines-pocket-master-main.png",
+        image: "./images/products/longines/longines-pocket-master-main.webp",
         featured: false,
         newArrival: false,
         specs: {
@@ -272,7 +272,7 @@ const luxuryProducts = [
         price: 12000,
         priceDisplay: "£12,000",
         category: ["sport", "investment", "heritage"],
-        image: "./images/products/omega/omega-speedmaster-145022-69-main.png",
+        image: "./images/products/omega/omega-speedmaster-145022-69-main.webp",
         featured: false,
         newArrival: true,
         specs: {
@@ -302,21 +302,21 @@ let currentFilter = 'all';
 let currentSort = 'featured';
 
 /* ###########################################################
-   ###   3. Core Application Initialization                ###
+   ###   3. Core Application Initialisation                ###
    ########################################################### */
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🏆 Tempus Privé Loading...');
     console.log('📦 Products loaded:', luxuryProducts.length);
 
-    // Initialize all modules
+    // Initialise all modules
     initializeNavigation();
     initializeSearch();
     initializeConciergeAccess();   
     setupImageErrorHandlers();
 
-/* ====== Filter Count Synchronization ====== */
-    // Delay ensures filter-counts.js has initialized
+/* ====== Filter Count synchronisation ====== */
+    // Delay ensures filter-counts.js has initialised
     setTimeout(() => {
         if (window.filterCountManager) {
             console.log('🔄 Updating filter counts...');
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 
     
-console.log('🎯 Key Features Initialized:');
+console.log('🎯 Key Features Initialised:');
 console.log('  ✓ Private Collection/Wishlist');
 console.log('  ✓ Multi-currency Support (GBP/USD/EUR/AED)');
 console.log('  ✓ Advanced Search with Debouncing');
@@ -336,7 +336,7 @@ console.log('  ✓ Concierge Authentication (Password: Watch1)');
 console.log('  ✓ Admin Panel with CRUD Operations');
 console.log('  ✓ Responsive Design (320px - 1440px)');
 console.log('  ✓ Accessibility Score: 97+');
-console.log('✅ Tempus Privé Initialized Successfully');
+console.log('✅ Tempus Privé Initialised Successfully');
 
         /* ====== Logo Scroll-to-Top ====== */
     // Make TP logo clickable to return to top
@@ -422,7 +422,7 @@ function setupImageErrorHandlers() {
     // Product images with default placeholder
     document.querySelectorAll('.product-image').forEach(img => {
         img.addEventListener('error', function() {
-            this.src = './images/assets/placeholder-watch.png';
+            this.src = './images/assets/placeholder-watch.webp';
         });
     });
 }
@@ -431,7 +431,7 @@ function setupImageErrorHandlers() {
    ###   5. SPA Navigation System                          ###
    ########################################################### */
 
-function initializeNavigation() {
+   function initializeNavigation() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -445,43 +445,55 @@ function initializeNavigation() {
             const targetSection = this.getAttribute('data-section');
             const targetElement = document.getElementById(targetSection);
             
-            // Update active navigation state
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Check for reduced motion preference
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            
-            // Smooth scroll to target section
             if (targetElement) {
-                if (prefersReducedMotion) {
-                    // Instant scroll for reduced motion
-                    targetElement.scrollIntoView({ behavior: 'auto', block: 'start' });
-                } else {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Update active navigation state
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Close mobile menu FIRST (before scrolling)
+                if (navMenu && navMenu.classList.contains('mobile-open')) {
+                    mobileMenuToggle?.classList.remove('active');
+                    navMenu.classList.remove('mobile-open');
+                    document.body.classList.remove('menu-open');
                 }
                 
-                // Update URL hash for shareability
-                history.pushState(null, '', `#${targetSection}`);
+                // Small delay to ensure menu closes and body overflow is restored
+                setTimeout(() => {
+                    // Check for reduced motion preference
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    
+                    // Calculate scroll position accounting for header
+                    const headerHeight = 70;
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    // Perform the scroll
+                    if (prefersReducedMotion) {
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'auto'
+                        });
+                    } else {
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                    
+                    // Update URL hash for shareability
+                    history.pushState(null, '', `#${targetSection}`);
+                }, 100); // 100ms delay for menu to close
+                
+                // Update page title
+                const titles = {
+                    'home': 'Tempus Privé | Time Reserved for the Few',
+                    'collection': 'Collection | Tempus Privé',
+                    'maisons': 'Prestigious Maisons | Tempus Privé',
+                    'private-lounge': 'Private Lounge | Tempus Privé',
+                    'services': 'White-Glove Services | Tempus Privé',
+                    'heritage': 'Heritage & Provenance | Tempus Privé'
+                };
+                document.title = titles[targetSection] || 'Tempus Privé | Time Reserved for the Few';
             }
-            
-            // Close mobile menu if open
-            if (navMenu && navMenu.classList.contains('mobile-open')) {
-                mobileMenuToggle?.classList.remove('active');
-                navMenu.classList.remove('mobile-open');
-                document.body.classList.remove('menu-open');
-            }
-            
-            // Update page title
-            const titles = {
-                'home': 'Tempus Privé | Time Reserved for the Few',
-                'collection': 'Collection | Tempus Privé',
-                'maisons': 'Prestigious Maisons | Tempus Privé',
-                'private-lounge': 'Private Lounge | Tempus Privé',
-                'services': 'White-Glove Services | Tempus Privé',
-                'heritage': 'Heritage & Provenance | Tempus Privé'
-            };
-            document.title = titles[targetSection] || 'Tempus Privé | Time Reserved for the Few';
         });
     });
     
@@ -509,33 +521,12 @@ function initializeNavigation() {
     window.addEventListener('scroll', updateActiveNav);
     updateActiveNav(); // Set initial active state
 }
-
-function updateActiveNav() {
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (window.scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-section') === current) {
-            link.classList.add('active');
-        }
-    });
-}
-
 /* ###########################################################
    ###   6. Search Module Integration                      ###
    ########################################################### */
-// Search functionality handled by search.js module
+// Search functionality handled by search-min.js module
 function initializeSearch() {
-    console.log('Search initialization delegated to search.js module');
+    console.log('Search Initialisation delegated to search-min.js module');
 }
 
 
@@ -546,60 +537,109 @@ function initializeSearch() {
  * Manages concierge section authentication flow.
  * Simple Password-based access for exclusive content. (Watch1)
  */
-function initializeConciergeAccess() {
-    const conciergeBtn = document.getElementById('concierge-access');
-    const conciergeModal = document.getElementById('concierge-modal');
-    const conciergeForm = document.getElementById('concierge-form');
-    const conciergePassword = document.getElementById('concierge-password');
-    
-    const ACCESS_CODE = 'Watch1';
-    
-    if (conciergeBtn) {
-        conciergeBtn.addEventListener('click', function() {
-            if (conciergeModal) {
+// Ensure concierge functionality works after all Initialisation
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        const conciergeBtn = document.getElementById('concierge-access');
+        const conciergeModal = document.getElementById('concierge-modal');
+        const conciergeForm = document.getElementById('concierge-form');
+        const conciergePassword = document.getElementById('concierge-password');
+        const modalClose = conciergeModal?.querySelector('.modal-close');
+        
+        const ACCESS_CODE = 'Watch1';
+        
+        if (conciergeBtn && conciergeModal) {
+            // Remove any existing listeners
+            const newBtn = conciergeBtn.cloneNode(true);
+            conciergeBtn.parentNode.replaceChild(newBtn, conciergeBtn);
+            
+            // Open modal handler
+            newBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('🔐 Opening concierge modal');
+                
                 conciergeModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                if (conciergePassword) {
-                    conciergePassword.focus();
-                }
-            }
-        });
-    }
-    
-    if (conciergeForm) {
-        conciergeForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const enteredCode = conciergePassword ? conciergePassword.value : '';
-            
-            if (enteredCode === ACCESS_CODE) {
-                console.log('🔐 Concierge Authentication Successful - Access Granted');
-                console.log('📝 Password hint for examiner: Watch1');
-                showNotification('Access Granted - Opening Admin Panel...', 'success');
                 
-                setTimeout(() => {
-                    conciergeModal.classList.remove('active');
-                    document.body.style.overflow = '';
-                    window.open('./admin.html', '_blank');
-                    showNotification('Admin panel opened in new tab', 'info');
-                }, 1000);
-            } else {
-                showNotification('Access Denied - Invalid Code', 'error');
                 if (conciergePassword) {
                     conciergePassword.value = '';
-                    conciergePassword.focus();
+                    setTimeout(() => conciergePassword.focus(), 100);
                 }
+            });
+        }
+        
+        // Close button handler
+        if (modalClose) {
+            modalClose.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('❌ Closing modal');
+                conciergeModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        // Click outside to close
+        if (conciergeModal) {
+            conciergeModal.addEventListener('click', function(e) {
+                if (e.target === conciergeModal) {
+                    console.log('❌ Closing modal (backdrop click)');
+                    conciergeModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Form submission handler
+        if (conciergeForm) {
+            conciergeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                if (conciergeForm) {
-                    conciergeForm.classList.add('shake');
+                const enteredCode = conciergePassword?.value || '';
+                
+                if (enteredCode === ACCESS_CODE) {
+                    console.log('✅ Access Granted!');
+                    
+                    if (window.showNotification) {
+                        window.showNotification('Access Granted - Opening Admin Panel...', 'success');
+                    }
+                    
                     setTimeout(() => {
-                        conciergeForm.classList.remove('shake');
-                    }, 500);
+                        conciergeModal.classList.remove('active');
+                        document.body.style.overflow = '';
+                        window.open('./admin.html', '_blank');
+                    }, 1000);
+                } else {
+                    console.log('❌ Access Denied');
+                    
+                    if (window.showNotification) {
+                        window.showNotification('Access Denied - Invalid Code', 'error');
+                    }
+                    
+                    if (conciergePassword) {
+                        conciergePassword.value = '';
+                        conciergePassword.focus();
+                    }
+                    
+                    // Shake animation
+                    conciergeForm.classList.add('shake');
+                    setTimeout(() => conciergeForm.classList.remove('shake'), 500);
                 }
+            });
+        }
+        
+        // ESC key to close
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && conciergeModal?.classList.contains('active')) {
+                console.log('❌ Closing modal (ESC)');
+                conciergeModal.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
-    }
-}
+        
+        console.log('✅ Concierge functionality fully restored');
+    }, 500);
+});
 
 
 /* ###########################################################
@@ -892,7 +932,7 @@ location.reload(); */
 // Modify your existing navigation click handler to properly handle the services section
 const originalInitializeNavigation = initializeNavigation;
 initializeNavigation = function() {
-    // Call original navigation initialization
+    // Call original navigation Initialisation
     originalInitializeNavigation();
     
     // Add special handling for services nav link
@@ -975,6 +1015,7 @@ window.addEventListener('popstate', function(event) {
 });
 
 
+
 // ###########################################################
 // ###            END OF MAIN JS MODULE                    ###
 // ###########################################################
@@ -987,12 +1028,12 @@ IMPLEMENTATION NOTES: MAIN APPLICATION MODULE
 GLOBAL PRODUCT MANAGEMENT:
 - Central data store for all products (luxuryProducts)
 - Single source of truth pattern
-- Synchronization across all modules
+- synchronisation across all modules
 - localStorage persistence for demo
 
 SPA NAVIGATION SYSTEM:
 - Section-based routing with history API
-- Smooth scroll behavior (respects reduced motion)
+- Smooth scroll behaviour (respects reduced motion)
 - Active state management for nav links
 - Deep linking support for all sections
 
@@ -1009,7 +1050,7 @@ NOTIFICATION SYSTEM:
 - Accessible with ARIA live regions
 
 MODAL MANAGEMENT:
-- Centralized modal control system
+- Centralised modal control system
 - Keyboard navigation (ESC to close)
 - Focus trap implementation
 - Backdrop click handling

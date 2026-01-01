@@ -47,7 +47,7 @@ for high-value timepiece inventory management
     position: absolute;
     left: 1rem;
     top: 50%;
-    transform: translateY(-50%); /* Perfect vertical centering */
+    transform: translateY(-50%); /* Perfect vertical centring */
     color: var(--imperial-gold); /* Brand consistency */
     pointer-events: none; /* Ensures clicks pass through to input */
   }
@@ -210,7 +210,7 @@ for high-value timepiece inventory management
   .search-spinner {
     width: 20px;
     height: 20px;
-    /* Spinner with brand color accent */
+    /* Spinner with brand colour accent */
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-top-color: var(--imperial-gold);
     border-radius: 50%;
@@ -223,7 +223,7 @@ for high-value timepiece inventory management
   }
   
   /* ###########################################################
-     ###   8. RESPONSIVE DESIGN - Mobile Optimization         ###
+     ###   8. RESPONSIVE DESIGN - Mobile optimisation         ###
      ########################################################### */
   
   /* Tablet breakpoint */

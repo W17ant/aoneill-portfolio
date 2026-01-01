@@ -40,11 +40,11 @@ class CurrencyService {
     }
 
     /* ###########################################################
-       ###  1. Initialization Methods                          ###
+       ###  1. Initialisation Methods                          ###
        ########################################################### */
 
     /**
-     * Initialize currency service and setup event listeners.
+     * Initialise currency service and setup event listeners.
      * Fetches rates and restores user preference.
      */
     async init() {
@@ -70,7 +70,7 @@ class CurrencyService {
             
             console.log('✅ Currency Service Ready');
         } catch (error) {
-            console.error('Currency Service initialization failed:', error);
+            console.error('Currency Service Initialisation failed:', error);
             this.showNotification('Currency service temporarily unavailable', 'error');
         }
     }
@@ -435,7 +435,7 @@ class CurrencyService {
 }
 
 /* ###########################################################
-   ###  10. Module Initialization                          ###
+   ###  10. Module Initialisation                          ###
    ########################################################### */
 
 // ====== Global Variable Declaration ======
@@ -490,7 +490,7 @@ USER EXPERIENCE:
 - Dropdown in header
 - Instant conversion
 - Visual feedback
-- Mobile optimized
+- Mobile optimised
 
 PERFORMANCE:
 - Cached conversions

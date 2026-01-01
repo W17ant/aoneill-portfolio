@@ -8,7 +8,7 @@
 ===============================================
 Real-time table filtering for admin panel inventory
 Seamless integration with existing admin functionality
-Performance optimized with debouncing and RAF
+Performance optimised with debouncing and RAF
 Highlights matching text for improved UX
 ===============================================
 */
@@ -38,7 +38,7 @@ class AdminSearch {
     }
 
     /* ###########################################################
-       ###   2. Initialization Methods                         ###
+       ###   2. Initialisation Methods                         ###
        ########################################################### */
 
     /**
@@ -320,7 +320,7 @@ class AdminSearch {
 
     /**
      * Update search statistics display.
-     * Synchronizes with admin panel stats when filtering.
+     * Synchronises with admin panel stats when filtering.
      */
     updateStats(visible, total) {
         this.visibleCount.textContent = visible;
@@ -459,12 +459,12 @@ class AdminSearch {
 }
 
 /* ###########################################################
-   ###   9. Module Initialization                          ###
+   ###   9. Module Initialisation                          ###
    ########################################################### */
 
 /* ====== DOM Ready Integration ====== */
 document.addEventListener('DOMContentLoaded', function() {
-    // Wait for admin panel initialization
+    // Wait for admin panel Initialisation
     setTimeout(() => {
         if (window.adminPanel) {
             // Create search instance with admin panel reference

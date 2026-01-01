@@ -236,11 +236,123 @@ Aligned with brand tone, performance, and accessibility
    ###   12. RESPONSIVE ADJUSTMENTS                        ###
    ########################################################### */
 
-/* ===== Responsive (≤768px) ===== */
-@media (max-width: 768px) {
+/* ===== Fix overflow at 1625px and below ===== */
+@media (max-width: 1625px) {
+    /* Main services showcase on homepage */
+    .services-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    /* Service detail page features grid */
+    .service-features {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    /* Service page specific overrides */
+    .service-page .service-features {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+        gap: 2.5rem;
+        margin: 3rem auto;
+        max-width: 100%;
+    }
+    
+    /* Process steps and guarantees grids */
+    .process-steps {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .guarantees-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+}
+
+/* ===== Specific range 1424px-1625px (your problem area) ===== */
+@media (max-width: 1625px) and (min-width: 1424px) {
+    /* Force 3-column layout in this range */
+    .services-showcase {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .service-features,
+    .service-page .service-features {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
+    /* Adjust card padding to prevent overflow */
+    .service-card,
+    .service-page .feature-card {
+        padding: 2.5rem 2rem;
+    }
+    
+    /* Ensure service content doesn't overflow */
+    .service-content {
+        max-width: calc(100vw - 4rem);
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    
+    /* Ensure hero doesn't overflow */
+    .service-page .service-hero {
+        margin: 0 1rem 4rem;
+        max-width: calc(100% - 2rem);
+    }
+}
+
+/* ###########################################################
+   ###   13. LARGE SCREENS LAYOUT                          ###
+   ########################################################### */
+
+/* ===== Large Screens (≥1200px) ===== */
+@media (min-width: 1200px) and (max-width: 1424px) {
+    .service-page .service-features {
+        max-width: 1200px;
+        margin: 3rem auto;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .services-showcase {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ###########################################################
+   ###   14. MEDIUM SCREENS TWO-COLUMN LAYOUT              ###
+   ########################################################### */
+
+/* ===== Medium Screens (768px–991px) ===== */
+@media (min-width: 768px) and (max-width: 991px) {
+    .service-page .service-features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .services-showcase {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* ===== Mobile Screens (≤767px) ===== */
+@media (max-width: 767px) {
     .service-page .service-features {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+    
+    .services-showcase {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
     }
 
     .service-page .feature-card {
@@ -252,29 +364,26 @@ Aligned with brand tone, performance, and accessibility
         height: 60px;
         font-size: 1.5rem;
     }
-}
-
-/* ###########################################################
-   ###   13. LARGE SCREENS LAYOUT                          ###
-   ########################################################### */
-
-/* ===== Large Screens (≥1200px) ===== */
-@media (min-width: 1200px) {
-    .service-page .service-features {
-        max-width: 1200px;
-        margin: 3rem auto;
+    
+    .service-card {
+        padding: 2rem 1.5rem;
     }
 }
 
-/* ###########################################################
-   ###   14. MEDIUM SCREENS TWO-COLUMN LAYOUT              ###
-   ########################################################### */
+/* ===== Text overflow prevention (all sizes) ===== */
+.service-card,
+.feature-card {
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
 
-/* ===== Medium Screens (768–991px) ===== */
-@media (min-width: 768px) and (max-width: 991px) {
-    .service-page .service-features {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.service-title,
+.feature-title,
+.service-description,
+.feature-description {
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 /* ###########################################################
@@ -630,7 +739,7 @@ IMPLEMENTATION NOTES: SERVICES SECTION STYLES
 =======================================================
 
 SERVICE CARDS:
-- Icon-centered design
+- Icon-centred design
 - Hover lift effect
 - Consistent spacing
 - Clear hierarchy
@@ -651,7 +760,7 @@ RESPONSIVE DESIGN:
 - Grid to stack transition
 - Mobile-friendly forms
 - Touch interactions
-- Optimized spacing
+- optimised spacing
 
 BRAND CONSISTENCY:
 - Luxury aesthetics

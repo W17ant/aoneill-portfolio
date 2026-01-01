@@ -31,10 +31,10 @@ class LoadingStatesManager {
   }
 
   /* ###########################################################
-     ###   2. Initialization Methods                         ###
+     ###   2. Initialisation Methods                         ###
      ########################################################### */
 
-  /* ====== Main Initialization ====== */
+  /* ====== Main Initialisation ====== */
   init() {
       this.loadStart = performance.now();
       this.setupLoadingScreen();
@@ -64,7 +64,7 @@ class LoadingStatesManager {
   }
 
   /* ###########################################################
-     ###   3. Template Initialization                        ###
+     ###   3. Template Initialisation                        ###
      ########################################################### */
 
   /* ====== Skeleton Templates ====== */
@@ -460,7 +460,7 @@ window.retry = function() {
 };
 
 /* ###########################################################
- ###   12. Module Initialization                         ###
+ ###   12. Module Initialisation                         ###
  ########################################################### */
 
 // Module-scoped variable for singleton instance
@@ -519,7 +519,7 @@ ACCESSIBILITY FEATURES:
 - Screen reader announcements
 - Reduced motion support
 
-PERFORMANCE OPTIMIZATIONS:
+PERFORMANCE optimisationS:
 - Template caching for instant rendering
 - Map-based active loader tracking
 - RequestAnimationFrame for animations
@@ -528,7 +528,7 @@ PERFORMANCE OPTIMIZATIONS:
 
 INTEGRATION POINTS:
 - Called by luxury-sections.js during filtering
-- Used by search.js for result loading
+- Used by search-min.js for result loading
 - Admin panel operation feedback
 - Initial page load orchestration
 - Error recovery mechanisms
@@ -550,7 +550,7 @@ GLOBAL FUNCTIONS:
 SINGLETON PATTERN:
 - Single instance ensures consistency
 - Prevents duplicate loaders
-- Centralized state management
+- Centralised state management
 - Global access via window.loadingStates
 =======================================================
 */ 

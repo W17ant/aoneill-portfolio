@@ -238,10 +238,10 @@ Integrated with filter-counts.js for real-time updates
 
 
 /* ###########################################################
-   ###   5. Responsive Optimizations                       ###
+   ###   5. Responsive optimisations                       ###
    ########################################################### */
 
-/* ====== Mobile Optimizations ====== */
+/* ====== Mobile optimisations ====== */
 @media (max-width: 768px) {
     .tab-count {
         min-width: 20px;
@@ -271,7 +271,7 @@ Integrated with filter-counts.js for real-time updates
         transition: none !important;
     }
     
-    /* Simple color change for updates */
+    /* Simple colour change for updates */
     .count-updating {
         color: var(--imperial-gold);
     }

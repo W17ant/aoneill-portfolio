@@ -35,7 +35,7 @@ function populateAllWatches() {
       brand: "rolex",
       price: "£130,000",
       category: "sport, investment",
-      image: "./images/products/rolex/rolex-daytona-white-main.png"
+      image: "./images/products/rolex/rolex-daytona-white-main.webp"
     },
     {
       id: "rolex-submariner-hulk-002",
@@ -43,7 +43,7 @@ function populateAllWatches() {
       brand: "rolex",
       price: "£87,000",
       category: "sport, investment",
-      image: "./images/products/rolex/rolex-submariner-hulk-main.png"
+      image: "./images/products/rolex/rolex-submariner-hulk-main.webp"
     },
     {
       id: "ap-royal-oak-offshore-003",
@@ -51,7 +51,7 @@ function populateAllWatches() {
       brand: "audemars-piguet",
       price: "£32,500",
       category: "sport, luxury",
-      image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png"
+      image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.webp"
     },
     {
       id: "ap-royal-oak-jumbo-004",
@@ -59,7 +59,7 @@ function populateAllWatches() {
       brand: "audemars-piguet",
       price: "By Private Consultation",
       category: "dress, luxury, investment",
-      image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png"
+      image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.webp"
     },
     {
       id: "patek-nautilus-5711-005",
@@ -67,7 +67,7 @@ function populateAllWatches() {
       brand: "patek-philippe",
       price: "By Private Consultation",
       category: "sport, luxury, investment",
-      image: "./images/products/patek-philippe/patek-nautilus-5711-main.png"
+      image: "./images/products/patek-philippe/patek-nautilus-5711-main.webp"
     },
     {
       id: "patek-calatrava-5227-006",
@@ -75,7 +75,7 @@ function populateAllWatches() {
       brand: "patek-philippe",
       price: "£38,900",
       category: "dress, luxury",
-      image: "./images/products/patek-philippe/patek-calatrava-5227-detail.png"
+      image: "./images/products/patek-philippe/patek-calatrava-5227-detail.webp"
     },
     {
       id: "rm-mclaren-11-03-007",
@@ -83,7 +83,7 @@ function populateAllWatches() {
       brand: "richard-mille",
       price: "By Private Consultation",
       category: "sport, luxury, investment",
-      image: "./images/products/richard-mille/rm-11-03-mclaren-main.png"
+      image: "./images/products/richard-mille/rm-11-03-mclaren-main.webp"
     },
     {
       id: "rm-67-02-extraflat-008",
@@ -91,7 +91,7 @@ function populateAllWatches() {
       brand: "richard-mille",
       price: "£87,000",
       category: "dress, luxury, investment",
-      image: "./images/products/richard-mille/rm-67-02-extraflat-main.png"
+      image: "./images/products/richard-mille/rm-67-02-extraflat-main.webp"
     },
     {
       id: "cartier-santos-large-009",
@@ -99,7 +99,7 @@ function populateAllWatches() {
       brand: "cartier",
       price: "£6,750",
       category: "sport, dress",
-      image: "./images/products/cartier/cartier-santos-large-main.png"
+      image: "./images/products/cartier/cartier-santos-large-main.webp"
     },
     {
       id: "cartier-tank-must-010",
@@ -107,7 +107,7 @@ function populateAllWatches() {
       brand: "cartier",
       price: "£2,890",
       category: "dress",
-      image: "./images/products/cartier/cartier-tank-must-main.png"
+      image: "./images/products/cartier/cartier-tank-must-main.webp"
     },
     {
       id: "hublot-big-bang-titanium-011",
@@ -115,7 +115,7 @@ function populateAllWatches() {
       brand: "hublot",
       price: "£18,900",
       category: "sport, luxury",
-      image: "./images/products/hublot/hublot-big-bang-titanium-main.png"
+      image: "./images/products/hublot/hublot-big-bang-titanium-main.webp"
     },
     {
       id: "hublot-classic-fusion-gold-012",
@@ -123,7 +123,7 @@ function populateAllWatches() {
       brand: "hublot",
       price: "£24,500",
       category: "dress, luxury",
-      image: "./images/products/hublot/hublot-classic-fusion-gold-main.png"
+      image: "./images/products/hublot/hublot-classic-fusion-gold-main.webp"
     },
     {
       id: "longines-pocket-master-013",
@@ -131,7 +131,7 @@ function populateAllWatches() {
       brand: "longines",
       price: "£1,890",
       category: "dress, luxury",
-      image: "./images/products/longines/longines-pocket-master-main.png"
+      image: "./images/products/longines/longines-pocket-master-main.webp"
     },
     {
       id: "longines-pocket-heritage-014",
@@ -139,7 +139,7 @@ function populateAllWatches() {
       brand: "longines",
       price: "£1,250",
       category: "dress",
-      image: "./images/products/longines/longines-pocket-heritage-main.png"
+      image: "./images/products/longines/longines-pocket-heritage-main.webp"
     },
     {
       id: "omega-chronometre-tourbillon-015",
@@ -147,7 +147,7 @@ function populateAllWatches() {
       brand: "omega",
       price: "By Private Consultation",
       category: "investment, heritage, luxury",
-      image: "./images/products/omega/omega-chronometre-tourbillon-main.png"
+      image: "./images/products/omega/omega-chronometre-tourbillon-main.webp"
     },
     {
       id: "omega-speedmaster-145022-69-016",
@@ -155,7 +155,7 @@ function populateAllWatches() {
       brand: "omega",
       price: "£12,000",
       category: "sport, investment, heritage",
-      image: "./images/products/omega/omega-speedmaster-145022-69-main.png"
+      image: "./images/products/omega/omega-speedmaster-145022-69-main.webp"
     }
   ];
 
@@ -189,7 +189,7 @@ function getDefaultProductsComplete() {
       brand: "rolex",
       price: "£130,000",
       category: "sport, investment",
-      image: "./images/products/rolex/rolex-daytona-white-main.png"
+      image: "./images/products/rolex/rolex-daytona-white-main.webp"
     },
     {
       id: "rolex-submariner-hulk-002",
@@ -197,7 +197,7 @@ function getDefaultProductsComplete() {
       brand: "rolex",
       price: "£87,000",
       category: "sport, investment",
-      image: "./images/products/rolex/rolex-submariner-hulk-main.png"
+      image: "./images/products/rolex/rolex-submariner-hulk-main.webp"
     },
     {
       id: "ap-royal-oak-offshore-003",
@@ -205,7 +205,7 @@ function getDefaultProductsComplete() {
       brand: "audemars-piguet",
       price: "£32,500",
       category: "sport, luxury",
-      image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.png"
+      image: "./images/products/audemars-piguet/ap-royal-oak-offshore-main.webp"
     },
     {
       id: "ap-royal-oak-jumbo-004",
@@ -213,7 +213,7 @@ function getDefaultProductsComplete() {
       brand: "audemars-piguet",
       price: "By Private Consultation",
       category: "dress, luxury, investment",
-      image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.png"
+      image: "./images/products/audemars-piguet/ap-royal-oak-jumbo-main.webp"
     },
     {
       id: "patek-nautilus-5711-005",
@@ -221,7 +221,7 @@ function getDefaultProductsComplete() {
       brand: "patek-philippe",
       price: "By Private Consultation",
       category: "sport, luxury, investment",
-      image: "./images/products/patek-philippe/patek-nautilus-5711-main.png"
+      image: "./images/products/patek-philippe/patek-nautilus-5711-main.webp"
     },
     {
       id: "patek-calatrava-5227-006",
@@ -229,7 +229,7 @@ function getDefaultProductsComplete() {
       brand: "patek-philippe",
       price: "£38,900",
       category: "dress, luxury",
-      image: "./images/products/patek-philippe/patek-calatrava-5227-detail.png"
+      image: "./images/products/patek-philippe/patek-calatrava-5227-detail.webp"
     },
     {
       id: "rm-mclaren-11-03-007",
@@ -237,7 +237,7 @@ function getDefaultProductsComplete() {
       brand: "richard-mille",
       price: "By Private Consultation",
       category: "sport, luxury, investment",
-      image: "./images/products/richard-mille/rm-11-03-mclaren-main.png"
+      image: "./images/products/richard-mille/rm-11-03-mclaren-main.webp"
     },
     {
       id: "rm-67-02-extraflat-008",
@@ -245,7 +245,7 @@ function getDefaultProductsComplete() {
       brand: "richard-mille",
       price: "£87,000",
       category: "dress, luxury, investment",
-      image: "./images/products/richard-mille/rm-67-02-extraflat-main.png"
+      image: "./images/products/richard-mille/rm-67-02-extraflat-main.webp"
     },
     {
       id: "cartier-santos-large-009",
@@ -253,7 +253,7 @@ function getDefaultProductsComplete() {
       brand: "cartier",
       price: "£6,750",
       category: "sport, dress",
-      image: "./images/products/cartier/cartier-santos-large-main.png"
+      image: "./images/products/cartier/cartier-santos-large-main.webp"
     },
     {
       id: "cartier-tank-must-010",
@@ -261,7 +261,7 @@ function getDefaultProductsComplete() {
       brand: "cartier",
       price: "£2,890",
       category: "dress",
-      image: "./images/products/cartier/cartier-tank-must-main.png"
+      image: "./images/products/cartier/cartier-tank-must-main.webp"
     },
     {
       id: "hublot-big-bang-titanium-011",
@@ -269,7 +269,7 @@ function getDefaultProductsComplete() {
       brand: "hublot",
       price: "£18,900",
       category: "sport, luxury",
-      image: "./images/products/hublot/hublot-big-bang-titanium-main.png"
+      image: "./images/products/hublot/hublot-big-bang-titanium-main.webp"
     },
     {
       id: "hublot-classic-fusion-gold-012",
@@ -277,7 +277,7 @@ function getDefaultProductsComplete() {
       brand: "hublot",
       price: "£24,500",
       category: "dress, luxury",
-      image: "./images/products/hublot/hublot-classic-fusion-gold-main.png"
+      image: "./images/products/hublot/hublot-classic-fusion-gold-main.webp"
     },
     {
       id: "longines-pocket-master-013",
@@ -285,7 +285,7 @@ function getDefaultProductsComplete() {
       brand: "longines",
       price: "£1,890",
       category: "dress, luxury",
-      image: "./images/products/longines/longines-pocket-master-main.png"
+      image: "./images/products/longines/longines-pocket-master-main.webp"
     },
     {
       id: "longines-pocket-heritage-014",
@@ -293,7 +293,7 @@ function getDefaultProductsComplete() {
       brand: "longines",
       price: "£1,250",
       category: "dress",
-      image: "./images/products/longines/longines-pocket-heritage-main.png"
+      image: "./images/products/longines/longines-pocket-heritage-main.webp"
     },
     {
       id: "omega-chronometre-tourbillon-015",
@@ -301,7 +301,7 @@ function getDefaultProductsComplete() {
       brand: "omega",
       price: "By Private Consultation",
       category: "investment, heritage, luxury",
-      image: "./images/products/omega/omega-chronometre-tourbillon-main.png"
+      image: "./images/products/omega/omega-chronometre-tourbillon-main.webp"
     },
     {
       id: "omega-speedmaster-145022-69-016",
@@ -309,7 +309,7 @@ function getDefaultProductsComplete() {
       brand: "omega",
       price: "£12,000",
       category: "sport, investment, heritage",
-      image: "./images/products/omega/omega-speedmaster-145022-69-main.png"
+      image: "./images/products/omega/omega-speedmaster-145022-69-main.webp"
     }
   ];
 }

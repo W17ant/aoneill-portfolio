@@ -7,7 +7,7 @@
 /*
 ===============================================
 All styling moved from inline to external file
-Crown Navy (#0C1B2A) + Imperial Gold (#D4AF37)
+Crown Navy (#0C1B2A) + Imperial Gold (#9b7d4a)
 Mobile-first responsive design for billionaire clientele
 ===============================================
 */
@@ -17,15 +17,15 @@ Mobile-first responsive design for billionaire clientele
    ########################################################### */
    :root {
     --crown-navy: #0C1B2A;
-    --imperial-gold: #D4AF37;
+    --imperial-gold: #9b7d4a;
     --ivory-paper: #F5F5F5;
     --charcoal-black: #121212;
-    --platinum-silver: #B6BDC3;
+    --platinum-silver:#9CA3AF;
     --claret-red: #7F1124;
     --white: #FFFFFF;
     --off-white: #FAFAFA;
-    --light-gray: #E5E5E5;
-    --medium-gray: #9CA3AF;
+    --light-gray: #E5E7EB;
+    --medium-gray: #6B7280;
     --dark-gray: #374151;
     
     --font-serif: "Georgia", serif;
@@ -48,6 +48,9 @@ Mobile-first responsive design for billionaire clientele
     --space-6: 1.5rem;
     --space-8: 2rem;
     --space-12: 3rem;
+    --warning-bg: #FEF3C7;
+    --warning-border: #F59E0B;
+    --warning-text: #92400E;
     --space-16: 4rem;
     --space-20: 5rem;
     --space-24: 6rem;
@@ -177,7 +180,7 @@ Mobile-first responsive design for billionaire clientele
   .loading-text {
     font-family: var(--font-serif, 'Georgia', serif);
     font-size: 4rem;
-    color: #D4AF37;
+    color: #9b7d4a;
     letter-spacing: 0.1em;
     z-index: 2;
     position: absolute;
@@ -186,7 +189,7 @@ Mobile-first responsive design for billionaire clientele
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
     padding: 0.75rem 2rem;
     text-align: center;
-    border: 2px solid #D4AF37;
+    border: 2px solid #9b7d4a;
     border-radius: 8px;
     background: rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease;
@@ -199,8 +202,7 @@ Mobile-first responsive design for billionaire clientele
   }
   
   .loading-logo {
-    width: 100%;
-    height: auto;
+    width: auto;
     animation: pulse 2s ease-in-out infinite;
     z-index: 1;
   }
@@ -215,12 +217,13 @@ Mobile-first responsive design for billionaire clientele
   /* ###########################################################
      ###   5. HEADER & NAVIGATION                            ###
      ########################################################### */
+
   .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--ivory-paper);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--light-gray);
     z-index: 1000;
@@ -243,8 +246,8 @@ Mobile-first responsive design for billionaire clientele
    /*
 ===============================================
 Logo Hover State for Scroll-to-Top
-===============================================
-*/
+=============================================== */
+
 .nav-brand {
   cursor: pointer;
   transition: transform var(--transition-base);
@@ -262,45 +265,54 @@ Logo Hover State for Scroll-to-Top
   /* ###########################################################
      ###   6. DESKTOP NAVIGATION                             ###
      ########################################################### */
-  .nav-menu {
-    display: none;
-    list-style: none;
-    gap: var(--space-8);
-  }
-  
-  .nav-link {
-    font-family: var(--font-sans);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--crown-navy);
-    padding: var(--space-2) 0;
-    position: relative;
-    transition: color var(--transition-base);
-    cursor: pointer;
-  }
-  
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--imperial-gold);
-  }
-  
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--imperial-gold);
-    transition: width var(--transition-base);
-  }
-  
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    width: 100%;
-  }
+
+     .nav-menu {
+      display: none;
+      list-style: none;
+      gap: var(--space-8);
+    }
+    
+    .nav-link {
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--crown-navy);
+      padding: var(--space-2) var(--space-3);
+      position: relative;
+      transition: all var(--transition-base);
+      cursor: pointer;
+      border-radius: var(--radius-lg);
+    }
+    
+    .nav-link:hover {
+      color: var(--imperial-gold);
+      background: rgba(194, 157, 92, 0.08);
+    }
+    
+    .nav-link.active {
+      color: var(--imperial-gold);
+      background: rgba(194, 157, 92, 0.15);
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: var(--space-3);
+      right: var(--space-3);
+      height: 2px;
+      background: var(--imperial-gold);
+      transition: transform var(--transition-base);
+      transform: scaleX(0);
+      transform-origin: center;
+    }
+    
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
   
   /* ###########################################################
      ###   7. MOBILE MENU TOGGLE                             ###
@@ -678,32 +690,6 @@ Logo Hover State for Scroll-to-Top
     display: none !important;
   }
   
-  .maison-logo {
-    background: transparent !important;
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    margin: 0 auto 1.5rem;
-    display: block;
-  }
-  
-  .maison-logo.maison-logo-fallback {
-    width: 60px;
-    height: 60px;
-    background: var(--imperial-gold) !important;
-    border-radius: 50%;
-    display: none !important;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-serif);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--crown-navy);
-  }
-  
-  .maison-logo-fallback.image-error-flex {
-    display: flex !important;
-  }
   
   /* ###########################################################
      ###   19. BUTTONS                                       ###
@@ -1203,6 +1189,14 @@ Logo Hover State for Scroll-to-Top
     background: var(--light-gray);
     color: var(--crown-navy);
   }
+
+    /* Concierge Modal Form Spacing */
+  #concierge-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6); /* Uses your 1.5rem spacing variable */
+  }
+  
   
   
   /* ###########################################################
@@ -1664,7 +1658,7 @@ COMPONENT STYLES:
 
 UTILITY CLASSES:
 - Spacing utilities
-- Color utilities
+- Colour utilities
 - Display helpers
 - Animation classes
 
@@ -1676,7 +1670,7 @@ PERFORMANCE:
 
 ACCESSIBILITY:
 - Focus visible states
-- Color contrast AAA
+- Colour contrast AAA
 - Touch targets 44px+
 - Screen reader helpers
 =======================================================

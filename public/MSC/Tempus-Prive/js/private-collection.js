@@ -23,7 +23,7 @@ Heart animations and modal management
  */
 class PrivateCollectionManager {
     /**
-     * Initializes collection manager with storage and UI references.
+     * Initialises collection manager with storage and UI references.
      */
     constructor() {
         // ====== Storage Configuration ======
@@ -45,12 +45,12 @@ class PrivateCollectionManager {
     }
 
     /* ###########################################################
-       ###  2. Initialization Methods                          ###
+       ###  2. Initialisation Methods                          ###
        ########################################################### */
 
     /**
-     * Initializes UI elements and event listeners.
-     * Guards against multiple initialization.
+     * Initialises UI elements and event listeners.
+     * Guards against multiple Initialisation.
      */
     init() {
         if (this.isInitialized) return;
@@ -69,7 +69,7 @@ class PrivateCollectionManager {
         this.updateAllHeartStates();
         
         this.isInitialized = true;
-        console.log('💎 Private Collection Manager Initialized');
+        console.log('💎 Private Collection Manager Initialised');
     }
     
     /**
@@ -92,7 +92,7 @@ class PrivateCollectionManager {
     }
     
     /**
-     * Reinitializes event listeners if they've been lost.
+     * Reinitialises event listeners if they've been lost.
      * Useful after DOM updates or navigation changes.
      */
     reinitializeEventListeners() {
@@ -547,7 +547,7 @@ class PrivateCollectionManager {
                     <img src="${product.image}" 
                          alt="${product.name}" 
                          class="collection-item-image"
-                         onerror="this.src='./images/assets/placeholder-watch.png'">
+                         onerror="this.src='./images/assets/placeholder-watch.webp'">
                     <div class="collection-item-info">
                         <div class="collection-item-brand">${product.brand}</div>
                         <div class="collection-item-name">${product.name}</div>
@@ -735,7 +735,7 @@ WISHLIST FUNCTIONALITY:
 
 DATA PERSISTENCE:
 - localStorage storage
-- JSON serialization
+- JSON serialisation
 - Error recovery
 - Data validation
 
@@ -755,7 +755,7 @@ USER EXPERIENCE:
 - Instant feedback
 - Smooth animations
 - Clear CTAs
-- Mobile optimized
+- Mobile optimised
 
 ACCESSIBILITY:
 - Button states

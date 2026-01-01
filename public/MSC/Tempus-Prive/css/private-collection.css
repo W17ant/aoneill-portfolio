@@ -19,39 +19,16 @@ Animations and visual feedback for saved timepieces
 .btn-add-collection {
     width: 48px;
     height: 48px;
-    border: 2px solid white;
     background: transparent;
+    border: none;
     border-radius: 50%;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    transform: translateY(20px);
-    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     padding: 0;
-}
-
-.product-card:hover .btn-add-collection {
-    transform: translateY(0);
-}
-
-
-
-.btn-add-collection:hover {
-    background: var(--crown-navy);
-    color: var(--imperial-gold);
-}
-
-.btn-add-collection.in-collection {
-    background: var(--imperial-gold);
-    border-color: var(--imperial-gold);
-}
-
-.btn-add-collection.in-collection:hover {
-    background: var(--imperial-gold);
-    border-color: var(--imperial-gold);
 }
 
 .btn-add-collection svg {
@@ -60,8 +37,28 @@ Animations and visual feedback for saved timepieces
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.btn-add-collection.in-collection svg path {
-    fill: var(--crown-navy);
+/* Default state - transparent/outline */
+.btn-add-collection:not(.in-collection) svg {
+    stroke: rgba(255, 255, 255, 0.8);
+    fill: transparent;
+}
+
+.btn-add-collection:not(.in-collection):hover svg {
+    stroke: var(--imperial-gold);
+    fill: rgba(212, 175, 55, 0.1);
+    transform: scale(1.1);
+}
+
+/* In collection state - filled gold */
+.btn-add-collection.in-collection svg {
+    stroke: var(--imperial-gold);
+    fill: var(--imperial-gold);
+}
+
+.btn-add-collection.in-collection:hover svg {
+    stroke: #F5E06B;
+    fill: #F5E06B;
+    transform: scale(0.9);
 }
 
 /* Focus state */
@@ -104,202 +101,122 @@ Animations and visual feedback for saved timepieces
    ###   3. COLLECTION MODAL                               ###
    ########################################################### */
 
-/* ===== Modal Structure ===== */
-.collection-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 10000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(10px);
-    animation: fadeIn 0.3s ease;
-}
-
-.collection-modal.active {
-    display: flex;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* ===== Modal Content ===== */
+/* ===== COLLECTION MODAL ===== */
 .collection-modal-content {
-    background: white;
-    border-radius: 16px;
-    max-width: 800px;
-    width: 90%;
-    max-height: 90vh;
-    overflow: hidden;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 900px;
+    max-height: 85vh;
+    overflow-y: auto;
 }
-
-@keyframes slideIn {
-    from {
-        transform: translateY(30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* ###########################################################
-   ###   4. COLLECTION HEADER                              ###
-   ########################################################### */
 
 .collection-header {
-    padding: 3rem;
     text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-    position: relative;
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--imperial-gold);
+    padding-bottom: 2rem;
 }
 
 .collection-header h3 {
     font-family: var(--font-serif);
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 4vw, 2.5rem);
     color: var(--crown-navy);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
 }
 
 .collection-header p {
     color: var(--medium-gray);
     font-size: 1.125rem;
+    font-style: italic;
 }
 
 /* ###########################################################
-   ###   5. CLOSE BUTTON                                   ###
+   ###   4. COLLECTION LIST LAYOUT                         ###
    ########################################################### */
 
-.close-modal {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid #e5e5e5;
-    background: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-
-.close-modal:hover {
-    border-color: var(--imperial-gold);
-    transform: rotate(90deg);
-}
-
-.close-modal svg {
-    width: 20px;
-    height: 20px;
-    stroke: var(--crown-navy);
-}
-
-/* ###########################################################
-   ###   6. COLLECTION ITEMS GRID                          ###
-   ########################################################### */
-
+/* ===== COLLECTION LIST LAYOUT ===== */
 .collection-items {
-    padding: 3rem;
-    max-height: 60vh;
-    overflow-y: auto;
-}
-
-.collection-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
+    padding: 0.5rem;
 }
 
 /* ###########################################################
-   ###   7. COLLECTION ITEM                                ###
+   ###   5. COLLECTION ITEM STYLING                        ###
    ########################################################### */
 
 .collection-item {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    padding: 1.5rem;
-    background: #f8f8f8;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
     border-radius: 12px;
+    background: #fafafa;
     transition: all 0.3s ease;
-    position: relative;
+    min-height: 100px;
 }
 
 .collection-item:hover {
-    background: #f0f0f0;
-    transform: translateX(4px);
+    border-color: var(--imperial-gold);
+    background: white;
+    box-shadow: var(--shadow-luxury);
 }
 
-.collection-item-images {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
+/* ###########################################################
+   ###   6. PRODUCT IMAGE & BRAND LOGO                     ###
+   ########################################################### */
 
 .collection-item-image {
     width: 80px;
     height: 80px;
+    object-fit: contain;
     background: white;
     border-radius: 8px;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.collection-item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    padding: 8px;
+    border: 1px solid #e5e5e5;
+    flex-shrink: 0;
 }
 
 .collection-item-brand-logo {
-    width: 50px;
-    height: 30px;
+    width: 60px;
+    height: 40px;
     object-fit: contain;
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    flex-shrink: 0;
 }
 
-.collection-item:hover .collection-item-brand-logo {
-    opacity: 1;
-}
+/* ###########################################################
+   ###   7. PRODUCT INFO                                   ###
+   ########################################################### */
 
 .collection-item-info {
     flex: 1;
-}
-
-.collection-item-name {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--crown-navy);
-    margin-bottom: 0.25rem;
+    min-width: 0;
 }
 
 .collection-item-brand {
     font-size: 0.875rem;
-    color: var(--medium-gray);
-    text-transform: capitalize;
+    color: var(--imperial-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.collection-item-name {
+    font-size: 1.125rem;
+    color: var(--crown-navy);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
 }
 
 .collection-item-price {
-    font-size: 1.125rem;
-    color: var(--imperial-gold);
-    font-weight: 500;
-    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #666;
 }
 
 /* ###########################################################
@@ -461,13 +378,15 @@ Animations and visual feedback for saved timepieces
    ########################################################### */
 
 @media (prefers-contrast: high) {
-    .btn-add-collection {
-        border-width: 3px;
+    .btn-add-collection:not(.in-collection) svg {
+        stroke: white;
+        stroke-width: 2.5;
     }
 
-    .btn-add-collection.in-collection {
-        background: var(--imperial-gold);
-        border-color: var(--crown-navy);
+    .btn-add-collection.in-collection svg {
+        fill: var(--imperial-gold);
+        stroke: var(--crown-navy);
+        stroke-width: 2.5;
     }
 }
 
@@ -488,55 +407,8 @@ Animations and visual feedback for saved timepieces
     .btn-remove:hover {
         transform: none;
     }
-
-    .product-card:hover .btn-add-collection {
-        transform: none;
-    }
 }
 
 /* ###########################################################
    ###            END OF PRIVATE COLLECTION STYLES         ###
    ########################################################### */
-
-/*
-=======================================================
-IMPLEMENTATION NOTES: PRIVATE COLLECTION STYLES
-=======================================================
-
-HEART BUTTON DESIGN:
-- White 2px border with transparent background
-- Slides up with product overlay on hover
-- Gold fill when item in collection
-- Consistent 48x48px touch target
-
-MODAL INTERFACE:
-- Fixed overlay with backdrop blur
-- 800px max-width responsive container
-- Slide-in animation on open
-- Scrollable collection grid
-
-ANIMATIONS:
-- Heart-pop elastic bounce effect
-- Heart-glow golden filter on add
-- Smooth transitions (0.3s ease)
-- Respects prefers-reduced-motion
-
-RESPONSIVE BREAKPOINTS:
-- 768px: Simplified grid layout
-- 480px: Reduced button sizes
-- Mobile: Column layout for items
-- Touch-friendly tap targets
-
-ACCESSIBILITY:
-- Focus-visible states with offset
-- High contrast mode support
-- Reduced motion preferences
-- Semantic button states
-
-INTEGRATION:
-- Works with private-collection.js
-- Compatible with product overlays
-- Updates collection badge count
-- Consistent with brand tokens
-=======================================================
-*/

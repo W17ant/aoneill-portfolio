@@ -22,14 +22,14 @@ Base styles remain in main.css and components.css
     --loading-duration-medium: 1.4s;
     --loading-duration-slow: 2.2s;
     
-    /* Skeleton & shimmer colors derived from brand palette */
-    --skeleton-base: rgba(188, 192, 203, 0.15); /* royal-silver with opacity */
+    /* Skeleton & shimmer colours derived from brand palette */
+    --skeleton-base: rgba(138, 142, 153, 0.15); /* royal-silver with opacity */
     --skeleton-shine: rgba(194, 157, 92, 0.3);  /* imperial-gold shimmer */
     --skeleton-dark: rgba(14, 21, 40, 0.05);    /* crown-navy subtle */
     
-    /* Loading spinner colors */
+    /* Loading spinner colours */
     --spinner-primary: var(--imperial-gold);
-    --spinner-track: rgba(188, 192, 203, 0.2);
+    --spinner-track: rgba(138, 142, 153, 0.2);
     
     /* Pulse animation intensity */
     --pulse-scale: 1.02;
@@ -39,7 +39,7 @@ Base styles remain in main.css and components.css
   /* Dark theme adjustments */
   @media (prefers-color-scheme: dark) {
     :root {
-      --skeleton-base: rgba(188, 192, 203, 0.08);
+      --skeleton-base: rgba(138, 142, 153, 0.08);
       --skeleton-shine: rgba(194, 157, 92, 0.2);
       --skeleton-dark: rgba(255, 255, 255, 0.03);
     }
@@ -180,7 +180,7 @@ Base styles remain in main.css and components.css
     height: 3rem;
   }
   
-  /* Centered spinner container */
+  /* Centred spinner container */
   .spinner-container {
     display: flex;
     align-items: center;
@@ -295,7 +295,7 @@ Base styles remain in main.css and components.css
   }
   
   .loading-overlay .spinner {
-    border-color: rgba(188, 192, 203, 0.3);
+    border-color: rgba(138, 142, 153, 0.3);
     border-top-color: var(--imperial-gold);
   }
   
@@ -424,7 +424,7 @@ Base styles remain in main.css and components.css
   }
   
   /* ###########################################################
-     ###   12. RESPONSIVE ADJUSTMENTS - Mobile Optimizations ###
+     ###   12. RESPONSIVE ADJUSTMENTS - Mobile optimisations ###
      ########################################################### */
   
   @media (max-width: 768px) {
@@ -492,7 +492,7 @@ IMPLEMENTATION NOTES: LOADING STATES STYLES
 
 INITIAL LOAD SCREEN:
 - Full viewport coverage
-- Centered branding
+- Centred branding
 - Fade out animation
 - Minimum display timing
 
@@ -505,14 +505,14 @@ SKELETON SCREENS:
 SPINNER COMPONENTS:
 - Multiple sizes
 - Rotation animation
-- Brand colors
+- Brand colours
 - Accessibility
 
 PROGRESS BARS:
 - Linear design
 - Percentage display
 - Smooth animation
-- Status colors
+- Status colours
 
 ERROR STATES:
 - Clear messaging
@@ -522,7 +522,7 @@ ERROR STATES:
 
 PERFORMANCE:
 - CSS animations only
-- GPU optimization
+- GPU optimisation
 - Low CPU usage
 - Battery efficient
 =======================================================

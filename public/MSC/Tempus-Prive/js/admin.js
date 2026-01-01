@@ -9,7 +9,7 @@
 Complete CRUD system for luxury watch inventory management
 Features: validation, image upload, real-time filter updates
 Password protection: Watch1
-Cross-tab synchronization via localStorage
+Cross-tab synchronisation via localStorage
 ===============================================
 */
 
@@ -36,7 +36,7 @@ class EnhancedAdminPanel {
     }
   
     /**
-     * Initialize all admin panel components.
+     * Initialise all admin panel components.
      * Sequential setup ensures proper dependency resolution.
      */
     init() {
@@ -63,7 +63,7 @@ class EnhancedAdminPanel {
             window.opener.updateFilterCounts(this.products);
         }
         
-        // Trigger storage event for cross-tab synchronization
+        // Trigger storage event for cross-tab synchronisation
         const event = new StorageEvent('storage', {
             key: 'admin-products',
             newValue: JSON.stringify(this.products),
@@ -97,7 +97,7 @@ class EnhancedAdminPanel {
         ?.addEventListener('click', () => {
           this.populateSampleData();
           // give the table a moment to render & localStorage to flush,
-          // then reload the page so the entire admin UI re-initializes
+          // then reload the page so the entire admin UI re-initialises
           setTimeout(() => window.location.reload(), 100);
         });
         
@@ -154,7 +154,7 @@ class EnhancedAdminPanel {
   
     /**
      * Save products to localStorage.
-     * Triggers cross-tab synchronization.
+     * Triggers cross-tab synchronisation.
      */
     saveProducts() {
         try {
@@ -177,7 +177,7 @@ class EnhancedAdminPanel {
                 brand: "rolex",
                 price: "£130,000",
                 category: ["sport", "investment"],
-                image: "./images/products/rolex/rolex-daytona-white-main.png",
+                image: "./images/products/rolex/rolex-daytona-white-main.webp",
                 featured: true,
                 newArrival: false
             },
@@ -187,7 +187,7 @@ class EnhancedAdminPanel {
                 brand: "richard-mille",
                 price: "By Private Consultation",
                 category: ["sport", "luxury", "investment"],
-                image: "./images/products/richard-mille/rm-11-03-mclaren-main.png",
+                image: "./images/products/richard-mille/rm-11-03-mclaren-main.webp",
                 featured: true,
                 newArrival: false
             },
@@ -197,7 +197,7 @@ class EnhancedAdminPanel {
                 brand: "longines",
                 price: "£1,890",
                 category: ["dress", "luxury"],
-                image: "./images/products/longines/longines-pocket-master-main.png",
+                image: "./images/products/longines/longines-pocket-master-main.webp",
                 featured: true,
                 newArrival: false
             }
@@ -231,7 +231,7 @@ class EnhancedAdminPanel {
                 brand: "omega",
                 price: "£12,000",
                 category: ["sport", "heritage"],
-                image: "./images/products/omega/omega-speedmaster-145022-69-main.png",
+                image: "./images/products/omega/omega-speedmaster-145022-69-main.webp",
                 featured: false,
                 newArrival: true
             },
@@ -241,7 +241,7 @@ class EnhancedAdminPanel {
                 brand: "patek-philippe",
                 price: "By Private Consultation",
                 category: ["sport", "luxury", "investment"],
-                image: "./images/products/patek-philippe/patek-nautilus-5711-main.png",
+                image: "./images/products/patek-philippe/patek-nautilus-5711-main.webp",
                 featured: true,
                 newArrival: false
             }
@@ -457,7 +457,7 @@ class EnhancedAdminPanel {
        ########################################################### */
   
     /**
-     * Initialize drag-and-drop image upload.
+     * Initialise drag-and-drop image upload.
      * Supports both file selection and drag operations.
      */
     initializeImageUpload() {
@@ -475,7 +475,7 @@ class EnhancedAdminPanel {
         });
   
         /* ====== Drag and Drop Events ====== */
-        // Prevent default drag behaviors
+        // Prevent default drag behaviours
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             uploadArea.addEventListener(eventName, preventDefaults, false);
             document.body.addEventListener(eventName, preventDefaults, false);
@@ -623,7 +623,7 @@ class EnhancedAdminPanel {
         const product = {
             id: this.generateId(),
             ...data,
-            image: data.image || './images/assets/placeholder-watch.png',
+            image: data.image || './images/assets/placeholder-watch.webp',
             createdAt: new Date().toISOString()
         };
         
@@ -663,7 +663,7 @@ class EnhancedAdminPanel {
     }
   
     /**
-     * Show delete confirmation dialog.
+     * Show delete confirmation dialogue.
      * Displays product details for user verification.
      */
     confirmDelete(id) {
@@ -678,7 +678,7 @@ class EnhancedAdminPanel {
         
         // Show product details in confirmation message
         document.getElementById('delete-message').innerHTML = 
-            `Are you sure you want to delete "<strong style="color: #D4AF37;">${product.name}</strong>" by ${this.getBrandDisplayName(product.brand)}?<br><br>This action cannot be undone.`;
+            `Are you sure you want to delete "<strong style="color: #9b7d4a;">${product.name}</strong>" by ${this.getBrandDisplayName(product.brand)}?<br><br>This action cannot be undone.`;
         
         document.getElementById('delete-modal').classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -940,7 +940,7 @@ class EnhancedAdminPanel {
                 <td>
                     <img src="${product.image}" 
                          alt="${product.name}" 
-                         onerror="this.src='./images/assets/placeholder-watch.png'" />
+                         onerror="this.src='./images/assets/placeholder-watch.webp'" />
                 </td>
                 <td>${this.escapeHtml(product.name)}</td>
                 <td>${this.getBrandDisplayName(product.brand)}</td>
@@ -1171,7 +1171,7 @@ class EnhancedAdminPanel {
   }
   
   /* ###########################################################
-     ###   12. Module Initialization                         ###
+     ###   12. Module Initialisation                         ###
      ########################################################### */
   
   /* ====== DOM Ready Handler ====== */
@@ -1269,6 +1269,6 @@ INTEGRATION:
 - Updates main site instantly
 - Triggers count updates
 - Maintains data consistency
-- Cross-tab synchronization
+- Cross-tab synchronisation
 =======================================================
 */     

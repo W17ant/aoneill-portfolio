@@ -8,8 +8,8 @@
 ===============================================
 Manages real-time category counts for product filters
 Updates automatically when product data changes
-Performance optimized with caching and debouncing
-Cross-tab synchronization via storage events
+Performance optimised with caching and debouncing
+Cross-tab synchronisation via storage events
 ===============================================
 */
 
@@ -22,7 +22,7 @@ console.log('🔧 filter-counts.js is loading...');
 
 /**
  * Core manager for dynamic filter count badges.
- * Synchronizes counts across tabs and components.
+ * Synchronises counts across tabs and components.
  */
 class FilterCountManager {
     constructor() {
@@ -32,20 +32,20 @@ class FilterCountManager {
         this.updateDebounceTimer = null;
         // Performance cache for count calculations
         this.cache = new Map();
-        // Initialization flag prevents duplicate setup
+        // Initialisation flag prevents duplicate setup
         this.initialized = false;
     }
 
     /* ###########################################################
-       ###   2. Initialization Methods                         ###
+       ###   2. Initialisation Methods                         ###
        ########################################################### */
 
     /**
-     * Primary initialization method.
+     * Primary Initialisation method.
      * Orchestrates data loading, listeners, and initial render.
      */
     init() {
-        // Guard against duplicate initialization
+        // Guard against duplicate Initialisation
         if (this.initialized) return;
         
         // Load initial products
@@ -106,7 +106,7 @@ class FilterCountManager {
         });
 
         /* ====== Storage Events for Cross-Tab Sync ====== */
-        // Synchronize when another tab updates products
+        // Synchronie when another tab updates products
         window.addEventListener('storage', (e) => {
             if (e.key === 'admin-products') {
                 try {
@@ -136,7 +136,7 @@ class FilterCountManager {
 
     /**
      * Calculates product counts by category.
-     * Implements caching for performance optimization.
+     * Implements caching for performance optimisation.
      */
     countByCategory(products) {
         // Check cache to avoid redundant calculations
@@ -354,7 +354,7 @@ class FilterCountManager {
 }
 
 /* ###########################################################
-   ###   8. Module Initialization                          ###
+   ###   8. Module Initialisation                          ###
    ########################################################### */
 
 /* ====== Global Variable Declaration ====== */
@@ -421,8 +421,8 @@ IMPLEMENTATION NOTES: DYNAMIC FILTER COUNTS MODULE
 REAL-TIME COUNT UPDATES:
 - Automatic count calculation
 - Updates on product changes
-- Cross-tab synchronization
-- Performance optimized with caching
+- Cross-tab synchronisation
+- Performance optimised with caching
 
 CATEGORY COUNTING:
 - Supports multi-category products

@@ -25,7 +25,7 @@ Provides dynamic UI updates and state management
 class ProductManager {
     
   /**
-   * Initializes product manager with default state.
+   * Initialises product manager with default state.
    * Sets up empty data structures and default filter/sort values.
    */
   constructor() {
@@ -47,11 +47,11 @@ class ProductManager {
   }
 
   /* ###########################################################
-     ###  2. Initialization and Data Loading                 ###
+     ###  2. Initialisation and Data Loading                 ###
      ########################################################### */
 
   /**
-   * Main initialization entry point.
+   * Main Initialisation entry point.
    * Orchestrates data loading and UI setup with error handling.
    */
   async init() {
@@ -148,7 +148,7 @@ class ProductManager {
   }
 
   /**
-   * Initializes event delegation for product card interactions.
+   * Initialises event delegation for product card interactions.
    * Handles clicks and hover effects for dynamically created cards.
    */
   initializeProductInteractions() {
@@ -381,7 +381,7 @@ class ProductManager {
                        alt="${product.name}" 
                        class="product-image"
                        loading="lazy"
-                       onerror="this.src='./images/assets/placeholder-watch.png'">
+                       onerror="this.src='./images/assets/placeholder-watch.webp'">
                   <div class="product-badges">
                       ${isNew}
                       ${isFeatured}
@@ -394,7 +394,7 @@ class ProductManager {
               </div>
               <div class="product-info">
                   <h3 class="product-brand">${product.brand}</h3>
-                  <h4 class="product-name">${product.name}</h4>
+                  <h4 class="product-name">${product.name}</h3>
                   <p class="product-price" data-price-gbp="${product.price || ''}">${priceDisplay}</p>
                   <div class="product-actions">
                       <button class="add-to-collection" data-product-id="${product.id}">
@@ -718,7 +718,7 @@ class ProductManager {
 }
 
 /* ###########################################################
-   ###  10. Module Initialization                          ###
+   ###  10. Module Initialisation                          ###
    ########################################################### */
 
 // ====== Global Variable Declaration ======
@@ -772,12 +772,12 @@ SORTING FUNCTIONALITY:
 - Alphabetical by name
 
 SEARCH INTEGRATION:
-- Connects with search.js module
+- Connects with search-min.js module
 - Highlights matching products
 - Search result navigation
 - Clear filters option
 
-PERFORMANCE OPTIMIZATIONS:
+PERFORMANCE optimisationS:
 - Virtual DOM-like rendering
 - Batched DOM updates
 - Debounced filter operations

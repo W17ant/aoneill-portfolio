@@ -31,10 +31,10 @@ class LuxuryAnimations {
     this.init();
   }
 
-  /* ====== Initialization Methods ====== */
+  /* ====== Initialisation Methods ====== */
   
   /**
-   * Initialize all animation subsystems.
+   * Initialise all animation subsystems.
    * Sequential setup ensures proper dependency resolution.
    */
   init() {
@@ -44,7 +44,7 @@ class LuxuryAnimations {
     this.setupLoadingAnimations();
     this.setupHoverEffects();
     
-    console.log('✨ Luxury Animation System Initialized');
+    console.log('✨ Luxury Animation System Initialised');
   }
 
   /**
@@ -61,7 +61,7 @@ class LuxuryAnimations {
 
   /**
    * Configure scroll-triggered animations using IntersectionObserver.
-   * Performance-optimized alternative to scroll event listeners.
+   * Performance-optimised alternative to scroll event listeners.
    */
   initializeObservers() {
     // Skip observer setup if user prefers reduced motion
@@ -119,7 +119,7 @@ class LuxuryAnimations {
      ########################################################### */
 
   /**
-   * Initialize card interaction animations.
+   * Initialise card interaction animations.
    * Separate desktop/mobile for optimal UX.
    */
   setupCardAnimations() {
@@ -155,7 +155,7 @@ class LuxuryAnimations {
   /* ====== Mobile Card Effects ====== */
   
   /**
-   * Touch-optimized animations for mobile devices.
+   * Touch-optimised animations for mobile devices.
    * Provides tactile feedback without hover states.
    */
   setupMobileCardEffects() {
@@ -283,7 +283,7 @@ class LuxuryAnimations {
      ########################################################### */
 
   /**
-   * Initialize scroll-triggered animations.
+   * Initialise scroll-triggered animations.
    * Includes parallax and stagger effects.
    */
   setupScrollAnimations() {
@@ -446,7 +446,7 @@ class LuxuryAnimations {
      ########################################################### */
 
   /**
-   * Initialize hover effects for interactive elements.
+   * Initialise hover effects for interactive elements.
    * Enhances perceived responsiveness.
    */
   setupHoverEffects() {
@@ -587,7 +587,7 @@ class LuxuryAnimations {
      ########################################################### */
 
   /**
-   * Animate modal dialog appearance.
+   * Animate modal dialogue appearance.
    * Creates focus through background blur and scale.
    */
   animateModalOpen(modal) {
@@ -627,7 +627,7 @@ class LuxuryAnimations {
   }
 
   /**
-   * Animate modal dialog closure.
+   * Animate modal dialogue closure.
    * Reverses opening animation for consistency.
    */
   animateModalClose(modal) {
@@ -861,7 +861,7 @@ class LuxuryAnimations {
         width: 100%;
         height: 100%;
         border: 2px solid transparent;
-        border-top: 2px solid #D4AF37;
+        border-top: 2px solid #9b7d4a;
         border-radius: 50%;
         animation: luxury-spin 1.5s linear infinite;
       }
@@ -1092,7 +1092,7 @@ styleSheet.textContent = animationCSS;
 document.head.appendChild(styleSheet);
 
 /* ###########################################################
-   ###   14. Module Initialization                         ###
+   ###   14. Module Initialisation                         ###
    ########################################################### */
 
 /* ====== Global Variable Declaration ====== */
@@ -1100,7 +1100,7 @@ let luxuryAnimations;
 
 /* ====== DOM Ready Handler ====== */
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize animation system when DOM is ready
+  // Initialise animation system when DOM is ready
   luxuryAnimations = new LuxuryAnimations();
   
   // Make globally accessible for debugging and external use
@@ -1142,7 +1142,7 @@ MICRO-INTERACTIONS:
 - Modal transitions
 - Navigation animations
 
-PERFORMANCE OPTIMIZATIONS:
+PERFORMANCE optimisationS:
 - Will-change hints
 - Transform over position
 - Batched animations

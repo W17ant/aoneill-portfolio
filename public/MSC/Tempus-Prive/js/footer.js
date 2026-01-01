@@ -23,11 +23,11 @@ Manages luxury brand footer interactions
 // Uses global showNotification if available for user feedback
 
 /* ###########################################################
-   ###   2. Footer Navigation Initialization               ###
+   ###   2. Footer Navigation Initialisation               ###
    ########################################################### */
 
 /* ====== DOM Ready Handler ====== */
-// Ensures all DOM elements are loaded before initialization
+// Ensures all DOM elements are loaded before Initialisation
 document.addEventListener('DOMContentLoaded', function() {
     
     /* ###########################################################
@@ -145,7 +145,7 @@ FOOTER NAVIGATION:
 - Contact information
 
 SCROLL TO TOP:
-- Smooth scroll behavior
+- Smooth scroll behaviour
 - Appears on scroll down
 - Fixed positioning
 - Mobile friendly

@@ -48,7 +48,7 @@ Implements smooth scrolling and accessibility features
 
     /**
  * Shows specified section with smooth transitions.
- * Handles URL updates, accessibility attributes, and scroll behavior.
+ * Handles URL updates, accessibility attributes, and scroll behaviour.
  * @param {string} sectionId - ID of section to show
  */
     function showSection(sectionId) {
@@ -105,7 +105,7 @@ Implements smooth scrolling and accessibility features
             history.pushState({ section: sectionId }, '', `#service=${sectionId}`);
         }
     
-        // Scroll behavior based on what we're showing
+        // Scroll behaviour based on what we're showing
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         
         if (sectionId === 'services') {
@@ -254,7 +254,7 @@ Implements smooth scrolling and accessibility features
        ########################################################### */
 
     /**
-     * Enhances service navigation link behavior.
+     * Enhances service navigation link behaviour.
      * Handles special cases when navigating from service detail pages.
      */
     function enhanceServiceNavigation() {
@@ -345,11 +345,11 @@ Implements smooth scrolling and accessibility features
     /* ====== Module Public Interface ====== */
     return {
         /**
-         * Initializes the services module.
+         * Initialises the services module.
          * Sets up event listeners and handles initial state.
          */
         init: function() {
-            // Initialize if we have any service-related content
+            // Initialise if we have any service-related content
             const hasServiceContent = document.querySelector(
                 '#services, .service-page, .service-card, .service-features, [onclick*="showSection"]'
             );
@@ -372,14 +372,14 @@ Implements smooth scrolling and accessibility features
             enhanceServiceNavigation();
             enhanceCardAccessibility();
 
-            // Initialize animations
+            // Initialise animations
             initAnimations();
 
             // Expose showSection globally for onclick handlers
             window.showSection = showSection;
 
-            // Log successful initialization
-            console.log('✅ Services module initialized successfully');
+            // Log successful Initialisation
+            console.log('✅ Services module initialised successfully');
             console.log('📍 Current section:', currentSection);
             console.log('🔗 Available sections:', Object.keys(SECTION_TITLES));
         },
@@ -399,17 +399,17 @@ Implements smooth scrolling and accessibility features
 })();
 
 /* ###########################################################
-   ###   11. Module Initialization                         ###
+   ###   11. Module Initialisation                         ###
    ########################################################### */
 
-/* ====== Initialize on DOM Ready ====== */
+/* ====== Centralised on DOM Ready ====== */
 // Check if DOM is already loaded or wait for it
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
         ServicesModule.init();
     });
 } else {
-    // DOM already loaded, initialize immediately
+    // DOM already loaded, initialise immediately
     ServicesModule.init();
 }
 
@@ -426,7 +426,7 @@ IMPLEMENTATION NOTES: SERVICE PAGES MODULE (FIXED)
 =======================================================
 
 KEY FIXES:
-- Initializes when ANY service content is present
+- Initialises when ANY service content is present
 - showSection() is always made globally available
 - ESC key handling works properly
 - Browser back/forward navigation restored

@@ -358,7 +358,40 @@
     box-shadow: 0 4px 12px rgba(12, 27, 42, 0.3);
   }
   
-
+  /* Collection button */
+  .btn-add-collection {
+    width: 48px;
+    height: 48px;
+    border: 2px solid white;
+    background: transparent;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    color: white;
+  }
+  
+  .product-card:hover .btn-add-collection {
+    transform: translateY(0);
+  }
+  
+  .btn-add-collection:hover {
+    background: white;
+    color: var(--imperial-gold);
+  }
+  
+  .btn-add-collection.in-collection {
+    background: var(--imperial-gold);
+    border-color: var(--imperial-gold);
+  }
+  
+  .btn-add-collection.in-collection svg path {
+    fill: white;
+  }
+  
   /* ###########################################################
      ###   8. PRODUCT INFO SECTION                           ###
      ########################################################### */
@@ -396,7 +429,7 @@
   
   .product-price {
     font-size: 1.125rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--crown-navy);
     font-family: var(--font-serif);
   }
@@ -620,6 +653,6 @@ MOBILE ADAPTATIONS:
 - Single column on mobile
 - Touch-friendly cards
 - Simplified interactions
-- Optimized images
+- optimised images
 =======================================================
 */     

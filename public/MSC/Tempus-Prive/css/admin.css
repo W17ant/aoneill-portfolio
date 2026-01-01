@@ -18,15 +18,15 @@ for inventory management system
 
    :root {
     --crown-navy: #0C1B2A;
-    --imperial-gold: #D4AF37;
+    --imperial-gold: #9b7d4a;
     --success-green: #10B981;
     --error-red: #EF4444;
     --warning-amber: #F59E0B;
     --info-blue: #3B82F6;
     --white: #FFFFFF;
     --off-white: #FAFAFA;
-    --light-gray: #E5E5E5;
-    --medium-gray: #9CA3AF;
+    --light-gray: #E5E7EB;
+    --medium-gray: #6B7280;
     --dark-gray: #374151;
   }
   
@@ -143,7 +143,7 @@ for inventory management system
      ###   7. Button Styles                                  ###
      ########################################################### */
   .btn-primary {
-    background: linear-gradient(135deg, #D4AF37 0%, #F5E06B 100%);
+    background: linear-gradient(135deg, #9b7d4a 0%, #F5E06B 100%);
     color: var(--crown-navy);
     border: none;
     padding: 0.75rem 1.5rem;
@@ -678,90 +678,138 @@ for inventory management system
      ###   13. Responsive Design - Mobile First              ###
      ########################################################### */
 
-  @media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-    }
-    
-    .admin-stats {
-        grid-template-columns: 1fr;
-    }
-    
-    .admin-controls {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-    }
-    
-    .admin-table {
-        font-size: 0.875rem;
-    }
-    
-    .admin-table th,
-    .admin-table td {
-        padding: 0.5rem;
-    }
-    
-    .admin-table img {
-        height: 40px;
-        max-width: 60px;
-    }
-    
-    .modal-content {
-        margin: 1rem;
-        max-width: none;
-        width: auto;
-        padding: 1.5rem;
-    }
-    
-    .category-checkboxes {
-        grid-template-columns: 1fr;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .admin-header {
-        padding: 0.5rem 0;
-    }
-    
-    .admin-logo {
-        height: 60px;
-    }
-    
-    .admin-title {
-        font-size: 1.25rem;
-    }
-    
-    .stat-card {
-        padding: 1rem;
-    }
-    
-    .stat-number {
-        font-size: 1.5rem;
-    }
+     @media (max-width: 768px) {
+      /* Base container adjustments */
+      .container {
+          padding: 1rem;
+          padding-left: 0.5rem; /* Reduced left padding as requested */
+      }
+      
+      .admin-stats {
+          grid-template-columns: 1fr;
+      }
+      
+      .admin-controls {
+          flex-direction: column;
+          width: 100%;
+      }
+      
+      .btn-primary,
+      .btn-secondary {
+          width: 100%;
+      }
+      
+      /* ADMIN TABLE MOBILE optimisation WITH 25% REDUCTION */
+      .table-container {
+          overflow: visible; /* Changed from auto to visible for scale */
+          padding: 0;
+          padding-left: 0; /* Remove left padding */
+          margin-left: 0; /* Remove left margin */
+      }
+      
+      /* Scale entire table down by 25% */
+      .admin-table {
+          font-size: 0.75rem; 
+          transform: scale(0.85); /* Scale down to 85% */
+          transform-origin: top left; /* Changed to top left for better alignment */
+          width: 133%; /* Compensate for scale to fill width */
+          margin: 0;
+          margin-left: -1rem; /* Pull table to the left */
+      }
+      
+      /* Hide column (5&6) on mobile */
+      .admin-table thead tr th:nth-child(5),
+      .admin-table tbody tr td:nth-child(5) {
+          display: none;
+      }
+          .admin-table thead tr th:nth-child(6),
+          .admin-table tbody tr td:nth-child(6) {
+              display: none;
+          }
+      /* Tighter padding for scaled table */
+      .admin-table th,
+      .admin-table td {
+          padding: 0.25rem; /* Reduced from 0.5rem */
+      }
+      
+      /* Image column */
+      .admin-table th:nth-child(1),
+      .admin-table td:nth-child(1) {
+          width: 50px;
+          text-align: center;
+          padding: 0.2rem;
+      }
+      
+      .admin-table img {
+          height: 40px; /* Reduced from 40px */
+          max-width: 60px; 
+      }
+      
+      /* Name column - takes remaining space */
+      .admin-table th:nth-child(2),
+      .admin-table td:nth-child(2) {
+          width: auto;
+          padding-left: 0.3rem;
+          text-align: left;
+      }
+      
+      /* Price column (now 4th visible, but still 4th in DOM) */
+      .admin-table th:nth-child(4),
+      .admin-table td:nth-child(4) {
+          width: 70px;
+          text-align: right;
+          white-space: nowrap;
+          padding-right: 0.3rem;
+      }
+      
+      /* Actions column */
+      .admin-table th:last-child,
+      .admin-table td:last-child {
+          width: 80px;
+          text-align: center;
+          padding: 0.2rem;
+      }
+      
+      /* Smaller action buttons */
+      .admin-table .btn-edit,
+      .admin-table .btn-delete {
+          display: block;
+          width: 100%;
+          margin: 1px 0;
+          padding: 0.2rem 0.4rem;
+          font-size: 0.65rem; /* Even smaller */
+      }
+      
+      /* Modal adjustments */
+      .modal-content {
+          margin: 1rem;
+          max-width: none;
+          width: auto;
+          padding: 1.5rem;
+      }
+      
+      .category-checkboxes {
+          grid-template-columns: 1fr;
+      }
   }
   
   /* ===== SCROLLBAR STYLING ===== */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+      width: 8px;
+      height: 8px;
   }
   
   ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.05);
   }
   
   ::-webkit-scrollbar-thumb {
-    background: rgba(212, 175, 55, 0.5);
-    border-radius: 4px;
+      background: rgba(212, 175, 55, 0.5);
+      border-radius: 4px;
   }
   
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 175, 55, 0.7);
+      background: rgba(212, 175, 55, 0.7);
   }
   
   /* ###########################################################
@@ -828,8 +876,8 @@ FORM DESIGN:
 - Help text
 - Button hierarchy
 
-COLOR SCHEME:
-- Maintains brand colors
+COLOUR SCHEME:
+- Maintains brand colours
 - Professional tone
 - Clear contrasts
 - Status indicators

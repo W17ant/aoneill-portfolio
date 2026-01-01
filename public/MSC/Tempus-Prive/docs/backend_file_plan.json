@@ -21,7 +21,7 @@
   "optional_enhancements": {
     "auth.js": "Token-based or password-based admin authentication (for API protection)",
     "validation.js": "Form validation utility functions",
-    "search.js": "Modularized search engine (if decoupling from main.js)",
+    "search-min.js": "Modularized search engine (if decoupling from main.js)",
     "wishlist.js": "Separate script if wishlist grows in functionality",
     "analytics.js": "(Optional) Basic user interaction tracking for demo purposes",
     "email-service.js": "(Optional) Email trigger on concierge requests"
