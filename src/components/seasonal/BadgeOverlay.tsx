@@ -83,7 +83,9 @@ export default function BadgeOverlay() {
    ########################################################### */
 
 function PartyHat({ size }: { size: number }) {
-  const newYear = new Date().getFullYear() + 1;
+  const now = new Date();
+  // On Jan 1, show current year; on Dec 30-31, show next year
+  const newYear = now.getMonth() === 0 ? now.getFullYear() : now.getFullYear() + 1;
 
   return (
     <svg
