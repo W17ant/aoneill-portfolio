@@ -91,7 +91,6 @@ export default function NewYearCountdown() {
           color: '#f59e0b',
         }}
       >
-        <span>🎉</span>
         <span className="font-semibold">Happy New Year {year}!</span>
       </div>
     );
