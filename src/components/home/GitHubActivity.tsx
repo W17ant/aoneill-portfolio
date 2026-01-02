@@ -403,8 +403,8 @@ export default function GitHubActivity() {
                 {' '}contributions in {contributions.year}
               </span>
               {/* Year selector */}
-              <div className="flex flex-col gap-1">
-                {[currentYear, currentYear - 1, currentYear - 2].map((year) => (
+              <div className="flex flex-row gap-1">
+                {[currentYear, currentYear - 1, currentYear - 2, currentYear - 3].map((year) => (
                   <button
                     key={year}
                     onClick={() => setSelectedYear(year)}
