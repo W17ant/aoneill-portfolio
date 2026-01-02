@@ -8,9 +8,7 @@ export type Season = 'winter' | 'spring' | 'summer' | 'autumn';
 export type Holiday =
   | 'christmas'
   | 'newyear'
-  | 'valentine'
   | 'stpatrick'
-  | 'easter'
   | 'halloween'
   | null;
 
@@ -48,25 +46,6 @@ export function getSeason(): Season {
    ###   Holiday Detection                                  ###
    ########################################################### */
 
-// Easter calculation (Computus algorithm)
-function getEasterDate(year: number): Date {
-  const a = year % 19;
-  const b = Math.floor(year / 100);
-  const c = year % 100;
-  const d = Math.floor(b / 4);
-  const e = b % 4;
-  const f = Math.floor((b + 8) / 25);
-  const g = Math.floor((b - f + 1) / 3);
-  const h = (19 * a + b - d - g + 15) % 30;
-  const i = Math.floor(c / 4);
-  const k = c % 4;
-  const l = (32 + 2 * e + 2 * i - h - k) % 7;
-  const m = Math.floor((a + 11 * h + 22 * l) / 451);
-  const month = Math.floor((h + l - 7 * m + 114) / 31) - 1;
-  const day = ((h + l - 7 * m + 114) % 31) + 1;
-  return new Date(year, month, day);
-}
-
 export function getHoliday(): Holiday {
   // Check for debug override
   const override = getOverride();
@@ -85,11 +64,6 @@ export function getHoliday(): Holiday {
   // Christmas: Dec 1 - Dec 30 (excluding Dec 31 for New Year)
   if (month === 11 && day <= 30) {
     return 'christmas';
-  }
-
-  // Valentine's Day: Feb 10 - Feb 15
-  if (month === 1 && day >= 10 && day <= 15) {
-    return 'valentine';
   }
 
   // St Patrick's Day: Mar 14 - Mar 18
@@ -118,16 +92,8 @@ export function isNewYear(): boolean {
   return getHoliday() === 'newyear';
 }
 
-export function isValentine(): boolean {
-  return getHoliday() === 'valentine';
-}
-
 export function isStPatrick(): boolean {
   return getHoliday() === 'stpatrick';
-}
-
-export function isEaster(): boolean {
-  return getHoliday() === 'easter';
 }
 
 export function isHalloween(): boolean {
@@ -164,12 +130,8 @@ export function getSeasonalColors(): { primary: string; secondary: string; accen
       return { primary: '#c41e3a', secondary: '#165B33', accent: '#FFD700' };
     case 'newyear':
       return { primary: '#FFD700', secondary: '#C0C0C0', accent: '#1a1a2e' };
-    case 'valentine':
-      return { primary: '#e91e63', secondary: '#ff6b9d', accent: '#ffcdd2' };
     case 'stpatrick':
       return { primary: '#009A44', secondary: '#FFD700', accent: '#2E7D32' };
-    case 'easter':
-      return { primary: '#E1BEE7', secondary: '#B2EBF2', accent: '#FFF9C4' };
     case 'halloween':
       return { primary: '#FF6D00', secondary: '#7B1FA2', accent: '#1a1a1a' };
   }
