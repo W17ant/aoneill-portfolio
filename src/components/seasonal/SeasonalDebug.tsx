@@ -14,9 +14,7 @@ const holidays: { value: Holiday; label: string }[] = [
   { value: null, label: 'None' },
   { value: 'christmas', label: '🎄 Christmas' },
   { value: 'newyear', label: '🎉 New Year' },
-  { value: 'valentine', label: '💕 Valentine' },
   { value: 'stpatrick', label: '☘️ St Patrick' },
-  { value: 'easter', label: '🐰 Easter' },
   { value: 'halloween', label: '🎃 Halloween' },
 ];
 

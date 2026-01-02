@@ -41,14 +41,10 @@ function getParticleType(holiday: Holiday, season: Season): ParticleType {
       // Confetti only on Jan 1st
       const now = new Date();
       return (now.getMonth() === 0 && now.getDate() === 1) ? 'confetti' : 'none';
-    case 'valentine':
-      return 'none';
     case 'stpatrick':
       return 'none'; // Just hat, no particles
     case 'halloween':
       return 'none'; // Just hat + spider webs/bats
-    case 'easter':
-      return 'none'; // Easter uses pastel theme instead
   }
 
   // No season-specific particles (winter snow handled by christmas holiday)

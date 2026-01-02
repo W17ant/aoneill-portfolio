@@ -13,6 +13,7 @@ import { getExperimentBySlug, getExperiments } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ExperimentRenderer from '@/components/experiments/ExperimentRenderer';
+import ExperimentTutorial from '@/components/experiments/ExperimentTutorial';
 
 /* ###########################################################
    ###   2. Type Definitions                                ###
@@ -112,6 +113,14 @@ export default async function ExperimentPage({ params }: PageProps) {
                 ))}
               </ul>
             </section>
+          )}
+
+          {/* Tutorial section */}
+          {experiment.tutorial && (
+            <ExperimentTutorial
+              tutorial={experiment.tutorial}
+              experimentTitle={experiment.title}
+            />
           )}
         </article>
       </div>
