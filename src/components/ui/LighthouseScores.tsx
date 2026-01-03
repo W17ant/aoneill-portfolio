@@ -130,7 +130,7 @@ export default function LighthouseScores({ prominent = false }: { prominent?: bo
   return (
     <div className="flex flex-col items-center gap-4">
       <div className={`uppercase tracking-wider font-medium ${prominent ? 'text-xs opacity-60' : 'text-[10px] opacity-50'}`}>
-        Live Lighthouse Scores
+        aoneill.co.uk Lighthouse Scores
       </div>
       <div className={`flex items-center ${prominent ? 'gap-6 md:gap-8' : 'gap-4'}`}>
         {loading ? (
