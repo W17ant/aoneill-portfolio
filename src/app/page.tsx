@@ -11,6 +11,7 @@ import { availability } from '@/lib/availability';
 import Timeline from '@/components/ui/Timeline';
 import HeroWithLanyard from '@/components/home/HeroWithLanyard';
 import MobileAboutCard from '@/components/home/MobileAboutCard';
+import SkillsSection from '@/components/home/SkillsSection';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
 import EmailButton from '@/components/ui/EmailButton';
 import GitHubActivity from '@/components/home/GitHubActivity';
@@ -129,6 +130,11 @@ export default async function HomePage() {
           <Timeline entries={timeline} />
         </div>
       </section>
+
+      {/* =====================================================
+          SKILLS SECTION - Technical skills showcase
+          ===================================================== */}
+      <SkillsSection />
 
       {/* =====================================================
           FEATURED PROJECTS - Showcase of production work

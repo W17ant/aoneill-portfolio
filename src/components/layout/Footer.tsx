@@ -87,12 +87,12 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Lighthouse Scores */}
+        {/* Lighthouse Scores - Prominent display */}
         <div
-          className="mt-8 pt-8 border-t flex justify-center"
-          style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}
+          className="mt-10 pt-10 border-t flex justify-center"
+          style={{ borderColor: 'rgba(255, 255, 255, 0.12)' }}
         >
-          <LighthouseScores />
+          <LighthouseScores prominent />
         </div>
 
         {/* Copyright */}

@@ -27,7 +27,7 @@ interface Scores {
    ###   2. Score Gauge Component                           ###
    ########################################################### */
 
-function ScoreGauge({ score, label }: { score: number; label: string }) {
+function ScoreGauge({ score, label, size = 'small' }: { score: number; label: string; size?: 'small' | 'large' }) {
   // Color based on score (green 90+, orange 50-89, red <50)
   const getColor = (s: number) => {
     if (s >= 90) return '#22c55e'; // green
@@ -39,11 +39,16 @@ function ScoreGauge({ score, label }: { score: number; label: string }) {
   const circumference = 2 * Math.PI * 16; // radius = 16
   const offset = circumference - (score / 100) * circumference;
 
+  const isLarge = size === 'large';
+  const gaugeSize = isLarge ? 'w-14 h-14' : 'w-10 h-10';
+  const fontSize = isLarge ? 'text-sm' : 'text-[11px]';
+  const labelSize = isLarge ? 'text-xs' : 'text-[10px]';
+
   return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="relative w-10 h-10">
+    <div className="flex flex-col items-center gap-1.5">
+      <div className={`relative ${gaugeSize}`}>
         {/* Background circle */}
-        <svg className="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
+        <svg className={`${gaugeSize} -rotate-90`} viewBox="0 0 36 36">
           <circle
             cx="18"
             cy="18"
@@ -67,13 +72,13 @@ function ScoreGauge({ score, label }: { score: number; label: string }) {
         </svg>
         {/* Score number */}
         <div
-          className="absolute inset-0 flex items-center justify-center text-[11px] font-bold"
+          className={`absolute inset-0 flex items-center justify-center ${fontSize} font-bold`}
           style={{ color }}
         >
           {score}
         </div>
       </div>
-      <span className="text-[10px] opacity-60 whitespace-nowrap">{label}</span>
+      <span className={`${labelSize} opacity-70 whitespace-nowrap font-medium`}>{label}</span>
     </div>
   );
 }
@@ -95,7 +100,7 @@ function ScoreSkeleton() {
    ###   4. Main Component                                  ###
    ########################################################### */
 
-export default function LighthouseScores() {
+export default function LighthouseScores({ prominent = false }: { prominent?: boolean }) {
   const [scores, setScores] = useState<Scores | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -120,12 +125,14 @@ export default function LighthouseScores() {
   // Don't render anything if error
   if (error) return null;
 
+  const gaugeSize = prominent ? 'large' : 'small';
+
   return (
-    <div className="flex flex-col items-center gap-3">
-      <div className="text-[10px] uppercase tracking-wider opacity-50 font-medium">
+    <div className="flex flex-col items-center gap-4">
+      <div className={`uppercase tracking-wider font-medium ${prominent ? 'text-xs opacity-60' : 'text-[10px] opacity-50'}`}>
         Live Lighthouse Scores
       </div>
-      <div className="flex items-center gap-4">
+      <div className={`flex items-center ${prominent ? 'gap-6 md:gap-8' : 'gap-4'}`}>
         {loading ? (
           <>
             <ScoreSkeleton />
@@ -135,15 +142,15 @@ export default function LighthouseScores() {
           </>
         ) : scores ? (
           <>
-            <ScoreGauge score={scores.performance} label="Perf" />
-            <ScoreGauge score={scores.accessibility} label="A11y" />
-            <ScoreGauge score={scores.bestPractices} label="BP" />
-            <ScoreGauge score={scores.seo} label="SEO" />
+            <ScoreGauge score={scores.performance} label="Performance" size={gaugeSize} />
+            <ScoreGauge score={scores.accessibility} label="Accessibility" size={gaugeSize} />
+            <ScoreGauge score={scores.bestPractices} label="Best Practices" size={gaugeSize} />
+            <ScoreGauge score={scores.seo} label="SEO" size={gaugeSize} />
           </>
         ) : null}
       </div>
       {scores && !scores.fallback && (
-        <div className="text-[9px] opacity-30">
+        <div className={`opacity-40 ${prominent ? 'text-[10px]' : 'text-[9px]'}`}>
           Updated {new Date(scores.fetchedAt).toLocaleDateString()}
         </div>
       )}

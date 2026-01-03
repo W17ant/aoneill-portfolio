@@ -129,7 +129,7 @@ export default async function ProjectPage({ params }: PageProps) {
                   alt={`${project.title} logo`}
                   width={64}
                   height={64}
-                  className="object-contain"
+                  className="object-contain rounded-xl"
                 />
               </div>
             )}

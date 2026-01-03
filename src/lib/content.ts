@@ -163,6 +163,42 @@ const timeline: TimelineEntry[] = [
 
 const projects: Project[] = [
   {
+    slug: 'snake-rl-agent',
+    title: 'Deep Q-Learning Snake Agent',
+    description:
+      'Reinforcement learning agent that learns to play Snake using a deep neural network. Includes systematic experiments comparing network architectures, memory sizes, and environment configurations.',
+    tech: ['Python', 'PyTorch', 'Deep Q-Learning', 'Neural Networks', 'Reinforcement Learning'],
+    repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/snake-rl',
+    featured: true,
+    logo: '/images/snake-rl-logo.png',
+    overview:
+      'MSc Artificial Intelligence final assessment project implementing a Deep Q-Network (DQN) agent that learns to play Snake through trial and error. The agent uses an 11-dimensional state representation, experience replay for stable learning, and epsilon-greedy exploration. Includes comprehensive experiments comparing different neural network architectures (256, 512, and deeper configurations), memory buffer sizes (10K to 200K), and environment variants (with and without wall collisions).',
+    problem:
+      'Develop an intelligent agent capable of learning optimal gameplay strategies for Snake without explicit programming of rules. The challenge involves handling sparse rewards (only positive reward when eating food), learning long-term strategies (avoiding traps), and balancing exploration vs exploitation during training.',
+    approach:
+      'Implemented Deep Q-Learning with experience replay using PyTorch. The neural network takes an 11-feature state vector (danger detection in 3 directions, current direction, food location) and outputs Q-values for 3 actions (straight, left, right). Training uses the Bellman equation to update Q-values, with epsilon-greedy exploration that decays over time. Conducted 12 systematic experiments varying architecture depth, hidden layer width, and replay memory size.',
+    outcome:
+      'Best configuration achieved consistent scores of 40+ after 200 training episodes. Experiments revealed that wider networks (256 neurons) outperformed deeper ones for this task, and larger replay buffers improved stability. The wall-collision variant proved more challenging, requiring different hyperparameter tuning. Full analysis documented with training curves, architecture comparisons, and statistical summaries.',
+  },
+  {
+    slug: 'heart-disease-classification',
+    title: 'Heart Disease Classification',
+    description:
+      'Machine learning classification system comparing Random Forest, SVM, and Neural Network approaches for predicting heart disease risk, achieving 85% accuracy with comprehensive model evaluation.',
+    tech: ['Python', 'scikit-learn', 'TensorFlow', 'Keras', 'pandas', 'Data Science'],
+    repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/heart-disease',
+    featured: true,
+    logo: '/images/heart-disease-logo.jpg',
+    overview:
+      'MSc Artificial Intelligence mid-module assessment implementing binary classification to predict heart disease risk using the UCI Heart Disease dataset. Comprehensive comparison of three machine learning approaches: Random Forest (ensemble learning), Support Vector Machines (kernel methods), and Neural Networks (deep learning). Each model tested with 3 different configurations to explore hyperparameter effects.',
+    problem:
+      'Develop a reliable predictive model for heart disease risk assessment using patient health metrics. The challenge involves handling a relatively small dataset (303 samples), selecting informative features from 13 clinical variables, and choosing the optimal algorithm and hyperparameters for this specific medical classification task.',
+    approach:
+      'Implemented a complete ML pipeline including exploratory data analysis with correlation heatmaps, feature importance ranking, and distribution analysis. Data preprocessing with StandardScaler normalisation and stratified train-test splits. Trained 9 model configurations: Random Forest (default, depth-limited, sample-constrained), SVM (RBF, linear, tuned RBF), and Neural Networks (simple, with dropout, wider architecture). Evaluation using accuracy, precision, recall, F1-score, ROC-AUC, and confusion matrices.',
+    outcome:
+      'Random Forest with sample constraints achieved the highest accuracy at 85.25%, with chest pain type (cp), maximum heart rate (thalachh), and number of major vessels (caa) identified as the most predictive features. Neural networks showed tendency to overfit on the small dataset despite dropout regularisation. Comprehensive Jupyter notebook with visualisations, statistical analysis, and reproducible results.',
+  },
+  {
     slug: 'keepitwhat',
     title: 'Keep It What',
     description:
@@ -963,6 +999,299 @@ interactiveElements.forEach(el => {
       'Experience replay for stable learning',
       'Real-time training visualization',
     ],
+    tutorial: {
+      difficulty: 'Advanced',
+      duration: '60-90 min',
+      prerequisites: ['Python basics', 'Understanding of neural networks', 'Basic calculus (gradients)', 'PyTorch fundamentals'],
+      steps: [
+        {
+          title: 'Understanding Q-Learning',
+          description: 'Q-Learning is a reinforcement learning algorithm that learns the value (Q) of taking an action in a given state. The "Q" stands for "quality" - how good is this action? The agent learns by trial and error, updating Q-values based on rewards received.',
+          code: `# The Bellman Equation - core of Q-Learning
+# Q(s,a) = r + γ * max(Q(s',a'))
+#
+# Where:
+# - Q(s,a) = value of taking action 'a' in state 's'
+# - r = immediate reward
+# - γ (gamma) = discount factor (0-1), values future rewards
+# - s' = next state
+# - max(Q(s',a')) = best possible value from next state
+
+# Example: Snake eats food
+# reward = +10
+# gamma = 0.9
+# max Q of next state = 5
+# New Q = 10 + 0.9 * 5 = 14.5`,
+          language: 'python',
+          tip: 'Gamma (γ) controls how much the agent cares about future rewards. γ=0 means only immediate rewards matter, γ=1 means future rewards are equally important as immediate ones.'
+        },
+        {
+          title: 'Defining the State Space',
+          description: 'The state is what the agent "sees" about the environment. For Snake, we encode 11 boolean features that capture danger, direction, and food location. This compressed representation is much more efficient than using raw pixel data.',
+          code: `def get_state(self, game):
+    """Convert game state to 11-feature vector"""
+    head = game.snake[0]
+
+    # Points adjacent to head
+    point_l = Point(head.x - 20, head.y)
+    point_r = Point(head.x + 20, head.y)
+    point_u = Point(head.x, head.y - 20)
+    point_d = Point(head.x, head.y + 20)
+
+    # Current direction (one-hot encoded)
+    dir_l = game.direction == Direction.LEFT
+    dir_r = game.direction == Direction.RIGHT
+    dir_u = game.direction == Direction.UP
+    dir_d = game.direction == Direction.DOWN
+
+    state = [
+        # Danger straight ahead
+        (dir_r and game.is_collision(point_r)) or
+        (dir_l and game.is_collision(point_l)) or
+        (dir_u and game.is_collision(point_u)) or
+        (dir_d and game.is_collision(point_d)),
+
+        # Danger to the right
+        (dir_u and game.is_collision(point_r)) or
+        (dir_d and game.is_collision(point_l)) or
+        (dir_l and game.is_collision(point_u)) or
+        (dir_r and game.is_collision(point_d)),
+
+        # Danger to the left
+        (dir_d and game.is_collision(point_r)) or
+        (dir_u and game.is_collision(point_l)) or
+        (dir_r and game.is_collision(point_u)) or
+        (dir_l and game.is_collision(point_d)),
+
+        # Current direction (4 features)
+        dir_l, dir_r, dir_u, dir_d,
+
+        # Food location relative to head (4 features)
+        game.food.x < head.x,  # Food is left
+        game.food.x > head.x,  # Food is right
+        game.food.y < head.y,  # Food is up
+        game.food.y > head.y   # Food is down
+    ]
+
+    return np.array(state, dtype=int)`,
+          language: 'python',
+          tip: 'The state representation is crucial. Too little information and the agent can\'t learn; too much and training becomes slow. These 11 features capture everything needed to play Snake optimally.'
+        },
+        {
+          title: 'Building the Neural Network',
+          description: 'We use a neural network to approximate the Q-function. The network takes the 11-feature state as input and outputs 3 Q-values (one for each action: straight, turn left, turn right).',
+          code: `import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class Linear_QNet(nn.Module):
+    """Deep Q-Network for Snake"""
+
+    def __init__(self, input_size, hidden_size, output_size):
+        super().__init__()
+        # Input: 11 state features
+        # Hidden: 256 neurons (can experiment with this)
+        # Output: 3 Q-values (straight, left, right)
+
+        self.linear1 = nn.Linear(input_size, hidden_size)
+        self.linear2 = nn.Linear(hidden_size, output_size)
+
+    def forward(self, x):
+        # ReLU activation for non-linearity
+        x = F.relu(self.linear1(x))
+        # No activation on output - raw Q-values
+        x = self.linear2(x)
+        return x
+
+# Create network: 11 inputs -> 256 hidden -> 3 outputs
+model = Linear_QNet(11, 256, 3)`,
+          language: 'python'
+        },
+        {
+          title: 'Epsilon-Greedy Exploration',
+          description: 'The agent must balance exploration (trying new things) with exploitation (using what it knows). Epsilon-greedy starts with random actions and gradually shifts to using the learned policy.',
+          code: `def get_action(self, state):
+    """Choose action using epsilon-greedy strategy"""
+    # Epsilon decreases as we play more games
+    # Start at 80, decrease by 1 each game
+    self.epsilon = 80 - self.n_games
+
+    final_move = [0, 0, 0]  # [straight, right, left]
+
+    # Random number 0-200
+    if random.randint(0, 200) < self.epsilon:
+        # EXPLORATION: random move
+        move = random.randint(0, 2)
+        final_move[move] = 1
+    else:
+        # EXPLOITATION: use neural network
+        state_tensor = torch.tensor(state, dtype=torch.float)
+        prediction = self.model(state_tensor)  # Get Q-values
+        move = torch.argmax(prediction).item()  # Best action
+        final_move[move] = 1
+
+    return final_move
+
+# Early training: mostly random (exploring)
+# Game 1: epsilon=79, ~40% chance of random move
+# Game 80: epsilon=0, always uses network`,
+          language: 'python',
+          tip: 'Without exploration, the agent might get stuck in a local optimum. Early random moves help discover strategies it wouldn\'t find otherwise.'
+        },
+        {
+          title: 'Experience Replay',
+          description: 'Instead of learning from experiences immediately and forgetting them, we store experiences in a replay buffer and sample random batches for training. This breaks correlations between consecutive samples and stabilizes learning.',
+          code: `from collections import deque
+
+MAX_MEMORY = 100_000  # Store last 100k experiences
+BATCH_SIZE = 1000     # Train on 1000 random samples
+
+class Agent:
+    def __init__(self):
+        # Replay buffer - automatically removes old entries
+        self.memory = deque(maxlen=MAX_MEMORY)
+
+    def remember(self, state, action, reward, next_state, done):
+        """Store experience in replay buffer"""
+        self.memory.append((state, action, reward, next_state, done))
+
+    def train_long_memory(self):
+        """Train on a batch from replay buffer"""
+        if len(self.memory) > BATCH_SIZE:
+            # Random sample breaks temporal correlations
+            mini_batch = random.sample(self.memory, BATCH_SIZE)
+        else:
+            mini_batch = self.memory
+
+        # Unzip the batch
+        states, actions, rewards, next_states, dones = zip(*mini_batch)
+
+        # Train the network
+        self.trainer.train_step(states, actions, rewards, next_states, dones)`,
+          language: 'python',
+          tip: 'Experience replay is one of the key innovations that made Deep Q-Learning work. Without it, the network would overfit to recent experiences and forget earlier lessons.'
+        },
+        {
+          title: 'The Training Step',
+          description: 'This is where learning happens. We compute the target Q-values using the Bellman equation and update the network to minimize the difference between predicted and target Q-values.',
+          code: `class QTrainer:
+    def __init__(self, model, lr, gamma):
+        self.model = model
+        self.gamma = gamma  # Discount factor
+        self.optimizer = optim.Adam(model.parameters(), lr=lr)
+        self.criterion = nn.MSELoss()  # Mean squared error
+
+    def train_step(self, state, action, reward, next_state, done):
+        # Convert to tensors
+        state = torch.tensor(state, dtype=torch.float)
+        next_state = torch.tensor(next_state, dtype=torch.float)
+        action = torch.tensor(action, dtype=torch.long)
+        reward = torch.tensor(reward, dtype=torch.float)
+
+        # Get current Q-value predictions
+        pred = self.model(state)
+        target = pred.clone()
+
+        # Update Q-values using Bellman equation
+        for idx in range(len(done)):
+            Q_new = reward[idx]
+            if not done[idx]:
+                # Not terminal: Q = r + γ * max(Q(s'))
+                Q_new = reward[idx] + self.gamma * torch.max(
+                    self.model(next_state[idx])
+                )
+            # Update the Q-value for the action taken
+            target[idx][torch.argmax(action[idx]).item()] = Q_new
+
+        # Gradient descent
+        self.optimizer.zero_grad()
+        loss = self.criterion(target, pred)
+        loss.backward()
+        self.optimizer.step()`,
+          language: 'python'
+        },
+        {
+          title: 'The Training Loop',
+          description: 'Putting it all together: the agent plays games, collects experiences, and learns from them. Each game trains on the current step (short memory) and a batch from the replay buffer (long memory).',
+          code: `def train():
+    agent = Agent()
+    game = SnakeGameAI()
+    record = 0
+
+    while True:
+        # Get current state
+        state_old = agent.get_state(game)
+
+        # Choose action (epsilon-greedy)
+        action = agent.get_action(state_old)
+
+        # Execute action, get reward
+        reward, done, score = game.play_step(action)
+
+        # Get new state
+        state_new = agent.get_state(game)
+
+        # Train on this single step (short-term memory)
+        agent.train_short_memory(state_old, action, reward, state_new, done)
+
+        # Store in replay buffer
+        agent.remember(state_old, action, reward, state_new, done)
+
+        if done:
+            # Game over - reset and train on replay buffer
+            game.reset()
+            agent.n_games += 1
+            agent.train_long_memory()  # Experience replay
+
+            if score > record:
+                record = score
+                agent.model.save()
+
+            print(f'Game {agent.n_games} Score: {score} Record: {record}')`,
+          language: 'python',
+          tip: 'The reward structure matters a lot. Typical: +10 for food, -10 for death, small negative for each step (encourages efficiency). Experiment with different values!'
+        },
+        {
+          title: 'Visualizing Training Progress',
+          description: 'Plotting scores over time helps diagnose training. A well-training agent shows increasing average scores with high variance initially (exploration) that decreases over time.',
+          code: `import matplotlib.pyplot as plt
+from IPython import display
+
+def plot(scores, mean_scores):
+    """Live-updating training plot"""
+    display.clear_output(wait=True)
+    display.display(plt.gcf())
+    plt.clf()
+
+    plt.title('Training Progress')
+    plt.xlabel('Number of Games')
+    plt.ylabel('Score')
+
+    # Individual game scores (high variance)
+    plt.plot(scores, label='Score', alpha=0.6)
+
+    # Running average (should trend upward)
+    plt.plot(mean_scores, label='Mean Score', linewidth=2)
+
+    plt.ylim(ymin=0)
+    plt.legend()
+    plt.pause(0.1)
+
+# Typical learning curve:
+# Games 1-50: Random exploration, low scores
+# Games 50-100: Learning basic survival
+# Games 100-200: Improving food-finding
+# Games 200+: Optimizing strategy`,
+          language: 'python'
+        }
+      ],
+      resources: [
+        { label: 'Deep Q-Learning Paper (Mnih et al.)', url: 'https://arxiv.org/abs/1312.5602' },
+        { label: 'PyTorch Documentation', url: 'https://pytorch.org/docs/stable/index.html' },
+        { label: 'Bellman Equation Explained', url: 'https://en.wikipedia.org/wiki/Bellman_equation' },
+        { label: 'Epsilon-Greedy Strategy', url: 'https://www.geeksforgeeks.org/epsilon-greedy-algorithm-in-reinforcement-learning/' }
+      ]
+    }
   },
   {
     slug: 'cicd-pipeline',
