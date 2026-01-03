@@ -671,13 +671,13 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[13px] mt-1.5 font-semibold"
                 style={{ color: 'rgba(2,6,23,.58)' }}
               >
-                Full-stack Developer
+                AI/ML Engineer
               </div>
               <div
                 className="text-[12px] mt-3 leading-relaxed"
                 style={{ color: 'rgba(2,6,23,.55)' }}
               >
-                Next.js · React · TypeScript · AI/ML
+                Python · PyTorch · scikit-learn · Data Science
               </div>
               <div
                 className="text-[13px] mt-3 font-semibold"
@@ -754,21 +754,20 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[12px] leading-relaxed mb-3"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                I'm an MSc Computer Science & AI student at St Mary's University,
-                focused on machine learning, full-stack development, and building
-                AI systems that solve real problems. Currently exploring
-                reinforcement learning and ethical AI.
+                MSc Computer Science & AI student at St Mary's University,
+                building machine learning systems that solve real problems.
+                Experienced with deep learning, reinforcement learning, and
+                classical ML — from neural networks to random forests.
               </p>
               <p
                 className="text-[12px] leading-relaxed"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                My background in mechanical engineering gives me a unique
-                perspective on problem-solving — I approach software with
-                the same systematic thinking used to diagnose complex physical
-                systems. I'm seeking graduate roles in software engineering
-                or AI/ML where I can apply both technical depth and practical
-                experience.
+                17 years in mechanical engineering taught me systematic
+                problem-solving and debugging under pressure — skills that
+                transfer directly to ML pipelines and data analysis. Seeking
+                graduate roles in AI/ML or Data Science where I can apply
+                both technical depth and real-world experience.
               </p>
             </div>
 
