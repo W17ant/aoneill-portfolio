@@ -28,26 +28,26 @@ const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
   available: {
     responseTime: 'Within 24 hours',
     nextStart: 'January 2026',
-    headline: 'Open for new projects',
+    headline: 'Open to opportunities',
     description:
-      "I'm currently accepting freelance web development work. If you've got a build that needs polish and speed, let's chat.",
+      "I'm completing my MSc in AI and actively exploring data science, ML engineering, and software roles. Open to graduate schemes, contracts, or interesting projects.",
     ctaText: 'Get in touch',
   },
   limited: {
     responseTime: '2-3 days',
     nextStart: 'February 2026',
-    headline: 'Limited capacity',
+    headline: 'Limited availability',
     description:
-      "I can take on small scoped work or advisory. If it's urgent, email with timeline and budget.",
+      "Currently focused on coursework but open to discussing opportunities. Reach out with details and I'll respond within a few days.",
     ctaText: 'Discuss availability',
   },
   unavailable: {
     responseTime: '1 week',
     nextStart: 'March 2026',
-    headline: 'Booked up',
+    headline: 'Focused on studies',
     description:
-      "I'm not taking new work at the moment. Feel free to reach out and I'll suggest a timeline.",
-    ctaText: 'Join waitlist',
+      "Deep in exam season or project deadlines. I'll still read messages — just might take a bit longer to reply.",
+    ctaText: 'Send a message',
   },
 };
 

@@ -52,11 +52,11 @@ export default async function HomePage() {
               Antony O&apos;Neill
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-4 font-medium">
-              Full-stack developer focused on shipping clean, fast, reliable web products.
+              Building with AI, ML, and data — shipping production-ready web applications.
             </p>
             <p className="text-lg text-white/70 mb-10 max-w-2xl leading-relaxed">
               MSc Computer Science & AI student. Previously 17 years in mechanical engineering.
-              I bring systems thinking and attention to detail to every build.
+              I bring systems thinking and a problem-solving mindset to software — now focused on data and machine learning.
             </p>
 
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
@@ -65,7 +65,7 @@ export default async function HomePage() {
                 className="btn-primary px-8 py-3"
                 style={{ borderRadius: '100px' }}
               >
-                View Timeline
+                My Journey
               </a>
               <Link
                 href="/projects"

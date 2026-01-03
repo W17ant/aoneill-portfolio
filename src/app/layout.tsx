@@ -36,35 +36,33 @@ const jetbrainsMono = JetBrains_Mono({
    ########################################################### */
 
 export const metadata: Metadata = {
-  title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
+  title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
   description:
-    'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building fast, accessible, production-ready web applications. Available for freelance projects and collaborations.',
+    'Manchester-based software engineer specialising in AI, machine learning, and data-driven web applications. MSc AI student with 17 years engineering background. Building with Python, Next.js, and modern ML tools.',
   metadataBase: new URL('https://aoneill.co.uk'),
   keywords: [
-    'Full-Stack Developer',
+    'AI Developer',
+    'Machine Learning Engineer',
+    'ML Engineer',
+    'Data Science',
     'Software Engineer',
-    'Web Developer',
-    'Frontend Developer',
-    'Backend Developer',
+    'Python Developer',
+    'Full-Stack Developer',
     'Next.js Developer',
     'React Developer',
     'TypeScript Developer',
-    'JavaScript Developer',
-    'Node.js Developer',
-    'Freelance Developer',
-    'Freelance Web Developer UK',
     'Manchester Developer',
     'UK Developer',
-    'Web Development',
+    'Neural Networks',
+    'Deep Learning',
+    'Reinforcement Learning',
+    'Data Engineering',
     'Web Application Development',
-    'E-commerce Development',
-    'Responsive Web Design',
-    'UI/UX Development',
-    'API Development',
     'Supabase',
-    'Tailwind CSS',
-    'Portfolio',
-    'Hire Developer',
+    'PostgreSQL',
+    'API Development',
+    'MSc AI',
+    'Graduate Developer',
   ],
   authors: [{ name: 'Antony O\'Neill' }],
   creator: 'Antony O\'Neill',
@@ -83,23 +81,23 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: 'https://aoneill.co.uk',
     siteName: 'Antony O\'Neill',
-    title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
+    title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
     description:
-      'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building fast, accessible, production-ready web applications.',
+      'Manchester-based software engineer specialising in AI, machine learning, and data-driven applications. MSc AI student with engineering background.',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Antony O\'Neill - Full-Stack Developer & Software Engineer',
+        alt: 'Antony O\'Neill - AI & ML Developer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Antony O\'Neill | Full-Stack Developer & Software Engineer',
+    title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
     description:
-      'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript. Building production-ready web applications.',
+      'Manchester-based software engineer specialising in AI, machine learning, and data-driven applications. MSc AI student.',
     images: ['/images/og-image.png'],
   },
   alternates: {
@@ -164,26 +162,27 @@ export default async function RootLayout({
               name: 'Antony O\'Neill',
               url: 'https://aoneill.co.uk',
               image: 'https://aoneill.co.uk/images/og-image.png',
-              jobTitle: 'Full-Stack Developer',
-              description: 'Manchester-based full-stack developer specialising in Next.js, React, and TypeScript.',
+              jobTitle: 'Software Engineer',
+              description: 'Manchester-based software engineer specialising in AI, machine learning, and data-driven web applications. MSc AI student with 17 years engineering background.',
               sameAs: [
-                'https://github.com/aoneillmark',
+                'https://github.com/W17ANT',
                 'https://www.linkedin.com/in/antony-o-neill-96601a104/',
               ],
               knowsAbout: [
+                'Machine Learning',
+                'Artificial Intelligence',
+                'Python',
+                'Data Science',
+                'Neural Networks',
                 'Next.js',
                 'React',
                 'TypeScript',
-                'JavaScript',
-                'Node.js',
-                'Web Development',
-                'E-commerce',
+                'PostgreSQL',
                 'Supabase',
-                'Tailwind CSS',
               ],
-              worksFor: {
-                '@type': 'Organization',
-                name: 'Freelance',
+              alumniOf: {
+                '@type': 'CollegeOrUniversity',
+                name: 'St Mary\'s University',
               },
             }),
           }}
@@ -237,11 +236,11 @@ export default async function RootLayout({
                   '%c║                                                               ║\\n' +
                   '╠═══════════════════════════════════════════════════════════════╣\\n' +
                   '║                                                               ║\\n' +
-                  '%c║  Full-Stack Developer & Software Engineer                     ║\\n' +
+                  '%c║  AI & ML Developer | Software Engineer                         ║\\n' +
                   '║  Manchester, UK                                               ║\\n' +
                   '%c║                                                               ║\\n' +
-                  '%c║  Built with: Next.js · React · TypeScript · Tailwind          ║\\n' +
-                  '║  Focus: Performance · Accessibility · Security                ║\\n' +
+                  '%c║  Built with: Next.js · Python · TypeScript · ML               ║\\n' +
+                  '║  Focus: AI · Data · Performance · Systems                     ║\\n' +
                   '%c║                                                               ║\\n' +
                   '%c║  github.com/W17ANT                                            ║\\n' +
                   '%c║                                                               ║\\n' +

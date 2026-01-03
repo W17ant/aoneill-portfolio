@@ -52,7 +52,7 @@ const QUICK_REPOS = [
   { name: 'Express', url: 'github.com/expressjs/express' },
   { name: 'Axios', url: 'github.com/axios/axios' },
   { name: 'TypeScript', url: 'github.com/microsoft/TypeScript' },
-  { name: 'This Site', url: 'github.com/W17ant/aoneill-portfolio' },
+  { name: 'This Site', url: 'github.com/W17ANT/aoneill-portfolio' },
 ];
 
 const DEMO_PACKAGE: PackageJson = {

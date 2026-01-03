@@ -63,7 +63,7 @@ interface ContributionsData {
    ###   2. Configuration                                   ###
    ########################################################### */
 
-const GITHUB_USERNAME = 'W17ant';
+const GITHUB_USERNAME = 'W17ANT';
 const MAX_EVENTS = 5;
 const MAX_REPOS = 3;
 

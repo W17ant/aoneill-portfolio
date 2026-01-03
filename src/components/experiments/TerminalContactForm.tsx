@@ -217,7 +217,7 @@ export default function TerminalContactForm() {
       setProgress(100);
       addOutput('─'.repeat(35), 'text-white/50');
       addOutput('✗ Failed to send message.', 'text-red-400');
-      addOutput('Please try again or email directly: antony@aoneill.co.uk', 'text-white/50');
+      addOutput('Please try again or email directly: Antony@aoneill.co.uk', 'text-white/50');
     }
 
     await delay(500);

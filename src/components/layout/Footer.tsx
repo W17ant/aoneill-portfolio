@@ -36,7 +36,7 @@ export default function Footer() {
               Antony O&apos;Neill
             </Link>
             <p className="text-[13px] text-center md:text-left opacity-70">
-              Full-stack developer focused on shipping clean, fast, reliable web products.
+              Building with AI, ML, and data — shipping production-ready web applications.
             </p>
           </div>
 
@@ -50,7 +50,7 @@ export default function Footer() {
 
             <div className="flex items-center gap-2">
               <a
-                href="https://github.com/W17ant"
+                href="https://github.com/W17ANT"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-[var(--radius-sm)] transition-all hover:bg-white/5"

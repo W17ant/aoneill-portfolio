@@ -163,7 +163,7 @@ export default function Navbar() {
       <div className="hidden md:flex items-center gap-3">
         <div className="flex items-center gap-1">
           <a
-            href="https://github.com/W17ant"
+            href="https://github.com/W17ANT"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-[var(--radius-sm)] transition-colors duration-150 hover:bg-[rgba(255,255,255,0.04)]"

@@ -69,7 +69,7 @@ tempus-prive/
 
 1. **Clone or Download the Project**
    bash
-   git clone https://github.com/W17ant/Tempus-Prive
+   git clone https://github.com/W17ANT/Tempus-Prive
    # OR download and extract the ZIP file
    
 

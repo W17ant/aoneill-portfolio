@@ -252,7 +252,7 @@ export default function TerminalNavigator() {
             push({ kind: 'out', text: 'Frontend + product-focused builds. Fast, polished, accessible.' });
           } else if (arg === 'contact' || arg === 'contact.txt') {
             push(
-              { kind: 'out', text: 'Email: antony@aoneill.co.uk' },
+              { kind: 'out', text: 'Email: Antony@aoneill.co.uk' },
               { kind: 'out', text: 'LinkedIn: /in/antony-o-neill-96601a104' }
             );
           } else {

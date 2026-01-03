@@ -11,7 +11,7 @@ import { NextResponse } from 'next/server';
    ###   1. Configuration                                   ###
    ########################################################### */
 
-const GITHUB_USERNAME = 'W17ant';
+const GITHUB_USERNAME = 'W17ANT';
 const GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql';
 
 /* ###########################################################

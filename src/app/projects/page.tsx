@@ -15,12 +15,12 @@ import { Github } from 'lucide-react';
    ########################################################### */
 
 export const metadata = {
-  title: 'Projects | Antony O\'Neill - Full-Stack Developer Portfolio',
-  description: 'Explore my web development portfolio featuring e-commerce platforms, corporate websites, and custom web applications built with Next.js, React, and TypeScript.',
-  keywords: ['Web Development Projects', 'Next.js Projects', 'React Portfolio', 'E-commerce Development', 'Freelance Developer Work', 'Web Application Examples'],
+  title: 'Projects | Antony O\'Neill - AI & ML Developer',
+  description: 'Portfolio of web applications, data-driven projects, and ML experiments. Built with Next.js, Python, and modern tooling.',
+  keywords: ['AI Projects', 'ML Portfolio', 'Data Science Projects', 'Next.js Projects', 'Python Projects', 'Web Application Examples'],
   openGraph: {
     title: 'Projects | Antony O\'Neill',
-    description: 'Explore my web development portfolio featuring e-commerce platforms, corporate websites, and custom web applications.',
+    description: 'Portfolio of web applications, data-driven projects, and ML experiments.',
     url: 'https://aoneill.co.uk/projects',
   },
   alternates: {
@@ -46,7 +46,7 @@ export default async function ProjectsPage() {
             Complete, real-world work. Each project demonstrates decision-making, not just output.
           </p>
           <a
-            href="https://github.com/aoneillmark"
+            href="https://github.com/W17ANT"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:opacity-80"
