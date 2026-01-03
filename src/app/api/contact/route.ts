@@ -12,6 +12,7 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
+import { isOriginAllowed, corsBlockedResponse, handlePreflight, addCorsHeaders } from '@/lib/cors';
 
 /* ###########################################################
    ###   2. Configuration                                   ###
@@ -41,7 +42,17 @@ function sanitizeHtml(str: string): string {
    ###   4. API Handler                                     ###
    ########################################################### */
 
+// Handle CORS preflight requests
+export async function OPTIONS(request: Request) {
+  return handlePreflight(request);
+}
+
 export async function POST(request: Request) {
+  // CORS check
+  if (!isOriginAllowed(request)) {
+    return corsBlockedResponse();
+  }
+
   try {
     /* ========================================
        Rate Limiting

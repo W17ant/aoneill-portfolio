@@ -6,10 +6,16 @@
    ########################################################### */
 
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
+import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
 
 /* ###########################################################
    ###   1. Type Definitions                                ###
    ########################################################### */
+
+// Rate limit: 10 requests per minute per IP
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 
 interface LighthouseScores {
   performance: number;
@@ -84,7 +90,28 @@ async function fetchLighthouseScores(): Promise<LighthouseScores> {
    ###   4. API Route Handler                               ###
    ########################################################### */
 
-export async function GET() {
+// Handle CORS preflight requests
+export async function OPTIONS(request: Request) {
+  return handlePreflight(request);
+}
+
+export async function GET(request: Request) {
+  // CORS check
+  if (!isOriginAllowed(request)) {
+    return corsBlockedResponse();
+  }
+
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimit = checkRateLimit(`lighthouse:${clientIP}`, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
+
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(rateLimit.resetIn) } }
+    );
+  }
+
   try {
     const now = Date.now();
 

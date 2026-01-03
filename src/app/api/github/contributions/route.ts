@@ -6,10 +6,16 @@
    ########################################################### */
 
 import { NextResponse } from 'next/server';
+import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
+import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
 
 /* ###########################################################
    ###   1. Configuration                                   ###
    ########################################################### */
+
+// Rate limit: 30 requests per minute per IP (generous for page loads)
+const RATE_LIMIT_MAX = 30;
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 
 const GITHUB_USERNAME = 'W17ANT';
 const GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql';
@@ -69,7 +75,28 @@ interface GitHubGraphQLResponse {
    ###   4. API Handler                                     ###
    ########################################################### */
 
+// Handle CORS preflight requests
+export async function OPTIONS(request: Request) {
+  return handlePreflight(request);
+}
+
 export async function GET(request: Request) {
+  // CORS check
+  if (!isOriginAllowed(request)) {
+    return corsBlockedResponse();
+  }
+
+  // Rate limiting
+  const clientIP = getClientIP(request);
+  const rateLimit = checkRateLimit(`github:${clientIP}`, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
+
+  if (!rateLimit.success) {
+    return NextResponse.json(
+      { error: 'Too many requests' },
+      { status: 429, headers: { 'Retry-After': String(rateLimit.resetIn) } }
+    );
+  }
+
   const token = process.env.GITHUB_TOKEN;
   const { searchParams } = new URL(request.url);
   const year = parseInt(searchParams.get('year') || new Date().getFullYear().toString());

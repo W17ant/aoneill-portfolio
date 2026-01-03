@@ -38,6 +38,16 @@ interface OutputLine {
    ###   2. Configuration                                   ###
    ########################################################### */
 
+// Sanitize user input to prevent XSS in terminal output
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 const steps: Step[] = [
   {
     field: 'name',
@@ -205,10 +215,10 @@ export default function TerminalContactForm() {
       await delay(200);
       addOutput('─'.repeat(35), 'text-white/50');
       addOutput('[ SUBMISSION SUMMARY ]', 'text-amber-400');
-      addOutput(`Name: ${formData.name}`, 'text-cyan-400');
-      addOutput(`Email: ${formData.email}`, 'text-cyan-400');
-      addOutput(`Subject: ${formData.subject}`, 'text-cyan-400');
-      addOutput(`Message: ${formData.message}`, 'text-cyan-400');
+      addOutput(`Name: ${escapeHtml(formData.name)}`, 'text-cyan-400');
+      addOutput(`Email: ${escapeHtml(formData.email)}`, 'text-cyan-400');
+      addOutput(`Subject: ${escapeHtml(formData.subject)}`, 'text-cyan-400');
+      addOutput(`Message: ${escapeHtml(formData.message)}`, 'text-cyan-400');
       await delay(400);
       addOutput('─'.repeat(35), 'text-white/50');
       addOutput('✓ Message sent successfully!', 'text-green-400');
@@ -230,7 +240,7 @@ export default function TerminalContactForm() {
     const value = inputValue.trim();
     const step = steps[currentStep];
 
-    addOutput(`→ ${value}`, 'text-pink-400');
+    addOutput(`→ ${escapeHtml(value)}`, 'text-pink-400');
 
     const error = step.validate(value);
     if (error) {
@@ -241,7 +251,7 @@ export default function TerminalContactForm() {
     }
 
     setFormData((prev) => ({ ...prev, [step.field]: value }));
-    addOutput(`✓ ${step.field} saved`, 'text-green-400');
+    addOutput(`✓ ${escapeHtml(step.field)} saved`, 'text-green-400');
 
     setInputValue('');
     setTimeout(() => setCurrentStep((s) => s + 1), 300);
