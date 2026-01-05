@@ -166,7 +166,7 @@ export default async function RootLayout({
               description: 'Manchester-based software engineer specialising in AI, machine learning, and data-driven web applications. MSc AI student with 17 years engineering background.',
               sameAs: [
                 'https://github.com/W17ANT',
-                'https://www.linkedin.com/in/antony-o-neill-96601a104/',
+                'https://www.linkedin.com/in/AntonyONeillADL',
               ],
               knowsAbout: [
                 'Machine Learning',

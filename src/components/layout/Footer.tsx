@@ -67,7 +67,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/in/antony-o-neill-96601a104/"
+                href="https://www.linkedin.com/in/AntonyONeillADL"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-[var(--radius-sm)] transition-all hover:bg-white/5"

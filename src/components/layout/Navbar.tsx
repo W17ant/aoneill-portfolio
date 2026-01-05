@@ -180,7 +180,7 @@ export default function Navbar() {
             </svg>
           </a>
           <a
-            href="https://www.linkedin.com/in/antony-o-neill-96601a104/"
+            href="https://www.linkedin.com/in/AntonyONeillADL"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 rounded-[var(--radius-sm)] transition-colors duration-150 hover:bg-[rgba(255,255,255,0.04)]"
