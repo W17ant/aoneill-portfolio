@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <rect width="100" height="100" rx="16" fill="#0a0f1a"/>
+  <rect width="100" height="100" rx="16" fill="#060a13"/>
 
   <!-- Class 0 points (blue) -->
   <circle cx="25" cy="30" r="5" fill="#60a5fa"/>
