@@ -270,6 +270,25 @@ const projects: Project[] = [
     outcome:
       'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
   },
+  {
+    slug: 'ml-classification-practical',
+    title: 'NCM Classification Practical',
+    description:
+      'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
+    tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
+    url: 'https://aoneill.co.uk/ml-practical/notebook_guide.html',
+    repo: 'https://github.com/W17ant/machine-learning-practical',
+    featured: true,
+    logo: '/images/ml-practical-logo.svg',
+    overview:
+      'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
+    problem:
+      'Traditional static documentation fails to convey the iterative, experimental nature of machine learning. Students need to understand not just what code does, but why each step matters and how outputs change with different approaches.',
+    approach:
+      'Built an interactive HTML page that simulates Jupyter notebook execution with auto-typing code animation, live syntax highlighting, and contextual explanations. Each cell includes a helper panel explaining the concepts, expected outputs, and connections to ML theory. Implemented NCM, LDA, QDA, and Mahalanobis distance classifiers from scratch.',
+    outcome:
+      'A self-contained educational resource that demonstrates the difference between equal and unequal covariance classification problems. Dataset A achieves 100% accuracy with NCM while Dataset B shows 98.5%, clearly illustrating when linear vs quadratic decision boundaries are appropriate.',
+  },
 ];
 
 /* ###########################################################
