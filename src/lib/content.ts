@@ -199,6 +199,43 @@ const projects: Project[] = [
       'Random Forest with sample constraints achieved the highest accuracy at 85.25%, with chest pain type (cp), maximum heart rate (thalachh), and number of major vessels (caa) identified as the most predictive features. Neural networks showed tendency to overfit on the small dataset despite dropout regularisation. Comprehensive Jupyter notebook with visualisations, statistical analysis, and reproducible results.',
   },
   {
+    slug: 'ml-classification-practical',
+    title: 'NCM Classification Practical',
+    description:
+      'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
+    tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
+    url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
+    repo: 'https://github.com/W17ant/machine-learning-practical',
+    featured: true,
+    logo: '/images/ml-practical-logo.png',
+    overview:
+      'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
+    problem:
+      'Traditional static documentation fails to convey the iterative, experimental nature of machine learning. Students need to understand not just what code does, but why each step matters and how outputs change with different approaches.',
+    approach:
+      'Built an interactive HTML page that simulates Jupyter notebook execution with auto-typing code animation, live syntax highlighting, and contextual explanations. Each cell includes a helper panel explaining the concepts, expected outputs, and connections to ML theory. Implemented NCM, LDA, QDA, and Mahalanobis distance classifiers from scratch.',
+    outcome:
+      'A self-contained educational resource that demonstrates the difference between equal and unequal covariance classification problems. Dataset A achieves 100% accuracy with NCM while Dataset B shows 98.5%, clearly illustrating when linear vs quadratic decision boundaries are appropriate.',
+  },
+  {
+    slug: 'ai-ethics-game',
+    title: 'The Credit Algorithm',
+    description:
+      'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
+    tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
+    url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
+    featured: true,
+    logo: '/images/credit-algorithm-logo.png',
+    overview:
+      'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
+    problem:
+      'Make complex AI ethics concepts accessible and engaging for a general audience through interactive storytelling, rather than traditional academic presentation.',
+    approach:
+      'Designed a branching narrative structure with multiple decision points and consequences. Implemented an ethical framework scoring system that tracks player choices across different ethical dimensions. Created shareable ending cards that summarise the player\'s ethical approach.',
+    outcome:
+      'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
+  },
+  {
     slug: 'keepitwhat',
     title: 'Keep It What',
     description:
@@ -251,43 +288,6 @@ const projects: Project[] = [
       'Built entirely with vanilla JavaScript to demonstrate core language proficiency. Implemented product filtering, cart functionality with localStorage persistence, and quantity management. Created responsive layouts using CSS Grid and Flexbox with mobile-first breakpoints.',
     outcome:
       'Successful assessment submission demonstrating strong fundamentals in JavaScript, CSS, and e-commerce UX patterns. The project showcases the ability to build functional web applications without relying on frameworks.',
-  },
-  {
-    slug: 'ai-ethics-game',
-    title: 'The Credit Algorithm',
-    description:
-      'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
-    tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
-    url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
-    featured: false,
-    logo: '/images/credit-algorithm-logo.png',
-    overview:
-      'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
-    problem:
-      'Make complex AI ethics concepts accessible and engaging for a general audience through interactive storytelling, rather than traditional academic presentation.',
-    approach:
-      'Designed a branching narrative structure with multiple decision points and consequences. Implemented an ethical framework scoring system that tracks player choices across different ethical dimensions. Created shareable ending cards that summarise the player\'s ethical approach.',
-    outcome:
-      'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
-  },
-  {
-    slug: 'ml-classification-practical',
-    title: 'NCM Classification Practical',
-    description:
-      'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
-    tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
-    url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
-    repo: 'https://github.com/W17ant/machine-learning-practical',
-    featured: true,
-    logo: '/images/ml-practical-logo.png',
-    overview:
-      'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
-    problem:
-      'Traditional static documentation fails to convey the iterative, experimental nature of machine learning. Students need to understand not just what code does, but why each step matters and how outputs change with different approaches.',
-    approach:
-      'Built an interactive HTML page that simulates Jupyter notebook execution with auto-typing code animation, live syntax highlighting, and contextual explanations. Each cell includes a helper panel explaining the concepts, expected outputs, and connections to ML theory. Implemented NCM, LDA, QDA, and Mahalanobis distance classifiers from scratch.',
-    outcome:
-      'A self-contained educational resource that demonstrates the difference between equal and unequal covariance classification problems. Dataset A achieves 100% accuracy with NCM while Dataset B shows 98.5%, clearly illustrating when linear vs quadratic decision boundaries are appropriate.',
   },
 ];
 
