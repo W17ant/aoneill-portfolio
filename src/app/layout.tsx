@@ -236,7 +236,7 @@ export default async function RootLayout({
                   '%c║                                                               ║\\n' +
                   '╠═══════════════════════════════════════════════════════════════╣\\n' +
                   '║                                                               ║\\n' +
-                  '%c║  AI & ML Developer | Software Engineer                         ║\\n' +
+                  '%c║  AI & ML Developer | Software Engineer                        ║\\n' +
                   '║  Manchester, UK                                               ║\\n' +
                   '%c║                                                               ║\\n' +
                   '%c║  Built with: Next.js · Python · TypeScript · ML               ║\\n' +
