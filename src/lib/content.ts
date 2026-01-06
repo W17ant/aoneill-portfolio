@@ -276,10 +276,10 @@ const projects: Project[] = [
     description:
       'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
     tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
-    url: 'https://aoneill.co.uk/ml-practical/notebook_guide.html',
+    url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
     repo: 'https://github.com/W17ant/machine-learning-practical',
     featured: true,
-    logo: '/images/ml-practical-logo.svg',
+    logo: '/images/ml-practical-logo.png',
     overview:
       'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
     problem:
