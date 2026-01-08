@@ -100,7 +100,13 @@ export default function Navbar() {
           onClick={() => {
             setActiveHash('#about');
             if (pathname === '/') {
-              window.dispatchEvent(new CustomEvent('flipLanyard'));
+              // On narrower screens, scroll to hero and show lanyard
+              if (window.innerWidth < 1670) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.dispatchEvent(new CustomEvent('showLanyardAndFlip'));
+              } else {
+                window.dispatchEvent(new CustomEvent('flipLanyard'));
+              }
             } else {
               // Set flag to flip lanyard after page loads and swing-in completes
               sessionStorage.setItem('flipLanyardAfterLoad', 'true');

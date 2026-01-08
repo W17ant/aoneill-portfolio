@@ -46,8 +46,8 @@ export default async function HomePage() {
         {/* Lanyard, tension bar, and instructions */}
         <HeroWithLanyard />
 
-        <div className="max-w-4xl mx-auto px-5 py-20 w-full relative z-10">
-          {/* Text content */}
+        <div className="max-w-4xl mx-auto px-5 py-20 w-full relative z-10 lg:pr-[max(20px,calc(900px-40vw))]">
+          {/* Text content - fluid right padding on lg+ that scales with viewport width */}
           <div className="text-center lg:text-left">
             <h1 className="text-5xl md:text-6xl font-semibold text-white mb-6 tracking-[-0.02em]">
               Antony O&apos;Neill
