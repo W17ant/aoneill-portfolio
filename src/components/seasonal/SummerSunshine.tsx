@@ -14,6 +14,7 @@ export default function SummerSunshine() {
 
   useEffect(() => {
     // Only show in summer when no holiday is active
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setShow(isSummer() && !getHoliday());
   }, []);
 

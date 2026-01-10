@@ -283,6 +283,17 @@ export default function SnakeRL() {
   const GRID_SIZE = 20;
   const CELL_SIZE = 15;
 
+  const spawnFood = useCallback((snake: Point[]): Point => {
+    let food: Point;
+    do {
+      food = {
+        x: Math.floor(Math.random() * GRID_SIZE),
+        y: Math.floor(Math.random() * GRID_SIZE)
+      };
+    } while (snake.some(s => s.x === food.x && s.y === food.y));
+    return food;
+  }, []);
+
   const initGame = useCallback((): GameState => {
     const startX = Math.floor(GRID_SIZE / 2);
     const startY = Math.floor(GRID_SIZE / 2);
@@ -298,18 +309,7 @@ export default function SnakeRL() {
       gameOver: false,
       stepsSinceFood: 0
     };
-  }, []);
-
-  function spawnFood(snake: Point[]): Point {
-    let food: Point;
-    do {
-      food = {
-        x: Math.floor(Math.random() * GRID_SIZE),
-        y: Math.floor(Math.random() * GRID_SIZE)
-      };
-    } while (snake.some(s => s.x === food.x && s.y === food.y));
-    return food;
-  }
+  }, [spawnFood]);
 
   const MAX_STEPS_WITHOUT_FOOD = 200; // Prevents infinite loops
 

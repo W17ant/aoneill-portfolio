@@ -45,12 +45,14 @@ export default function Navbar() {
 
   // Detect holiday for seasonal styling
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setHoliday(getHoliday());
   }, []);
 
   // Clear active hash when navigating to a different page
   useEffect(() => {
     if (pathname !== '/') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional route sync
       setActiveHash('');
     }
   }, [pathname]);

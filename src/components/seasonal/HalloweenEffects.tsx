@@ -49,6 +49,7 @@ export default function HalloweenEffects() {
 
   useEffect(() => {
     if (!isHalloween()) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setShow(true);
   }, []);
 

@@ -367,6 +367,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
   // Main animation loop with physics updates and rendering
   useEffect(() => {
     if (!mounted) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional hydration sync
       setMounted(true);
       return;
     }
@@ -651,7 +652,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
               >
                 <img
                   src="/images/Selfie.webp"
-                  alt="Antony O'Neill"
+                  alt="Antony O&apos;Neill"
                   width={300}
                   height={260}
                   className="w-full h-full object-cover opacity-90"
@@ -665,7 +666,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-xl font-black leading-tight tracking-tight"
                 style={{ color: 'rgba(2,6,23,.92)' }}
               >
-                Antony O'Neill
+                Antony O&apos;Neill
               </div>
               <div
                 className="text-[13px] mt-1.5 font-semibold"
@@ -744,7 +745,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[11px] font-extrabold tracking-wider uppercase"
                 style={{ color: 'rgba(2,6,23,.45)' }}
               >
-                Antony O'Neill
+                Antony O&apos;Neill
               </div>
             </div>
 
@@ -754,7 +755,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[12px] leading-relaxed mb-3"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                MSc Computer Science & AI student at St Mary's University,
+                MSc Computer Science & AI student at St Mary&apos;s University,
                 building machine learning systems that solve real problems.
                 Experienced with deep learning, reinforcement learning, and
                 classical ML — from neural networks to random forests.
@@ -780,7 +781,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
               }}
             >
               <span className="text-[11px]" style={{ color: 'rgba(2,6,23,.45)' }}>
-                MSc CS & AI · St Mary's
+                MSc CS & AI · St Mary&apos;s
               </span>
               <button
                 onClick={(e) => {

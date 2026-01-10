@@ -181,6 +181,7 @@ export default function SeasonalParticles() {
     const holiday = getHoliday();
     const season = getSeason();
     const type = getParticleType(holiday, season);
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setParticleType(type);
 
     if (type === 'none') return;

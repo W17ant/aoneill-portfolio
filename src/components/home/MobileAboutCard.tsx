@@ -173,7 +173,7 @@ export default function MobileAboutCard() {
               >
                 <img
                   src="/images/Selfie.webp"
-                  alt="Antony O'Neill"
+                  alt="Antony O&apos;Neill"
                   width={300}
                   height={260}
                   className="w-full h-full object-cover opacity-90"
@@ -187,7 +187,7 @@ export default function MobileAboutCard() {
                 className="text-xl font-black leading-tight tracking-tight"
                 style={{ color: 'rgba(2,6,23,.92)' }}
               >
-                Antony O'Neill
+                Antony O&apos;Neill
               </div>
               <div
                 className="text-[13px] mt-1.5 font-semibold"

@@ -106,7 +106,7 @@ function extractFeatures(points: Point[]): Features | null {
 
   // === 2. ANGULAR VARIANCE ===
   // How much does direction wobble between consecutive steps
-  let angularDiffs: number[] = [];
+  const angularDiffs: number[] = [];
   for (let i = 1; i < angles.length; i++) {
     let diff = Math.abs(angles[i] - angles[i - 1]);
     if (diff > Math.PI) diff = 2 * Math.PI - diff;

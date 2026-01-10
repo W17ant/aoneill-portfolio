@@ -341,6 +341,7 @@ export default function InteractiveLanyard() {
   // Animation loop
   useEffect(() => {
     if (!mounted) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional hydration sync
       setMounted(true);
       return;
     }

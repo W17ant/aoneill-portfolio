@@ -7,7 +7,7 @@
 
 'use client';
 
-import { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 
 /* ###########################################################
    ###   1. Type Definitions                                ###
@@ -40,8 +40,12 @@ const ThemeContext = createContext<ThemeContextType>({
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
+    if (isInitialized.current) return;
+    isInitialized.current = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional hydration sync
     setMounted(true);
     // Check localStorage first, then system preference
     const stored = localStorage.getItem('theme') as Theme | null;

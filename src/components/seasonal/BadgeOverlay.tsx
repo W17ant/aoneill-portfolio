@@ -23,6 +23,7 @@ export default function BadgeOverlay() {
   const [holiday, setHoliday] = useState<Holiday>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setHoliday(getHoliday());
   }, []);
 

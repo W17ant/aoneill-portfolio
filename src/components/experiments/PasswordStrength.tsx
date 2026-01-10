@@ -124,6 +124,7 @@ export default function PasswordStrength() {
   );
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- Derived state from user input
     analyzePassword(password);
   }, [password, analyzePassword]);
 

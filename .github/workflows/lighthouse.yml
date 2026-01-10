@@ -1,0 +1,123 @@
+name: Lighthouse Audit
+
+on:
+  schedule:
+    # Run on the 1st of each month at 9am UTC
+    - cron: '0 9 1 * *'
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'URL to audit (defaults to production site)'
+        required: false
+        default: 'https://aoneill.co.uk'
+
+env:
+  SITE_URL: ${{ github.event.inputs.url || 'https://aoneill.co.uk' }}
+
+jobs:
+  lighthouse:
+    name: Run Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse on Homepage (Mobile)
+        id: lighthouse-home-mobile
+        run: |
+          lhci collect --url="${{ env.SITE_URL }}/" --numberOfRuns=3
+          lhci upload --target=filesystem --outputDir=./lighthouse-results/home-mobile
+        continue-on-error: true
+
+      - name: Run Lighthouse on Homepage (Desktop)
+        id: lighthouse-home-desktop
+        run: |
+          lhci collect --url="${{ env.SITE_URL }}/" --numberOfRuns=3 --settings.preset=desktop
+          lhci upload --target=filesystem --outputDir=./lighthouse-results/home-desktop
+        continue-on-error: true
+
+      - name: Run Lighthouse on Projects Page
+        id: lighthouse-projects
+        run: |
+          lhci collect --url="${{ env.SITE_URL }}/projects" --numberOfRuns=3
+          lhci upload --target=filesystem --outputDir=./lighthouse-results/projects
+        continue-on-error: true
+
+      - name: Run Lighthouse on Lab Page
+        id: lighthouse-lab
+        run: |
+          lhci collect --url="${{ env.SITE_URL }}/lab" --numberOfRuns=3
+          lhci upload --target=filesystem --outputDir=./lighthouse-results/lab
+        continue-on-error: true
+
+      - name: Run Lighthouse on Contact Page
+        id: lighthouse-contact
+        run: |
+          lhci collect --url="${{ env.SITE_URL }}/contact" --numberOfRuns=3
+          lhci upload --target=filesystem --outputDir=./lighthouse-results/contact
+        continue-on-error: true
+
+      - name: Parse Results and Create Summary
+        id: parse-results
+        run: |
+          echo "## Lighthouse Audit Results" > lighthouse-summary.md
+          echo "" >> lighthouse-summary.md
+          echo "Audit Date: $(date -u '+%Y-%m-%d %H:%M UTC')" >> lighthouse-summary.md
+          echo "Site: ${{ env.SITE_URL }}" >> lighthouse-summary.md
+          echo "" >> lighthouse-summary.md
+
+          for dir in ./lighthouse-results/*/; do
+            if [ -d "$dir" ]; then
+              page=$(basename "$dir")
+              echo "### $page" >> lighthouse-summary.md
+              echo "" >> lighthouse-summary.md
+
+              # Find the manifest file
+              manifest=$(find "$dir" -name "manifest.json" 2>/dev/null | head -1)
+              if [ -f "$manifest" ]; then
+                # Extract scores from the latest run
+                lhr=$(cat "$manifest" | jq -r '.[] | select(.isRepresentativeRun == true) | .jsonPath' 2>/dev/null | head -1)
+                if [ -n "$lhr" ] && [ -f "$dir$lhr" ]; then
+                  perf=$(cat "$dir$lhr" | jq '.categories.performance.score * 100' 2>/dev/null || echo "N/A")
+                  a11y=$(cat "$dir$lhr" | jq '.categories.accessibility.score * 100' 2>/dev/null || echo "N/A")
+                  bp=$(cat "$dir$lhr" | jq '.categories["best-practices"].score * 100' 2>/dev/null || echo "N/A")
+                  seo=$(cat "$dir$lhr" | jq '.categories.seo.score * 100' 2>/dev/null || echo "N/A")
+
+                  echo "| Metric | Score |" >> lighthouse-summary.md
+                  echo "|--------|-------|" >> lighthouse-summary.md
+                  echo "| Performance | ${perf}% |" >> lighthouse-summary.md
+                  echo "| Accessibility | ${a11y}% |" >> lighthouse-summary.md
+                  echo "| Best Practices | ${bp}% |" >> lighthouse-summary.md
+                  echo "| SEO | ${seo}% |" >> lighthouse-summary.md
+                  echo "" >> lighthouse-summary.md
+                fi
+              fi
+            fi
+          done
+
+          cat lighthouse-summary.md
+
+      - name: Upload Lighthouse Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: |
+            lighthouse-results/
+            lighthouse-summary.md
+          retention-days: 90
+
+      - name: Create Issue with Results
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Monthly Lighthouse Audit - ${{ github.run_id }}"
+          content-filepath: ./lighthouse-summary.md
+          labels: |
+            lighthouse
+            automated
