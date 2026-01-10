@@ -9,6 +9,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import BadgeOverlay from '@/components/seasonal/BadgeOverlay';
 
 /* ###########################################################
@@ -171,9 +172,9 @@ export default function MobileAboutCard() {
                   border: '1px solid rgba(2,6,23,.10)',
                 }}
               >
-                <img
+                <Image
                   src="/images/Selfie.webp"
-                  alt="Antony O&apos;Neill"
+                  alt="Antony O'Neill"
                   width={300}
                   height={260}
                   className="w-full h-full object-cover opacity-90"

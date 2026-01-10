@@ -32,7 +32,7 @@ interface Particle {
 
 type ParticleType = 'snow' | 'hearts' | 'shamrocks' | 'leaves' | 'confetti' | 'ghosts' | 'none';
 
-function getParticleType(holiday: Holiday, season: Season): ParticleType {
+function getParticleType(holiday: Holiday, _season: Season): ParticleType {
   // Holiday-specific particles
   switch (holiday) {
     case 'christmas':

@@ -22,20 +22,20 @@ export default function NewYearCountdown() {
 
     // Show on Jan 1 (Happy New Year)
     if (month === 0 && day === 1) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(true);
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsNewYearsDay(true);
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setYear(now.getFullYear());
       return;
     }
 
     // Show on Dec 30-31 (countdown)
     if (month === 11 && day >= 30) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShow(true);
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsNewYearsDay(false);
       return;
     }
@@ -46,9 +46,9 @@ export default function NewYearCountdown() {
       if (stored) {
         const override = JSON.parse(stored);
         if (override.holiday === 'newyear') {
-          // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional localStorage sync
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setShow(true);
-          // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional localStorage sync
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setIsNewYearsDay(override.isNewYearsDay || false);
         }
       }

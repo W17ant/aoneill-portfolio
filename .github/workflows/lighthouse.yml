@@ -11,6 +11,10 @@ on:
         required: false
         default: 'https://aoneill.co.uk'
 
+permissions:
+  contents: read
+  issues: write
+
 env:
   SITE_URL: ${{ github.event.inputs.url || 'https://aoneill.co.uk' }}
 
