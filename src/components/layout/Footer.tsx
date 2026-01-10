@@ -97,7 +97,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-6 text-center">
-          <p className="text-xs opacity-50">
+          <p className="text-xs opacity-70">
             &copy; {new Date().getFullYear()} Antony O&apos;Neill. All rights reserved.
           </p>
         </div>

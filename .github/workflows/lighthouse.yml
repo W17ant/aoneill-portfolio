@@ -30,82 +30,95 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Lighthouse CI
-        run: npm install -g @lhci/cli
+      - name: Install Lighthouse
+        run: npm install -g lighthouse chrome-launcher
 
-      - name: Run Lighthouse on Homepage (Mobile)
-        id: lighthouse-home-mobile
-        run: |
-          lhci collect --url="${{ env.SITE_URL }}/" --numberOfRuns=3
-          lhci upload --target=filesystem --outputDir=./lighthouse-results/home-mobile
-        continue-on-error: true
+      - name: Create results directory
+        run: mkdir -p lighthouse-results
 
-      - name: Run Lighthouse on Homepage (Desktop)
-        id: lighthouse-home-desktop
+      - name: Run Lighthouse Audits
         run: |
-          lhci collect --url="${{ env.SITE_URL }}/" --numberOfRuns=3 --settings.preset=desktop
-          lhci upload --target=filesystem --outputDir=./lighthouse-results/home-desktop
-        continue-on-error: true
+          # Function to run lighthouse and extract scores
+          run_audit() {
+            local url=$1
+            local name=$2
+            local preset=$3
 
-      - name: Run Lighthouse on Projects Page
-        id: lighthouse-projects
-        run: |
-          lhci collect --url="${{ env.SITE_URL }}/projects" --numberOfRuns=3
-          lhci upload --target=filesystem --outputDir=./lighthouse-results/projects
-        continue-on-error: true
+            echo "Running audit for $name ($preset)..."
 
-      - name: Run Lighthouse on Lab Page
-        id: lighthouse-lab
-        run: |
-          lhci collect --url="${{ env.SITE_URL }}/lab" --numberOfRuns=3
-          lhci upload --target=filesystem --outputDir=./lighthouse-results/lab
-        continue-on-error: true
+            if [ "$preset" = "desktop" ]; then
+              lighthouse "$url" \
+                --output=json \
+                --output-path="./lighthouse-results/${name}.json" \
+                --chrome-flags="--headless --no-sandbox --disable-gpu" \
+                --preset=desktop \
+                --only-categories=performance,accessibility,best-practices,seo \
+                --quiet || true
+            else
+              lighthouse "$url" \
+                --output=json \
+                --output-path="./lighthouse-results/${name}.json" \
+                --chrome-flags="--headless --no-sandbox --disable-gpu" \
+                --only-categories=performance,accessibility,best-practices,seo \
+                --quiet || true
+            fi
+          }
 
-      - name: Run Lighthouse on Contact Page
-        id: lighthouse-contact
-        run: |
-          lhci collect --url="${{ env.SITE_URL }}/contact" --numberOfRuns=3
-          lhci upload --target=filesystem --outputDir=./lighthouse-results/contact
-        continue-on-error: true
+          # Run audits for each page
+          run_audit "${{ env.SITE_URL }}/" "home-mobile" "mobile"
+          run_audit "${{ env.SITE_URL }}/" "home-desktop" "desktop"
+          run_audit "${{ env.SITE_URL }}/projects" "projects" "mobile"
+          run_audit "${{ env.SITE_URL }}/lab" "lab" "mobile"
+          run_audit "${{ env.SITE_URL }}/contact" "contact" "mobile"
 
       - name: Parse Results and Create Summary
-        id: parse-results
         run: |
-          echo "## Lighthouse Audit Results" > lighthouse-summary.md
+          echo "## 🔦 Lighthouse Audit Results" > lighthouse-summary.md
           echo "" >> lighthouse-summary.md
-          echo "Audit Date: $(date -u '+%Y-%m-%d %H:%M UTC')" >> lighthouse-summary.md
-          echo "Site: ${{ env.SITE_URL }}" >> lighthouse-summary.md
+          echo "**Audit Date:** $(date -u '+%Y-%m-%d %H:%M UTC')" >> lighthouse-summary.md
+          echo "**Site:** ${{ env.SITE_URL }}" >> lighthouse-summary.md
+          echo "" >> lighthouse-summary.md
+          echo "---" >> lighthouse-summary.md
           echo "" >> lighthouse-summary.md
 
-          for dir in ./lighthouse-results/*/; do
-            if [ -d "$dir" ]; then
-              page=$(basename "$dir")
-              echo "### $page" >> lighthouse-summary.md
+          # Process each result file
+          for file in ./lighthouse-results/*.json; do
+            if [ -f "$file" ]; then
+              name=$(basename "$file" .json)
+              echo "### 📄 ${name}" >> lighthouse-summary.md
               echo "" >> lighthouse-summary.md
 
-              # Find the manifest file
-              manifest=$(find "$dir" -name "manifest.json" 2>/dev/null | head -1)
-              if [ -f "$manifest" ]; then
-                # Extract scores from the latest run
-                lhr=$(cat "$manifest" | jq -r '.[] | select(.isRepresentativeRun == true) | .jsonPath' 2>/dev/null | head -1)
-                if [ -n "$lhr" ] && [ -f "$dir$lhr" ]; then
-                  perf=$(cat "$dir$lhr" | jq '.categories.performance.score * 100' 2>/dev/null || echo "N/A")
-                  a11y=$(cat "$dir$lhr" | jq '.categories.accessibility.score * 100' 2>/dev/null || echo "N/A")
-                  bp=$(cat "$dir$lhr" | jq '.categories["best-practices"].score * 100' 2>/dev/null || echo "N/A")
-                  seo=$(cat "$dir$lhr" | jq '.categories.seo.score * 100' 2>/dev/null || echo "N/A")
+              # Extract scores using jq
+              perf=$(jq -r '(.categories.performance.score // 0) * 100 | floor' "$file" 2>/dev/null || echo "N/A")
+              a11y=$(jq -r '(.categories.accessibility.score // 0) * 100 | floor' "$file" 2>/dev/null || echo "N/A")
+              bp=$(jq -r '(.categories["best-practices"].score // 0) * 100 | floor' "$file" 2>/dev/null || echo "N/A")
+              seo=$(jq -r '(.categories.seo.score // 0) * 100 | floor' "$file" 2>/dev/null || echo "N/A")
 
-                  echo "| Metric | Score |" >> lighthouse-summary.md
-                  echo "|--------|-------|" >> lighthouse-summary.md
-                  echo "| Performance | ${perf}% |" >> lighthouse-summary.md
-                  echo "| Accessibility | ${a11y}% |" >> lighthouse-summary.md
-                  echo "| Best Practices | ${bp}% |" >> lighthouse-summary.md
-                  echo "| SEO | ${seo}% |" >> lighthouse-summary.md
-                  echo "" >> lighthouse-summary.md
+              # Add score emojis
+              get_emoji() {
+                local score=$1
+                if [ "$score" = "N/A" ]; then echo "❓"
+                elif [ "$score" -ge 90 ]; then echo "🟢"
+                elif [ "$score" -ge 50 ]; then echo "🟠"
+                else echo "🔴"
                 fi
-              fi
+              }
+
+              echo "| Metric | Score |" >> lighthouse-summary.md
+              echo "|--------|-------|" >> lighthouse-summary.md
+              echo "| $(get_emoji $perf) Performance | **${perf}** |" >> lighthouse-summary.md
+              echo "| $(get_emoji $a11y) Accessibility | **${a11y}** |" >> lighthouse-summary.md
+              echo "| $(get_emoji $bp) Best Practices | **${bp}** |" >> lighthouse-summary.md
+              echo "| $(get_emoji $seo) SEO | **${seo}** |" >> lighthouse-summary.md
+              echo "" >> lighthouse-summary.md
             fi
           done
 
+          echo "---" >> lighthouse-summary.md
+          echo "" >> lighthouse-summary.md
+          echo "_Generated by GitHub Actions workflow_" >> lighthouse-summary.md
+
+          echo "=== Summary ==="
           cat lighthouse-summary.md
 
       - name: Upload Lighthouse Results

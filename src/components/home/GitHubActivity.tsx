@@ -272,7 +272,7 @@ export default function GitHubActivity() {
               className={`text-xs font-medium pb-1 border-b-2 transition-colors ${
                 activeTab === 'contributions'
                   ? 'border-current'
-                  : 'border-transparent opacity-60 hover:opacity-80'
+                  : 'border-transparent opacity-80 hover:opacity-100'
               }`}
               style={{ color: activeTab === 'contributions' ? 'var(--link)' : 'var(--ink-secondary)' }}
             >
@@ -284,7 +284,7 @@ export default function GitHubActivity() {
             className={`text-xs font-medium pb-1 border-b-2 transition-colors ${
               activeTab === 'activity'
                 ? 'border-current'
-                : 'border-transparent opacity-60 hover:opacity-80'
+                : 'border-transparent opacity-80 hover:opacity-100'
             }`}
             style={{ color: activeTab === 'activity' ? 'var(--link)' : 'var(--ink-secondary)' }}
           >
@@ -295,7 +295,7 @@ export default function GitHubActivity() {
             className={`text-xs font-medium pb-1 border-b-2 transition-colors ${
               activeTab === 'repos'
                 ? 'border-current'
-                : 'border-transparent opacity-60 hover:opacity-80'
+                : 'border-transparent opacity-80 hover:opacity-100'
             }`}
             style={{ color: activeTab === 'repos' ? 'var(--link)' : 'var(--ink-secondary)' }}
           >
@@ -413,7 +413,7 @@ export default function GitHubActivity() {
                     className={`px-2 py-0.5 text-[10px] rounded transition-colors ${
                       selectedYear === year
                         ? 'font-semibold'
-                        : 'opacity-60 hover:opacity-100'
+                        : 'opacity-80 hover:opacity-100'
                     }`}
                     style={{
                       color: selectedYear === year ? 'var(--link)' : 'var(--ink-muted)',
