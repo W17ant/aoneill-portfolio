@@ -23,7 +23,7 @@ interface ExperimentTutorialProps {
    ###   2. Main Component                                 ###
    ########################################################### */
 
-export default function ExperimentTutorial({ tutorial, experimentTitle }: ExperimentTutorialProps) {
+export default function ExperimentTutorial({ tutorial, experimentTitle: _experimentTitle }: ExperimentTutorialProps) {
   const [expandedSteps, setExpandedSteps] = useState<Set<number>>(new Set([0]));
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 

@@ -12,13 +12,19 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
-import { isOriginAllowed, corsBlockedResponse, handlePreflight, addCorsHeaders } from '@/lib/cors';
+import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
 
 /* ###########################################################
    ###   2. Configuration                                   ###
    ########################################################### */
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Lazy initialize to avoid build errors when env var is missing
+const getResendClient = () => {
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+};
 
 // Rate limit: 3 submissions per hour per IP
 const RATE_LIMIT_MAX = 3;
@@ -142,7 +148,7 @@ export async function POST(request: Request) {
     /* ========================================
        Send notification to you
        ======================================== */
-    const { error: notifyError } = await resend.emails.send({
+    const { error: notifyError } = await getResendClient().emails.send({
       from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
       to: ['Antony@aoneill.co.uk'],
       replyTo: email,
@@ -178,7 +184,7 @@ export async function POST(request: Request) {
        Send auto-reply to the sender
        (Only sent after rate limit check passes)
        ======================================== */
-    await resend.emails.send({
+    await getResendClient().emails.send({
       from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
       to: [email],
       subject: `Thanks for reaching out, ${name.split(' ')[0]}!`,

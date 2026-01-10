@@ -45,6 +45,15 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify build output
+        run: |
+          echo "Checking .next directory..."
+          ls -la .next || echo "ERROR: .next directory not found!"
+          du -sh .next || true
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -52,6 +61,8 @@ jobs:
           name: nextjs-build
           path: .next
           retention-days: 1
+          if-no-files-found: error
+          include-hidden-files: true
 
   test:
     name: E2E Tests
