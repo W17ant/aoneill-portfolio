@@ -269,6 +269,7 @@ export default function DependencyGraph() {
     render(ctx, nodes, edges, width, height);
 
     animationRef.current = requestAnimationFrame(simulate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- render is stable, defined outside component
   }, []);
 
   /* ###########################################################
@@ -505,6 +506,7 @@ export default function DependencyGraph() {
   };
 
   // Throttled mouse move handler (~60fps)
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- throttle returns a stable function
   const handleMouseMoveThrottled = useCallback(
     throttle((e: React.MouseEvent<HTMLCanvasElement>) => {
       const pos = getMousePos(e);

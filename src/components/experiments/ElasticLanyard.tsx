@@ -8,6 +8,7 @@
 'use client';
 
 import { useRef, useEffect, useCallback, useState } from 'react';
+import Image from 'next/image';
 import BadgeOverlay from '@/components/seasonal/BadgeOverlay';
 
 /* ###########################################################
@@ -479,7 +480,8 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
     const points = pointsRef.current;
     if (points.length > 0) {
       dragPointRef.current = points[points.length - 1];
-      const pos = getEventPos(e.nativeEvent as MouseEvent | TouchEvent);
+      // Get event position to initialize drag (value used implicitly via dragPointRef)
+      getEventPos(e.nativeEvent as MouseEvent | TouchEvent);
       dragPointRef.current.oldX = dragPointRef.current.x;
       dragPointRef.current.oldY = dragPointRef.current.y;
     }
@@ -650,9 +652,9 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                   border: '1px solid rgba(2,6,23,.10)',
                 }}
               >
-                <img
+                <Image
                   src="/images/Selfie.webp"
-                  alt="Antony O&apos;Neill"
+                  alt="Antony O'Neill"
                   width={300}
                   height={260}
                   className="w-full h-full object-cover opacity-90"

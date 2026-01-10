@@ -12,7 +12,7 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
-import { isOriginAllowed, corsBlockedResponse, handlePreflight, addCorsHeaders } from '@/lib/cors';
+import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
 
 /* ###########################################################
    ###   2. Configuration                                   ###

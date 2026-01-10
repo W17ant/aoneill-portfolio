@@ -16,8 +16,6 @@ import {
   Download,
   Search,
   Lock,
-  Link,
-  Globe,
 } from 'lucide-react';
 
 /* ###########################################################

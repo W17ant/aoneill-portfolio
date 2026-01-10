@@ -184,7 +184,7 @@ class QLearningAgent {
     ];
   }
 
-  getPointInDirection(point: Point, direction: number, gridSize: number): Point {
+  getPointInDirection(point: Point, direction: number, _gridSize: number): Point {
     const moves = [
       { x: 0, y: -1 }, // up
       { x: 1, y: 0 },  // right
@@ -371,7 +371,7 @@ export default function SnakeRL() {
       },
       reward: ateFood ? 10 : 0
     };
-  }, []);
+  }, [spawnFood]);
 
   const draw = useCallback((game: GameState) => {
     const canvas = canvasRef.current;
