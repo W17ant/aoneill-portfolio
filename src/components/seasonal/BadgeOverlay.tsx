@@ -125,6 +125,7 @@ function PartyHat({ size }: { size: number }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Reserved for Valentine's Day
 function HeartAccessory({ size, className }: { size: number; className: string }) {
   return (
     <svg
@@ -184,6 +185,7 @@ function LeprechaunHat({ size }: { size: number }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- Reserved for Easter
 function BunnyEars({ size, className }: { size: number; className: string }) {
   return (
     <svg

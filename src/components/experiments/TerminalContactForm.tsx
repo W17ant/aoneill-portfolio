@@ -165,6 +165,7 @@ export default function TerminalContactForm() {
     } else if (currentStep >= steps.length && !isSubmitted) {
       showSummary();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- showSummary triggers state updates, intentionally excluded
   }, [currentStep, addOutput, isSubmitted]);
 
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

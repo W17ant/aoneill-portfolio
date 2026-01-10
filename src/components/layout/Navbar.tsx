@@ -8,6 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from '@/components/ui/ThemeToggle';
@@ -81,7 +82,7 @@ export default function Navbar() {
       {/* Brand - Monogram + NYE Countdown (desktop) */}
       <div className="flex items-center gap-3">
         <Link href="/" className="flex items-center">
-          <img
+          <Image
             src="/images/monogram.png"
             alt="Antony O'Neill"
             width={128}

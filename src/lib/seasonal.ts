@@ -54,7 +54,6 @@ export function getHoliday(): Holiday {
   const now = new Date();
   const month = now.getMonth();
   const day = now.getDate();
-  const year = now.getFullYear();
 
   // New Year: Dec 31 - Jan 2
   if ((month === 11 && day === 31) || (month === 0 && day <= 2)) {
