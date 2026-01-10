@@ -43,14 +43,14 @@ const FALLBACK_SCORES: LighthouseScores = {
    ###   2. Cache Configuration                             ###
    ########################################################### */
 
-// Cache scores for 1 hour (in milliseconds)
-const CACHE_DURATION = 60 * 60 * 1000;
+// Cache scores for 24 hours (in milliseconds) to avoid API quota limits
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 // In-memory cache (persists across requests in same instance)
 let cache: CacheEntry | null = null;
 
-// The URL to test - your live site
-const SITE_URL = 'https://aoneill.co.uk';
+// The URL to test - your live site (use www to avoid redirect)
+const SITE_URL = 'https://www.aoneill.co.uk';
 
 /* ###########################################################
    ###   3. PageSpeed Insights Fetcher                      ###
@@ -63,7 +63,7 @@ async function fetchLighthouseScores(): Promise<LighthouseScores> {
   const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(SITE_URL)}&${categoryParams}&strategy=mobile`;
 
   const response = await fetch(apiUrl, {
-    next: { revalidate: 3600 }, // Cache at CDN level too
+    next: { revalidate: 86400 }, // Cache at CDN level for 24 hours
   });
 
   if (!response.ok) {

@@ -413,10 +413,10 @@ export default function GitHubActivity() {
                     className={`px-2 py-0.5 text-[10px] rounded transition-colors ${
                       selectedYear === year
                         ? 'font-semibold'
-                        : 'opacity-80 hover:opacity-100'
+                        : 'opacity-90 hover:opacity-100'
                     }`}
                     style={{
-                      color: selectedYear === year ? 'var(--link)' : 'var(--ink-muted)',
+                      color: selectedYear === year ? 'var(--link)' : 'var(--ink-secondary)',
                       background: selectedYear === year ? 'var(--accent-bg)' : 'transparent',
                     }}
                   >
