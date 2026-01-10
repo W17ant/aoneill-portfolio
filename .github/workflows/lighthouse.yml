@@ -114,7 +114,7 @@ jobs:
           retention-days: 90
 
       - name: Create Issue with Results
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "Monthly Lighthouse Audit - ${{ github.run_id }}"
           content-filepath: ./lighthouse-summary.md
