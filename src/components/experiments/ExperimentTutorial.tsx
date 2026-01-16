@@ -16,14 +16,13 @@ import type { Tutorial } from '@/lib/content';
 
 interface ExperimentTutorialProps {
   tutorial: Tutorial;
-  experimentTitle: string;
 }
 
 /* ###########################################################
    ###   2. Main Component                                 ###
    ########################################################### */
 
-export default function ExperimentTutorial({ tutorial, experimentTitle: _experimentTitle }: ExperimentTutorialProps) {
+export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps) {
   const [expandedSteps, setExpandedSteps] = useState<Set<number>>(new Set([0]));
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 

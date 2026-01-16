@@ -117,10 +117,7 @@ export default async function ExperimentPage({ params }: PageProps) {
 
           {/* Tutorial section */}
           {experiment.tutorial && (
-            <ExperimentTutorial
-              tutorial={experiment.tutorial}
-              experimentTitle={experiment.title}
-            />
+            <ExperimentTutorial tutorial={experiment.tutorial} />
           )}
         </article>
       </div>
