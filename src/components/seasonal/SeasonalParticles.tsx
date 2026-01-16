@@ -8,12 +8,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  getSeason,
-  getHoliday,
-  type Season,
-  type Holiday,
-} from '@/lib/seasonal';
+import { getHoliday, type Holiday } from '@/lib/seasonal';
 
 /* ###########################################################
    ###   Particle Types & Config                            ###
@@ -32,7 +27,7 @@ interface Particle {
 
 type ParticleType = 'snow' | 'hearts' | 'shamrocks' | 'leaves' | 'confetti' | 'ghosts' | 'none';
 
-function getParticleType(holiday: Holiday, _season: Season): ParticleType {
+function getParticleType(holiday: Holiday): ParticleType {
   // Holiday-specific particles
   switch (holiday) {
     case 'christmas':
@@ -179,10 +174,8 @@ export default function SeasonalParticles() {
 
   useEffect(() => {
     const holiday = getHoliday();
-    const season = getSeason();
-    const type = getParticleType(holiday, season);
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
-    setParticleType(type);
+    const type = getParticleType(holiday);
+    setParticleType(type); // eslint-disable-line react-hooks/set-state-in-effect -- Client-only date check
 
     if (type === 'none') return;
 

@@ -156,9 +156,9 @@ class QLearningAgent {
     const dir = game.direction;
 
     // Points around head
-    const pointAhead = this.getPointInDirection(head, dir, gridSize);
-    const pointRight = this.getPointInDirection(head, (dir + 1) % 4, gridSize);
-    const pointLeft = this.getPointInDirection(head, (dir + 3) % 4, gridSize);
+    const pointAhead = this.getPointInDirection(head, dir);
+    const pointRight = this.getPointInDirection(head, (dir + 1) % 4);
+    const pointLeft = this.getPointInDirection(head, (dir + 3) % 4);
 
     // Check dangers
     const dangerStraight = this.isCollision(pointAhead, game.snake, gridSize) ? 1 : 0;
@@ -184,7 +184,7 @@ class QLearningAgent {
     ];
   }
 
-  getPointInDirection(point: Point, direction: number, _gridSize: number): Point {
+  getPointInDirection(point: Point, direction: number): Point {
     const moves = [
       { x: 0, y: -1 }, // up
       { x: 1, y: 0 },  // right

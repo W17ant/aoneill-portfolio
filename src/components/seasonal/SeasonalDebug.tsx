@@ -36,9 +36,7 @@ export default function SeasonalDebug() {
       const stored = localStorage.getItem('__seasonalDebug');
       if (stored) {
         const { holiday: h, season: s } = JSON.parse(stored);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setHoliday(h);
-        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setHoliday(h); // eslint-disable-line react-hooks/set-state-in-effect -- Client-only localStorage check
         setSeason(s);
       }
     } catch {}
