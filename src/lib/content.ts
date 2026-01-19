@@ -278,6 +278,7 @@ const projects: Project[] = [
       'Webcam-based posture and phone detection tool using MediaPipe face/hand tracking and YOLOv8 to catch doom scrolling and encourage screen breaks.',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'YOLOv8', 'Computer Vision'],
     repo: 'https://github.com/W17ant/Doom-Scroll-Detection',
+    logo: '/images/doom-scroll-detection.jpeg',
     featured: true,
     overview:
       'A real-time computer vision application that monitors your posture and phone usage to help break the doom scrolling habit. Uses MediaPipe for face mesh (468 landmarks) and hand tracking (21 joints), plus optional YOLOv8 for phone detection. Features personal calibration, smoothed tracking with exponential moving average, and escalating audio/visual warnings.',
