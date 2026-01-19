@@ -272,6 +272,23 @@ const projects: Project[] = [
       'Achieved strong organic search visibility for targeted keywords in the critical minerals sector. The professional design and clear messaging successfully established credibility with potential clients. Fast loading times and mobile responsiveness improved user engagement.',
   },
   {
+    slug: 'doom-scroll-detection',
+    title: 'Doom Scroll Detection',
+    description:
+      'Webcam-based posture and phone detection tool using MediaPipe face/hand tracking and YOLOv8 to catch doom scrolling and encourage screen breaks.',
+    tech: ['Python', 'OpenCV', 'MediaPipe', 'YOLOv8', 'Computer Vision'],
+    repo: 'https://github.com/W17ant/Doom-Scroll-Detection',
+    featured: true,
+    overview:
+      'A real-time computer vision application that monitors your posture and phone usage to help break the doom scrolling habit. Uses MediaPipe for face mesh (468 landmarks) and hand tracking (21 joints), plus optional YOLOv8 for phone detection. Features personal calibration, smoothed tracking with exponential moving average, and escalating audio/visual warnings.',
+    problem:
+      'Doom scrolling is a modern problem - we mindlessly check our phones without realising how much time passes. Existing solutions rely on app timers, but those only work within apps. I wanted something that catches the physical behaviour regardless of what app you\'re using.',
+    approach:
+      'Rather than complex 3D pose estimation (which is jittery), I track nose Y position relative to a calibrated neutral. When your nose drops below threshold, you\'re looking down. Phone detection uses YOLO as primary (high confidence, triggers alone) and hand grip detection as secondary (only triggers if also looking down, reducing false positives). Hysteresis with frame buffers prevents flickering.',
+    outcome:
+      'Working detector that runs at ~30 FPS on modern hardware. Escalating warnings from gentle chime at 10 seconds to flashing red screen at 40 seconds. Learned practical lessons about sensor fusion, signal smoothing, and why simpler approaches often work better than complex ones.',
+  },
+  {
     slug: 'tempus-prive',
     title: 'Tempus Prive',
     description:
