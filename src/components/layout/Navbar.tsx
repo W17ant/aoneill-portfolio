@@ -258,17 +258,6 @@ export default function Navbar() {
             </Link>
           );
         })}
-      </div>
-
-      {/* Mobile: Theme Toggle - Under header, right side */}
-      <div
-        className="absolute top-full right-0 mt-3 z-50 md:hidden p-1 rounded-full backdrop-blur-[20px] saturate-[1.2] border"
-        style={{
-          background: 'var(--navbar-bg)',
-          borderColor: 'var(--stroke)',
-          boxShadow: 'var(--shadow-sm)',
-        }}
-      >
         <ThemeToggle />
       </div>
 

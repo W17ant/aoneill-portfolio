@@ -206,7 +206,7 @@ const projects: Project[] = [
     tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
     url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
     repo: 'https://github.com/W17ant/machine-learning-practical',
-    featured: true,
+    featured: false,
     logo: '/images/ml-practical-logo.png',
     overview:
       'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
@@ -224,7 +224,7 @@ const projects: Project[] = [
       'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
     url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
-    featured: true,
+    featured: false,
     logo: '/images/credit-algorithm-logo.png',
     overview:
       'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
@@ -260,7 +260,7 @@ const projects: Project[] = [
       'Professional corporate website for an international strategic advisory firm, built with Next.js and optimised for SEO with schema markup and fast page loads.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
     url: 'https://criticalmineralstomorrow.com',
-    featured: true,
+    featured: false,
     logo: '/images/critical-minerals-logo.png',
     overview:
       'Corporate website for Critical Minerals Tomorrow, a strategic advisory firm specialising in critical minerals, rare earths, and battery metals. The site establishes professional credibility through clean design, comprehensive content, and strong SEO performance. Built with Next.js for static generation and optimal Core Web Vitals.',

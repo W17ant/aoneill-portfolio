@@ -53,7 +53,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
   const colors = difficultyColors[tutorial.difficulty];
 
   return (
-    <section className="mt-16 pt-12" style={{ borderTop: '1px solid var(--border)' }}>
+    <section className="mt-16 pt-12" style={{ borderTop: '1px solid var(--stroke)' }}>
       {/* Header */}
       <div className="flex flex-wrap items-start justify-between gap-4 mb-8">
         <div>
@@ -82,7 +82,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
             style={{
               background: 'var(--bg-elevated)',
               color: 'var(--ink-secondary)',
-              border: '1px solid var(--border)',
+              border: '1px solid var(--stroke)',
             }}
           >
             {tutorial.duration}
@@ -96,7 +96,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
           className="mb-8 p-4 rounded-xl"
           style={{
             background: 'var(--bg-elevated)',
-            border: '1px solid var(--border)',
+            border: '1px solid var(--stroke)',
           }}
         >
           <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--ink)' }}>
@@ -110,7 +110,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
                 style={{
                   background: 'var(--bg-base)',
                   color: 'var(--ink-secondary)',
-                  border: '1px solid var(--border)',
+                  border: '1px solid var(--stroke)',
                 }}
               >
                 {prereq}
@@ -131,7 +131,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
               className="rounded-xl overflow-hidden transition-all"
               style={{
                 background: 'var(--bg-elevated)',
-                border: '1px solid var(--border)',
+                border: '1px solid var(--stroke)',
               }}
             >
               {/* Step header */}
@@ -145,7 +145,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
                   style={{
                     background: isExpanded ? 'var(--accent)' : 'var(--bg-base)',
                     color: isExpanded ? 'white' : 'var(--ink-secondary)',
-                    border: isExpanded ? 'none' : '1px solid var(--border)',
+                    border: isExpanded ? 'none' : '1px solid var(--stroke)',
                   }}
                 >
                   {index + 1}
@@ -292,7 +292,7 @@ export default function ExperimentTutorial({ tutorial }: ExperimentTutorialProps
                 style={{
                   color: 'var(--link)',
                   background: 'var(--bg-elevated)',
-                  border: '1px solid var(--border)',
+                  border: '1px solid var(--stroke)',
                 }}
               >
                 {resource.label}

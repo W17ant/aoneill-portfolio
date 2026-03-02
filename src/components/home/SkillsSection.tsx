@@ -1,8 +1,8 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   SKILLS SECTION - Structured grid cards             ###
-   ###   Clean category cards with hover-reveal descriptions###
-   ###   Last Updated: 16-01-2026                           ###
+   ###   Clean category cards with proficiency dot indicators###
+   ###   Last Updated: 02-03-2026                           ###
    ########################################################### */
 
 'use client';
@@ -13,7 +13,7 @@
 
 interface Skill {
   name: string;
-  description: string;
+  level: 1 | 2 | 3 | 4 | 5;
 }
 
 interface Category {
@@ -31,14 +31,14 @@ const categories: Category[] = [
     color: '#4ade80',
     dotColor: '#22c55e',
     skills: [
-      { name: 'Python', description: 'Primary language for data science and ML pipelines.' },
-      { name: 'PyTorch', description: 'Building and training neural networks.' },
-      { name: 'TensorFlow', description: 'Production ML models and deployment.' },
-      { name: 'scikit-learn', description: 'Classical ML algorithms and preprocessing.' },
-      { name: 'pandas', description: 'Data manipulation and analysis.' },
-      { name: 'NumPy', description: 'Numerical computing and array operations.' },
-      { name: 'Deep Learning', description: 'CNNs, transformers, vision and NLP.' },
-      { name: 'Reinforcement Learning', description: 'Reward-based agent training.' },
+      { name: 'Python', level: 4 },
+      { name: 'PyTorch', level: 4 },
+      { name: 'TensorFlow', level: 3 },
+      { name: 'scikit-learn', level: 4 },
+      { name: 'pandas', level: 4 },
+      { name: 'NumPy', level: 4 },
+      { name: 'Deep Learning', level: 4 },
+      { name: 'Reinforcement Learning', level: 3 },
     ],
   },
   {
@@ -47,13 +47,13 @@ const categories: Category[] = [
     color: '#60a5fa',
     dotColor: '#3b82f6',
     skills: [
-      { name: 'TypeScript', description: 'Type-safe JavaScript for scalable codebases.' },
-      { name: 'React', description: 'Component-based interactive UIs.' },
-      { name: 'Next.js', description: 'Full-stack React with SSR and API routes.' },
-      { name: 'Node.js', description: 'Server-side JavaScript for APIs.' },
-      { name: 'Tailwind', description: 'Utility-first CSS for rapid styling.' },
-      { name: 'Supabase', description: 'Backend-as-a-service with auth and database.' },
-      { name: 'PostgreSQL', description: 'Relational database for complex queries.' },
+      { name: 'TypeScript', level: 4 },
+      { name: 'React', level: 5 },
+      { name: 'Next.js', level: 5 },
+      { name: 'Node.js', level: 4 },
+      { name: 'Tailwind', level: 5 },
+      { name: 'Supabase', level: 4 },
+      { name: 'PostgreSQL', level: 3 },
     ],
   },
   {
@@ -62,13 +62,13 @@ const categories: Category[] = [
     color: '#c084fc',
     dotColor: '#a855f7',
     skills: [
-      { name: 'Git', description: 'Version control and collaboration.' },
-      { name: 'Docker', description: 'Containerizing applications.' },
-      { name: 'GitHub Actions', description: 'CI/CD automation workflows.' },
-      { name: 'Linux', description: 'Server admin and shell scripting.' },
-      { name: 'CI/CD', description: 'Automated testing and deployment pipelines.' },
-      { name: 'VS Code', description: 'Primary IDE with extensions.' },
-      { name: 'Jupyter', description: 'Interactive notebooks for ML experiments.' },
+      { name: 'Git', level: 5 },
+      { name: 'Docker', level: 3 },
+      { name: 'GitHub Actions', level: 4 },
+      { name: 'Linux', level: 4 },
+      { name: 'CI/CD', level: 4 },
+      { name: 'VS Code', level: 5 },
+      { name: 'Jupyter', level: 4 },
     ],
   },
 ];
@@ -99,6 +99,7 @@ export default function SkillsSection() {
               style={{
                 background: 'var(--bg-elevated)',
                 border: '1px solid var(--stroke)',
+                borderLeft: `3px solid ${category.dotColor}`,
               }}
             >
               {/* Category Header */}
@@ -114,24 +115,30 @@ export default function SkillsSection() {
               </div>
 
               {/* Skills List */}
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-2.5">
                 {category.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="group px-3 py-2 rounded-lg cursor-default transition-colors duration-150 hover:bg-[rgba(255,255,255,0.02)]"
+                    className="flex items-center justify-between px-3 py-1.5 rounded-lg"
                     style={{ background: 'var(--bg-surface)' }}
                   >
-                    <div
+                    <span
                       className="text-sm font-medium"
                       style={{ color: 'var(--ink)' }}
                     >
                       {skill.name}
-                    </div>
-                    <div
-                      className="text-xs overflow-hidden transition-all duration-300 ease-out max-h-0 opacity-0 group-hover:max-h-[60px] group-hover:opacity-100 group-hover:mt-1"
-                      style={{ color: 'var(--ink-muted)' }}
-                    >
-                      {skill.description}
+                    </span>
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4, 5].map((dot) => (
+                        <span
+                          key={dot}
+                          className="w-2 h-2 rounded-full"
+                          style={{
+                            background: dot <= skill.level ? category.dotColor : 'transparent',
+                            border: `1.5px solid ${dot <= skill.level ? category.dotColor : 'var(--stroke-hover)'}`,
+                          }}
+                        />
+                      ))}
                     </div>
                   </div>
                 ))}

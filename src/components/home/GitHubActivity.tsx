@@ -79,7 +79,19 @@ export default function GitHubActivity() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'contributions' | 'activity' | 'repos'>('contributions');
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const currentYear = new Date().getFullYear();
+
+  // Detect theme changes
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDarkMode(document.documentElement.getAttribute('data-theme') === 'dark');
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     async function fetchGitHubData() {
@@ -244,7 +256,7 @@ export default function GitHubActivity() {
   return (
     <div className="card overflow-hidden">
       {/* Header */}
-      <div className="p-4 border-b" style={{ borderColor: 'var(--border)' }}>
+      <div className="p-4 border-b" style={{ borderColor: 'var(--stroke)' }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor" style={{ color: 'var(--ink)' }}>
@@ -478,7 +490,14 @@ export default function GitHubActivity() {
 
                   {/* Contribution squares */}
                   <div className="flex gap-[3px]">
-                    {contributions.weeks.map((week, weekIndex) => (
+                    {contributions.weeks
+                      .filter((week) => {
+                        if (selectedYear < currentYear) return true;
+                        const today = new Date();
+                        const lastDay = week.contributionDays[week.contributionDays.length - 1];
+                        return lastDay ? new Date(lastDay.date) <= today : true;
+                      })
+                      .map((week, weekIndex) => (
                       <div key={weekIndex} className="flex flex-col gap-[3px]">
                         {week.contributionDays.map((day, dayIndex) => {
                           const level = day.contributionCount === 0 ? 0
@@ -486,20 +505,28 @@ export default function GitHubActivity() {
                             : day.contributionCount <= 6 ? 2
                             : day.contributionCount <= 9 ? 3
                             : 4;
-                          const colors = [
+                          const darkColors = [
                             '#161b22',
                             '#0e4429',
                             '#006d32',
                             '#26a641',
                             '#39d353',
                           ];
+                          const lightColors = [
+                            '#ebedf0',
+                            '#9be9a8',
+                            '#40c463',
+                            '#30a14e',
+                            '#216e39',
+                          ];
+                          const colors = isDarkMode ? darkColors : lightColors;
                           return (
                             <div
                               key={dayIndex}
                               className="w-[11px] h-[11px] rounded-sm"
                               style={{
                                 background: colors[level],
-                                outline: '1px solid rgba(27, 31, 35, 0.06)',
+                                outline: `1px solid ${isDarkMode ? 'rgba(27, 31, 35, 0.06)' : 'rgba(27, 31, 35, 0.04)'}`,
                               }}
                               title={`${new Date(day.date).toLocaleDateString('en-US', {
                                 weekday: 'long',
@@ -521,20 +548,28 @@ export default function GitHubActivity() {
             <div className="flex items-center justify-end gap-1 mt-2 text-[10px]" style={{ color: 'var(--ink-muted)' }}>
               <span>Less</span>
               {[0, 1, 2, 3, 4].map((level) => {
-                const colors = [
+                const darkColors = [
                   '#161b22',
                   '#0e4429',
                   '#006d32',
                   '#26a641',
                   '#39d353',
                 ];
+                const lightColors = [
+                  '#ebedf0',
+                  '#9be9a8',
+                  '#40c463',
+                  '#30a14e',
+                  '#216e39',
+                ];
+                const colors = isDarkMode ? darkColors : lightColors;
                 return (
                   <div
                     key={level}
                     className="w-[10px] h-[10px] rounded-sm"
                     style={{
                       background: colors[level],
-                      outline: '1px solid rgba(27, 31, 35, 0.06)',
+                      outline: `1px solid ${isDarkMode ? 'rgba(27, 31, 35, 0.06)' : 'rgba(27, 31, 35, 0.04)'}`,
                     }}
                   />
                 );

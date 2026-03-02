@@ -720,7 +720,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
 
           {/* BACK SIDE - About Me */}
           <div
-            className="w-full rounded-[18px] overflow-hidden pointer-events-auto cursor-grab active:cursor-grabbing absolute top-0 left-0"
+            className="w-full rounded-[18px] overflow-hidden pointer-events-auto cursor-grab active:cursor-grabbing absolute inset-0 flex flex-col"
             style={{
               background: 'rgba(255,255,255,.92)',
               color: 'rgba(2,6,23,.92)',
@@ -752,7 +752,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
             </div>
 
             {/* About content */}
-            <div className="p-4">
+            <div className="p-4 flex-1">
               <p
                 className="text-[12px] leading-relaxed mb-3"
                 style={{ color: 'rgba(2,6,23,.75)' }}
@@ -776,7 +776,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
 
             {/* Footer with flip back button */}
             <div
-              className="px-4 py-3 flex items-center justify-between font-mono text-xs"
+              className="px-4 py-3 flex items-center justify-between font-mono text-xs mt-auto"
               style={{
                 borderTop: '1px solid rgba(2,6,23,.08)',
                 color: 'rgba(2,6,23,.62)',
