@@ -7,7 +7,7 @@
 
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
-import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
+import { IBM_Plex_Sans, JetBrains_Mono, Sora } from 'next/font/google';
 import { ThemeProvider } from '@/context/ThemeContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -29,6 +29,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
   subsets: ['latin'],
   weight: ['500'],
+});
+
+const sora = Sora({
+  variable: '--font-display',
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
 });
 
 /* ###########################################################
@@ -255,7 +261,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} antialiased`}>
+      <body className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} ${sora.variable} antialiased`}>
         <ThemeProvider>
           {/* Skip to main content link for keyboard users */}
           <a

@@ -55,36 +55,57 @@ export default async function LabPage() {
             Experiments
           </h2>
           <div className="grid gap-6 sm:grid-cols-2">
-            {experiments.map((exp) => (
-              <Link
-                key={exp.slug}
-                href={`/lab/${exp.slug}`}
-                className="card card-interactive group p-6"
-              >
-                <div
-                  className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center mb-4"
-                  style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+            {experiments.map((exp) => {
+              const labColors: Record<string, string> = {
+                'snake-rl': '#059669',
+                'bot-detector': '#059669',
+                'lanyard': '#3b82f6',
+                'magnetic-cursor': '#3b82f6',
+                'terminal-nav': '#8b5cf6',
+                'cicd-pipeline': '#8b5cf6',
+                'password-strength': '#f59e0b',
+                'dependency-graph': '#3b82f6',
+              };
+              const headerColor = labColors[exp.slug] || '#059669';
+
+              return (
+                <Link
+                  key={exp.slug}
+                  href={`/lab/${exp.slug}`}
+                  className="card card-interactive group overflow-hidden"
                 >
-                  <ExperimentIcon name={exp.icon} size={24} />
-                </div>
-                <h3
-                  className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
-                  style={{ color: 'var(--ink)' }}
-                >
-                  {exp.title}
-                </h3>
-                <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
-                  {exp.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {exp.tags.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
+                  <div
+                    className="px-6 pt-5 pb-4 flex items-center"
+                    style={{ background: `${headerColor}12` }}
+                  >
+                    <div
+                      className="w-12 h-12 rounded-[var(--radius-sm)] flex items-center justify-center"
+                      style={{ background: `${headerColor}20`, color: headerColor }}
+                    >
+                      <ExperimentIcon name={exp.icon} size={24} />
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3
+                      className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
+                      style={{ color: 'var(--ink)' }}
+                    >
+                      {exp.title}
+                    </h3>
+                    <p className="text-sm mb-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                      {exp.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.tags.map((tag) => (
+                        <span key={tag} className="tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </section>
 

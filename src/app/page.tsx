@@ -6,6 +6,7 @@
    ########################################################### */
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { getTimeline, getFeaturedProjects, getExperiments } from '@/lib/content';
 import { availability } from '@/lib/availability';
 import Timeline from '@/components/ui/Timeline';
@@ -46,10 +47,10 @@ export default async function HomePage() {
         {/* Lanyard, tension bar, and instructions */}
         <HeroWithLanyard />
 
-        <div className="max-w-4xl mx-auto px-5 py-20 w-full relative z-10 lg:pr-[max(20px,calc(900px-40vw))]">
+        <div className="max-w-4xl mx-auto px-5 py-20 w-full relative z-[1] lg:pr-[max(20px,calc(900px-40vw))]">
           {/* Text content - fluid right padding on lg+ that scales with viewport width */}
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl md:text-6xl font-semibold text-white mb-6 tracking-[-0.02em]">
+          <div className="text-center md:text-left">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-[-0.03em]">
               Antony O&apos;Neill
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-4 font-medium">
@@ -60,7 +61,7 @@ export default async function HomePage() {
               I bring systems thinking and a problem-solving mindset to software — now focused on data and machine learning.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
               <a
                 href="#timeline"
                 className="btn-primary px-8 py-3"
@@ -78,7 +79,7 @@ export default async function HomePage() {
             </div>
 
             {/* Availability indicator */}
-            <div className="mt-12">
+            <div className="mt-8 md:mt-12">
               <div className="status-badge inline-flex">
                 <span
                   className="status-dot"
@@ -167,15 +168,33 @@ export default async function HomePage() {
                 href={`/projects/${project.slug}`}
                 className="card card-interactive group p-6"
               >
-                <h3
-                  className="text-lg font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
-                  style={{ color: 'var(--ink)' }}
-                >
-                  {project.title}
-                </h3>
-                <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
-                  {project.description}
-                </p>
+                <div className="flex items-start gap-4 mb-3">
+                  {project.logo && (
+                    <div
+                      className="w-12 h-12 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
+                      style={{ background: 'var(--bg-surface)', border: '1px solid var(--stroke)' }}
+                    >
+                      <Image
+                        src={project.logo}
+                        alt={`${project.title} logo`}
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <h3
+                      className="text-lg font-semibold mb-1 group-hover:text-[var(--link)] transition-colors"
+                      style={{ color: 'var(--ink)' }}
+                    >
+                      {project.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.slice(0, 3).map((t) => (
                     <span key={t} className="tag">
@@ -244,29 +263,50 @@ export default async function HomePage() {
             {[
               ...experiments.filter(e => ['snake-rl', 'bot-detector'].includes(e.slug)),
               ...experiments.filter(e => !['snake-rl', 'bot-detector'].includes(e.slug))
-            ].slice(0, 6).map((exp) => (
-              <Link
-                key={exp.slug}
-                href={`/lab/${exp.slug}`}
-                className="card card-interactive group p-4 sm:p-5"
-              >
-                <div
-                  className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center mb-3"
-                  style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+            ].slice(0, 6).map((exp) => {
+              const labColors: Record<string, string> = {
+                'snake-rl': '#059669',
+                'bot-detector': '#059669',
+                'lanyard': '#3b82f6',
+                'magnetic-cursor': '#3b82f6',
+                'terminal-nav': '#8b5cf6',
+                'cicd-pipeline': '#8b5cf6',
+                'password-strength': '#f59e0b',
+                'dependency-graph': '#3b82f6',
+              };
+              const headerColor = labColors[exp.slug] || '#059669';
+
+              return (
+                <Link
+                  key={exp.slug}
+                  href={`/lab/${exp.slug}`}
+                  className="card card-interactive group overflow-hidden"
                 >
-                  <ExperimentIcon name={exp.icon} size={20} />
-                </div>
-                <h3
-                  className="font-semibold mb-1 text-sm sm:text-base group-hover:text-[var(--link)] transition-colors truncate"
-                  style={{ color: 'var(--ink)' }}
-                >
-                  {exp.title}
-                </h3>
-                <p className="text-xs sm:text-sm truncate" style={{ color: 'var(--ink-muted)' }}>
-                  {exp.tags.slice(0, 2).join(' · ')}
-                </p>
-              </Link>
-            ))}
+                  <div
+                    className="px-4 pt-4 pb-3 flex items-center justify-center"
+                    style={{ background: `${headerColor}12` }}
+                  >
+                    <div
+                      className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center"
+                      style={{ background: `${headerColor}20`, color: headerColor }}
+                    >
+                      <ExperimentIcon name={exp.icon} size={20} />
+                    </div>
+                  </div>
+                  <div className="p-4 sm:p-5 pt-3">
+                    <h3
+                      className="font-semibold mb-1 text-sm sm:text-base group-hover:text-[var(--link)] transition-colors truncate"
+                      style={{ color: 'var(--ink)' }}
+                    >
+                      {exp.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm truncate" style={{ color: 'var(--ink-muted)' }}>
+                      {exp.tags.slice(0, 2).join(' · ')}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
