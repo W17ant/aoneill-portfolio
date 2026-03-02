@@ -35,7 +35,7 @@ export default async function HomePage() {
       {/* =====================================================
           HERO SECTION - Main intro with animated lanyard
           ===================================================== */}
-      <section className="relative min-h-[90vh] flex items-center pt-20">
+      <section className="relative z-0 min-h-[90vh] flex items-center pt-20">
         {/* Background layer - separate so lanyard can overlay */}
         <div
           className="absolute inset-0 z-0"
