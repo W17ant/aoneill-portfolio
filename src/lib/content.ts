@@ -166,146 +166,164 @@ const projects: Project[] = [
     slug: 'snake-rl-agent',
     title: 'Deep Q-Learning Snake Agent',
     description:
-      'Reinforcement learning agent that learns to play Snake using a deep neural network. Includes systematic experiments comparing network architectures, memory sizes, and environment configurations.',
+      'Taught a neural network to play Snake from scratch using Deep Q-Learning. Ran 12 experiments to find out which architectures actually work.',
     tech: ['Python', 'PyTorch', 'Deep Q-Learning', 'Neural Networks', 'Reinforcement Learning'],
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/snake-rl',
     featured: true,
     logo: '/images/snake-rl-logo.png',
     overview:
-      'MSc Artificial Intelligence final assessment project implementing a Deep Q-Network (DQN) agent that learns to play Snake through trial and error. The agent uses an 11-dimensional state representation, experience replay for stable learning, and epsilon-greedy exploration. Includes comprehensive experiments comparing different neural network architectures (256, 512, and deeper configurations), memory buffer sizes (10K to 200K), and environment variants (with and without wall collisions).',
+      'MSc final assessment. I built a DQN agent that learns to play Snake through trial and error. It sees 11 features (danger ahead, current direction, where the food is) and picks from 3 actions. Experience replay keeps training stable, epsilon-greedy exploration stops it getting stuck. I ran 12 experiments comparing different network sizes, memory buffers and environment variants.',
     problem:
-      'Develop an intelligent agent capable of learning optimal gameplay strategies for Snake without explicit programming of rules. The challenge involves handling sparse rewards (only positive reward when eating food), learning long-term strategies (avoiding traps), and balancing exploration vs exploitation during training.',
+      'Can an agent learn to play Snake without being told the rules? The tricky part is sparse rewards - you only score when you eat food, so the agent has to learn long-term strategy from very little feedback. Get the exploration/exploitation balance wrong and it just goes in circles.',
     approach:
-      'Implemented Deep Q-Learning with experience replay using PyTorch. The neural network takes an 11-feature state vector (danger detection in 3 directions, current direction, food location) and outputs Q-values for 3 actions (straight, left, right). Training uses the Bellman equation to update Q-values, with epsilon-greedy exploration that decays over time. Conducted 12 systematic experiments varying architecture depth, hidden layer width, and replay memory size.',
+      'Deep Q-Learning with PyTorch. The network takes an 11-feature state vector and outputs Q-values for straight, left or right. Training uses the Bellman equation with epsilon-greedy exploration that decays over time. I tested 12 configurations - varying architecture depth (1-5 layers), width (256 vs 512 neurons) and replay buffer size (10K to 200K).',
     outcome:
-      'Best configuration achieved consistent scores of 40+ after 200 training episodes. Experiments revealed that wider networks (256 neurons) outperformed deeper ones for this task, and larger replay buffers improved stability. The wall-collision variant proved more challenging, requiring different hyperparameter tuning. Full analysis documented with training curves, architecture comparisons, and statistical summaries.',
+      'The best setup hit consistent scores of 40+ after 200 episodes. Wider single-layer networks (256 neurons) crushed the deeper ones - turns out a simple state space doesn\'t need a complex network. Bigger replay buffers helped stability. Wall collisions made it much harder and needed different tuning.',
   },
   {
     slug: 'heart-disease-classification',
     title: 'Heart Disease Classification',
     description:
-      'Machine learning classification system comparing Random Forest, SVM, and Neural Network approaches for predicting heart disease risk, achieving 85% accuracy with comprehensive model evaluation.',
+      'Can you predict heart disease from 13 clinical measurements? I tested Random Forest, SVM and neural networks to find out. Best result: 85% accuracy.',
     tech: ['Python', 'scikit-learn', 'TensorFlow', 'Keras', 'pandas', 'Data Science'],
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/heart-disease',
     featured: true,
     logo: '/images/heart-disease-logo.jpg',
     overview:
-      'MSc Artificial Intelligence mid-module assessment implementing binary classification to predict heart disease risk using the UCI Heart Disease dataset. Comprehensive comparison of three machine learning approaches: Random Forest (ensemble learning), Support Vector Machines (kernel methods), and Neural Networks (deep learning). Each model tested with 3 different configurations to explore hyperparameter effects.',
+      'MSc mid-module assessment. I took the UCI Heart Disease dataset (303 patients, 13 clinical variables) and compared three ML approaches: Random Forest, SVM and neural networks. Each one tested with 3 different configurations to see how hyperparameters affect the results.',
     problem:
-      'Develop a reliable predictive model for heart disease risk assessment using patient health metrics. The challenge involves handling a relatively small dataset (303 samples), selecting informative features from 13 clinical variables, and choosing the optimal algorithm and hyperparameters for this specific medical classification task.',
+      'Can a model reliably flag heart disease risk from a handful of clinical measurements? The dataset is small (303 samples), so overfitting is a real concern. The question was which algorithm handles that best and which of the 13 variables actually matter.',
     approach:
-      'Implemented a complete ML pipeline including exploratory data analysis with correlation heatmaps, feature importance ranking, and distribution analysis. Data preprocessing with StandardScaler normalisation and stratified train-test splits. Trained 9 model configurations: Random Forest (default, depth-limited, sample-constrained), SVM (RBF, linear, tuned RBF), and Neural Networks (simple, with dropout, wider architecture). Evaluation using accuracy, precision, recall, F1-score, ROC-AUC, and confusion matrices.',
+      'Full ML pipeline: EDA with correlation heatmaps, feature importance ranking, StandardScaler normalisation, stratified splits. Trained 9 model configs across Random Forest, SVM (RBF and linear kernels) and neural networks (with and without dropout). Evaluated on accuracy, precision, recall, F1, ROC-AUC and confusion matrices.',
     outcome:
-      'Random Forest with sample constraints achieved the highest accuracy at 85.25%, with chest pain type (cp), maximum heart rate (thalachh), and number of major vessels (caa) identified as the most predictive features. Neural networks showed tendency to overfit on the small dataset despite dropout regularisation. Comprehensive Jupyter notebook with visualisations, statistical analysis, and reproducible results.',
+      'Random Forest won at 85.25%. Chest pain type, max heart rate and number of major vessels were the strongest predictors. Neural networks overfit despite dropout - not enough data for them to shine. The whole analysis is in a Jupyter notebook with full visualisations.',
   },
   {
     slug: 'ml-classification-practical',
     title: 'NCM Classification Practical',
     description:
-      'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
+      'Interactive walkthrough of Nearest Class Mean classification. Simulates a Jupyter notebook cell-by-cell with typing animations and live explanations.',
     tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
     url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
     repo: 'https://github.com/W17ant/machine-learning-practical',
     featured: false,
     logo: '/images/ml-practical-logo.png',
     overview:
-      'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
+      'An interactive web page that walks through a Jupyter notebook cell-by-cell, with typing animations and syntax highlighting. Covers the full ML pipeline from loading data to evaluating classifiers, with four extensions exploring LDA, QDA and Mahalanobis distance.',
     problem:
-      'Traditional static documentation fails to convey the iterative, experimental nature of machine learning. Students need to understand not just what code does, but why each step matters and how outputs change with different approaches.',
+      'Static documentation doesn\'t capture what it actually feels like to run ML code step by step. I wanted something that shows the process, not just the result - why each step matters and what changes when you try different approaches.',
     approach:
-      'Built an interactive HTML page that simulates Jupyter notebook execution with auto-typing code animation, live syntax highlighting, and contextual explanations. Each cell includes a helper panel explaining the concepts, expected outputs, and connections to ML theory. Implemented NCM, LDA, QDA, and Mahalanobis distance classifiers from scratch.',
+      'Built an HTML page that simulates notebook execution. Each cell has auto-typing code, live syntax highlighting and a helper panel explaining the concepts. Implemented NCM, LDA, QDA and Mahalanobis distance classifiers from scratch.',
     outcome:
-      'A self-contained educational resource that demonstrates the difference between equal and unequal covariance classification problems. Dataset A achieves 100% accuracy with NCM while Dataset B shows 98.5%, clearly illustrating when linear vs quadratic decision boundaries are appropriate.',
+      'Dataset A hits 100% accuracy with basic NCM. Dataset B drops to 98.5% because the classes have different spreads - exactly the kind of thing that makes you reach for QDA over a linear boundary.',
   },
   {
     slug: 'ai-ethics-game',
     title: 'The Credit Algorithm',
     description:
-      'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
+      'Choose-your-own-adventure game about the ethical dilemmas of building an AI credit scoring system. Branching narratives with ethical framework scoring.',
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
     url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
     featured: false,
     logo: '/images/credit-algorithm-logo.png',
     overview:
-      'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
+      'You\'re a product manager at a fintech company building an AI credit scoring algorithm. Every decision has consequences - do you optimise for accuracy or fairness? The game tracks your choices across ethical frameworks and gives you a shareable ending card.',
     problem:
-      'Make complex AI ethics concepts accessible and engaging for a general audience through interactive storytelling, rather than traditional academic presentation.',
+      'AI ethics is usually taught through papers and lectures. I wanted to make it something you actually engage with rather than just read about.',
     approach:
-      'Designed a branching narrative structure with multiple decision points and consequences. Implemented an ethical framework scoring system that tracks player choices across different ethical dimensions. Created shareable ending cards that summarise the player\'s ethical approach.',
+      'Branching narrative with multiple decision points. Each choice feeds into an ethical framework scoring system (utilitarianism, deontology, virtue ethics). The endings reflect the trade-offs you made along the way.',
     outcome:
-      'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
+      'Turns out people pay more attention to ethical dilemmas when they\'re making the decisions themselves. The game format makes abstract stuff like algorithmic bias feel concrete.',
   },
   {
     slug: 'keepitwhat',
     title: 'Keep It What',
     description:
-      'Full-stack e-commerce platform for personalised gifts featuring real-time product customisation, secure Stripe payments, and a complete admin dashboard.',
+      'E-commerce platform for personalised gifts. Customers design their product with a live preview, pay through Stripe, and the client manages everything from a custom dashboard.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
     url: 'https://keepitwhat.com',
     featured: true,
     logo: '/images/keepitwhat-logo.png',
     overview:
-      'A production e-commerce platform built from the ground up for a personalised gifts business. Features include a real-time product customiser with live preview, Stripe payment integration, Supabase backend with authentication, and a custom admin dashboard for order management. Built with Next.js 15 App Router and React Server Components for optimal performance.',
+      'Production e-commerce site for a personalised gifts business. Built the whole thing from scratch - product customiser with live Canvas preview, Stripe payments, Supabase backend with auth, and an admin dashboard for managing orders. Next.js 15 with Server Components.',
     problem:
-      'The client needed a modern, high-performance e-commerce solution that could handle complex product customisation (engraving, printing) with live previews, process secure payments, and provide an intuitive admin interface for managing orders and inventory.',
+      'The client sells engraved and printed gifts. They needed customers to see exactly what their personalisation would look like before buying, handle payments securely, and have somewhere to manage orders without spreadsheets.',
     approach:
-      'Developed using Next.js App Router with React Server Components for SEO and performance. Implemented Supabase for database, authentication, and file storage. Integrated Stripe for secure payment processing with webhook handling. Created a custom product customiser using Canvas API for real-time previews. Mobile-first responsive design with Tailwind CSS.',
+      'Next.js App Router with Server Components for SEO and speed. Supabase handles the database, auth and file storage. Stripe for payments with webhook handling. The product customiser uses Canvas API so customers see their text/design rendered in real time. Mobile-first with Tailwind.',
     outcome:
-      'Successfully launched with strong conversion rates. The product customiser significantly reduced customer support queries by letting customers preview their personalised items before purchase. Fast page loads and SEO optimisation improved organic traffic.',
+      'Live and taking orders. The customiser cut down "what will it look like?" support messages massively. Page loads are fast, SEO is solid, organic traffic is growing.',
   },
   {
     slug: 'critical-minerals',
     title: 'Critical Minerals Tomorrow',
     description:
-      'Professional corporate website for an international strategic advisory firm, built with Next.js and optimised for SEO with schema markup and fast page loads.',
+      'Corporate site for a critical minerals advisory firm. Clean design, strong SEO, fast loads. Built to establish credibility in a niche sector.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
     url: 'https://criticalmineralstomorrow.com',
     featured: false,
     logo: '/images/critical-minerals-logo.png',
     overview:
-      'Corporate website for Critical Minerals Tomorrow, a strategic advisory firm specialising in critical minerals, rare earths, and battery metals. The site establishes professional credibility through clean design, comprehensive content, and strong SEO performance. Built with Next.js for static generation and optimal Core Web Vitals.',
+      'Corporate website for Critical Minerals Tomorrow, a strategic advisory firm in rare earths and battery metals. The brief was simple: look credible, rank well, load fast. Next.js with static generation.',
     problem:
-      'Lee Constable needed a professional web presence that would establish credibility in the specialised critical minerals sector, attract potential clients through organic search, and clearly communicate the firm\'s expertise and services.',
+      'Lee Constable needed a web presence that would make his firm look established in a specialist sector. Had to rank for niche keywords and clearly communicate what the firm does.',
     approach:
-      'Designed a clean, authoritative layout with clear information architecture. Implemented comprehensive technical SEO including schema markup (Organization, Person, Service), meta tags, Open Graph, and XML sitemap. Integrated Google Search Console and Analytics. Optimised for Core Web Vitals with image optimisation and efficient loading.',
+      'Clean layout, clear information architecture. Technical SEO with schema markup (Organization, Person, Service), Open Graph, XML sitemap. Google Search Console and Analytics. Optimised images and Core Web Vitals.',
     outcome:
-      'Achieved strong organic search visibility for targeted keywords in the critical minerals sector. The professional design and clear messaging successfully established credibility with potential clients. Fast loading times and mobile responsiveness improved user engagement.',
+      'Ranking well for critical minerals keywords. The site does what it needs to - looks professional, loads fast, converts visitors into enquiries.',
   },
   {
     slug: 'doom-scroll-detection',
     title: 'Doom Scroll Detection',
     description:
-      'Webcam-based posture and phone detection tool using MediaPipe face/hand tracking and YOLOv8 to catch doom scrolling and encourage screen breaks.',
+      'Uses your webcam to catch you doom scrolling. Tracks head pose and phone detection with MediaPipe and YOLOv8, then nags you with escalating warnings.',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'YOLOv8', 'Computer Vision'],
     repo: 'https://github.com/W17ant/Doom-Scroll-Detection',
     logo: '/images/doom-scroll-detection.jpeg',
     featured: true,
     overview:
-      'A real-time computer vision application that monitors your posture and phone usage to help break the doom scrolling habit. Uses MediaPipe for face mesh (468 landmarks) and hand tracking (21 joints), plus optional YOLOv8 for phone detection. Features personal calibration, smoothed tracking with exponential moving average, and escalating audio/visual warnings.',
+      'Real-time computer vision app that watches your posture and phone usage. MediaPipe tracks your face (468 landmarks) and hands (21 joints), YOLO spots phones. Calibrates to your normal sitting position, then alerts you when you start looking down at your phone.',
     problem:
-      'Doom scrolling is a modern problem - we mindlessly check our phones without realising how much time passes. Existing solutions rely on app timers, but those only work within apps. I wanted something that catches the physical behaviour regardless of what app you\'re using.',
+      'Doom scrolling is a modern problem. We mindlessly pick up our phones without realising how much time passes. App timers only work within individual apps - I wanted something that catches the physical behaviour no matter what you\'re doing.',
     approach:
-      'Rather than complex 3D pose estimation (which is jittery), I track nose Y position relative to a calibrated neutral. When your nose drops below threshold, you\'re looking down. Phone detection uses YOLO as primary (high confidence, triggers alone) and hand grip detection as secondary (only triggers if also looking down, reducing false positives). Hysteresis with frame buffers prevents flickering.',
+      'Skipped complex 3D pose estimation (too jittery). Instead I track nose Y position relative to a calibrated neutral - when your nose drops, you\'re looking down. YOLO handles phone detection as the primary signal, hand grip as secondary (only triggers if you\'re also looking down, which cuts false positives). Hysteresis with frame buffers stops the alerts flickering.',
     outcome:
-      'Working detector that runs at ~30 FPS on modern hardware. Escalating warnings from gentle chime at 10 seconds to flashing red screen at 40 seconds. Learned practical lessons about sensor fusion, signal smoothing, and why simpler approaches often work better than complex ones.',
+      'Runs at ~30 FPS. Starts with a gentle chime at 10 seconds, escalates to a flashing red screen at 40 seconds. Learned a lot about sensor fusion and signal smoothing - simpler approaches beat complex ones here.',
+  },
+  {
+    slug: 'cobol-atm',
+    title: 'COBOL ATM Banking System',
+    description:
+      'A working ATM built in COBOL. Python Flask bridges it to a retro CRT web interface with scanline effects, procedural sounds and card insertion animations.',
+    tech: ['COBOL', 'Python', 'Flask', 'JavaScript', 'CSS Animations'],
+    repo: 'https://github.com/W17ant/cobol-atm',
+    featured: true,
+    logo: '/images/cobol-atm-logo.png',
+    overview:
+      'Full ATM banking system in GnuCOBOL, wired up to a web interface through a Python Flask middleware. PIN auth, withdrawals, deposits, transfers, transaction history - all running through actual COBOL. The frontend looks like a real ATM terminal with CRT scanlines, phosphor glow and procedural beeps.',
+    problem:
+      'COBOL still processes 95% of ATM transactions worldwide but nobody writes it from scratch anymore. I wanted to see if it was possible to build a complete banking system in it - end to end, from account management to audit logging.',
+    approach:
+      'COBOL handles all the business logic: account lookups, PIN verification, balance updates, transaction logging. It reads and writes flat files (ACCOUNTS.DAT, TRANSLOG.DAT, AUDITLOG.DAT) just like mainframe banking systems have done since the 1960s. Flask sits in the middle, shelling out to the compiled binary and parsing pipe-delimited output. The frontend is a state machine styled to look like a physical ATM.',
+    outcome:
+      'It works. Real transactions, real COBOL, real flat files. IBM charges consultants $400/hr for this stuff. The retro interface turned out surprisingly satisfying to use.',
   },
   {
     slug: 'tempus-prive',
     title: 'Tempus Prive',
     description:
-      'Responsive luxury watch e-commerce prototype demonstrating vanilla JavaScript DOM manipulation, shopping cart functionality, and mobile-first design principles.',
+      'Luxury watch e-commerce prototype built with vanilla JavaScript. No frameworks, just DOM manipulation, localStorage cart and responsive CSS.',
     tech: ['JavaScript', 'CSS', 'E-commerce', 'Responsive Design'],
     url: 'https://aoneill.co.uk/MSC/Tempus-Prive/',
     featured: false,
     logo: '/images/tp-logo.webp',
     overview:
-      'Academic project developed for MSc Web Technologies assessment, demonstrating core e-commerce patterns and vanilla JavaScript skills. Features a product catalog with filtering, shopping cart with localStorage persistence, and fully responsive design for all device sizes.',
+      'MSc Web Technologies assessment. A fake luxury watch shop built entirely in vanilla JavaScript to prove I could do e-commerce without reaching for React. Product filtering, cart with localStorage persistence, responsive design.',
     problem:
-      'Demonstrate comprehensive understanding of e-commerce user experience patterns, JavaScript DOM manipulation without frameworks, responsive CSS techniques, and web accessibility fundamentals.',
+      'The brief was to build an e-commerce site demonstrating DOM manipulation, responsive CSS and accessibility - without any frameworks.',
     approach:
-      'Built entirely with vanilla JavaScript to demonstrate core language proficiency. Implemented product filtering, cart functionality with localStorage persistence, and quantity management. Created responsive layouts using CSS Grid and Flexbox with mobile-first breakpoints.',
+      'Pure vanilla JavaScript. Product filtering, cart with quantity management, localStorage persistence. CSS Grid and Flexbox with mobile-first breakpoints.',
     outcome:
-      'Successful assessment submission demonstrating strong fundamentals in JavaScript, CSS, and e-commerce UX patterns. The project showcases the ability to build functional web applications without relying on frameworks.',
+      'Does everything a basic e-commerce site should do, in about 1/10th the code of a framework version. Good exercise in remembering what JavaScript can do on its own.',
   },
 ];
 
