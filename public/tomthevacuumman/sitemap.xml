@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.vacuumcleanerservices.co.uk/</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.vacuumcleanerservices.co.uk/og-image.png</image:loc>
+      <image:title>Tom the Vacuum Man — Vacuum Cleaner Services, Leicester</image:title>
+      <image:caption>Leicester's family vacuum repair service, now mobile.</image:caption>
+    </image:image>
+  </url>
+</urlset>

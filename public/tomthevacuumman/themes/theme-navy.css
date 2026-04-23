@@ -1,0 +1,20 @@
+/**
+ * Theme D — Quiet Craftsman
+ * Deep navy + ivory + copper. Softer, Farrow-&-Ball, understated.
+ * Drop in after style.css to activate:
+ *   <link rel="stylesheet" href="themes/theme-navy.css">
+ */
+:root {
+  --claret:       #1F3248;  /* deep navy */
+  --claret-deep:  #111E2D;
+  --claret-ink:   #0A1320;
+  --cream:        #F2EDE1;  /* ivory */
+  --cream-warm:   #E6DFCD;
+  --cream-deep:   #D6CDB4;
+  --ink:          #15181D;
+  --ink-soft:     #2C3139;
+  --ink-quiet:    #5F6573;
+  --brass:        #B5763D;  /* copper */
+  --brass-deep:   #7D4E20;
+  --duck:         #A7B8BE;
+}

@@ -1,0 +1,20 @@
+/**
+ * Theme C — Ink & Hi-Vis
+ * Near-black + safety orange + off-white. Utility van / service-modern.
+ * Drop in after style.css to activate:
+ *   <link rel="stylesheet" href="themes/theme-hivis.css">
+ */
+:root {
+  --claret:       #E8531C;  /* hi-vis orange — now the accent/primary */
+  --claret-deep:  #B9390B;
+  --claret-ink:   #5C1C05;
+  --cream:        #F5F2EC;  /* off-white paper */
+  --cream-warm:   #EBE6DB;
+  --cream-deep:   #D9D2C3;
+  --ink:          #111111;  /* oil-black */
+  --ink-soft:     #262626;
+  --ink-quiet:    #5C5A55;
+  --brass:        #F2B338;  /* warm amber */
+  --brass-deep:   #A4730D;
+  --duck:         #9AB4B0;
+}

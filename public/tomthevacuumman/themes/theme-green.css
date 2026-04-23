@@ -1,0 +1,20 @@
+/**
+ * Theme B — Workshop Green
+ * British racing green + bone cream + brass. Auto-mechanic / toolshed feel.
+ * Drop in after style.css to activate:
+ *   <link rel="stylesheet" href="themes/theme-green.css">
+ */
+:root {
+  --claret:       #1F4132;  /* deep racing green */
+  --claret-deep:  #132518;
+  --claret-ink:   #0B1A11;
+  --cream:        #F1EADA;  /* bone */
+  --cream-warm:   #E6DCC5;
+  --cream-deep:   #D8CBAC;
+  --ink:          #141812;
+  --ink-soft:     #2E332B;
+  --ink-quiet:    #62695A;
+  --brass:        #C9922B;  /* same warm brass keeps the hand-stamp feel */
+  --brass-deep:   #8E6418;
+  --duck:         #9EB7B0;
+}

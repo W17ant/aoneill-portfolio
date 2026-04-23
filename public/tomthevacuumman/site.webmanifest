@@ -1,0 +1,16 @@
+{
+  "name": "Tom the Vacuum Man — Vacuum Cleaner Services",
+  "short_name": "Tom's Vacuum",
+  "description": "Leicester's family vacuum repair service — father & son, over 35 years on the bench, now mobile across Leicestershire.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3E7D4",
+  "theme_color": "#7B1E1E",
+  "lang": "en-GB",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "favicon.svg",  "sizes": "any",     "type": "image/svg+xml" }
+  ]
+}
