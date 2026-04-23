@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Be explicit about the indexable surface for all crawlers, including LLMs.
+Sitemap: https://www.vacuumcleanerservices.co.uk/sitemap.xml
+
+# Hidden tooling — don't index the van placement calibrator.
+Disallow: /helper.html

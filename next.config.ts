@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
 
   // Ensure trailing slashes for static HTML files in public folder
   trailingSlash: true,
+
+  // Client-demo subtrees (static HTML under /public) don't get directory-
+  // index resolution by default, so a bare /<folder>/ hits the Next.js
+  // router and 404s. Map the bare path to the static index.html inside.
+  async rewrites() {
+    return [
+      { source: '/tomthevacuumman',  destination: '/tomthevacuumman/index.html' },
+      { source: '/tomthevacuumman/', destination: '/tomthevacuumman/index.html' },
+    ];
+  },
 };
 
 export default nextConfig;
