@@ -78,12 +78,15 @@
       boot.classList.add('is-done');
       requestAnimationFrame(() => boot.remove());
     } else {
-      // Total boot length ~1.55s
+      // Why: was 1550ms which felt like a hold. Boot is now glassy (CSS),
+      // so the molecular network is visible behind it from frame one.
+      // Cut to 1100ms — log still reads, but no perceived "delay" before
+      // the hero reveals itself.
       setTimeout(() => {
         boot.classList.add('is-done');
         sessionStorage.setItem('rnv_seen', '1');
-        setTimeout(() => boot.remove(), 600);
-      }, 1550);
+        setTimeout(() => boot.remove(), 500);
+      }, 1100);
     }
   }
 
@@ -159,7 +162,61 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
-  // 5. Molecular network — pseudo-3D, depth-sorted, parallax
+  // 5. Holographic foil — mouse / device-tilt tracking
+  //    Why: ties the wordmark's foil shimmer + the COA seal's highlight
+  //    to the cursor so it reads like a real foil under a real light
+  //    source, not a static gradient.
+  // ─────────────────────────────────────────────────────────────────
+  const root = document.documentElement;
+  const seal = document.querySelector('.holo-seal');
+
+  let foilT;
+  function onFoilPointer(e){
+    const x = (e.clientX / window.innerWidth) * 100;
+    const y = (e.clientY / window.innerHeight) * 100;
+    root.style.setProperty('--foil-x', x + '%');
+    root.style.setProperty('--foil-y', y + '%');
+
+    if (seal){
+      const r = seal.getBoundingClientRect();
+      const sx = ((e.clientX - r.left) / r.width)  * 100;
+      const sy = ((e.clientY - r.top)  / r.height) * 100;
+      seal.style.setProperty('--hx', Math.max(-30, Math.min(130, sx)) + '%');
+      seal.style.setProperty('--hy', Math.max(-30, Math.min(130, sy)) + '%');
+    }
+  }
+  // rAF-throttle
+  let foilRaf = 0, lastFoilEvent = null;
+  window.addEventListener('mousemove', (e) => {
+    lastFoilEvent = e;
+    if (!foilRaf) foilRaf = requestAnimationFrame(() => {
+      foilRaf = 0;
+      if (lastFoilEvent) onFoilPointer(lastFoilEvent);
+    });
+  }, { passive:true });
+
+  // Device orientation on mobile — gyroscope-driven foil shimmer.
+  // iOS requires explicit permission; we attempt without prompting and
+  // fall back gracefully if blocked. Why: most QR scans happen on phone,
+  // so the foil should shift as the user tilts their device.
+  if ('DeviceOrientationEvent' in window){
+    const handler = (e) => {
+      // gamma -90..90 = left-right tilt
+      // beta  -180..180 = front-back tilt
+      const gx = ((e.gamma + 45) / 90) * 100;
+      const gy = ((e.beta  + 30) / 90) * 100;
+      root.style.setProperty('--foil-x', Math.max(0, Math.min(100, gx)) + '%');
+      root.style.setProperty('--foil-y', Math.max(0, Math.min(100, gy)) + '%');
+      if (seal){
+        seal.style.setProperty('--hx', Math.max(0, Math.min(100, gx)) + '%');
+        seal.style.setProperty('--hy', Math.max(0, Math.min(100, gy)) + '%');
+      }
+    };
+    window.addEventListener('deviceorientation', handler, { passive:true });
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // 6. Molecular network — pseudo-3D, depth-sorted, parallax
   //    Why: matches packaging artwork and gives the hero genuine theatre
   // ─────────────────────────────────────────────────────────────────
   if (reducedMotion) return;
@@ -208,12 +265,17 @@
       vz: rand(-.05,.05),
       r: rand(0.7, 1.8),
       bright: Math.random() > 0.78,    // ~22% are highlight nodes
-      hub: i === 0                      // central hub node — slightly larger
+      hub: i === 0                      // anchor hub — see offset below
     }));
     if (nodes[0]){
-      nodes[0].x = 0; nodes[0].y = 0; nodes[0].z = 0;
+      // Why: previously parked at (0,0,0) which projects dead-centre and
+      // washed out the wordmark/lede. Tuck hub into the lower-left quadrant
+      // — still a focal point for the network, never behind the copy.
+      nodes[0].x = -halfW * 0.55;
+      nodes[0].y =  halfH * 0.42;
+      nodes[0].z = -60;
       nodes[0].vx = nodes[0].vy = nodes[0].vz = 0;
-      nodes[0].r = 2.6;
+      nodes[0].r = 2.2;
       nodes[0].bright = true;
       nodes[0].hub = true;
     }
@@ -232,7 +294,12 @@
     let y = n.y * cx - z * sx;
     z = n.y * sx + z * cx;
 
-    const persp = FOV / (FOV + z + 280);  // +280 puts the cluster slightly back
+    // Why: clamp the perspective denominator. On wide viewports halfW gets
+    // big, and a node rotating behind the camera could push (FOV+z+280)
+    // into negative territory — that flips persp negative, makes r negative,
+    // and ctx.arc throws IndexSizeError. Clamp keeps it well-defined.
+    const denom = Math.max(60, FOV + z + 280);
+    const persp = FOV / denom;
     return {
       x: W*0.5 + x * persp,
       y: H*0.5 + y * persp,
@@ -307,10 +374,11 @@
       const alpha = 0.45 + p.s * 0.55;
 
       if (p.bright || p.hub){
-        // Halo glow
-        const haloR = r * (p.hub ? 16 : 6);
+        // Halo glow — hub is dimmer + smaller now (was 0.55 / 16x); enough
+        // to anchor the field without washing out the wordmark or lede.
+        const haloR = r * (p.hub ? 9 : 5);
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, haloR);
-        const haloIntensity = (p.hub ? 0.55 : 0.25) * p.s;
+        const haloIntensity = (p.hub ? 0.32 : 0.22) * p.s;
         grad.addColorStop(0, `rgba(207,214,238,${haloIntensity})`);
         grad.addColorStop(1, 'rgba(207,214,238,0)');
         ctx.fillStyle = grad;
