@@ -133,30 +133,49 @@ a{ color:inherit; text-decoration:none; }
 }
 .lead--light{ color:var(--sky); }
 
-/* Reveal-on-scroll */
+/* Reveal-on-scroll
+   Why: was a modest 28px+0.9s slide. Now: bigger travel, scale-up from .96,
+   blur unfocus→focus, and longer dwell (1.15s). Reads cinematic, not jumpy. */
 .reveal{
   opacity:0;
-  transform:translateY(28px);
-  transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
-  will-change:opacity, transform;
+  transform:translateY(56px) scale(.96);
+  filter:blur(8px);
+  transition:
+    opacity 1.15s cubic-bezier(.2,.7,.2,1),
+    transform 1.15s cubic-bezier(.2,.7,.2,1),
+    filter 1.15s cubic-bezier(.2,.7,.2,1);
+  will-change:opacity, transform, filter;
 }
-.reveal.is-in{ opacity:1; transform:none; }
+.reveal.is-in{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
 
 /* ═══════════════════════════════════════════════════════════════════
    Boot sequence — full-screen verification overlay
 ═══════════════════════════════════════════════════════════════════ */
 .boot{
   position:fixed; inset:0; z-index:100;
-  background:radial-gradient(120% 80% at 30% 20%, #14193a 0%, #06081a 70%);
+  /* Why: glassy + blurred — molecular network behind it animates from
+     frame one, so by the time the boot fades there's no "dead" beat
+     where the hero feels static. */
+  background:linear-gradient(180deg, rgba(13,18,49,.78) 0%, rgba(6,8,26,.82) 100%);
+  backdrop-filter:blur(14px) saturate(1.1);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
   color:#dde3f5;
   display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:36px;
+  gap:32px;
   padding:24px;
   font-family:var(--f-mono);
   pointer-events:none;
-  transition:opacity .55s ease, visibility .55s;
+  transition:opacity .5s ease, visibility .5s, backdrop-filter .5s ease;
 }
-.boot.is-done{ opacity:0; visibility:hidden; }
+.boot.is-done{
+  opacity:0; visibility:hidden;
+  backdrop-filter:blur(0) saturate(1);
+  -webkit-backdrop-filter:blur(0) saturate(1);
+}
 
 .boot__monogram{
   opacity:0;
@@ -185,10 +204,11 @@ a{ color:inherit; text-decoration:none; }
   transform:translateX(-6px);
   animation: bootLog 380ms cubic-bezier(.2,.7,.2,1) forwards;
 }
-.boot__log li:nth-child(1){ animation-delay:300ms; }
-.boot__log li:nth-child(2){ animation-delay:560ms; }
-.boot__log li:nth-child(3){ animation-delay:820ms; }
-.boot__log li:nth-child(4){ animation-delay:1080ms; }
+/* Why: tightened from 300/560/820/1080 to fit the new 1100ms boot window */
+.boot__log li:nth-child(1){ animation-delay:180ms; }
+.boot__log li:nth-child(2){ animation-delay:340ms; }
+.boot__log li:nth-child(3){ animation-delay:500ms; }
+.boot__log li:nth-child(4){ animation-delay:660ms; }
 @keyframes bootLog{ to{ opacity:1; transform:none; } }
 .boot__prompt{
   display:inline-block;
@@ -220,7 +240,7 @@ a{ color:inherit; text-decoration:none; }
   text-align:center;
   margin-right:10px;
   box-shadow:0 0 0 0 rgba(31,142,108,.5);
-  animation: bootPulse 1.2s ease-out 1080ms 1;
+  animation: bootPulse 1.0s ease-out 660ms 1;
 }
 @keyframes bootPulse{
   0%   { box-shadow:0 0 0 0 rgba(31,142,108,.55); }
@@ -316,8 +336,8 @@ a{ color:inherit; text-decoration:none; }
   letter-spacing:.4em;
   text-transform:uppercase;
   color:var(--periwinkle);
-  opacity:0; transform:translateY(8px);
-  animation: heroIn .9s cubic-bezier(.2,.7,.2,1) 100ms forwards;
+  opacity:0; transform:translateY(20px); filter:blur(6px);
+  animation: heroIn 1.1s cubic-bezier(.2,.7,.2,1) 100ms forwards;
 }
 .hero__eyebrow__line{
   height:1px; width:30px;
@@ -327,8 +347,8 @@ a{ color:inherit; text-decoration:none; }
 .wordmark{
   margin:0;
   display:flex; flex-direction:column; align-items:center; gap:10px;
-  opacity:0; transform:translateY(14px);
-  animation: heroIn 1s cubic-bezier(.2,.7,.2,1) 220ms forwards;
+  opacity:0; transform:translateY(48px) scale(.94); filter:blur(14px);
+  animation: heroIn 1.4s cubic-bezier(.2,.7,.2,1) 220ms forwards;
 }
 .wordmark__word{
   font-family:var(--f-display);
@@ -337,10 +357,30 @@ a{ color:inherit; text-decoration:none; }
   line-height:.95;
   letter-spacing:.18em;
   text-indent:.18em;
-  background:linear-gradient(180deg, #ffffff 0%, #c5cdec 70%, #8e98c4 100%);
+  /* Holographic foil — multi-stop linear gradient with outsized
+     background-size; CSS animation drifts the position, JS layers on
+     mouse-tracking via --foil-x/y custom properties. */
+  background:
+    linear-gradient(115deg,
+      #c5cdec  0%,
+      #ffffff 14%,
+      #d9e0f5 28%,
+      #ffffff 42%,
+      #b5c5e8 56%,
+      #ffffff 70%,
+      #cfd6ee 84%,
+      #ffffff 100%);
+  background-size: 240% 240%;
+  background-position: var(--foil-x, 30%) var(--foil-y, 30%);
   -webkit-background-clip:text; background-clip:text;
   color:transparent;
-  text-shadow:0 1px 0 rgba(255,255,255,.04);
+  filter: drop-shadow(0 0 28px rgba(168,182,224,.18));
+  animation: foilDrift 14s ease-in-out infinite alternate;
+  transition: background-position .35s ease-out;
+}
+@keyframes foilDrift{
+  0%   { background-position: 0% 30%; }
+  100% { background-position: 100% 70%; }
 }
 .wordmark__sub{
   display:inline-flex; align-items:center; gap:14px;
@@ -365,8 +405,8 @@ a{ color:inherit; text-decoration:none; }
   line-height:1.4;
   color:var(--periwinkle);
   max-width:36ch;
-  opacity:0; transform:translateY(10px);
-  animation: heroIn .9s cubic-bezier(.2,.7,.2,1) 380ms forwards;
+  opacity:0; transform:translateY(28px); filter:blur(8px);
+  animation: heroIn 1.1s cubic-bezier(.2,.7,.2,1) 460ms forwards;
 }
 .hero__lede strong{
   font-family:var(--f-sans);
@@ -378,8 +418,8 @@ a{ color:inherit; text-decoration:none; }
 
 /* Verification stamp */
 .hero__verify{
-  opacity:0; transform:translateY(10px);
-  animation: heroIn .9s cubic-bezier(.2,.7,.2,1) 540ms forwards;
+  opacity:0; transform:translateY(36px) scale(.92); filter:blur(10px);
+  animation: heroIn 1.2s cubic-bezier(.2,.7,.2,1) 660ms forwards;
 }
 .verify-stamp{
   display:inline-flex; align-items:center; gap:18px;
@@ -438,7 +478,7 @@ a{ color:inherit; text-decoration:none; }
   50%     { opacity:1;  transform:translateY(6px); }
 }
 
-@keyframes heroIn{ to{ opacity:1; transform:none; } }
+@keyframes heroIn{ to{ opacity:1; transform:none; filter:blur(0); } }
 
 /* ═══════════════════════════════════════════════════════════════════
    Certificate of Authenticity (COA) — receipt-style data card
@@ -467,12 +507,18 @@ a{ color:inherit; text-decoration:none; }
   padding:0;
   box-shadow:var(--shadow-2);
   overflow:hidden;
-  transform:translateY(48px) scale(.98);
+  transform:translateY(72px) scale(.94);
   opacity:0;
-  transition: opacity 1.1s cubic-bezier(.2,.7,.2,1),
-              transform 1.1s cubic-bezier(.2,.7,.2,1);
+  filter:blur(12px);
+  transition: opacity 1.3s cubic-bezier(.2,.7,.2,1),
+              transform 1.3s cubic-bezier(.2,.7,.2,1),
+              filter 1.3s cubic-bezier(.2,.7,.2,1),
+              box-shadow 1.6s cubic-bezier(.2,.7,.2,1);
 }
-.coa-card.is-in{ opacity:1; transform:none; }
+.coa-card.is-in{
+  opacity:1; transform:none; filter:blur(0);
+  box-shadow:var(--shadow-3);
+}
 
 /* Scan line that sweeps across once on reveal */
 .coa-card::before{
@@ -532,15 +578,20 @@ a{ color:inherit; text-decoration:none; }
   font-size:.7rem;
   letter-spacing:.22em;
   font-weight:600;
-  /* slam-down stamp */
+  /* slam-down stamp — bigger initial scale + rotation, longer overshoot */
   opacity:0;
-  transform:scale(2.6) rotate(-14deg);
-  transition:opacity .5s ease, transform .55s cubic-bezier(.2,1.7,.4,1);
+  transform:scale(3.4) rotate(-22deg);
+  filter:blur(4px);
+  transition:
+    opacity .55s ease,
+    transform .7s cubic-bezier(.2,1.85,.4,1),
+    filter .55s ease;
 }
 .coa-card.is-in .coa-card__seal{
   opacity:1;
   transform:scale(1) rotate(-4deg);
-  transition-delay:1.05s;
+  filter:blur(0);
+  transition-delay:1.15s;
 }
 .coa-card__seal__dot{
   width:8px; height:8px; border-radius:50%;
@@ -614,6 +665,109 @@ a{ color:inherit; text-decoration:none; }
   text-align:right;
 }
 .coa-row dd.mono{ font-size:.86rem; letter-spacing:.02em; }
+
+/* ─────────────────────────────────────────────────────────────────
+   Holographic auth seal — sits on the COA card top-right.
+   Why: a foil/holographic disc (the kind on credit cards & passports)
+   reads instantly as "premium / authentic". Conic gradient base, soft
+   radial highlight on top that tracks the mouse via --hx/--hy.
+   ───────────────────────────────────────────────────────────────── */
+.holo-seal{
+  /* Why: lives in the top-right corner of the card top section, replacing
+     the green "VERIFIED" pill. The seal IS the verified indicator now —
+     foil disc + curved rim text reads as authenticated at a glance. */
+  position:relative;
+  flex-shrink:0;
+  width:clamp(58px, 11vw, 78px);
+  height:clamp(58px, 11vw, 78px);
+  border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  pointer-events:none;
+  /* Initial: small + rotated, spins into place on card reveal */
+  opacity:0;
+  transform: scale(.3) rotate(-180deg);
+  transition:
+    opacity .7s ease,
+    transform 1s cubic-bezier(.2,1.6,.4,1);
+  /* Foil base — conic shifts as the disc rotates + as user tilts */
+  background:
+    radial-gradient(circle at var(--hx, 30%) var(--hy, 30%),
+      rgba(255,255,255,.55) 0%,
+      rgba(255,255,255,0)   45%),
+    conic-gradient(from var(--ha, 45deg),
+      #ffd5e8 0deg,
+      #cfd6ee 50deg,
+      #d4f0e6 100deg,
+      #fff5cf 150deg,
+      #cfd6ee 200deg,
+      #ffd5e8 250deg,
+      #d4f0e6 300deg,
+      #cfd6ee 360deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.55),
+    inset 0 -2px 6px rgba(15,18,38,.18),
+    0 6px 18px rgba(15,18,38,.14),
+    0 0 26px rgba(168,182,224,.30);
+  animation: holoSpin 18s linear infinite;
+}
+.coa-card.is-in .holo-seal{
+  opacity:1;
+  transform: scale(1) rotate(0);
+  transition-delay: 1.05s;
+}
+@keyframes holoSpin{
+  to { --ha: 405deg; }
+}
+@property --ha{ syntax:'<angle>'; inherits:false; initial-value:45deg; }
+
+/* Inner emboss / typography */
+.holo-seal__core{
+  width:72%; height:72%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 25%,
+      rgba(255,255,255,.30) 0%,
+      rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.45);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.holo-seal__core::before{
+  /* faint scan line so the foil reads as 3D */
+  content:"";
+  position:absolute; inset:0;
+  border-radius:50%;
+  background:linear-gradient(180deg,
+    transparent 0%, rgba(255,255,255,.18) 48%,
+    transparent 50%, transparent 100%);
+  mix-blend-mode:overlay;
+  pointer-events:none;
+}
+.holo-seal__svg{ width:60%; height:60%; }
+.holo-seal__svg path,
+.holo-seal__svg circle{
+  fill:none;
+  stroke:#0f1226;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  opacity:.78;
+}
+.holo-seal__check{
+  stroke:#0f1226;
+  stroke-width:2;
+  fill:none;
+}
+/* Curved label "AUTHENTIC · RENOVAE LABS · UK ·" around the rim.
+   Why: an SVG <textPath> wrapped on a circular path = passport-stamp feel. */
+.holo-seal__rim text{
+  font-family:var(--f-mono);
+  font-size:7px;
+  letter-spacing:.18em;
+  fill:#0f1226;
+  opacity:.8;
+}
 
 /* Footer of card with barcode-style strip */
 .coa-card__foot{
