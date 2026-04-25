@@ -65,30 +65,10 @@
   setText('#year',          String(verifiedNow.getFullYear()));
   setText('#coa-product',   productClean || 'Sealed Renovae Labs Unit');
 
-  // ─────────────────────────────────────────────────────────────────
-  // 2. Boot sequence
-  //    Skip if reduced motion. Cache per-session so refresh is instant.
-  // ─────────────────────────────────────────────────────────────────
+  // Why: boot sequence removed — it interfered with the network animation
+  // on mobile (overlay sat in front of the canvas during page load).
+  // The molecular field + page reveals are now the first impression.
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const boot = document.getElementById('boot');
-  const seenBoot = sessionStorage.getItem('rnv_seen') === '1';
-
-  if (boot){
-    if (reducedMotion || seenBoot){
-      boot.classList.add('is-done');
-      requestAnimationFrame(() => boot.remove());
-    } else {
-      // Why: was 1550ms which felt like a hold. Boot is now glassy (CSS),
-      // so the molecular network is visible behind it from frame one.
-      // Cut to 1100ms — log still reads, but no perceived "delay" before
-      // the hero reveals itself.
-      setTimeout(() => {
-        boot.classList.add('is-done');
-        sessionStorage.setItem('rnv_seen', '1');
-        setTimeout(() => boot.remove(), 500);
-      }, 1100);
-    }
-  }
 
   // ─────────────────────────────────────────────────────────────────
   // 3. Reveal-on-scroll
@@ -211,9 +191,10 @@
       const passed = vh - r.top;
       const t = Math.max(0, Math.min(1, passed / total));
 
-      // Tilt: -3.5deg (entering) → 0 (centred) → +3.5deg (leaving).
-      // Why: small enough to feel like parallax, not like a gimmick.
-      const tilt = (t - 0.5) * -7;
+      // Tilt: -5deg (entering) → 0 (centred) → +5deg (leaving).
+      // Why: large enough to read on small phones, small enough on
+      // desktop to feel like parallax rather than a gimmick.
+      const tilt = (t - 0.5) * -10;
       coaCardEl.style.setProperty('--tilt-x', tilt.toFixed(2) + 'deg');
 
       // Shimmer band drifts left → right across the card's surface as

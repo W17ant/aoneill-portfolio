@@ -17,7 +17,7 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="apple-touch-icon" href="favicon.svg" />
 
-<!-- Why: critical fonts preloaded so wordmark doesn't FOIT during boot sequence -->
+<!-- Why: preload display + body fonts so the wordmark doesn't FOIT -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
@@ -25,35 +25,6 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<!-- ═════════════════════════════════════════════════════════════════
-     Boot sequence — chain-of-custody verification overlay (~1.4s)
-     Why: sells authenticity as the first impression and gives the
-     molecular hero canvas a moment to initialise off-screen.
-═════════════════════════════════════════════════════════════════ -->
-<div class="boot" id="boot" aria-hidden="true">
-  <div class="boot__monogram">
-    <svg viewBox="0 0 60 60" width="56" height="56" aria-hidden="true">
-      <circle cx="30" cy="30" r="28" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
-      <circle cx="30" cy="30" r="22" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="1" stroke-dasharray="2 4"/>
-      <circle cx="30" cy="30" r="3" fill="#fff"/>
-      <circle cx="14" cy="22" r="2" fill="rgba(255,255,255,.7)"/>
-      <circle cx="46" cy="38" r="2" fill="rgba(255,255,255,.7)"/>
-      <circle cx="42" cy="14" r="1.5" fill="rgba(255,255,255,.5)"/>
-      <circle cx="18" cy="44" r="1.5" fill="rgba(255,255,255,.5)"/>
-      <line x1="30" y1="30" x2="14" y2="22" stroke="rgba(255,255,255,.35)" stroke-width=".7"/>
-      <line x1="30" y1="30" x2="46" y2="38" stroke="rgba(255,255,255,.35)" stroke-width=".7"/>
-      <line x1="30" y1="30" x2="42" y2="14" stroke="rgba(255,255,255,.25)" stroke-width=".7"/>
-      <line x1="30" y1="30" x2="18" y2="44" stroke="rgba(255,255,255,.25)" stroke-width=".7"/>
-    </svg>
-  </div>
-  <ul class="boot__log" aria-label="Verification sequence">
-    <li><span class="boot__prompt">›</span> Connecting to authentication ledger<span class="boot__dots"></span></li>
-    <li><span class="boot__prompt">›</span> Cross-referencing batch <span data-batch-short>—</span></li>
-    <li><span class="boot__prompt">›</span> Verifying chain of custody</li>
-    <li class="boot__ok"><span class="boot__check">✓</span> Authentic</li>
-  </ul>
-</div>
 
 <!-- ═════════════════════════════════════════════════════════════════
      1. HERO — wordmark, tagline, 3D molecular field, COA card
@@ -123,7 +94,11 @@
 
   <a class="hero__scroll" href="#certificate" aria-label="Scroll to certificate">
     <span>Certificate</span>
-    <span class="hero__scroll__line" aria-hidden="true"></span>
+    <!-- Spinning helix scroll cue — six dots orbit a vertical axis with
+         phase offsets, reading as a rotating peptide coil. -->
+    <span class="hero__scroll__helix" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </span>
   </a>
 </header>
 
@@ -206,12 +181,59 @@
 </section>
 
 <!-- ═════════════════════════════════════════════════════════════════
-     3. PROCESS — Synthesis → Verification → Sealed
+     3. CONTACT — official channels (placed early so anyone unsure can
+     reach the source immediately after verifying)
+═════════════════════════════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <header class="section-head reveal">
+      <span class="eyebrow eyebrow--light">§02 — Official Channels</span>
+      <h2 class="display display--light">Stay close to the source.</h2>
+      <p class="lead lead--light">For product questions, supply enquiries, or
+        verification concerns — reach us through our official channels only.
+        Anything else is not us.</p>
+    </header>
+
+    <div class="contact__grid reveal">
+      <a class="channel" href="https://www.instagram.com/renovae_labs_uk?igsh=dnRuc2plemZlbWc3" target="_blank" rel="noopener noreferrer">
+        <div class="channel__icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="5" y="5" width="22" height="22" rx="6"/>
+            <circle cx="16" cy="16" r="5"/>
+            <circle cx="23" cy="9" r="1.2" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="channel__text">
+          <span class="channel__label">Instagram</span>
+          <span class="channel__value">@renovae_labs_uk</span>
+        </div>
+        <span class="channel__arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="channel" href="mailto:info@renovaelabs.com">
+        <div class="channel__icon">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="4" y="7" width="24" height="18" rx="2"/>
+            <path d="M4 9 L16 18 L28 9"/>
+          </svg>
+        </div>
+        <div class="channel__text">
+          <span class="channel__label">Email</span>
+          <span class="channel__value">info@renovaelabs.com</span>
+        </div>
+        <span class="channel__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════════════════════════════════════════
+     4. PROCESS — Synthesis → Verification → Sealed
 ═════════════════════════════════════════════════════════════════ -->
 <section class="process">
   <div class="container">
     <header class="section-head reveal">
-      <span class="eyebrow">§02 — Process</span>
+      <span class="eyebrow">§03 — Process</span>
       <h2 class="display">Three stages.<br/><em>Zero shortcuts.</em></h2>
       <p class="lead">From synthesis to sealed packaging, every unit passes through
       a documented chain — built so that authenticity is provable, not promised.</p>
@@ -263,7 +285,7 @@
 <section class="trust">
   <div class="container">
     <header class="section-head reveal">
-      <span class="eyebrow">§03 — Standards</span>
+      <span class="eyebrow">§04 — Standards</span>
       <h2 class="display">What we hold ourselves to.</h2>
       <p class="lead">No over-claiming. No marketing fluff. Just the
         operating discipline behind every sealed unit.</p>
@@ -353,7 +375,7 @@
 <section class="specs">
   <div class="container">
     <header class="section-head reveal">
-      <span class="eyebrow eyebrow--light">§04 — Release Specifications</span>
+      <span class="eyebrow eyebrow--light">§05 — Release Specifications</span>
       <h2 class="display display--light">Built to specification.<br/>Released against it.</h2>
     </header>
 
@@ -395,7 +417,7 @@
 <section class="about">
   <div class="container about__wrap">
     <header class="section-head reveal">
-      <span class="eyebrow">§05 — About</span>
+      <span class="eyebrow">§06 — About</span>
       <h2 class="display">Lab-led. Precision-built.<br/><em>Quietly obsessive.</em></h2>
     </header>
 
@@ -416,53 +438,7 @@
 </section>
 
 <!-- ═════════════════════════════════════════════════════════════════
-     7. CONTACT — official channels
-═════════════════════════════════════════════════════════════════ -->
-<section class="contact">
-  <div class="container">
-    <header class="section-head reveal">
-      <span class="eyebrow eyebrow--light">§06 — Official Channels</span>
-      <h2 class="display display--light">Stay close to the source.</h2>
-      <p class="lead lead--light">For product questions, supply enquiries, or
-        verification concerns — reach us through our official channels only.
-        Anything else is not us.</p>
-    </header>
-
-    <div class="contact__grid reveal">
-      <a class="channel" href="https://www.instagram.com/renovae_labs_uk?igsh=dnRuc2plemZlbWc3" target="_blank" rel="noopener noreferrer">
-        <div class="channel__icon">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="5" y="5" width="22" height="22" rx="6"/>
-            <circle cx="16" cy="16" r="5"/>
-            <circle cx="23" cy="9" r="1.2" fill="currentColor"/>
-          </svg>
-        </div>
-        <div class="channel__text">
-          <span class="channel__label">Instagram</span>
-          <span class="channel__value">@renovae_labs_uk</span>
-        </div>
-        <span class="channel__arrow" aria-hidden="true">→</span>
-      </a>
-
-      <a class="channel" href="mailto:info@renovaelabs.com">
-        <div class="channel__icon">
-          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="4" y="7" width="24" height="18" rx="2"/>
-            <path d="M4 9 L16 18 L28 9"/>
-          </svg>
-        </div>
-        <div class="channel__text">
-          <span class="channel__label">Email</span>
-          <span class="channel__value">info@renovaelabs.com</span>
-        </div>
-        <span class="channel__arrow" aria-hidden="true">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ═════════════════════════════════════════════════════════════════
-     8. DISCLAIMER + FOOTER
+     7. DISCLAIMER + FOOTER
 ═════════════════════════════════════════════════════════════════ -->
 <footer class="footer">
   <div class="container">
