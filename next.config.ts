@@ -23,10 +23,12 @@ const nextConfig: NextConfig = {
   // itself. Hosting at lowercase eliminates the issue.
   async rewrites() {
     return [
-      { source: '/tomthevacuumman',  destination: '/tomthevacuumman/index.html' },
-      { source: '/tomthevacuumman/', destination: '/tomthevacuumman/index.html' },
-      { source: '/renovaelabs',      destination: '/renovaelabs/index.html' },
-      { source: '/renovaelabs/',     destination: '/renovaelabs/index.html' },
+      { source: '/tomthevacuumman',   destination: '/tomthevacuumman/index.html' },
+      { source: '/tomthevacuumman/',  destination: '/tomthevacuumman/index.html' },
+      { source: '/renovaelabs',       destination: '/renovaelabs/index.html' },
+      { source: '/renovaelabs/',      destination: '/renovaelabs/index.html' },
+      { source: '/renovaelabs-dark',  destination: '/renovaelabs-dark/index.html' },
+      { source: '/renovaelabs-dark/', destination: '/renovaelabs-dark/index.html' },
     ];
   },
 };
