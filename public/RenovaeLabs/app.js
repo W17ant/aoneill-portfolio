@@ -161,15 +161,11 @@
     });
   }, { passive:true });
 
-  if ('DeviceOrientationEvent' in window){
-    window.addEventListener('deviceorientation', (e) => {
-      // gamma -90..90 = left-right tilt; beta -180..180 = front-back
-      const gx = ((e.gamma + 45) / 90) * 100;
-      const gy = ((e.beta  + 30) / 90) * 100;
-      root.style.setProperty('--foil-x', Math.max(0, Math.min(100, gx)) + '%');
-      root.style.setProperty('--foil-y', Math.max(0, Math.min(100, gy)) + '%');
-    }, { passive:true });
-  }
+  // Why: removed DeviceOrientation gyroscope tracking. iOS Safari was
+  // surfacing the "Advanced Tracking and Fingerprinting Protection"
+  // banner whenever the listener was attached, even without permission.
+  // The wordmark foil still animates via CSS keyframes (foilDrift), and
+  // pointer-tracking continues to work on desktop. That's enough.
 
   // ─────────────────────────────────────────────────────────────────
   // 5b. COA card — scroll-linked tilt + shimmer band
@@ -191,16 +187,19 @@
       const passed = vh - r.top;
       const t = Math.max(0, Math.min(1, passed / total));
 
-      // Tilt: -5deg (entering) → 0 (centred) → +5deg (leaving).
-      // Why: large enough to read on small phones, small enough on
-      // desktop to feel like parallax rather than a gimmick.
-      const tilt = (t - 0.5) * -10;
-      coaCardEl.style.setProperty('--tilt-x', tilt.toFixed(2) + 'deg');
+      // Tilt X: -7deg (entering) → 0 (centred) → +7deg (leaving).
+      // Tilt Y: ±4deg sinusoidal wobble across the same scroll range.
+      // Why: combined X + Y axis tilt with a phase-offset Y wobble
+      // gives the card a holo-card-in-hand feel — it shifts as the user
+      // moves past it, not just nods forward and back.
+      const tiltX = (t - 0.5) * -14;
+      const tiltY = Math.sin(t * Math.PI * 2) * 4;
+      coaCardEl.style.setProperty('--tilt-x', tiltX.toFixed(2) + 'deg');
+      coaCardEl.style.setProperty('--tilt-y', tiltY.toFixed(2) + 'deg');
 
-      // Shimmer band drifts left → right across the card's surface as
-      // the section travels through the viewport. 8% .. 92% so the band
-      // is always partially on-card.
-      const shimmer = 8 + t * 84;
+      // Holo glisten band drifts left → right across the card's surface
+      // as the section travels through the viewport.
+      const shimmer = 6 + t * 88;
       coaCardEl.style.setProperty('--shimmer', shimmer.toFixed(1) + '%');
     };
     const onScroll = () => {
@@ -425,6 +424,22 @@
     clearTimeout(rT);
     rT = setTimeout(resize, 120);
   }, { passive:true });
+
+  // Why: on iOS Safari (and sometimes Android Chrome), defer scripts can
+  // run before the canvas has its laid-out dimensions. resize() then
+  // measures 0×0, seeds zero nodes, and the canvas stays blank until the
+  // user reloads. Watching the canvas with ResizeObserver guarantees we
+  // re-seed once real dimensions land. We also kick again on load.
+  if ('ResizeObserver' in window){
+    const ro = new ResizeObserver(() => resize());
+    ro.observe(canvas);
+  }
+  window.addEventListener('load', () => {
+    requestAnimationFrame(() => {
+      resize();
+      if (!raf){ running = true; raf = requestAnimationFrame(tick); }
+    });
+  }, { once:true });
 
   resize();
   raf = requestAnimationFrame(tick);
