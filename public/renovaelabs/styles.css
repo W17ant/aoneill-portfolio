@@ -339,20 +339,27 @@ a{ color:inherit; text-decoration:none; }
 .verify-stamp svg{ color:var(--verified); }
 
 /* Why: stamp boots in a "Checking…" state with a rotating spinner arc,
-   then flips to "Confirmed" with the check drawing in. Two delays drive
-   the choreography: 1.25s holds the checking state, then everything
-   transitions over the next 0.7s. */
+   then flips to "Confirmed" with the check drawing in. The confirm
+   trigger is JS-driven (.is-confirmed class added with a random
+   200–500ms jitter on top of a base delay) so the verification never
+   takes the exact same time twice — reads as a real check, not a
+   pre-baked animation. */
 .verify-stamp__spinner{
   color:var(--periwinkle);
   transform-origin:50% 50%;
+  animation: verifySpin 1s linear infinite;
+}
+.verify-stamp.is-confirmed .verify-stamp__spinner{
   animation:
     verifySpin   1s linear infinite,
-    verifySpinOut .35s ease 1.20s forwards;
+    verifySpinOut .35s ease forwards;
 }
 .verify-stamp__check{
   stroke-dasharray:60;
   stroke-dashoffset:60;
-  animation: drawCheck .85s cubic-bezier(.2,.7,.2,1) 1.45s forwards;
+}
+.verify-stamp.is-confirmed .verify-stamp__check{
+  animation: drawCheck .85s cubic-bezier(.2,.7,.2,1) .25s forwards;
 }
 @keyframes verifySpin{ to{ transform:rotate(360deg); } }
 @keyframes verifySpinOut{ to{ opacity:0; } }
@@ -374,13 +381,15 @@ a{ color:inherit; text-decoration:none; }
   align-items:flex-start;
   justify-content:center;
 }
-.verify-stamp__state--checking{
-  animation: stampOut .35s ease 1.20s forwards;
-}
 .verify-stamp__state--confirmed{
   opacity:0;
   transform:translateY(6px);
-  animation: stampIn .55s cubic-bezier(.2,.7,.2,1) 1.45s forwards;
+}
+.verify-stamp.is-confirmed .verify-stamp__state--checking{
+  animation: stampOut .35s ease forwards;
+}
+.verify-stamp.is-confirmed .verify-stamp__state--confirmed{
+  animation: stampIn .55s cubic-bezier(.2,.7,.2,1) .25s forwards;
 }
 @keyframes stampOut{
   to{ opacity:0; transform:translateY(-6px); }

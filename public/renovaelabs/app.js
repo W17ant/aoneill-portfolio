@@ -142,6 +142,24 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
+  // 4b. Verify stamp — random-jitter checking → confirmed flip
+  //     Why: a fixed 1.25s delay every visit feels canned. Real auth
+  //     systems take a slightly different time each request. Adding
+  //     200–500ms of jitter on top of an 850ms base delay gives the
+  //     stamp a "real verification just happened" feel.
+  // ─────────────────────────────────────────────────────────────────
+  const verifyStamp = document.querySelector('.verify-stamp');
+  if (verifyStamp){
+    if (reducedMotion){
+      verifyStamp.classList.add('is-confirmed');
+    } else {
+      const base   = 850;
+      const jitter = 200 + Math.random() * 300;
+      setTimeout(() => verifyStamp.classList.add('is-confirmed'), base + jitter);
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────
   // 5. Wordmark foil — mouse / device-tilt tracking
   //    Why: drifts the foil gradient under cursor / device tilt so the
   //    wordmark reads like a real foil under a real light source.
