@@ -58,14 +58,14 @@ export function middleware(request: NextRequest) {
 }
 
 // Apply middleware to all routes except static files, MSC folder, and the
-// client-demo subtrees (tomthevacuumman, RenovaeLabs). These demos are
+// client-demo subtrees (tomthevacuumman, renovaelabs). These demos are
 // standalone static HTML builds with Google Fonts and their own security
 // posture; the site-wide CSP (which omits fonts.googleapis.com from
 // style-src) would otherwise block them.
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico|images|MSC|tomthevacuumman|RenovaeLabs|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|images|MSC|tomthevacuumman|renovaelabs|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
