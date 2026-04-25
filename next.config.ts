@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
     return [
       { source: '/tomthevacuumman',  destination: '/tomthevacuumman/index.html' },
       { source: '/tomthevacuumman/', destination: '/tomthevacuumman/index.html' },
+      { source: '/RenovaeLabs',      destination: '/RenovaeLabs/index.html' },
+      { source: '/RenovaeLabs/',     destination: '/RenovaeLabs/index.html' },
     ];
   },
 };
