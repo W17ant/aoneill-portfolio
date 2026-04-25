@@ -331,7 +331,9 @@
     // Together these recreate the "alive" feel the mouse-driven version
     // had without depending on a cursor.
     const tSec = (now - cam.t0) * 0.001;
-    cam.rotY += 0.0014;
+    // Faster spin on narrow viewports — same node count on a smaller area
+    // reads as slower motion per pixel, so mobile gets ~70% more.
+    cam.rotY += window.innerWidth < 760 ? 0.0024 : 0.0014;
     cam.rotX = -0.16 + Math.sin(tSec * 0.34) * 0.10 + cam.scrollT * 0.4;
     cam.cx = Math.cos(tSec * 0.18) * 26;
     cam.cy = Math.sin(tSec * 0.23) * 16;
