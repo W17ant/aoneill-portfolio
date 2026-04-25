@@ -234,8 +234,12 @@
   let raf = 0;
   let running = true;
 
-  // Camera-state — auto-rotate around Y, subtly nodded by mouse + scroll
-  const cam = { rotY:0, rotX:0, scrollT:0 };
+  // Camera-state — auto-rotate around an offset Y axis, with the centre
+  // of projection drifting slowly in a Lissajous pattern (orbit feel).
+  // Also a slow X-axis nod to break the mechanical look. Together these
+  // recreate the "alive" feel the mouse-driven version had, without
+  // tying motion to cursor position.
+  const cam = { rotY:0, rotX:0, scrollT:0, t0: performance.now() };
 
   const NODE_COUNT_TARGET = 90;     // hero density target — capped on small screens
   const LINK_DIST = 200;            // 3D distance for line linking
@@ -305,8 +309,8 @@
     const denom = Math.max(60, FOV + z + 280);
     const persp = FOV / denom;
     return {
-      x: W*0.5 + x * persp,
-      y: H*0.5 + y * persp,
+      x: W*0.5 + (cam.cx || 0) + x * persp,
+      y: H*0.5 + (cam.cy || 0) + y * persp,
       z: z,
       s: persp,
       bright: n.bright,
@@ -318,13 +322,19 @@
   function tick(now){
     if (!running){ raf = 0; return; }
 
-    // Camera evolution — fixed-speed rotation. Why: previous mouse-pull
-    // accelerated the spin proportional to cursor distance from centre,
-    // which on desktop made the network feel jittery and inconsistent
-    // versus mobile (where there's no mouse). Now constant base spin
-    // plus scroll-linked X tilt only.
+    // Camera evolution.
+    // Why: fixed-speed Y spin so behaviour is consistent on every device,
+    // but the network breathes via:
+    //   • a permanent X-axis tilt (axis is offset, not vertical)
+    //   • slow autonomous X-tilt oscillation
+    //   • slow projection-centre orbit (Lissajous figure)
+    // Together these recreate the "alive" feel the mouse-driven version
+    // had without depending on a cursor.
+    const tSec = (now - cam.t0) * 0.001;
     cam.rotY += 0.0014;
-    cam.rotX = cam.scrollT * 0.4;
+    cam.rotX = -0.16 + Math.sin(tSec * 0.34) * 0.10 + cam.scrollT * 0.4;
+    cam.cx = Math.cos(tSec * 0.18) * 26;
+    cam.cy = Math.sin(tSec * 0.23) * 16;
 
     // Update nodes (motion in 3D box; wrap on each axis)
     const halfW = Math.max(W*0.7, 380);
