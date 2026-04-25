@@ -491,12 +491,9 @@ a{ color:inherit; text-decoration:none; }
 .coa__wrap{ position:relative; }
 
 /* The receipt card
-   Why: tilt + shimmer are scroll-linked via JS-set CSS vars (--tilt-x,
-   --shimmer). Entry uses a keyframe animation rather than a transform
-   transition — that previously fought the live tilt updates on mobile
-   (each scroll event triggered a 0.4s re-transition, leaving the card
-   permanently chasing the scroll position). With keyframe-driven entry
-   the transform reads --tilt-x live, every paint. */
+   Why: scroll-linked shimmer band drifts across the surface via the
+   --shimmer CSS var. The card itself doesn't tilt — earlier 3D tilt
+   experiments looked odd on scroll. Just translate + scale on entry. */
 .coa-card{
   position:relative;
   margin-top:48px;
@@ -508,34 +505,17 @@ a{ color:inherit; text-decoration:none; }
   overflow:hidden;
   opacity:0;
   filter:blur(12px);
-  transform-origin: 50% 50%;
-  /* Resting state (pre-reveal): off-screen slightly, scaled, tilted on
-     both axes — gives a holo-card-in-hand feel as the user scrolls. */
-  transform:
-    perspective(1400px)
-    translateY(72px)
-    scale(.94)
-    rotateX(var(--tilt-x, 0deg))
-    rotateY(var(--tilt-y, 0deg));
+  transform: translateY(72px) scale(.94);
   transition: opacity 1.3s cubic-bezier(.2,.7,.2,1),
+              transform 1.3s cubic-bezier(.2,.7,.2,1),
               filter 1.3s cubic-bezier(.2,.7,.2,1),
               box-shadow 1.6s cubic-bezier(.2,.7,.2,1);
 }
 .coa-card.is-in{
   opacity:1;
   filter:blur(0);
+  transform:none;
   box-shadow:var(--shadow-3);
-  animation: coaCardEntry 1.3s cubic-bezier(.2,.7,.2,1) forwards;
-}
-@keyframes coaCardEntry{
-  to{
-    transform:
-      perspective(1400px)
-      translateY(0)
-      scale(1)
-      rotateX(var(--tilt-x, 0deg))
-      rotateY(var(--tilt-y, 0deg));
-  }
 }
 
 /* Scan line that sweeps across once on reveal */

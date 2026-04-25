@@ -205,18 +205,9 @@
       const passed = vh - r.top;
       const t = Math.max(0, Math.min(1, passed / total));
 
-      // Tilt X: -7deg (entering) → 0 (centred) → +7deg (leaving).
-      // Tilt Y: ±4deg sinusoidal wobble across the same scroll range.
-      // Why: combined X + Y axis tilt with a phase-offset Y wobble
-      // gives the card a holo-card-in-hand feel — it shifts as the user
-      // moves past it, not just nods forward and back.
-      const tiltX = (t - 0.5) * -14;
-      const tiltY = Math.sin(t * Math.PI * 2) * 4;
-      coaCardEl.style.setProperty('--tilt-x', tiltX.toFixed(2) + 'deg');
-      coaCardEl.style.setProperty('--tilt-y', tiltY.toFixed(2) + 'deg');
-
       // Holo glisten band drifts left → right across the card's surface
-      // as the section travels through the viewport.
+      // as the section travels through the viewport. (Tilt removed — the
+      // 3D card-tilt experiment looked odd on scroll.)
       const shimmer = 6 + t * 88;
       coaCardEl.style.setProperty('--shimmer', shimmer.toFixed(1) + '%');
     };
@@ -244,7 +235,7 @@
   let running = true;
 
   // Camera-state — auto-rotate around Y, subtly nodded by mouse + scroll
-  const cam = { rotY:0, rotX:0, mx:0, my:0, scrollT:0 };
+  const cam = { rotY:0, rotX:0, scrollT:0 };
 
   const NODE_COUNT_TARGET = 90;     // hero density target — capped on small screens
   const LINK_DIST = 200;            // 3D distance for line linking
@@ -327,10 +318,13 @@
   function tick(now){
     if (!running){ raf = 0; return; }
 
-    // Camera evolution
-    cam.rotY += 0.0014;                          // base spin
-    cam.rotY += cam.mx * 0.00006;                // mouse pull
-    cam.rotX = cam.my * 0.0006 + cam.scrollT * 0.4;
+    // Camera evolution — fixed-speed rotation. Why: previous mouse-pull
+    // accelerated the spin proportional to cursor distance from centre,
+    // which on desktop made the network feel jittery and inconsistent
+    // versus mobile (where there's no mouse). Now constant base spin
+    // plus scroll-linked X tilt only.
+    cam.rotY += 0.0014;
+    cam.rotX = cam.scrollT * 0.4;
 
     // Update nodes (motion in 3D box; wrap on each axis)
     const halfW = Math.max(W*0.7, 380);
@@ -408,12 +402,6 @@
 
     raf = requestAnimationFrame(tick);
   }
-
-  // Mouse parallax (pointer only — phones use scroll)
-  window.addEventListener('mousemove', (e) => {
-    cam.mx = (e.clientX - window.innerWidth*0.5);
-    cam.my = (e.clientY - window.innerHeight*0.5);
-  }, { passive:true });
 
   // Scroll rotation (subtle, only while hero is roughly visible)
   let scrollT = 0;
