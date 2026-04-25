@@ -153,102 +153,6 @@ a{ color:inherit; text-decoration:none; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Boot sequence — full-screen verification overlay
-═══════════════════════════════════════════════════════════════════ */
-.boot{
-  position:fixed; inset:0; z-index:100;
-  /* Why: glassy + blurred — molecular network behind it animates from
-     frame one, so by the time the boot fades there's no "dead" beat
-     where the hero feels static. */
-  background:linear-gradient(180deg, rgba(13,18,49,.78) 0%, rgba(6,8,26,.82) 100%);
-  backdrop-filter:blur(14px) saturate(1.1);
-  -webkit-backdrop-filter:blur(14px) saturate(1.1);
-  color:#dde3f5;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:32px;
-  padding:24px;
-  font-family:var(--f-mono);
-  pointer-events:none;
-  transition:opacity .5s ease, visibility .5s, backdrop-filter .5s ease;
-}
-.boot.is-done{
-  opacity:0; visibility:hidden;
-  backdrop-filter:blur(0) saturate(1);
-  -webkit-backdrop-filter:blur(0) saturate(1);
-}
-
-.boot__monogram{
-  opacity:0;
-  animation: bootMono 600ms ease-out 100ms forwards;
-}
-@keyframes bootMono{
-  0%   { opacity:0; transform:scale(.9) rotate(-8deg); }
-  60%  { opacity:1; transform:scale(1.04) rotate(0); }
-  100% { opacity:1; transform:scale(1) rotate(0); }
-}
-.boot__monogram svg{ animation: bootSpin 8s linear infinite; }
-@keyframes bootSpin{ to{ transform:rotate(360deg); } }
-
-.boot__log{
-  list-style:none; padding:0; margin:0;
-  font-size:.78rem;
-  letter-spacing:.04em;
-  color:rgba(207,214,238,.85);
-  display:flex; flex-direction:column;
-  gap:10px;
-  min-width:min(320px, 90vw);
-  text-align:left;
-}
-.boot__log li{
-  opacity:0;
-  transform:translateX(-6px);
-  animation: bootLog 380ms cubic-bezier(.2,.7,.2,1) forwards;
-}
-/* Why: tightened from 300/560/820/1080 to fit the new 1100ms boot window */
-.boot__log li:nth-child(1){ animation-delay:180ms; }
-.boot__log li:nth-child(2){ animation-delay:340ms; }
-.boot__log li:nth-child(3){ animation-delay:500ms; }
-.boot__log li:nth-child(4){ animation-delay:660ms; }
-@keyframes bootLog{ to{ opacity:1; transform:none; } }
-.boot__prompt{
-  display:inline-block;
-  width:14px;
-  color:var(--indigo);
-  margin-right:6px;
-}
-.boot__dots::after{
-  content:"...";
-  display:inline-block;
-  margin-left:4px;
-  animation: bootDots .9s steps(4) infinite;
-}
-@keyframes bootDots{ to{ clip-path: inset(0 0 0 100%); } }
-
-.boot__ok{
-  margin-top:6px;
-  color:#7be0bf;
-  font-weight:600;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-.boot__check{
-  display:inline-block;
-  width:18px; height:18px; border-radius:50%;
-  background:var(--verified);
-  color:#fff;
-  font-size:.7rem; line-height:18px;
-  text-align:center;
-  margin-right:10px;
-  box-shadow:0 0 0 0 rgba(31,142,108,.5);
-  animation: bootPulse 1.0s ease-out 660ms 1;
-}
-@keyframes bootPulse{
-  0%   { box-shadow:0 0 0 0 rgba(31,142,108,.55); }
-  60%  { box-shadow:0 0 0 18px rgba(31,142,108,0); }
-  100% { box-shadow:0 0 0 0 rgba(31,142,108,0); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
    Hero
 ═══════════════════════════════════════════════════════════════════ */
 .hero{
@@ -459,7 +363,7 @@ a{ color:inherit; text-decoration:none; }
 .hero__scroll{
   position:relative; z-index:3;
   margin: 0 auto;
-  display:inline-flex; flex-direction:column; align-items:center; gap:10px;
+  display:inline-flex; flex-direction:column; align-items:center; gap:14px;
   font-family:var(--f-mono);
   font-size:.68rem;
   letter-spacing:.32em;
@@ -468,14 +372,38 @@ a{ color:inherit; text-decoration:none; }
   opacity:0;
   animation: heroIn .9s ease 800ms forwards;
 }
-.hero__scroll__line{
-  width:1px; height:42px;
-  background:linear-gradient(to bottom, rgba(255,255,255,.6), transparent);
-  animation: cueDrip 2.4s ease-in-out infinite;
+/* Spinning peptide helix — six dots orbit a vertical axis with phase
+   offsets, reading as a rotating coil. Why: replaces the previous
+   bouncing line cue with something that nods to the molecular brand. */
+.hero__scroll__helix{
+  position:relative;
+  width:30px;
+  height:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:2px 0;
 }
-@keyframes cueDrip{
-  0%,100% { opacity:.3; transform:translateY(-4px); }
-  50%     { opacity:1;  transform:translateY(6px); }
+.hero__scroll__helix i{
+  display:block;
+  width:5px; height:5px; border-radius:50%;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 0 6px rgba(207,214,238,.45);
+  animation: helixOrbit 1.6s ease-in-out infinite;
+}
+.hero__scroll__helix i:nth-child(1){ animation-delay:0s; }
+.hero__scroll__helix i:nth-child(2){ animation-delay:-.18s; }
+.hero__scroll__helix i:nth-child(3){ animation-delay:-.36s; }
+.hero__scroll__helix i:nth-child(4){ animation-delay:-.54s; }
+.hero__scroll__helix i:nth-child(5){ animation-delay:-.72s; }
+.hero__scroll__helix i:nth-child(6){ animation-delay:-.90s; }
+@keyframes helixOrbit{
+  0%   { transform:translateX(-9px) scale(.55); opacity:.25; }
+  25%  { transform:translateX(0)    scale(1.15); opacity:1;  }
+  50%  { transform:translateX(9px)  scale(.55); opacity:.25; }
+  75%  { transform:translateX(0)    scale(1.15); opacity:1;  }
+  100% { transform:translateX(-9px) scale(.55); opacity:.25; }
 }
 
 @keyframes heroIn{ to{ opacity:1; transform:none; filter:blur(0); } }
@@ -498,11 +426,12 @@ a{ color:inherit; text-decoration:none; }
 .coa__wrap{ position:relative; }
 
 /* The receipt card
-   Why: combines two effects driven by JS-set CSS vars:
-   • --reveal-* drives the entry transition (translateY + scale + blur)
-   • --tilt-x / --shimmer drive a continuous, scroll-linked parallax
-     where the card subtly tilts on its X axis and a foil band drifts
-     across its surface as the user scrolls past. */
+   Why: tilt + shimmer are scroll-linked via JS-set CSS vars (--tilt-x,
+   --shimmer). Entry uses a keyframe animation rather than a transform
+   transition — that previously fought the live tilt updates on mobile
+   (each scroll event triggered a 0.4s re-transition, leaving the card
+   permanently chasing the scroll position). With keyframe-driven entry
+   the transform reads --tilt-x live, every paint. */
 .coa-card{
   position:relative;
   margin-top:48px;
@@ -515,13 +444,13 @@ a{ color:inherit; text-decoration:none; }
   opacity:0;
   filter:blur(12px);
   transform-origin: 50% 80%;
+  /* Resting state (pre-reveal): off-screen slightly, scaled, tilted */
   transform:
     perspective(1400px)
-    translateY(var(--reveal-y, 72px))
-    scale(var(--reveal-s, .94))
+    translateY(72px)
+    scale(.94)
     rotateX(var(--tilt-x, 0deg));
   transition: opacity 1.3s cubic-bezier(.2,.7,.2,1),
-              transform .4s cubic-bezier(.2,.7,.2,1),
               filter 1.3s cubic-bezier(.2,.7,.2,1),
               box-shadow 1.6s cubic-bezier(.2,.7,.2,1);
 }
@@ -529,8 +458,16 @@ a{ color:inherit; text-decoration:none; }
   opacity:1;
   filter:blur(0);
   box-shadow:var(--shadow-3);
-  --reveal-y:0px;
-  --reveal-s:1;
+  animation: coaCardEntry 1.3s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes coaCardEntry{
+  to{
+    transform:
+      perspective(1400px)
+      translateY(0)
+      scale(1)
+      rotateX(var(--tilt-x, 0deg));
+  }
 }
 
 /* Scan line that sweeps across once on reveal */
