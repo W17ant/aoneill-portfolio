@@ -337,13 +337,58 @@ a{ color:inherit; text-decoration:none; }
   box-shadow: 0 12px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.10);
 }
 .verify-stamp svg{ color:var(--verified); }
+
+/* Why: stamp boots in a "Checking…" state with a rotating spinner arc,
+   then flips to "Confirmed" with the check drawing in. Two delays drive
+   the choreography: 1.25s holds the checking state, then everything
+   transitions over the next 0.7s. */
+.verify-stamp__spinner{
+  color:var(--periwinkle);
+  transform-origin:50% 50%;
+  animation:
+    verifySpin   1s linear infinite,
+    verifySpinOut .35s ease 1.20s forwards;
+}
 .verify-stamp__check{
   stroke-dasharray:60;
   stroke-dashoffset:60;
-  animation: drawCheck .9s cubic-bezier(.2,.7,.2,1) 1.6s forwards;
+  animation: drawCheck .85s cubic-bezier(.2,.7,.2,1) 1.45s forwards;
 }
+@keyframes verifySpin{ to{ transform:rotate(360deg); } }
+@keyframes verifySpinOut{ to{ opacity:0; } }
 @keyframes drawCheck{ to{ stroke-dashoffset:0; } }
-.verify-stamp__text{ display:flex; flex-direction:column; align-items:flex-start; }
+
+/* Two text states stacked — fade between them on the same timeline as
+   the spinner-out / check-in transition. */
+.verify-stamp__text{
+  position:relative;
+  display:block;
+  min-width:130px;
+  height:38px;
+}
+.verify-stamp__state{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:center;
+}
+.verify-stamp__state--checking{
+  animation: stampOut .35s ease 1.20s forwards;
+}
+.verify-stamp__state--confirmed{
+  opacity:0;
+  transform:translateY(6px);
+  animation: stampIn .55s cubic-bezier(.2,.7,.2,1) 1.45s forwards;
+}
+@keyframes stampOut{
+  to{ opacity:0; transform:translateY(-6px); }
+}
+@keyframes stampIn{
+  to{ opacity:1; transform:translateY(0); }
+}
+
 .verify-stamp__label{
   font-family:var(--f-mono);
   font-size:.66rem;
@@ -372,38 +417,49 @@ a{ color:inherit; text-decoration:none; }
   opacity:0;
   animation: heroIn .9s ease 800ms forwards;
 }
-/* Spinning peptide helix — six dots orbit a vertical axis with phase
-   offsets, reading as a rotating coil. Why: replaces the previous
-   bouncing line cue with something that nods to the molecular brand. */
+/* Double helix scroll cue — five rungs, two dots per rung, swap
+   positions in opposition. Phase offset between rungs spirals it. */
 .hero__scroll__helix{
   position:relative;
-  width:30px;
-  height:60px;
+  width:18px;
+  height:50px;
   display:flex;
   flex-direction:column;
-  align-items:center;
   justify-content:space-between;
   padding:2px 0;
 }
-.hero__scroll__helix i{
-  display:block;
-  width:5px; height:5px; border-radius:50%;
-  background:rgba(255,255,255,.85);
-  box-shadow:0 0 6px rgba(207,214,238,.45);
-  animation: helixOrbit 1.6s ease-in-out infinite;
+.hero__scroll__helix .rung{
+  position:relative;
+  width:100%;
+  height:3px;
 }
-.hero__scroll__helix i:nth-child(1){ animation-delay:0s; }
-.hero__scroll__helix i:nth-child(2){ animation-delay:-.18s; }
-.hero__scroll__helix i:nth-child(3){ animation-delay:-.36s; }
-.hero__scroll__helix i:nth-child(4){ animation-delay:-.54s; }
-.hero__scroll__helix i:nth-child(5){ animation-delay:-.72s; }
-.hero__scroll__helix i:nth-child(6){ animation-delay:-.90s; }
-@keyframes helixOrbit{
-  0%   { transform:translateX(-9px) scale(.55); opacity:.25; }
-  25%  { transform:translateX(0)    scale(1.15); opacity:1;  }
-  50%  { transform:translateX(9px)  scale(.55); opacity:.25; }
-  75%  { transform:translateX(0)    scale(1.15); opacity:1;  }
-  100% { transform:translateX(-9px) scale(.55); opacity:.25; }
+.hero__scroll__helix .rung i{
+  position:absolute;
+  top:0; left:0;
+  width:3px; height:3px; border-radius:50%;
+  background:rgba(255,255,255,.85);
+  box-shadow:0 0 5px rgba(207,214,238,.45);
+  animation-duration:1.7s;
+  animation-iteration-count:infinite;
+  animation-timing-function:ease-in-out;
+}
+/* Strand A — left → right → left, "in front" half the cycle */
+.hero__scroll__helix .rung i:nth-child(1){ animation-name:dnaA; }
+/* Strand B — right → left → right, anti-phase */
+.hero__scroll__helix .rung i:nth-child(2){ animation-name:dnaB; }
+/* Phase offset per rung gives the spiral direction */
+.hero__scroll__helix .rung:nth-child(1) i{ animation-delay:0s; }
+.hero__scroll__helix .rung:nth-child(2) i{ animation-delay:-.34s; }
+.hero__scroll__helix .rung:nth-child(3) i{ animation-delay:-.68s; }
+.hero__scroll__helix .rung:nth-child(4) i{ animation-delay:-1.02s; }
+.hero__scroll__helix .rung:nth-child(5) i{ animation-delay:-1.36s; }
+@keyframes dnaA{
+  0%,100% { transform:translateX(0)    scale(1.15); opacity:1;   }
+  50%     { transform:translateX(15px) scale(.55);  opacity:.25; }
+}
+@keyframes dnaB{
+  0%,100% { transform:translateX(15px) scale(.55);  opacity:.25; }
+  50%     { transform:translateX(0)    scale(1.15); opacity:1;   }
 }
 
 @keyframes heroIn{ to{ opacity:1; transform:none; filter:blur(0); } }
@@ -443,13 +499,15 @@ a{ color:inherit; text-decoration:none; }
   overflow:hidden;
   opacity:0;
   filter:blur(12px);
-  transform-origin: 50% 80%;
-  /* Resting state (pre-reveal): off-screen slightly, scaled, tilted */
+  transform-origin: 50% 50%;
+  /* Resting state (pre-reveal): off-screen slightly, scaled, tilted on
+     both axes — gives a holo-card-in-hand feel as the user scrolls. */
   transform:
     perspective(1400px)
     translateY(72px)
     scale(.94)
-    rotateX(var(--tilt-x, 0deg));
+    rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
   transition: opacity 1.3s cubic-bezier(.2,.7,.2,1),
               filter 1.3s cubic-bezier(.2,.7,.2,1),
               box-shadow 1.6s cubic-bezier(.2,.7,.2,1);
@@ -466,7 +524,8 @@ a{ color:inherit; text-decoration:none; }
       perspective(1400px)
       translateY(0)
       scale(1)
-      rotateX(var(--tilt-x, 0deg));
+      rotateX(var(--tilt-x, 0deg))
+      rotateY(var(--tilt-y, 0deg));
   }
 }
 
@@ -493,9 +552,9 @@ a{ color:inherit; text-decoration:none; }
   100% { left:130%; opacity:0; }
 }
 
-/* Scroll-linked shimmer band — the bright stripe glides across the card
-   as the section scrolls through the viewport. Position controlled via
-   --shimmer (0%..100%) set from JS. Card sits behind, shimmer on top. */
+/* Holo glisten — bright stripe glides across the card as the section
+   scrolls through the viewport. Peak alpha bumped to 0.8 so the band
+   reads clearly as a foil glisten, not a subtle highlight. */
 .coa-card::after{
   content:"";
   position:absolute; inset:0;
@@ -503,11 +562,11 @@ a{ color:inherit; text-decoration:none; }
   z-index:3;
   opacity:0;
   background:linear-gradient(115deg,
-    transparent calc(var(--shimmer, 50%) - 22%),
-    rgba(255,255,255,.10) calc(var(--shimmer, 50%) - 8%),
-    rgba(180,200,240,.42)  var(--shimmer, 50%),
-    rgba(255,255,255,.10) calc(var(--shimmer, 50%) + 8%),
-    transparent calc(var(--shimmer, 50%) + 22%));
+    transparent calc(var(--shimmer, 50%) - 24%),
+    rgba(255,255,255,.30) calc(var(--shimmer, 50%) - 9%),
+    rgba(180,200,240,.80)  var(--shimmer, 50%),
+    rgba(255,255,255,.30) calc(var(--shimmer, 50%) + 9%),
+    transparent calc(var(--shimmer, 50%) + 24%));
   mix-blend-mode: overlay;
   transition: opacity .6s ease;
 }

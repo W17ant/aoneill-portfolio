@@ -82,11 +82,20 @@
         <svg viewBox="0 0 100 100" width="58" height="58" aria-hidden="true">
           <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".4"/>
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="3 5" opacity=".55"/>
+          <!-- Spinner arc — visible while checking, fades out on confirm -->
+          <circle class="verify-stamp__spinner" cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2.6" stroke-dasharray="55 200" stroke-linecap="round" opacity=".85"/>
+          <!-- Check — draws in once authentication completes -->
           <path class="verify-stamp__check" d="M32 52 L44 64 L70 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="verify-stamp__text">
-          <span class="verify-stamp__label">Authenticity</span>
-          <span class="verify-stamp__status">Confirmed</span>
+          <span class="verify-stamp__state verify-stamp__state--checking">
+            <span class="verify-stamp__label">Verification</span>
+            <span class="verify-stamp__status">Checking…</span>
+          </span>
+          <span class="verify-stamp__state verify-stamp__state--confirmed">
+            <span class="verify-stamp__label">Authenticity</span>
+            <span class="verify-stamp__status">Confirmed</span>
+          </span>
         </div>
       </div>
     </div>
@@ -94,10 +103,15 @@
 
   <a class="hero__scroll" href="#certificate" aria-label="Scroll to certificate">
     <span>Certificate</span>
-    <!-- Spinning helix scroll cue — six dots orbit a vertical axis with
-         phase offsets, reading as a rotating peptide coil. -->
+    <!-- Spinning double helix scroll cue — five rungs, each with two dots
+         that swap positions across the rung. Phase offset between rungs
+         creates the rotating ladder / DNA double-helix illusion. -->
     <span class="hero__scroll__helix" aria-hidden="true">
-      <i></i><i></i><i></i><i></i><i></i><i></i>
+      <span class="rung"><i></i><i></i></span>
+      <span class="rung"><i></i><i></i></span>
+      <span class="rung"><i></i><i></i></span>
+      <span class="rung"><i></i><i></i></span>
+      <span class="rung"><i></i><i></i></span>
     </span>
   </a>
 </header>
