@@ -318,12 +318,10 @@
   function tick(now){
     if (!running){ raf = 0; return; }
 
-    // Camera evolution — fixed-speed rotation. Why: previous mouse-pull
-    // accelerated the spin proportional to cursor distance from centre,
-    // which on desktop made the network feel jittery and inconsistent
-    // versus mobile (where there's no mouse). Now constant base spin
-    // plus scroll-linked X tilt only.
-    cam.rotY += 0.0014;
+    // Camera evolution — fixed-speed rotation, faster on mobile.
+    // Why: same node count on a much smaller viewport reads as slower
+    // motion per pixel, so narrow screens get ~70% more spin.
+    cam.rotY += window.innerWidth < 760 ? 0.0024 : 0.0014;
     cam.rotX = cam.scrollT * 0.4;
 
     // Update nodes (motion in 3D box; wrap on each axis)
