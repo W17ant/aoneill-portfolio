@@ -162,57 +162,72 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
-  // 5. Holographic foil — mouse / device-tilt tracking
-  //    Why: ties the wordmark's foil shimmer + the COA seal's highlight
-  //    to the cursor so it reads like a real foil under a real light
-  //    source, not a static gradient.
+  // 5. Wordmark foil — mouse / device-tilt tracking
+  //    Why: drifts the foil gradient under cursor / device tilt so the
+  //    wordmark reads like a real foil under a real light source.
   // ─────────────────────────────────────────────────────────────────
   const root = document.documentElement;
-  const seal = document.querySelector('.holo-seal');
 
-  let foilT;
-  function onFoilPointer(e){
-    const x = (e.clientX / window.innerWidth) * 100;
-    const y = (e.clientY / window.innerHeight) * 100;
-    root.style.setProperty('--foil-x', x + '%');
-    root.style.setProperty('--foil-y', y + '%');
-
-    if (seal){
-      const r = seal.getBoundingClientRect();
-      const sx = ((e.clientX - r.left) / r.width)  * 100;
-      const sy = ((e.clientY - r.top)  / r.height) * 100;
-      seal.style.setProperty('--hx', Math.max(-30, Math.min(130, sx)) + '%');
-      seal.style.setProperty('--hy', Math.max(-30, Math.min(130, sy)) + '%');
-    }
-  }
-  // rAF-throttle
   let foilRaf = 0, lastFoilEvent = null;
   window.addEventListener('mousemove', (e) => {
     lastFoilEvent = e;
     if (!foilRaf) foilRaf = requestAnimationFrame(() => {
       foilRaf = 0;
-      if (lastFoilEvent) onFoilPointer(lastFoilEvent);
+      if (!lastFoilEvent) return;
+      const x = (lastFoilEvent.clientX / window.innerWidth) * 100;
+      const y = (lastFoilEvent.clientY / window.innerHeight) * 100;
+      root.style.setProperty('--foil-x', x + '%');
+      root.style.setProperty('--foil-y', y + '%');
     });
   }, { passive:true });
 
-  // Device orientation on mobile — gyroscope-driven foil shimmer.
-  // iOS requires explicit permission; we attempt without prompting and
-  // fall back gracefully if blocked. Why: most QR scans happen on phone,
-  // so the foil should shift as the user tilts their device.
   if ('DeviceOrientationEvent' in window){
-    const handler = (e) => {
-      // gamma -90..90 = left-right tilt
-      // beta  -180..180 = front-back tilt
+    window.addEventListener('deviceorientation', (e) => {
+      // gamma -90..90 = left-right tilt; beta -180..180 = front-back
       const gx = ((e.gamma + 45) / 90) * 100;
       const gy = ((e.beta  + 30) / 90) * 100;
       root.style.setProperty('--foil-x', Math.max(0, Math.min(100, gx)) + '%');
       root.style.setProperty('--foil-y', Math.max(0, Math.min(100, gy)) + '%');
-      if (seal){
-        seal.style.setProperty('--hx', Math.max(0, Math.min(100, gx)) + '%');
-        seal.style.setProperty('--hy', Math.max(0, Math.min(100, gy)) + '%');
-      }
+    }, { passive:true });
+  }
+
+  // ─────────────────────────────────────────────────────────────────
+  // 5b. COA card — scroll-linked tilt + shimmer band
+  //     Why: as the user scrolls past the cert section, the card tilts
+  //     a few degrees on its X axis and a foil shimmer drifts across
+  //     it. Subtle 3D presence + a sense that the card is a physical
+  //     object catching light.
+  // ─────────────────────────────────────────────────────────────────
+  const coaCardEl    = document.querySelector('.coa-card');
+  const coaSection   = document.getElementById('certificate');
+  if (coaCardEl && coaSection && !reducedMotion){
+    let coaRaf = 0;
+    const updateCoa = () => {
+      coaRaf = 0;
+      const r = coaSection.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Progress: 0 when section bottom enters viewport, 1 when section top leaves
+      const total = r.height + vh;
+      const passed = vh - r.top;
+      const t = Math.max(0, Math.min(1, passed / total));
+
+      // Tilt: -3.5deg (entering) → 0 (centred) → +3.5deg (leaving).
+      // Why: small enough to feel like parallax, not like a gimmick.
+      const tilt = (t - 0.5) * -7;
+      coaCardEl.style.setProperty('--tilt-x', tilt.toFixed(2) + 'deg');
+
+      // Shimmer band drifts left → right across the card's surface as
+      // the section travels through the viewport. 8% .. 92% so the band
+      // is always partially on-card.
+      const shimmer = 8 + t * 84;
+      coaCardEl.style.setProperty('--shimmer', shimmer.toFixed(1) + '%');
     };
-    window.addEventListener('deviceorientation', handler, { passive:true });
+    const onScroll = () => {
+      if (!coaRaf) coaRaf = requestAnimationFrame(updateCoa);
+    };
+    window.addEventListener('scroll', onScroll, { passive:true });
+    window.addEventListener('resize', onScroll, { passive:true });
+    updateCoa();
   }
 
   // ─────────────────────────────────────────────────────────────────
