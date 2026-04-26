@@ -47,7 +47,7 @@ const demoScript: Line[] = [
   { kind: 'out', text: '1) projects   2) lab   3) contact' },
   { kind: 'in', text: `${PROMPT} open lab` },
   { kind: 'out', text: 'Tip: type "open lanyard" to jump to the demo.' },
-  { kind: 'sys', text: 'interactive mode ready — type "help"' },
+  { kind: 'sys', text: 'interactive mode ready. type "help"' },
 ];
 
 /* ###########################################################
@@ -265,8 +265,8 @@ export default function TerminalNavigator() {
           break;
 
         case 'clear':
-          setLines([{ kind: 'sys', text: 'interactive mode — type "help"' }]);
-          setRendered(['interactive mode — type "help"']);
+          setLines([{ kind: 'sys', text: 'interactive mode. type "help"' }]);
+          setRendered(['interactive mode. type "help"']);
           break;
 
         default:

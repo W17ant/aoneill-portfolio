@@ -276,20 +276,19 @@ export default function MobileAboutCard() {
                 className="text-[13px] leading-relaxed mb-3 text-justify"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                I&apos;m an MSc Computer Science & AI student at St Mary&apos;s University,
-                focused on machine learning, full-stack development, and building
-                AI systems that solve real problems.
+                I&apos;m an MSc Computer Science & AI student at St Mary&apos;s University.
+                Most of my time goes into machine learning, full-stack development,
+                and building AI systems that actually do something useful.
               </p>
 
               <p
                 className="text-[13px] leading-relaxed mb-3 text-justify"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                Currently exploring reinforcement learning and ethical AI.
-                My background in mechanical engineering gives me a unique
-                perspective on problem-solving — I approach software with
-                the same systematic thinking used to diagnose complex physical
-                systems.
+                Currently digging into reinforcement learning and ethical AI.
+                The mechanical engineering background helps more than I
+                expected. Software bugs and broken machines turn out to be
+                surprisingly similar once you start pulling them apart.
               </p>
 
               {isExpanded ? (
@@ -297,8 +296,8 @@ export default function MobileAboutCard() {
                   className="text-[13px] leading-relaxed text-justify"
                   style={{ color: 'rgba(2,6,23,.75)' }}
                 >
-                  I&apos;m seeking graduate roles in software engineering or AI/ML
-                  where I can apply both technical depth and practical experience.
+                  Looking for graduate roles in software engineering or AI/ML
+                  where the technical and the practical actually meet.
                 </p>
               ) : (
                 <button

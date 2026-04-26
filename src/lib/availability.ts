@@ -30,7 +30,7 @@ const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
     nextStart: 'Immediately',
     headline: 'Open to opportunities',
     description:
-      "I'm completing my MSc in AI and actively exploring data science, ML engineering, and software roles. Open to graduate schemes, contracts, or interesting projects.",
+      "I'm finishing my MSc in AI and looking at data science, ML engineering, and software roles. Happy to talk about graduate schemes, contracts, or anything interesting.",
     ctaText: 'Get in touch',
   },
   limited: {
@@ -38,7 +38,7 @@ const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
     nextStart: 'May 2026',
     headline: 'Limited availability',
     description:
-      "Currently focused on coursework but open to discussing opportunities. Reach out with details and I'll respond within a few days.",
+      "Heads down on coursework right now, but still open to a conversation. Send the details and I'll get back within a few days.",
     ctaText: 'Discuss availability',
   },
   unavailable: {
@@ -46,7 +46,7 @@ const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
     nextStart: 'July 2026',
     headline: 'Focused on studies',
     description:
-      "Deep in exam season or project deadlines. I'll still read messages — just might take a bit longer to reply.",
+      "Deep in exam season or project deadlines. I'll still read messages, just might take a bit longer to reply.",
     ctaText: 'Send a message',
   },
 };

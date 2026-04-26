@@ -43,7 +43,7 @@ export default async function ProjectsPage() {
             Projects
           </h1>
           <p className="text-lg mb-4" style={{ color: 'var(--ink-secondary)' }}>
-            Complete, real-world work. Each project demonstrates decision-making, not just output.
+            Things I&apos;ve actually built and shipped. The case studies show the decisions behind them, not just screenshots.
           </p>
           <a
             href="https://github.com/W17ANT"
