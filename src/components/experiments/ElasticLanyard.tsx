@@ -757,20 +757,18 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[12px] leading-relaxed mb-3"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                MSc Computer Science & AI student at St Mary&apos;s University,
-                building machine learning systems that solve real problems.
-                Experienced with deep learning, reinforcement learning, and
-                classical ML — from neural networks to random forests.
+                MSc Computer Science & AI student at St Mary&apos;s University.
+                Building machine learning systems on actual problems.
+                Comfortable with deep learning, reinforcement learning, and
+                the classical ML stack (neural networks, random forests, the usual).
               </p>
               <p
                 className="text-[12px] leading-relaxed"
                 style={{ color: 'rgba(2,6,23,.75)' }}
               >
-                17 years in mechanical engineering taught me systematic
-                problem-solving and debugging under pressure — skills that
-                transfer directly to ML pipelines and data analysis. Seeking
-                graduate roles in AI/ML or Data Science where I can apply
-                both technical depth and real-world experience.
+                Spent 17 years in mechanical engineering before this. That
+                taught me to debug under pressure and trust the data over the
+                gut feeling. Looking for graduate roles in AI/ML or Data Science.
               </p>
             </div>
 

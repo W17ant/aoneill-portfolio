@@ -44,8 +44,8 @@ export default async function LabPage() {
             Lab
           </h1>
           <p className="text-lg" style={{ color: 'var(--ink-secondary)' }}>
-            Occasional experiments to explore interaction, motion, and systems.
-            Curious, controlled, intentional — never gimmicky.
+            Small things I build to figure something out. Sometimes it&apos;s how a piece of physics works,
+            sometimes it&apos;s an idea I just wanted to try. I try to keep the gimmick count low.
           </p>
         </header>
 

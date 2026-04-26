@@ -36,7 +36,7 @@ export default function Footer() {
               Antony O&apos;Neill
             </Link>
             <p className="text-[13px] text-center md:text-left opacity-70">
-              Building with AI, ML, and data — shipping production-ready web applications.
+              Building with AI, ML, and data. I ship production web apps.
             </p>
           </div>
 

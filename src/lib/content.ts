@@ -86,15 +86,15 @@ export interface Make {
 const timeline: TimelineEntry[] = [
   {
     id: 'foundation',
-    date: '2007–2024',
-    title: 'Engineering mindset from mechanical systems',
-    subtitle: 'Systems thinking under real constraints',
+    date: '2007-2024',
+    title: 'Mechanical engineering, hands on',
+    subtitle: 'Where I learned to debug',
     description:
-      '17 years in mechanical engineering, diagnosing complex systems and solving problems under pressure. This shaped my systematic approach to debugging and attention to detail.',
+      '17 years working in mechanical engineering. A lot of that was diagnosing things that had stopped working, often with people waiting on me to figure out why. The habits stuck.',
     bullets: [
       'Worked hands-on with safety, time, and cost constraints',
       'Diagnosed failures quickly and fixed them properly',
-      'This shaped how I design software systems',
+      'A lot of that thinking carries straight into software',
     ],
     tags: ['Systems', 'Problem-solving', 'Engineering'],
     tone: 'core',
@@ -102,14 +102,14 @@ const timeline: TimelineEntry[] = [
   {
     id: 'transition',
     date: '2024',
-    title: 'Career transition to software',
+    title: 'Career change into software',
     subtitle: 'MSc Computer Science with AI',
     description:
-      'Enrolled at St Mary\'s University to formalize my self-taught programming skills and deep-dive into AI/ML.',
+      'Enrolled at St Mary\'s University to put structure on the self-taught programming and go deeper on AI/ML.',
     bullets: [
       'Studying machine learning, neural networks, and software engineering',
-      'Applying engineering mindset to code architecture',
-      'Building real projects while learning theory',
+      'Treating code like any other engineered system',
+      'Building real projects alongside the theory',
     ],
     tags: ['Education', 'AI/ML', 'Career Change'],
     tone: 'growth',
@@ -122,15 +122,15 @@ const timeline: TimelineEntry[] = [
   },
   {
     id: 'freelance',
-    date: '2024–Present',
+    date: '2024-Present',
     title: 'Freelance web development',
     subtitle: 'Shipping real products for clients',
     description:
-      'Building production websites and web applications for clients. Focus on Next.js, React, and modern tooling.',
+      'Building production websites and web apps for clients. Mostly Next.js, React, and the rest of the modern toolchain.',
     bullets: [
-      'Keep It What - E-commerce platform with custom product builder',
-      'Critical Minerals Tomorrow - Corporate site with SEO focus',
-      'Multiple business websites with performance optimization',
+      'Keep It What: e-commerce platform with a custom product builder',
+      'Critical Minerals Tomorrow: corporate site with SEO focus',
+      'Other business sites where performance actually mattered',
     ],
     tags: ['Next.js', 'React', 'TypeScript', 'Freelance'],
     tone: 'current',
@@ -143,9 +143,9 @@ const timeline: TimelineEntry[] = [
     id: 'experiments',
     date: 'Ongoing',
     title: 'Experiments & learning',
-    subtitle: 'Exploring interaction and systems',
+    subtitle: 'Trying things to understand them',
     description:
-      'Building experiments to understand fundamentals deeply. Physics simulations, terminal interfaces, and interaction design.',
+      "Small experiments to understand the fundamentals. Physics simulations, terminal interfaces, interaction design. Whatever I'm curious about that week.",
     bullets: [
       'Elastic lanyard physics with canvas',
       'Terminal-style navigation and forms',
@@ -166,146 +166,146 @@ const projects: Project[] = [
     slug: 'snake-rl-agent',
     title: 'Deep Q-Learning Snake Agent',
     description:
-      'Reinforcement learning agent that learns to play Snake using a deep neural network. Includes systematic experiments comparing network architectures, memory sizes, and environment configurations.',
+      'Reinforcement learning agent that learns to play Snake with a deep neural network. I ran a stack of experiments to see how network size, memory buffer, and environment changes actually affected learning.',
     tech: ['Python', 'PyTorch', 'Deep Q-Learning', 'Neural Networks', 'Reinforcement Learning'],
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/snake-rl',
     featured: true,
     logo: '/images/snake-rl-logo.png',
     overview:
-      'MSc Artificial Intelligence final assessment project implementing a Deep Q-Network (DQN) agent that learns to play Snake through trial and error. The agent uses an 11-dimensional state representation, experience replay for stable learning, and epsilon-greedy exploration. Includes comprehensive experiments comparing different neural network architectures (256, 512, and deeper configurations), memory buffer sizes (10K to 200K), and environment variants (with and without wall collisions).',
+      'My MSc AI final project. A Deep Q-Network agent that learns to play Snake from scratch. The agent sees the world through an 11-feature state vector, stores past experiences in a replay buffer, and uses epsilon-greedy exploration to decide when to try something new versus exploit what it already knows. I ran 12 experiments varying network width (256 vs 512), depth, memory buffer sizes (10K to 200K), and a wall-collision variant of the environment.',
     problem:
-      'Develop an intelligent agent capable of learning optimal gameplay strategies for Snake without explicit programming of rules. The challenge involves handling sparse rewards (only positive reward when eating food), learning long-term strategies (avoiding traps), and balancing exploration vs exploitation during training.',
+      "Build an agent that figures out how to play Snake without me hard-coding any rules. Rewards are sparse (food only), the agent has to think more than one step ahead to avoid trapping itself, and there's the usual exploration vs exploitation trade-off to manage during training.",
     approach:
-      'Implemented Deep Q-Learning with experience replay using PyTorch. The neural network takes an 11-feature state vector (danger detection in 3 directions, current direction, food location) and outputs Q-values for 3 actions (straight, left, right). Training uses the Bellman equation to update Q-values, with epsilon-greedy exploration that decays over time. Conducted 12 systematic experiments varying architecture depth, hidden layer width, and replay memory size.',
+      "Deep Q-Learning with experience replay in PyTorch. The network takes the 11-feature state (danger in 3 directions, current heading, food position) and outputs Q-values for 3 actions (straight, turn left, turn right). Q-values get updated via the Bellman equation, and exploration decays over time. I ran the 12 experiments to actually see what mattered, rather than guessing.",
     outcome:
-      'Best configuration achieved consistent scores of 40+ after 200 training episodes. Experiments revealed that wider networks (256 neurons) outperformed deeper ones for this task, and larger replay buffers improved stability. The wall-collision variant proved more challenging, requiring different hyperparameter tuning. Full analysis documented with training curves, architecture comparisons, and statistical summaries.',
+      "Best configuration hit consistent scores of 40+ after 200 training episodes. A few clear findings: wider beat deeper for this task, and bigger replay buffers stabilised learning. The wall-collision variant was noticeably harder and needed different hyperparameters. Everything is documented with training curves, architecture comparisons, and statistical summaries.",
   },
   {
     slug: 'heart-disease-classification',
     title: 'Heart Disease Classification',
     description:
-      'Machine learning classification system comparing Random Forest, SVM, and Neural Network approaches for predicting heart disease risk, achieving 85% accuracy with comprehensive model evaluation.',
+      'Binary classifier predicting heart disease risk. I compared Random Forest, SVM, and Neural Networks across nine configurations. Random Forest came out on top at 85%.',
     tech: ['Python', 'scikit-learn', 'TensorFlow', 'Keras', 'pandas', 'Data Science'],
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/heart-disease',
     featured: true,
     logo: '/images/heart-disease-logo.jpg',
     overview:
-      'MSc Artificial Intelligence mid-module assessment implementing binary classification to predict heart disease risk using the UCI Heart Disease dataset. Comprehensive comparison of three machine learning approaches: Random Forest (ensemble learning), Support Vector Machines (kernel methods), and Neural Networks (deep learning). Each model tested with 3 different configurations to explore hyperparameter effects.',
+      "MSc AI mid-module assessment. Binary classifier for heart disease risk using the UCI Heart Disease dataset. I compared three families of model (Random Forest, SVM, Neural Network) with three configurations each, so nine in total, to see how the algorithm choice and hyperparameters actually shifted the result.",
     problem:
-      'Develop a reliable predictive model for heart disease risk assessment using patient health metrics. The challenge involves handling a relatively small dataset (303 samples), selecting informative features from 13 clinical variables, and choosing the optimal algorithm and hyperparameters for this specific medical classification task.',
+      "Predict heart disease risk from patient health metrics. The dataset is small (303 samples), there are 13 clinical variables to weigh up, and picking the right algorithm and hyperparameters for a medical task isn't a one-size-fits-all decision.",
     approach:
-      'Implemented a complete ML pipeline including exploratory data analysis with correlation heatmaps, feature importance ranking, and distribution analysis. Data preprocessing with StandardScaler normalisation and stratified train-test splits. Trained 9 model configurations: Random Forest (default, depth-limited, sample-constrained), SVM (RBF, linear, tuned RBF), and Neural Networks (simple, with dropout, wider architecture). Evaluation using accuracy, precision, recall, F1-score, ROC-AUC, and confusion matrices.',
+      'Full ML pipeline: exploratory analysis with correlation heatmaps, feature importance ranking, and distribution plots. Preprocessing used StandardScaler normalisation and stratified train-test splits. The nine configurations were Random Forest (default, depth-limited, sample-constrained), SVM (RBF, linear, tuned RBF), and Neural Network (simple, with dropout, wider). I evaluated with accuracy, precision, recall, F1, ROC-AUC, and confusion matrices.',
     outcome:
-      'Random Forest with sample constraints achieved the highest accuracy at 85.25%, with chest pain type (cp), maximum heart rate (thalachh), and number of major vessels (caa) identified as the most predictive features. Neural networks showed tendency to overfit on the small dataset despite dropout regularisation. Comprehensive Jupyter notebook with visualisations, statistical analysis, and reproducible results.',
+      "Random Forest with sample constraints came out on top at 85.25%. Chest pain type (cp), max heart rate (thalachh), and number of major vessels (caa) were the most predictive features. The neural networks overfit on a dataset this small even with dropout, which lined up with what I expected. Everything sits in one Jupyter notebook with visualisations and reproducible runs.",
   },
   {
     slug: 'ml-classification-practical',
     title: 'NCM Classification Practical',
     description:
-      'Interactive Jupyter notebook walkthrough demonstrating Nearest Class Mean classification with live code execution, visualisations, and extensions including LDA, QDA, and Mahalanobis distance.',
+      "Interactive Jupyter notebook walkthrough of Nearest Class Mean classification. Live code execution, visualisations, and extensions covering LDA, QDA, and Mahalanobis distance.",
     tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
     url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
     repo: 'https://github.com/W17ant/machine-learning-practical',
     featured: false,
     logo: '/images/ml-practical-logo.png',
     overview:
-      'An interactive educational tool that simulates running a Jupyter notebook cell-by-cell, teaching machine learning classification concepts through hands-on code examples. Covers the complete ML pipeline from data loading to model evaluation, with four extensions exploring advanced classifiers.',
+      "An interactive page that runs a Jupyter notebook cell by cell, walking through ML classification with hands-on examples. Covers the full pipeline from data loading to evaluation, with four extensions for the more advanced classifiers.",
     problem:
-      'Traditional static documentation fails to convey the iterative, experimental nature of machine learning. Students need to understand not just what code does, but why each step matters and how outputs change with different approaches.',
+      "Static docs don't capture how ML actually feels to do. You need to see how each step changes the output, not just read what the code is supposed to do.",
     approach:
-      'Built an interactive HTML page that simulates Jupyter notebook execution with auto-typing code animation, live syntax highlighting, and contextual explanations. Each cell includes a helper panel explaining the concepts, expected outputs, and connections to ML theory. Implemented NCM, LDA, QDA, and Mahalanobis distance classifiers from scratch.',
+      "Built an interactive HTML page that simulates the notebook with auto-typed code, live syntax highlighting, and context for each cell. Every cell has a helper panel explaining the concept, the expected output, and where it sits in the theory. NCM, LDA, QDA, and Mahalanobis distance classifiers all implemented from scratch.",
     outcome:
-      'A self-contained educational resource that demonstrates the difference between equal and unequal covariance classification problems. Dataset A achieves 100% accuracy with NCM while Dataset B shows 98.5%, clearly illustrating when linear vs quadratic decision boundaries are appropriate.',
+      "A self-contained teaching resource that makes the equal vs unequal covariance distinction concrete. Dataset A reaches 100% accuracy with NCM, Dataset B drops to 98.5%, and the contrast shows clearly when a linear boundary is enough versus when you need a quadratic one.",
   },
   {
     slug: 'ai-ethics-game',
     title: 'The Credit Algorithm',
     description:
-      'Interactive fiction game exploring AI ethics in financial services, featuring branching narratives, ethical framework scoring, and shareable outcome cards.',
+      "Interactive fiction game about AI ethics in financial services. Branching choices, an ethical scoring system that tracks where you sit, and shareable outcome cards.",
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
     url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
     featured: false,
     logo: '/images/credit-algorithm-logo.png',
     overview:
-      'An educational interactive fiction experience that puts players in the role of a product manager at a fintech company developing an AI-powered credit scoring algorithm. Through branching narratives and ethical dilemmas, players explore concepts like algorithmic bias, transparency, fairness, and the social impact of AI systems.',
+      "Interactive fiction that puts you in the seat of a product manager at a fintech firm building an AI credit scoring algorithm. Branching choices and ethical dilemmas surface ideas like algorithmic bias, transparency, fairness, and the social fallout of decisions made by AI systems.",
     problem:
-      'Make complex AI ethics concepts accessible and engaging for a general audience through interactive storytelling, rather than traditional academic presentation.',
+      "AI ethics tends to get taught in slides. I wanted to see if interactive storytelling could land the same ideas more directly.",
     approach:
-      'Designed a branching narrative structure with multiple decision points and consequences. Implemented an ethical framework scoring system that tracks player choices across different ethical dimensions. Created shareable ending cards that summarise the player\'s ethical approach.',
+      "Built a branching narrative with multiple decision points and consequences. Each choice updates a scoring system that tracks where you sit across different ethical dimensions. At the end, you get a shareable card summarising the approach you took.",
     outcome:
-      'Successfully created an engaging way to explore complex AI ethics topics. The game format makes abstract concepts concrete through real-world scenarios, encouraging reflection on the societal implications of AI systems in finance.',
+      "Turned out to be a much more engaging way to explore these topics than I expected. The scenarios make abstract concepts concrete and push you to actually sit with the trade-offs.",
   },
   {
     slug: 'keepitwhat',
     title: 'Keep It What',
     description:
-      'Full-stack e-commerce platform for personalised gifts featuring real-time product customisation, secure Stripe payments, and a complete admin dashboard.',
+      'Full-stack e-commerce platform for personalised gifts. Real-time product customiser, Stripe checkout, and an admin dashboard for orders and inventory.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
     url: 'https://keepitwhat.com',
     featured: true,
     logo: '/images/keepitwhat-logo.png',
     overview:
-      'A production e-commerce platform built from the ground up for a personalised gifts business. Features include a real-time product customiser with live preview, Stripe payment integration, Supabase backend with authentication, and a custom admin dashboard for order management. Built with Next.js 15 App Router and React Server Components for optimal performance.',
+      "Production e-commerce platform built from scratch for a personalised gifts business. Real-time product customiser with live preview, Stripe checkout, Supabase backend with auth, and a custom admin dashboard for orders and inventory. Next.js 15 App Router with React Server Components.",
     problem:
-      'The client needed a modern, high-performance e-commerce solution that could handle complex product customisation (engraving, printing) with live previews, process secure payments, and provide an intuitive admin interface for managing orders and inventory.',
+      "The client needed a modern store that could handle the customisation side properly (engraving, printing) with live preview, take secure payments, and give them a sensible admin to actually run the business from.",
     approach:
-      'Developed using Next.js App Router with React Server Components for SEO and performance. Implemented Supabase for database, authentication, and file storage. Integrated Stripe for secure payment processing with webhook handling. Created a custom product customiser using Canvas API for real-time previews. Mobile-first responsive design with Tailwind CSS.',
+      "Next.js App Router with React Server Components for SEO and performance. Supabase for database, authentication, and file storage. Stripe for payments with webhook handling. The customiser uses the Canvas API for real-time previews. Mobile-first layout with Tailwind.",
     outcome:
-      'Successfully launched with strong conversion rates. The product customiser significantly reduced customer support queries by letting customers preview their personalised items before purchase. Fast page loads and SEO optimisation improved organic traffic.',
+      "Launched with strong conversion rates. The customiser cut support queries because customers could see exactly what they were ordering before they paid. Fast page loads and SEO work pulled in more organic traffic over time.",
   },
   {
     slug: 'critical-minerals',
     title: 'Critical Minerals Tomorrow',
     description:
-      'Professional corporate website for an international strategic advisory firm, built with Next.js and optimised for SEO with schema markup and fast page loads.',
+      'Corporate site for an international strategic advisory firm. Built with Next.js, tuned for SEO with schema markup, and quick to load.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
     url: 'https://criticalmineralstomorrow.com',
     featured: false,
     logo: '/images/critical-minerals-logo.png',
     overview:
-      'Corporate website for Critical Minerals Tomorrow, a strategic advisory firm specialising in critical minerals, rare earths, and battery metals. The site establishes professional credibility through clean design, comprehensive content, and strong SEO performance. Built with Next.js for static generation and optimal Core Web Vitals.',
+      "Corporate site for Critical Minerals Tomorrow, a strategic advisory firm working in critical minerals, rare earths, and battery metals. The brief was a clean professional presence with strong SEO, built on Next.js for static generation and good Core Web Vitals.",
     problem:
-      'Lee Constable needed a professional web presence that would establish credibility in the specialised critical minerals sector, attract potential clients through organic search, and clearly communicate the firm\'s expertise and services.',
+      "Lee Constable needed a professional web presence that read as credible in a specialist sector, brought in clients through organic search, and explained what the firm actually does.",
     approach:
-      'Designed a clean, authoritative layout with clear information architecture. Implemented comprehensive technical SEO including schema markup (Organization, Person, Service), meta tags, Open Graph, and XML sitemap. Integrated Google Search Console and Analytics. Optimised for Core Web Vitals with image optimisation and efficient loading.',
+      "Clean, authoritative layout with a clear information architecture. Technical SEO across the board: schema markup (Organization, Person, Service), meta tags, Open Graph, XML sitemap. Google Search Console and Analytics wired in. Images optimised and Core Web Vitals tuned.",
     outcome:
-      'Achieved strong organic search visibility for targeted keywords in the critical minerals sector. The professional design and clear messaging successfully established credibility with potential clients. Fast loading times and mobile responsiveness improved user engagement.',
+      "Strong organic visibility for the target keywords in the critical minerals space. The site reads as credible to prospective clients, and the load times and mobile behaviour have held up under real traffic.",
   },
   {
     slug: 'doom-scroll-detection',
     title: 'Doom Scroll Detection',
     description:
-      'Webcam-based posture and phone detection tool using MediaPipe face/hand tracking and YOLOv8 to catch doom scrolling and encourage screen breaks.',
+      'Webcam tool that watches your posture and phone usage to catch the doom scroll. Uses MediaPipe for face and hand tracking, YOLOv8 for phone detection.',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'YOLOv8', 'Computer Vision'],
     repo: 'https://github.com/W17ant/Doom-Scroll-Detection',
     logo: '/images/doom-scroll-detection.jpeg',
     featured: true,
     overview:
-      'A real-time computer vision application that monitors your posture and phone usage to help break the doom scrolling habit. Uses MediaPipe for face mesh (468 landmarks) and hand tracking (21 joints), plus optional YOLOv8 for phone detection. Features personal calibration, smoothed tracking with exponential moving average, and escalating audio/visual warnings.',
+      "Real-time computer vision tool that watches your posture and phone use to help break the doom scroll habit. MediaPipe handles the face mesh (468 landmarks) and hand tracking (21 joints). YOLOv8 picks up the phone itself. Calibrates to you, smooths tracking with an exponential moving average, and escalates the warnings if you keep ignoring it.",
     problem:
-      'Doom scrolling is a modern problem - we mindlessly check our phones without realising how much time passes. Existing solutions rely on app timers, but those only work within apps. I wanted something that catches the physical behaviour regardless of what app you\'re using.',
+      "App timers only work inside the app you're already lost in. I wanted something that catches the physical act of head-down phone scrolling regardless of which app is open.",
     approach:
-      'Rather than complex 3D pose estimation (which is jittery), I track nose Y position relative to a calibrated neutral. When your nose drops below threshold, you\'re looking down. Phone detection uses YOLO as primary (high confidence, triggers alone) and hand grip detection as secondary (only triggers if also looking down, reducing false positives). Hysteresis with frame buffers prevents flickering.',
+      "Full 3D pose estimation is too jittery for this, so I track nose Y position relative to a calibrated neutral. Drop below the threshold and you're looking down. YOLO is the primary phone signal (high-confidence, triggers on its own). Hand grip detection is secondary and only fires alongside looking down, which kept the false positive rate sensible. Frame-buffer hysteresis stops the warnings flickering.",
     outcome:
-      'Working detector that runs at ~30 FPS on modern hardware. Escalating warnings from gentle chime at 10 seconds to flashing red screen at 40 seconds. Learned practical lessons about sensor fusion, signal smoothing, and why simpler approaches often work better than complex ones.',
+      "Working detector at around 30 FPS on modern hardware. Warnings escalate from a gentle chime at 10 seconds to a flashing red screen at 40 seconds. Picked up some real lessons along the way about sensor fusion, signal smoothing, and how often the simpler approach is the right one.",
   },
   {
     slug: 'tempus-prive',
     title: 'Tempus Prive',
     description:
-      'Responsive luxury watch e-commerce prototype demonstrating vanilla JavaScript DOM manipulation, shopping cart functionality, and mobile-first design principles.',
+      'Responsive luxury watch e-commerce prototype. Vanilla JavaScript throughout, with DOM manipulation, a working shopping cart, and a mobile-first layout.',
     tech: ['JavaScript', 'CSS', 'E-commerce', 'Responsive Design'],
     url: 'https://aoneill.co.uk/MSC/Tempus-Prive/',
     featured: false,
     logo: '/images/tp-logo.webp',
     overview:
-      'Academic project developed for MSc Web Technologies assessment, demonstrating core e-commerce patterns and vanilla JavaScript skills. Features a product catalog with filtering, shopping cart with localStorage persistence, and fully responsive design for all device sizes.',
+      "MSc Web Technologies assessment piece. A luxury watch e-commerce prototype with a product catalogue, filtering, a shopping cart that persists in localStorage, and a responsive layout that works at every breakpoint.",
     problem:
-      'Demonstrate comprehensive understanding of e-commerce user experience patterns, JavaScript DOM manipulation without frameworks, responsive CSS techniques, and web accessibility fundamentals.',
+      "The brief was to show I could build e-commerce UX patterns, manipulate the DOM in vanilla JavaScript, and put together responsive, accessible CSS without leaning on a framework.",
     approach:
-      'Built entirely with vanilla JavaScript to demonstrate core language proficiency. Implemented product filtering, cart functionality with localStorage persistence, and quantity management. Created responsive layouts using CSS Grid and Flexbox with mobile-first breakpoints.',
+      "Vanilla JavaScript throughout, no framework. Product filtering, cart with localStorage persistence, quantity management. Layout uses CSS Grid and Flexbox with mobile-first breakpoints.",
     outcome:
-      'Successful assessment submission demonstrating strong fundamentals in JavaScript, CSS, and e-commerce UX patterns. The project showcases the ability to build functional web applications without relying on frameworks.',
+      "Submitted and assessed well. More usefully, it forced me to actually understand the language and the layout primitives rather than reach for a framework abstraction.",
   },
 ];
 
@@ -336,7 +336,7 @@ const experiments: Experiment[] = [
       steps: [
         {
           title: 'Understanding Verlet Integration',
-          description: 'Verlet integration is a numerical method for calculating motion. Unlike traditional physics where we track velocity, Verlet uses the difference between current and previous positions to determine movement. This makes it naturally stable and perfect for rope/cloth simulations.',
+          description: "Verlet integration is a way of calculating motion that skips storing velocity. Instead, it works out movement from the difference between the current and previous positions. That makes it naturally stable, and it's a great fit for ropes and cloth.",
           code: `// Traditional physics: velocity-based
 position += velocity;
 velocity += acceleration;
@@ -346,11 +346,11 @@ const velocity = position - previousPosition;
 previousPosition = position;
 position += velocity + acceleration;`,
           language: 'javascript',
-          tip: 'Verlet integration is self-correcting - small errors don\'t accumulate over time like they do with Euler integration.'
+          tip: "Verlet integration is self-correcting. Small errors don't accumulate over time the way they do with Euler integration."
         },
         {
           title: 'Creating the Point System',
-          description: 'Define a Point interface that stores current position, previous position (for Verlet), and whether the point is pinned (fixed in place). The rope will be a chain of these points.',
+          description: "Define a Point interface that holds the current position, the previous position (for Verlet), and a flag for whether it's pinned in place. The rope is just a chain of these points.",
           code: `interface Point {
   x: number;
   y: number;
@@ -373,7 +373,7 @@ function createPoint(x: number, y: number, pinned = false): Point {
         },
         {
           title: 'Building the Constraint System',
-          description: 'Constraints maintain fixed distances between points. Each constraint connects two points and tries to keep them at a target length. This is what gives the rope its structure.',
+          description: "Constraints keep pairs of points at a fixed distance. Each one connects two points and pulls them back toward a target length. That's what gives the rope its structure.",
           code: `interface Constraint {
   p1: Point;
   p2: Point;
@@ -402,11 +402,11 @@ function resolveConstraint(c: Constraint) {
   }
 }`,
           language: 'typescript',
-          tip: 'Run constraint resolution multiple times per frame (iterations) for a stiffer rope. More iterations = more stable but slower.'
+          tip: "Run the constraint solver several times per frame for a stiffer rope. More iterations means more stability but slower frames."
         },
         {
           title: 'Physics Update Loop',
-          description: 'Each frame, update all points using Verlet integration, then resolve constraints multiple times to maintain the rope structure.',
+          description: "Each frame, update every point with Verlet integration, then resolve the constraints several times to keep the rope holding together.",
           code: `const config = {
   gravity: 0.35,
   damping: 0.97,    // Air resistance (1 = none, 0 = frozen)
@@ -450,7 +450,7 @@ function animate() {
         },
         {
           title: 'Adding Drag Interaction',
-          description: 'Allow users to grab and drag the end of the rope. When dragging, directly set the point position instead of letting physics control it.',
+          description: "Let the user grab and drag the end of the rope. While dragging, set the point position directly instead of letting physics decide where it goes.",
           code: `let isDragging = false;
 let dragPoint: Point | null = null;
 
@@ -472,11 +472,11 @@ document.addEventListener('mouseup', () => {
   dragPoint = null;
 });`,
           language: 'typescript',
-          tip: 'Attach mousemove and mouseup to document, not canvas - this lets users drag outside the canvas bounds without losing the interaction.'
+          tip: "Attach mousemove and mouseup to document rather than canvas. That way users can drag outside the canvas bounds without losing the interaction."
         },
         {
           title: 'Rendering with Canvas Gradients',
-          description: 'Draw the rope with varying width and color based on stretch. Thinner and redder when stretched, thicker and bluer when relaxed.',
+          description: "Draw the rope so its width and colour change with how stretched it is. Thinner and redder under tension, thicker and cooler when relaxed.",
           code: `function drawLanyard(ctx: CanvasRenderingContext2D) {
   for (const c of constraints) {
     const stretch = c.stretch || 1;
@@ -532,7 +532,7 @@ document.addEventListener('mouseup', () => {
       steps: [
         {
           title: 'Setting Up the Terminal Structure',
-          description: 'Create a terminal-like container with a header bar (traffic lights), scrollable body for output, and an input area at the bottom.',
+          description: "Set up a terminal-style container: a header with traffic lights, a scrollable body for output, and an input row at the bottom.",
           code: `function Terminal() {
   const [lines, setLines] = useState<string[]>([]);
   const [input, setInput] = useState('');
@@ -570,7 +570,7 @@ document.addEventListener('mouseup', () => {
         },
         {
           title: 'Character-by-Character Typing Animation',
-          description: 'Create a typing effect by revealing text one character at a time using async/await and setTimeout.',
+          description: "Reveal text one character at a time with async/await and setTimeout for that classic typing feel.",
           code: `async function typeText(text: string, delay = 20) {
   let displayed = '';
 
@@ -606,11 +606,11 @@ async function runDemo() {
   }
 }`,
           language: 'typescript',
-          tip: 'Adjust the delay based on line type - user input should type slower than system output to feel more natural.'
+          tip: "Tune the delay per line type. User input should type slower than system output, otherwise it feels off."
         },
         {
           title: 'Command Parsing and Routing',
-          description: 'Parse user input into command and arguments, then execute the appropriate action. Use a switch statement or command map.',
+          description: "Split user input into a command and its arguments, then run whatever the command says to do. A switch statement or a command map is plenty.",
           code: `interface Route {
   key: string;
   label: string;
@@ -664,7 +664,7 @@ function runCommand(input: string) {
         },
         {
           title: 'Adding Command Suggestions',
-          description: 'Show clickable suggestions based on current input. Filter available commands and routes as the user types.',
+          description: "Surface clickable suggestions based on what the user has typed so far. Filter the command list and routes as they type.",
           code: `function getSuggestions(input: string): string[] {
   const value = input.trim().toLowerCase();
 
@@ -704,11 +704,11 @@ function runCommand(input: string) {
   </button>
 ))}`,
           language: 'tsx',
-          tip: 'Limit suggestions to 4-5 items to avoid overwhelming users. Prioritize the most likely commands.'
+          tip: "Cap suggestions at four or five so users don't drown in options. Push the most likely commands to the top."
         },
         {
           title: 'Scroll-Triggered Activation',
-          description: 'Use Intersection Observer to start the typing animation when the terminal scrolls into view.',
+          description: "Use Intersection Observer to kick off the typing animation only once the terminal scrolls into view.",
           code: `const [started, setStarted] = useState(false);
 const containerRef = useRef<HTMLDivElement>(null);
 
@@ -741,7 +741,7 @@ useEffect(() => {
         },
         {
           title: 'Keyboard Navigation',
-          description: 'Handle Enter to submit, arrow keys for menu navigation, and Escape to close menus.',
+          description: "Wire up Enter to submit, arrow keys to move through the menu, and Escape to close it.",
           code: `function handleKeyDown(e: React.KeyboardEvent) {
   switch (e.key) {
     case 'Enter':
@@ -807,7 +807,7 @@ useEffect(() => {
       steps: [
         {
           title: 'Creating a Custom Cursor',
-          description: 'Replace the default cursor with custom elements - an outer ring and inner dot. Position them absolutely and follow the mouse.',
+          description: "Swap the default cursor for two custom elements: an outer ring and an inner dot. Position them absolutely and let them follow the mouse.",
           code: `// Cursor elements
 <div class="cursor-ring" id="ring"></div>
 <div class="cursor-dot" id="dot"></div>
@@ -841,7 +841,7 @@ useEffect(() => {
         },
         {
           title: 'Smooth Cursor Following with Lerp',
-          description: 'Instead of the cursor snapping to mouse position, use linear interpolation (lerp) for a smooth, trailing effect.',
+          description: "Instead of snapping straight to the mouse, use linear interpolation (lerp) so the cursor eases toward the target. You get a smooth trailing effect for free.",
           code: `let cursorX = 0, cursorY = 0;  // Current position
 let targetX = 0, targetY = 0;  // Mouse position
 
@@ -871,11 +871,11 @@ function animate() {
 
 animate();`,
           language: 'javascript',
-          tip: 'The lerp value (0.15) controls smoothness. Lower = smoother but more lag, higher = snappier but less smooth.'
+          tip: "The lerp value (0.15) is the smoothness dial. Lower means smoother but laggier, higher means snappier but less fluid."
         },
         {
           title: 'Magnetic Pull Effect on Buttons',
-          description: 'Make buttons "pull" toward the cursor when hovering. Calculate the offset from the button center and apply a fraction of it as a transform.',
+          description: "Make buttons drift toward the cursor on hover. Work out the offset from the button centre and apply a fraction of it as a transform.",
           code: `const buttons = document.querySelectorAll('.magnetic-btn');
 const magneticStrength = 0.3; // How strongly it pulls
 
@@ -904,7 +904,7 @@ buttons.forEach(btn => {
         },
         {
           title: '3D Tilt Effect on Cards',
-          description: 'Create a 3D perspective effect where cards rotate based on cursor position. Use CSS perspective and rotateX/Y transforms.',
+          description: "Add a perspective effect so cards tilt based on where the cursor sits inside them. CSS perspective plus rotateX and rotateY does the heavy lifting.",
           code: `const cards = document.querySelectorAll('.tilt-card');
 const tiltAmount = 10; // Degrees of rotation
 
@@ -940,11 +940,11 @@ cards.forEach(card => {
   });
 });`,
           language: 'javascript',
-          tip: 'Add transform-style: preserve-3d to cards and translateZ to child elements for a true 3D layered effect.'
+          tip: "Add transform-style: preserve-3d to the card and translateZ to its children for a properly layered 3D effect."
         },
         {
           title: 'Dynamic Glow Effect',
-          description: 'Add a radial gradient glow that follows the cursor position within each card.',
+          description: "Add a radial gradient glow that tracks the cursor inside each card.",
           code: `// HTML: Add glow overlay inside card
 <div class="tilt-card">
   <div class="card-glow"></div>
@@ -984,7 +984,7 @@ card.addEventListener('mouseleave', () => {
         },
         {
           title: 'Cursor State Changes',
-          description: 'Expand the cursor ring when hovering over interactive elements to provide visual feedback.',
+          description: "Expand the cursor ring on hover over anything interactive. It gives the user a small bit of feedback that the thing under them is clickable.",
           code: `// CSS for expanded state
 .cursor-ring.expanded {
   width: 64px;
@@ -1043,7 +1043,7 @@ interactiveElements.forEach(el => {
       steps: [
         {
           title: 'Understanding Q-Learning',
-          description: 'Q-Learning is a reinforcement learning algorithm that learns the value (Q) of taking an action in a given state. The "Q" stands for "quality" - how good is this action? The agent learns by trial and error, updating Q-values based on rewards received.',
+          description: "Q-Learning is a reinforcement learning algorithm that learns the value (Q) of taking a particular action in a given state. The Q stands for quality. How good is this action? The agent learns by trial and error, updating its Q-values based on the rewards it actually gets.",
           code: `# The Bellman Equation - core of Q-Learning
 # Q(s,a) = r + γ * max(Q(s',a'))
 #
@@ -1060,11 +1060,11 @@ interactiveElements.forEach(el => {
 # max Q of next state = 5
 # New Q = 10 + 0.9 * 5 = 14.5`,
           language: 'python',
-          tip: 'Gamma (γ) controls how much the agent cares about future rewards. γ=0 means only immediate rewards matter, γ=1 means future rewards are equally important as immediate ones.'
+          tip: "Gamma (γ) sets how much the agent cares about future rewards. γ=0 and only immediate rewards matter. γ=1 and future rewards count just as much as the one in front of it."
         },
         {
           title: 'Defining the State Space',
-          description: 'The state is what the agent "sees" about the environment. For Snake, we encode 11 boolean features that capture danger, direction, and food location. This compressed representation is much more efficient than using raw pixel data.',
+          description: "The state is what the agent sees about the environment. For Snake, we encode 11 boolean features covering danger, current direction, and where the food is. That compressed representation trains a lot faster than feeding in raw pixels.",
           code: `def get_state(self, game):
     """Convert game state to 11-feature vector"""
     head = game.snake[0]
@@ -1112,11 +1112,11 @@ interactiveElements.forEach(el => {
 
     return np.array(state, dtype=int)`,
           language: 'python',
-          tip: 'The state representation is crucial. Too little information and the agent can\'t learn; too much and training becomes slow. These 11 features capture everything needed to play Snake optimally.'
+          tip: "State design matters more than people expect. Too little and the agent can't learn. Too much and training crawls. These 11 features carry enough to play Snake well."
         },
         {
           title: 'Building the Neural Network',
-          description: 'We use a neural network to approximate the Q-function. The network takes the 11-feature state as input and outputs 3 Q-values (one for each action: straight, turn left, turn right).',
+          description: "A neural network approximates the Q-function. It takes the 11-feature state as input and spits out three Q-values, one for each action: straight, turn left, turn right.",
           code: `import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -1146,7 +1146,7 @@ model = Linear_QNet(11, 256, 3)`,
         },
         {
           title: 'Epsilon-Greedy Exploration',
-          description: 'The agent must balance exploration (trying new things) with exploitation (using what it knows). Epsilon-greedy starts with random actions and gradually shifts to using the learned policy.',
+          description: "The agent has to balance exploring (trying new things) against exploiting (using what it already knows). Epsilon-greedy starts mostly random and slowly shifts toward the learned policy as training goes on.",
           code: `def get_action(self, state):
     """Choose action using epsilon-greedy strategy"""
     # Epsilon decreases as we play more games
@@ -1173,11 +1173,11 @@ model = Linear_QNet(11, 256, 3)`,
 # Game 1: epsilon=79, ~40% chance of random move
 # Game 80: epsilon=0, always uses network`,
           language: 'python',
-          tip: 'Without exploration, the agent might get stuck in a local optimum. Early random moves help discover strategies it wouldn\'t find otherwise.'
+          tip: "Without exploration, the agent gets stuck in a local optimum. Random moves early on help it stumble onto strategies it would otherwise never try."
         },
         {
           title: 'Experience Replay',
-          description: 'Instead of learning from experiences immediately and forgetting them, we store experiences in a replay buffer and sample random batches for training. This breaks correlations between consecutive samples and stabilizes learning.',
+          description: "Rather than learning from each experience once and discarding it, we keep them in a replay buffer and sample random batches to train on. That breaks the correlation between consecutive samples and steadies learning.",
           code: `from collections import deque
 
 MAX_MEMORY = 100_000  # Store last 100k experiences
@@ -1206,11 +1206,11 @@ class Agent:
         # Train the network
         self.trainer.train_step(states, actions, rewards, next_states, dones)`,
           language: 'python',
-          tip: 'Experience replay is one of the key innovations that made Deep Q-Learning work. Without it, the network would overfit to recent experiences and forget earlier lessons.'
+          tip: "Experience replay is one of the key tricks that made Deep Q-Learning work. Without it, the network overfits to recent experiences and forgets earlier lessons."
         },
         {
           title: 'The Training Step',
-          description: 'This is where learning happens. We compute the target Q-values using the Bellman equation and update the network to minimize the difference between predicted and target Q-values.',
+          description: "This is where the actual learning happens. Compute the target Q-values with the Bellman equation, then nudge the network to shrink the gap between its predictions and those targets.",
           code: `class QTrainer:
     def __init__(self, model, lr, gamma):
         self.model = model
@@ -1249,7 +1249,7 @@ class Agent:
         },
         {
           title: 'The Training Loop',
-          description: 'Putting it all together: the agent plays games, collects experiences, and learns from them. Each game trains on the current step (short memory) and a batch from the replay buffer (long memory).',
+          description: "All of it stitched together. The agent plays games, collects experiences, and learns from them. Each game trains on the current step (short memory) and on a batch from the replay buffer (long memory).",
           code: `def train():
     agent = Agent()
     game = SnakeGameAI()
@@ -1286,11 +1286,11 @@ class Agent:
 
             print(f'Game {agent.n_games} Score: {score} Record: {record}')`,
           language: 'python',
-          tip: 'The reward structure matters a lot. Typical: +10 for food, -10 for death, small negative for each step (encourages efficiency). Experiment with different values!'
+          tip: "Reward shaping matters a lot. Typical setup is +10 for food, -10 for death, and a small negative per step to push the agent toward efficiency. Worth playing with the values."
         },
         {
           title: 'Visualizing Training Progress',
-          description: 'Plotting scores over time helps diagnose training. A well-training agent shows increasing average scores with high variance initially (exploration) that decreases over time.',
+          description: "Plotting scores over time is the easiest way to diagnose training. A healthy run shows the average score climbing while variance starts high (lots of exploration) and gradually settles down.",
           code: `import matplotlib.pyplot as plt
 from IPython import display
 
@@ -1368,7 +1368,7 @@ def plot(scores, mean_scores):
       steps: [
         {
           title: 'Setting Up the Password Input',
-          description: 'Create a password input with toggle visibility. Use state to track the password value and whether it should be shown or hidden.',
+          description: "A password input with a show/hide toggle. State tracks the value and whether it should currently be visible.",
           code: `const [password, setPassword] = useState('');
 const [showPassword, setShowPassword] = useState(false);
 
@@ -1389,7 +1389,7 @@ return (
         },
         {
           title: 'Checking Password Requirements',
-          description: 'Use regular expressions to check if the password meets various security criteria. Track each requirement separately for visual feedback.',
+          description: "Use regex to test the password against each rule. Track every requirement separately so the UI can show the user which ones pass.",
           code: `interface Checks {
   length: boolean;
   uppercase: boolean;
@@ -1413,11 +1413,11 @@ useEffect(() => {
   setChecks(analyzePassword(password));
 }, [password]);`,
           language: 'typescript',
-          tip: 'Escape special characters in the regex, especially backslashes and brackets.'
+          tip: "Watch the regex escaping, especially backslashes and brackets. Easy to lose an hour to a missing slash."
         },
         {
           title: 'Calculating Password Score',
-          description: 'Assign points for each requirement met and bonus points for extra length. Map the score to strength levels with corresponding colors.',
+          description: "Award points for each requirement passed, plus bonus points for extra length. Map the final number to a strength level with a matching colour.",
           code: `function calculateScore(pwd: string, checks: Checks): number {
   let score = 0;
 
@@ -1446,7 +1446,7 @@ function getStrengthLevel(score: number) {
         },
         {
           title: 'Estimating Crack Time',
-          description: 'Calculate how long it would take to brute-force the password based on character space and length. Use exponential math to compute possible combinations.',
+          description: "Estimate how long a brute-force attack would take based on the character space and password length. The number of combinations is just charSpace raised to the length.",
           code: `function calculateCrackTime(pwd: string): string {
   if (!pwd) return '-';
 
@@ -1478,11 +1478,11 @@ function formatTime(seconds: number): string {
   return Math.round(seconds / 31536000) + ' years';
 }`,
           language: 'typescript',
-          tip: 'Real attackers use dictionary attacks first, so actual crack times for common passwords are much shorter than brute-force estimates.'
+          tip: "Real attackers run dictionary attacks first. Crack times for common passwords are much shorter than the pure brute-force number suggests."
         },
         {
           title: 'Generating Secure Passwords',
-          description: 'Create a function that generates cryptographically random passwords with guaranteed character variety.',
+          description: "A password generator that picks random characters with at least one from each category, then shuffles to avoid predictable positions.",
           code: `function generatePassword(length = 16): string {
   const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const lowercase = 'abcdefghijklmnopqrstuvwxyz';
@@ -1513,7 +1513,7 @@ function formatTime(seconds: number): string {
         },
         {
           title: 'Building the Visual Strength Meter',
-          description: 'Create an animated progress bar that fills based on password score, with color transitions matching strength level.',
+          description: "An animated progress bar that fills based on the password score, with the colour shifting to match the current strength level.",
           code: `function StrengthMeter({ score }: { score: number }) {
   const { level, color } = getStrengthLevel(score);
 
@@ -1592,7 +1592,7 @@ function RequirementsList({ checks }: { checks: Checks }) {
       steps: [
         {
           title: 'Collecting Mouse Movement Data',
-          description: 'Track mouse positions with timestamps. Store points in an array and limit the buffer size to prevent memory issues.',
+          description: "Record mouse positions with timestamps. Keep them in an array and cap the buffer size so memory doesn't grow forever.",
           code: `interface Point {
   x: number;
   y: number;
@@ -1617,11 +1617,11 @@ function handleMouseMove(e: MouseEvent) {
   }
 }`,
           language: 'typescript',
-          tip: 'Use refs instead of state for high-frequency updates like mouse tracking to avoid excessive re-renders.'
+          tip: "For high-frequency updates like mouse tracking, use refs rather than state. State will trigger re-renders you don't want."
         },
         {
           title: 'Extracting Speed and Timing Features',
-          description: 'Calculate speeds between consecutive points. Humans have varied speeds, bots move at constant velocity.',
+          description: "Calculate speed between consecutive points. Humans vary their speed naturally. Bots tend to move at a constant velocity, which is one of the easiest tells.",
           code: `function extractSpeedFeatures(points: Point[]) {
   const speeds: number[] = [];
   const timings: number[] = [];
@@ -1653,7 +1653,7 @@ function handleMouseMove(e: MouseEvent) {
         },
         {
           title: 'Detecting Angular Variance (Wobble)',
-          description: 'Humans naturally wobble slightly as they move. Calculate direction changes between segments to detect this.',
+          description: "Humans wobble slightly as they move. Look at the direction changes between consecutive segments and you can pick that wobble out.",
           code: `function extractAngularVariance(points: Point[]): number {
   const angles: number[] = [];
 
@@ -1688,11 +1688,11 @@ function handleMouseMove(e: MouseEvent) {
   return Math.min(avgWobble / 0.05, 1); // Normalize to 0-1
 }`,
           language: 'typescript',
-          tip: 'The atan2 function returns angles in radians. Remember to handle the wraparound when angles cross from PI to -PI.'
+          tip: "atan2 returns radians. Don't forget to handle the wraparound when angles cross from PI to -PI, otherwise the wobble numbers blow up."
         },
         {
           title: 'Measuring Path Curvature',
-          description: 'Bots move in straight lines; humans naturally curve. Measure deviation from straight-line segments using perpendicular distance.',
+          description: "Bots move in straight lines, humans curve. Measure the perpendicular distance from each point to the straight line between the segment endpoints.",
           code: `function extractCurveScore(points: Point[]): number {
   let totalDeviation = 0;
   const windowSize = 8;
@@ -1733,7 +1733,7 @@ function handleMouseMove(e: MouseEvent) {
         },
         {
           title: 'Detecting Micro-Corrections',
-          description: 'Humans make tiny back-and-forth adjustments. Detect small direction reversals in X or Y axes.',
+          description: "Humans make small back-and-forth adjustments as they move. Look for tiny direction reversals on either axis.",
           code: `function extractMicroCorrections(points: Point[]): number {
   let corrections = 0;
 
@@ -1765,7 +1765,7 @@ function handleMouseMove(e: MouseEvent) {
         },
         {
           title: 'Building the Classifier',
-          description: 'Combine all features with weights to produce a human-likeness score. Higher scores indicate human behavior.',
+          description: "Combine the features with weights to produce a single human-likeness score. Higher score, more human-looking behaviour.",
           code: `interface Features {
   speedConsistency: number;
   angularVariance: number;
@@ -1808,11 +1808,11 @@ function getVerdict(score: number) {
   return 'uncertain';
 }`,
           language: 'typescript',
-          tip: 'The weights can be tuned based on real-world data. In production, you might train these weights using labeled examples of human vs bot movements.'
+          tip: "The weights are starting points. In production you'd train them on labelled examples of human and bot movements rather than picking them by hand."
         },
         {
           title: 'Visualizing the Mouse Trail',
-          description: 'Draw the movement path on canvas with color indicating the current verdict. Fade old points over time.',
+          description: "Draw the movement path onto canvas with the colour reflecting the current verdict. Fade older points so the trail naturally tails off.",
           code: `function drawMouseTrail(
   ctx: CanvasRenderingContext2D,
   points: Point[],

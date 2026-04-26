@@ -54,11 +54,11 @@ export default async function HomePage() {
               Antony O&apos;Neill
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-4 font-medium">
-              Building with AI, ML, and data — shipping production-ready web applications.
+              Building with AI, ML, and data. I ship production web apps.
             </p>
             <p className="text-lg text-white/70 mb-10 max-w-2xl leading-relaxed">
-              MSc Computer Science & AI student. Previously 17 years in mechanical engineering.
-              I bring systems thinking and a problem-solving mindset to software — now focused on data and machine learning.
+              MSc Computer Science & AI student. Before that, 17 years as a mechanical engineer.
+              I&apos;m used to taking apart complicated systems to figure out what&apos;s actually broken. These days I&apos;m doing the same with code and data.
             </p>
 
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
@@ -125,7 +125,7 @@ export default async function HomePage() {
             Timeline
           </h2>
           <p className="text-base mb-8 md:mb-12" style={{ color: 'var(--ink-secondary)' }}>
-            How I got here, what I&apos;ve built, and where I&apos;m heading.
+            How I got here and what I&apos;ve been doing.
           </p>
 
           <Timeline entries={timeline} />
@@ -148,7 +148,7 @@ export default async function HomePage() {
                 Featured Projects
               </h2>
               <p style={{ color: 'var(--ink-secondary)' }}>
-                Real work, shipped to production.
+                Things I&apos;ve built and put in front of real users.
               </p>
             </div>
             <Link
@@ -226,7 +226,7 @@ export default async function HomePage() {
                 Open Source
               </h2>
               <p style={{ color: 'var(--ink-secondary)' }}>
-                Recent activity and contributions.
+                What I&apos;ve been pushing lately.
               </p>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default async function HomePage() {
                 Lab
               </h2>
               <p style={{ color: 'var(--ink-secondary)' }}>
-                Experiments exploring interaction, motion, and systems.
+                Small experiments, mostly around interaction and motion.
               </p>
             </div>
             <Link
