@@ -438,15 +438,12 @@ a{ color:inherit; text-decoration:none; }
 @keyframes drawCheck{ to{ stroke-dashoffset:0; } }
 
 /* Two text states stacked — fade between them on the same timeline as
-   the spinner-out / check-in transition.
-   Why: width sized to fit "Authenticity" + status under GrandCentral/Source
-   Sans (wider metrics than the previous Inter+Cormorant pair); height bumped
-   so the larger status line clears its descenders without clipping. */
+   the spinner-out / check-in transition. */
 .verify-stamp__text{
   position:relative;
   display:block;
-  min-width:170px;
-  height:44px;
+  min-width:130px;
+  height:38px;
 }
 .verify-stamp__state{
   position:absolute;
@@ -481,14 +478,14 @@ a{ color:inherit; text-decoration:none; }
   color:var(--periwinkle);
 }
 .verify-stamp__status{
-  font-family:var(--f-display);
-  /* Why: GrandCentral runs slightly wider than Cormorant — drop a touch and
-     drop the bold weight so the line stays inside the pill. */
-  font-size:1.45rem;
-  font-weight:400;
-  line-height:1.05;
-  margin-top:3px;
-  letter-spacing:.005em;
+  /* Why: pinned to Cormorant Garamond (not the brand display var) — keeps the
+     italic-friendly proportions the stamp was designed against. GrandCentral
+     Bold reads too heavy here and overflows the pill. */
+  font-family:'Cormorant Garamond', 'Times New Roman', serif;
+  font-size:1.6rem;
+  font-weight:500;
+  line-height:1;
+  margin-top:2px;
 }
 
 /* Scroll cue */
