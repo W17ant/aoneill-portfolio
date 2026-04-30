@@ -3,40 +3,61 @@
    Why: dark navy hero echoes the packaging artwork; the rest of the page
    uses warm ivory + bold serif/mono typography for an Apple-tier rhythm. */
 
+/* GrandCentral — brand display face, self-hosted from /fonts.
+   Why: only the Bold weight is licensed to us. Map across the full weight
+   range so any font-weight request resolves to this file rather than the
+   Cormorant fallback — the wordmark stays on-brand even where the CSS
+   asks for a lighter weight. */
+@font-face{
+  font-family:'GrandCentral';
+  src:url('fonts/GrandCentral-Bold.ttf') format('truetype');
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    Tokens
 ═══════════════════════════════════════════════════════════════════ */
 :root{
-  /* ink scale */
-  --ink-1:        #06081a;     /* deepest */
-  --ink-2:        #0a0d1f;
-  --ink-3:        #14193a;
-  --ink-4:        #1f2755;
-  --ink-5:        #2d3a6e;     /* packaging mid-blue */
-  --ink:          #0f1226;     /* primary text on light bg */
-  --ink-soft:     #2a2f4d;
-  --muted:        #5b617f;
-  --muted-2:      #8b91ad;
-  --hairline:     rgba(15, 18, 38, .08);
-  --hairline-2:   rgba(15, 18, 38, .14);
+  /* Brand spec — Blue #1E3E64, Black #121212, Grey #808285, White #FFFFFF.
+     Every other colour resolves back to a tint or shade of these four. */
+  --brand-blue:   #1E3E64;
+  --brand-black:  #121212;
+  --brand-grey:   #808285;
+  --brand-white:  #FFFFFF;
 
-  /* paper / surfaces */
-  --paper:        #fafaf6;     /* warm ivory — premium */
-  --paper-2:      #f3f3ee;
-  --paper-3:      #ecece4;
-  --paper-card:   #ffffff;
+  /* Ink scale — derived from brand-blue (deep packaging blue) and brand-black */
+  --ink-1:        #07101c;     /* deepest — near-black blue */
+  --ink-2:        #0c1828;     /* hero base — strong shade of brand-blue */
+  --ink-3:        #142a45;     /* hero mid */
+  --ink-4:        var(--brand-blue);
+  --ink-5:        #2a527f;     /* hero apex — tint of brand-blue */
+  --ink:          var(--brand-black);     /* primary text */
+  --ink-soft:     #2a2d33;                /* slight lift off pure black for body copy */
+  --muted:        var(--brand-grey);
+  --muted-2:      #a0a2a6;                /* tint of brand-grey */
+  --hairline:     rgba(18, 18, 18, .08);
+  --hairline-2:   rgba(18, 18, 18, .14);
 
-  /* brand */
-  --periwinkle:   #cfd6ee;
-  --sky:          #a9b6e0;
-  --indigo:       #4f63b8;
-  --indigo-deep:  #364a99;
-  --verified:     #1f8e6c;
+  /* Paper / surfaces — anchored at brand-white with subtle brand-grey tints */
+  --paper:        var(--brand-white);
+  --paper-2:      #f5f5f6;     /* brand-grey @ ~6% — section dividers */
+  --paper-3:      #eceded;     /* brand-grey @ ~12% */
+  --paper-card:   var(--brand-white);
+
+  /* Brand accents — all derived from brand-blue */
+  --periwinkle:   #b8c5db;     /* tint of brand-blue */
+  --sky:          #8fa4c2;     /* mid tint of brand-blue */
+  --indigo:       var(--brand-blue);
+  --indigo-deep:  #15314f;     /* shade of brand-blue */
+  --verified:     #1f8e6c;     /* restrained green — only non-brand colour, functional cue */
   --verified-glow: rgba(31, 142, 108, .25);
 
-  /* type */
-  --f-display:    'Cormorant Garamond', 'Times New Roman', serif;
-  --f-sans:       'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Type — brand spec: GrandCentral display + Source Sans Variable body.
+     JetBrains Mono retained for receipt/COA monospace numerals. */
+  --f-display:    'GrandCentral', 'Cormorant Garamond', 'Times New Roman', serif;
+  --f-sans:       'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --f-mono:       'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* layout */
@@ -46,9 +67,9 @@
   --radius-sm:    12px;
 
   /* shadow */
-  --shadow-1:     0 1px 2px rgba(15,18,38,.04), 0 8px 28px rgba(15,18,38,.06);
-  --shadow-2:     0 1px 2px rgba(15,18,38,.06), 0 22px 60px rgba(15,18,38,.12);
-  --shadow-3:     0 1px 3px rgba(15,18,38,.08), 0 40px 100px rgba(15,18,38,.20);
+  --shadow-1:     0 1px 2px rgba(18,18,18,.04), 0 8px 28px rgba(18,18,18,.06);
+  --shadow-2:     0 1px 2px rgba(18,18,18,.06), 0 22px 60px rgba(18,18,18,.12);
+  --shadow-3:     0 1px 3px rgba(18,18,18,.08), 0 40px 100px rgba(18,18,18,.20);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -161,9 +182,11 @@ a{ color:inherit; text-decoration:none; }
   padding:88px var(--gutter) 96px;
   color:#fff;
   background:
-    radial-gradient(140% 100% at 0% 0%,   #2d3a6e 0%, transparent 55%),
-    radial-gradient(120% 80%  at 100% 100%,#14193a 0%, transparent 60%),
-    linear-gradient(180deg, #0a0d1f 0%, #06081a 100%);
+    /* Why: hero gradient resolves to brand-blue at the bottom — top-left lifts
+       with a tinted blue, anchor at #1E3E64 so screen ↔ packaging colour-match. */
+    radial-gradient(140% 100% at 0% 0%,   var(--ink-5) 0%, transparent 55%),
+    radial-gradient(120% 80%  at 100% 100%,var(--ink-3) 0%, transparent 60%),
+    linear-gradient(180deg, var(--brand-blue) 0%, var(--ink-1) 100%);
   overflow:hidden;
   isolation:isolate;
   display:grid;
@@ -290,15 +313,17 @@ a{ color:inherit; text-decoration:none; }
   /* Holographic foil — multi-stop linear gradient with outsized
      background-size; CSS animation drifts the position, JS layers on
      mouse-tracking via --foil-x/y custom properties. */
+  /* Why: foil stops are tints of brand-blue interleaved with white — keeps the
+     iridescent feel while every coloured stop traces back to brand-blue. */
   background:
     linear-gradient(115deg,
-      #c5cdec  0%,
+      #c1cce0  0%,
       #ffffff 14%,
-      #d9e0f5 28%,
+      #d4dde9 28%,
       #ffffff 42%,
-      #b5c5e8 56%,
+      #adc0d8 56%,
       #ffffff 70%,
-      #cfd6ee 84%,
+      var(--periwinkle) 84%,
       #ffffff 100%);
   background-size: 240% 240%;
   background-position: var(--foil-x, 30%) var(--foil-y, 30%);
@@ -473,7 +498,7 @@ a{ color:inherit; text-decoration:none; }
   top:0; left:0;
   width:3px; height:3px; border-radius:50%;
   background:rgba(255,255,255,.85);
-  box-shadow:0 0 5px rgba(207,214,238,.45);
+  box-shadow:0 0 5px rgba(184,197,219,.45);
   animation-duration:1.7s;
   animation-iteration-count:infinite;
   animation-timing-function:ease-in-out;
@@ -511,8 +536,8 @@ a{ color:inherit; text-decoration:none; }
   /* subtle paper texture: layered noise via gradients */
   content:""; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(60% 40% at 50% -10%, rgba(79,99,184,.07), transparent 60%),
-    linear-gradient(180deg, rgba(15,18,38,.02), transparent 30%);
+    radial-gradient(60% 40% at 50% -10%, rgba(30,62,100,.07), transparent 60%),
+    linear-gradient(180deg, rgba(18,18,18,.02), transparent 30%);
 }
 .coa__wrap{ position:relative; }
 
@@ -551,9 +576,9 @@ a{ color:inherit; text-decoration:none; }
   width:30%;
   background:linear-gradient(90deg,
     transparent 0%,
-    rgba(79,99,184,.10) 30%,
-    rgba(79,99,184,.18) 50%,
-    rgba(79,99,184,.10) 70%,
+    rgba(30,62,100,.10) 30%,
+    rgba(30,62,100,.18) 50%,
+    rgba(30,62,100,.10) 70%,
     transparent 100%);
   pointer-events:none;
   transform:skewX(-12deg);
@@ -822,7 +847,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .process__meta li::before{
   content:""; width:5px; height:5px; border-radius:50%; background:var(--indigo);
-  box-shadow:0 0 0 3px rgba(79,99,184,.12);
+  box-shadow:0 0 0 3px rgba(30,62,100,.12);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -855,7 +880,7 @@ a{ color:inherit; text-decoration:none; }
   content:"";
   position:absolute; inset:auto -40% -60% auto;
   width:60%; height:120%;
-  background:radial-gradient(circle at center, rgba(79,99,184,.10), transparent 60%);
+  background:radial-gradient(circle at center, rgba(30,62,100,.10), transparent 60%);
   z-index:-1;
   opacity:0;
   transition:opacity .4s ease;
@@ -870,10 +895,11 @@ a{ color:inherit; text-decoration:none; }
 .trust__icon{
   width:46px; height:46px;
   border-radius:12px;
-  background:linear-gradient(135deg, #f1f4fc 0%, #dde3f5 100%);
+  /* Why: pale brand-blue wash for trust icons — never grey, so cues read "lab" not "form" */
+  background:linear-gradient(135deg, #eef2f8 0%, #dbe3ef 100%);
   display:inline-flex; align-items:center; justify-content:center;
   color:var(--indigo-deep);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 1px 2px rgba(15,18,38,.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 1px 2px rgba(18,18,18,.04);
 }
 .trust__icon svg{ width:24px; height:24px; }
 .trust__card h3{
@@ -894,7 +920,8 @@ a{ color:inherit; text-decoration:none; }
    Specs — animated metric bars (dark band)
 ═══════════════════════════════════════════════════════════════════ */
 .specs{
-  background:linear-gradient(180deg, #0a0d1f 0%, #06081a 100%);
+  /* Specs band — brand-blue resolving to its darker shade (matches hero base) */
+  background:linear-gradient(180deg, var(--brand-blue) 0%, var(--ink-1) 100%);
   color:#fff;
   padding: clamp(64px, 12vw, 120px) 0;
   position:relative;
@@ -903,8 +930,8 @@ a{ color:inherit; text-decoration:none; }
 .specs::before{
   content:""; position:absolute; inset:0;
   background:
-    radial-gradient(60% 30% at 80% 20%, rgba(79,99,184,.18), transparent 60%),
-    radial-gradient(40% 30% at 0% 80%, rgba(79,99,184,.14), transparent 60%);
+    radial-gradient(60% 30% at 80% 20%, rgba(30,62,100,.18), transparent 60%),
+    radial-gradient(40% 30% at 0% 80%, rgba(30,62,100,.14), transparent 60%);
   pointer-events:none;
 }
 .specs__grid{
@@ -957,8 +984,8 @@ a{ color:inherit; text-decoration:none; }
   height:100%;
   width:0;
   border-radius:99px;
-  background:linear-gradient(90deg, #6c80d4, #a9b6e0);
-  box-shadow: 0 0 12px rgba(169,182,224,.45);
+  background:linear-gradient(90deg, var(--brand-blue), var(--periwinkle));
+  box-shadow: 0 0 12px rgba(143,164,194,.45);
   transition: width 1.4s cubic-bezier(.2,.7,.2,1) .2s;
 }
 .spec.is-in .spec__fill{ width: var(--w, 100%); }
@@ -993,7 +1020,8 @@ a{ color:inherit; text-decoration:none; }
    Contact (dark)
 ═══════════════════════════════════════════════════════════════════ */
 .contact{
-  background:linear-gradient(180deg, #06081a 0%, #03040d 100%);
+  /* Contact section — brand-blue → brand-black so the page bookends in palette */
+  background:linear-gradient(180deg, var(--brand-blue) 0%, var(--brand-black) 100%);
   color:#fff;
   padding: clamp(64px, 12vw, 120px) 0 clamp(64px, 10vw, 100px);
   position:relative;
@@ -1002,7 +1030,7 @@ a{ color:inherit; text-decoration:none; }
 .contact::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(60% 40% at 50% 0%, rgba(79,99,184,.18), transparent 60%);
+    radial-gradient(60% 40% at 50% 0%, rgba(30,62,100,.18), transparent 60%);
 }
 .contact__grid{
   display:grid; gap:14px;
@@ -1061,8 +1089,8 @@ a{ color:inherit; text-decoration:none; }
    Footer
 ═══════════════════════════════════════════════════════════════════ */
 .footer{
-  background:#03040d;
-  color:#9ba6c8;
+  background:var(--brand-black);
+  color:#9ea1a8;                     /* tint of brand-grey */
   padding:48px 0 36px;
   border-top:1px solid rgba(255,255,255,.05);
 }
@@ -1083,7 +1111,7 @@ a{ color:inherit; text-decoration:none; }
   margin:0 0 12px;
   font-size:.78rem;
   line-height:1.7;
-  color:#7c87a8;
+  color:#86888d;
 }
 .disclaimer p:last-child{ margin-bottom:0; }
 .disclaimer strong{ color:var(--periwinkle); font-weight:500; }
@@ -1098,7 +1126,7 @@ a{ color:inherit; text-decoration:none; }
   font-size:.7rem;
   letter-spacing:.18em;
   text-transform:uppercase;
-  color:#7c87a8;
+  color:#86888d;
   overflow:hidden;
 }
 .ledger__pulse{
@@ -1108,7 +1136,7 @@ a{ color:inherit; text-decoration:none; }
   box-shadow:0 0 0 0 rgba(31,142,108,.6);
   animation: pillPulse 2.4s ease-out infinite;
 }
-.ledger__sep{ color:#3d456d; }
+.ledger__sep{ color:#3a3d44; }       /* shade of brand-grey for separator dots */
 
 .footer__base{
   display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center;
@@ -1116,11 +1144,11 @@ a{ color:inherit; text-decoration:none; }
   font-size:.7rem;
   letter-spacing:.18em;
   text-transform:uppercase;
-  color:#5b6385;
+  color:#6a6c71;
   padding-top:14px;
   border-top:1px solid rgba(255,255,255,.04);
 }
-.footer__base__right{ color:#5b6385; }
+.footer__base__right{ color:#6a6c71; }
 
 /* ═══════════════════════════════════════════════════════════════════
    Reduced motion
@@ -1133,6 +1161,6 @@ a{ color:inherit; text-decoration:none; }
   }
   .boot{ display:none !important; }
   #molecular{ display:none; }
-  .hero{ background:linear-gradient(160deg,#1a2547,#06081a); }
+  .hero{ background:linear-gradient(160deg, var(--brand-blue), var(--ink-1)); }
   .reveal{ opacity:1 !important; transform:none !important; }
 }

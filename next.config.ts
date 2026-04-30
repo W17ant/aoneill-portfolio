@@ -27,8 +27,6 @@ const nextConfig: NextConfig = {
       { source: '/tomthevacuumman/',  destination: '/tomthevacuumman/index.html' },
       { source: '/renovaelabs',       destination: '/renovaelabs/index.html' },
       { source: '/renovaelabs/',      destination: '/renovaelabs/index.html' },
-      { source: '/renovaelabs-dark',  destination: '/renovaelabs-dark/index.html' },
-      { source: '/renovaelabs-dark/', destination: '/renovaelabs-dark/index.html' },
     ];
   },
 };

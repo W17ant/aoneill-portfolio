@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#0a0d1f" media="(prefers-color-scheme: dark)" />
-<meta name="theme-color" content="#0a0d1f" />
+<meta name="theme-color" content="#1E3E64" media="(prefers-color-scheme: dark)" />
+<meta name="theme-color" content="#1E3E64" />
 <meta name="color-scheme" content="light" />
 <meta name="format-detection" content="telephone=no" />
 <title>Renovae Labs — Authenticity Verified</title>
@@ -28,11 +28,14 @@
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 
-<!-- Why: preload display + body fonts so the wordmark doesn't FOIT -->
+<!-- Why: brand spec calls for GrandCentral (display) + Source Sans Variable (body).
+     GrandCentral is a licensed face — declared first in the family stack so the
+     local font wins when present, and Cormorant Garamond covers as a neoclassical
+     fallback. JetBrains Mono retained for the receipt/COA monospace numerals. -->
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Source+Sans+3:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
