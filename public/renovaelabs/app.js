@@ -363,7 +363,7 @@
         const fade = 1 - dist/LINK_DIST;
         const depth = (a.s + b.s) * 0.5;
         const alpha = fade * 0.35 * depth;
-        ctx.strokeStyle = `rgba(207,214,238,${alpha})`;
+        ctx.strokeStyle = `rgba(184,197,219,${alpha})`;
         ctx.lineWidth = 0.6 * depth;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
@@ -384,8 +384,8 @@
         const haloR = r * (p.hub ? 9 : 5);
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, haloR);
         const haloIntensity = (p.hub ? 0.32 : 0.22) * p.s;
-        grad.addColorStop(0, `rgba(207,214,238,${haloIntensity})`);
-        grad.addColorStop(1, 'rgba(207,214,238,0)');
+        grad.addColorStop(0, `rgba(184,197,219,${haloIntensity})`);
+        grad.addColorStop(1, 'rgba(184,197,219,0)');
         ctx.fillStyle = grad;
         ctx.beginPath();
         ctx.arc(p.x, p.y, haloR, 0, Math.PI*2);
