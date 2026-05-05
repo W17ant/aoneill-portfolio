@@ -95,13 +95,43 @@
       </span>
     </h1>
 
-    <p class="hero__lede">
-      You scanned a sealed Renovae Labs unit.<br/>
-      <strong>This product is genuine.</strong>
+    <p class="hero__lede" data-lede>
+      <span class="hero__lede__prompt">You scanned a sealed Renovae Labs unit.<br/>
+        <strong>Enter the unit code to confirm authenticity.</strong></span>
+      <span class="hero__lede__confirmed">You scanned a sealed Renovae Labs unit.<br/>
+        <strong>This product is genuine.</strong></span>
     </p>
 
     <div class="hero__verify">
-      <div class="verify-stamp">
+      <!-- Why: code-entry gate — verification animation only fires on a
+           valid unit code. Demo accepts ABC123. Production will pull from
+           an admin-uploaded list (XLSX/CSV → backend table). -->
+      <form class="code-entry" id="code-entry" novalidate>
+        <label class="code-entry__label" for="code-input">Unit code</label>
+        <div class="code-entry__row">
+          <input
+            id="code-input"
+            class="code-entry__input mono"
+            type="text"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            maxlength="24"
+            placeholder="e.g. ABC123"
+            aria-describedby="code-entry-hint"
+          />
+          <button class="code-entry__btn" type="submit">
+            <span class="code-entry__btn__label">Verify</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"/><path d="m13 5 7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+        <span id="code-entry-hint" class="code-entry__hint">Printed on the inside of your unit's label.</span>
+      </form>
+
+      <div class="verify-stamp" hidden>
         <svg viewBox="0 0 100 100" width="58" height="58" aria-hidden="true">
           <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".4"/>
           <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width=".8" stroke-dasharray="3 5" opacity=".55"/>
@@ -508,6 +538,56 @@
     </div>
   </div>
 </footer>
+
+<!-- ═════════════════════════════════════════════════════════════════
+     COUNTERFEIT MODAL — shown when an entered code is not on the
+     authenticated list. Hidden by default; revealed via .is-open on
+     <body> from app.js.
+═════════════════════════════════════════════════════════════════ -->
+<div class="cf-modal" id="cf-modal" role="dialog" aria-modal="true" aria-labelledby="cf-modal-title" aria-hidden="true">
+  <div class="cf-modal__backdrop" data-cf-close></div>
+  <div class="cf-modal__panel" role="document">
+    <button class="cf-modal__close" type="button" aria-label="Close" data-cf-close>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 6l12 12"/><path d="M18 6L6 18"/>
+      </svg>
+    </button>
+
+    <div class="cf-modal__badge">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 9v4"/><path d="M12 17h.01"/>
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+      </svg>
+      Product Safety Notice
+    </div>
+
+    <h2 class="cf-modal__title" id="cf-modal-title">Counterfeit Renovae Labs Warning</h2>
+
+    <p class="cf-modal__body">
+      The code <span class="cf-modal__code mono" id="cf-modal-code">—</span> is
+      <strong>not present</strong> in our authenticated unit register.
+    </p>
+    <p class="cf-modal__body">
+      Counterfeit copies of Renovae Labs products have been observed in
+      circulation. These are not produced by us and have not been through
+      our synthesis, verification, or sealing chain — their contents,
+      purity, and safety are unknown.
+    </p>
+    <p class="cf-modal__body cf-modal__body--em">
+      <strong>Do not use this product.</strong> Please contact us through
+      the official channels below so we can investigate the source.
+    </p>
+
+    <div class="cf-modal__actions">
+      <a class="cf-modal__cta cf-modal__cta--primary" href="mailto:info@renovaelabs.com?subject=Suspected%20counterfeit%20Renovae%20Labs%20product">
+        Report to Renovae Labs
+      </a>
+      <button class="cf-modal__cta cf-modal__cta--ghost" type="button" data-cf-close>
+        Try another code
+      </button>
+    </div>
+  </div>
+</div>
 
 <script src="app.js" defer></script>
 </body>
