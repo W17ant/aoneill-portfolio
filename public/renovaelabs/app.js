@@ -142,21 +142,128 @@
   }
 
   // ─────────────────────────────────────────────────────────────────
-  // 4b. Verify stamp — random-jitter checking → confirmed flip
-  //     Why: a fixed 1.25s delay every visit feels canned. Real auth
-  //     systems take a slightly different time each request. Adding
-  //     200–500ms of jitter on top of an 850ms base delay gives the
-  //     stamp a "real verification just happened" feel.
+  // 4b. Code-entry gate + verify stamp
+  //     Why: verification animation only fires after a unit code is
+  //     submitted and matched against the authenticated register. Demo
+  //     accepts ABC123. Production: this Set is replaced by a fetch
+  //     against an admin-managed list (XLSX/CSV upload → backend).
+  //
+  //     A fixed 1.25s delay every visit feels canned, so we add
+  //     200–500ms of jitter on top of an 850ms base — reads as a real
+  //     check, not a pre-baked animation.
   // ─────────────────────────────────────────────────────────────────
+  const VALID_CODES = new Set(['ABC123']);
+  const isValidCode = (code) => VALID_CODES.has(code.trim().toUpperCase());
+
   const verifyStamp = document.querySelector('.verify-stamp');
-  if (verifyStamp){
+  const codeForm    = document.getElementById('code-entry');
+  const codeInput   = document.getElementById('code-input');
+  const cfModal     = document.getElementById('cf-modal');
+  const cfCodeOut   = document.getElementById('cf-modal-code');
+
+  function runStampAnimation(){
+    if (!verifyStamp) return;
+    verifyStamp.hidden = false;
     if (reducedMotion){
       verifyStamp.classList.add('is-confirmed');
-    } else {
-      const base   = 850;
-      const jitter = 200 + Math.random() * 300;
-      setTimeout(() => verifyStamp.classList.add('is-confirmed'), base + jitter);
+      return;
     }
+    const base   = 850;
+    const jitter = 200 + Math.random() * 300;
+    setTimeout(() => verifyStamp.classList.add('is-confirmed'), base + jitter);
+  }
+
+  function passVerification(code){
+    document.body.classList.add('is-verified');
+    // Bind real entered code + actual verify timestamp into the COA
+    const verifiedAt = new Date();
+    setText('#coa-batch',     code);
+    setText('[data-batch-short]', code);
+    setText('#coa-lot',       `L-${code.replace(/[^A-Z0-9]/g,'').slice(-6).padStart(6,'0')}`);
+    setText('#coa-verified',  fmtDateTime(verifiedAt));
+    setText('#footer-time',   fmtDateTime(verifiedAt));
+    if (codeForm){
+      codeForm.classList.add('is-hidden');
+      // Why: keep the form in the DOM during the fade — remove after the
+      // CSS transition completes so the verify-stamp owns the row.
+      setTimeout(() => { codeForm.remove(); }, 600);
+    }
+    runStampAnimation();
+  }
+
+  function failVerification(code){
+    if (cfCodeOut) cfCodeOut.textContent = code || '—';
+    if (codeForm){
+      codeForm.classList.remove('is-error');
+      // Restart the shake animation by forcing a reflow
+      void codeForm.offsetWidth;
+      codeForm.classList.add('is-error');
+    }
+    openCfModal();
+  }
+
+  function openCfModal(){
+    if (!cfModal) return;
+    document.body.classList.add('cf-open');
+    cfModal.setAttribute('aria-hidden', 'false');
+    // Move focus into the modal for keyboard users
+    const focusTarget = cfModal.querySelector('.cf-modal__cta--primary');
+    if (focusTarget) focusTarget.focus();
+  }
+  function closeCfModal(){
+    if (!cfModal) return;
+    document.body.classList.remove('cf-open');
+    cfModal.setAttribute('aria-hidden', 'true');
+    if (codeInput){
+      codeInput.focus();
+      codeInput.select();
+    }
+  }
+
+  if (codeForm && codeInput){
+    codeForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const raw = codeInput.value.trim();
+      if (!raw) return;
+      const normalized = raw.toUpperCase();
+      if (isValidCode(normalized)){
+        passVerification(normalized);
+      } else {
+        failVerification(normalized);
+      }
+    });
+    // Why: clear the error state as soon as the user starts editing
+    codeInput.addEventListener('input', () => {
+      codeForm.classList.remove('is-error');
+    });
+  }
+
+  if (cfModal){
+    cfModal.querySelectorAll('[data-cf-close]').forEach(el => {
+      el.addEventListener('click', closeCfModal);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.body.classList.contains('cf-open')){
+        closeCfModal();
+      }
+    });
+  }
+
+  // Why: a QR-encoded URL like ?b=ABC123 should pre-fill and auto-verify
+  // — that's the whole point of the unit-bound QR. URL params still go
+  // through the same valid/invalid path so a counterfeit QR (?b=BADCODE)
+  // triggers the modal automatically.
+  if (rawBatch){
+    const incoming = batch || rawBatch.toUpperCase();
+    if (codeInput) codeInput.value = incoming;
+    // Defer slightly so the page paints before the animation kicks
+    setTimeout(() => {
+      if (isValidCode(incoming)){
+        passVerification(incoming);
+      } else {
+        failVerification(incoming);
+      }
+    }, 350);
   }
 
   // ─────────────────────────────────────────────────────────────────

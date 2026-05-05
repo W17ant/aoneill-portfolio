@@ -1188,3 +1188,288 @@ a{ color:inherit; text-decoration:none; }
   .hero{ background:linear-gradient(160deg, var(--brand-blue), var(--ink-1)); }
   .reveal{ opacity:1 !important; transform:none !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Code-entry gate
+   Why: hero verification is gated behind a unique unit code. Pre-verify
+   the page shows the input; the verify-stamp + COA + lede confirmation
+   only appear after a valid code is submitted.
+═══════════════════════════════════════════════════════════════════ */
+
+/* Lede has two states — prompt before verify, confirmation after */
+.hero__lede__confirmed{ display:none; }
+body.is-verified .hero__lede__prompt{ display:none; }
+body.is-verified .hero__lede__confirmed{ display:inline; }
+
+/* Hide the certificate section + final ledger until verified.
+   Why: showing batch numbers and a verified-stamp footer before a code
+   is entered would defeat the gate. */
+body:not(.is-verified) #certificate{ display:none; }
+body:not(.is-verified) .ledger{ visibility:hidden; }
+
+.code-entry{
+  /* Inherit hero__verify entry animation timing — see .hero__verify above */
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  width:min(440px, 100%);
+  text-align:left;
+}
+.code-entry__label{
+  font-family:var(--f-mono);
+  font-size:.66rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--periwinkle);
+  padding-left:4px;
+}
+.code-entry__row{
+  display:flex;
+  align-items:stretch;
+  gap:8px;
+  width:100%;
+  padding:6px;
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.10);
+  transition:border-color .25s ease, box-shadow .25s ease;
+}
+.code-entry__row:focus-within{
+  border-color:rgba(184,197,219,.55);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.14),
+              0 0 0 4px rgba(184,197,219,.12);
+}
+.code-entry__input{
+  flex:1 1 auto;
+  min-width:0;
+  background:transparent;
+  border:0;
+  outline:0;
+  padding:10px 14px;
+  color:#fff;
+  font-size:1.05rem;
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.code-entry__input::placeholder{
+  color:rgba(184,197,219,.55);
+  text-transform:none;
+  letter-spacing:.02em;
+  font-weight:400;
+}
+.code-entry__btn{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 18px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(180deg, #fff 0%, #e7ebf2 100%);
+  color:var(--brand-blue);
+  font-family:var(--f-sans);
+  font-size:.92rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:transform .15s ease, box-shadow .25s ease, opacity .2s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,.25);
+}
+.code-entry__btn:hover{ transform:translateY(-1px); }
+.code-entry__btn:active{ transform:translateY(0); }
+.code-entry__btn[disabled]{ opacity:.5; cursor:not-allowed; transform:none; }
+.code-entry__btn svg{ stroke:currentColor; }
+.code-entry__hint{
+  font-family:var(--f-sans);
+  font-size:.78rem;
+  color:rgba(184,197,219,.7);
+  padding-left:14px;
+}
+.code-entry.is-error .code-entry__row{
+  border-color:rgba(231, 80, 75, .65);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.14),
+              0 0 0 4px rgba(231, 80, 75, .14);
+  animation: codeShake .45s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes codeShake{
+  10%, 90%   { transform: translateX(-1px); }
+  20%, 80%   { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-4px); }
+  40%, 60%   { transform: translateX(4px); }
+}
+
+/* When the code passes — fade the form out, swap in the stamp */
+.code-entry.is-hidden{
+  opacity:0;
+  pointer-events:none;
+  max-height:0;
+  margin:0;
+  overflow:hidden;
+  transition: opacity .35s ease, max-height .45s ease .05s, margin .45s ease .05s;
+}
+.verify-stamp{
+  animation: stampReveal .55s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes stampReveal{
+  from{ opacity:0; transform:translateY(8px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Counterfeit modal
+   Why: hard, unmistakable signal that the code did not authenticate.
+   Red badge + product safety notice — no ambiguity for the end user.
+═══════════════════════════════════════════════════════════════════ */
+.cf-modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  pointer-events:none;
+  opacity:0;
+  transition: opacity .25s ease;
+}
+body.cf-open .cf-modal{
+  opacity:1;
+  pointer-events:auto;
+}
+body.cf-open{ overflow:hidden; }
+
+.cf-modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(7, 16, 28, .72);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.cf-modal__panel{
+  position:relative;
+  width:min(560px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow:auto;
+  background:var(--paper-card);
+  border-radius:var(--radius);
+  padding:36px 32px 28px;
+  box-shadow: var(--shadow-3);
+  border:1px solid var(--hairline);
+  transform: translateY(12px) scale(.98);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+}
+body.cf-open .cf-modal__panel{
+  transform: translateY(0) scale(1);
+}
+.cf-modal__close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:36px;
+  height:36px;
+  border:0;
+  border-radius:999px;
+  background:transparent;
+  color:var(--ink-soft);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .2s ease;
+}
+.cf-modal__close:hover{ background:var(--paper-2); }
+
+.cf-modal__badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:#c52e2a;
+  color:#fff;
+  font-family:var(--f-sans);
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+  box-shadow:0 8px 24px rgba(197, 46, 42, .35);
+}
+.cf-modal__title{
+  font-family:var(--f-display);
+  font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+  line-height:1.05;
+  font-weight:600;
+  color:var(--ink);
+  margin:0 0 14px;
+  letter-spacing:-.01em;
+}
+.cf-modal__body{
+  font-size:.98rem;
+  color:var(--ink-soft);
+  margin:0 0 12px;
+  line-height:1.55;
+}
+.cf-modal__body--em{
+  background:linear-gradient(180deg, #fff5f4 0%, #fdeae9 100%);
+  border:1px solid rgba(197, 46, 42, .25);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  color:#7a1d1a;
+}
+.cf-modal__code{
+  display:inline-block;
+  padding:2px 8px;
+  background:var(--paper-2);
+  border:1px solid var(--hairline-2);
+  border-radius:6px;
+  font-size:.92rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.cf-modal__actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+.cf-modal__cta{
+  flex:1 1 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 20px;
+  border-radius:999px;
+  font-family:var(--f-sans);
+  font-size:.95rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  text-decoration:none;
+  cursor:pointer;
+  transition: transform .15s ease, box-shadow .25s ease, background .2s ease;
+  border:1px solid transparent;
+}
+.cf-modal__cta--primary{
+  background:var(--brand-blue);
+  color:#fff;
+  box-shadow:0 8px 24px rgba(30, 62, 100, .25);
+}
+.cf-modal__cta--primary:hover{ transform:translateY(-1px); }
+.cf-modal__cta--ghost{
+  background:transparent;
+  color:var(--ink);
+  border-color:var(--hairline-2);
+}
+.cf-modal__cta--ghost:hover{ background:var(--paper-2); }
+
+@media (max-width:520px){
+  .cf-modal__panel{ padding:32px 22px 24px; }
+  .cf-modal__actions{ flex-direction:column; }
+  .cf-modal__cta{ flex:1 0 auto; }
+}
