@@ -15,7 +15,7 @@
   --cream-deep:   #E2CFB0;
   --ink:          #1A1612;
   --ink-soft:     #3A3229;
-  --ink-quiet:    #6E6458;
+  --ink-quiet:    #5F5648;  /* Why: AA contrast on --cream-warm at 11px (was #6E6458 → 4.32:1, fails 1.4.3). 5F5648 → 5.35:1 on cream-warm, 5.92:1 on cream. */
   --brass:        #C9922B;
   --brass-deep:   #9B6E1D;
   --duck:         #9EB7B0;
@@ -45,7 +45,10 @@
 
 /* ---------- RESET ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; color-scheme: light; }
+/* Why: ribbon is position:sticky; without scroll-margin, anchor-jump targets land
+   under the ribbon (WCAG 2.2 SC 2.4.11 Focus Not Obscured). 72px ≈ ribbon height + breathing room. */
+:where(section[id], h1, h2, h3, [id]:target) { scroll-margin-top: 72px; }
 body, h1, h2, h3, h4, p, ul, ol, li, dl, dt, dd, figure, blockquote { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 img, svg { display: block; max-width: 100%; height: auto; }
@@ -57,9 +60,16 @@ input, textarea, select, button { font: inherit; color: inherit; }
 /* Visually hidden until focused — gives keyboard users a way to bypass the
    ribbon and masthead and jump straight to #top. */
 .skip-link {
+  /* Why: clip-path pattern (vs left:-9999px) avoids extending document scroll
+     width and works under RTL. */
   position: absolute;
-  left: -9999px;
-  top: 0;
+  top: 8px;
+  left: 8px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
   background: var(--ink);
   color: var(--cream);
   padding: 10px 16px;
@@ -71,8 +81,9 @@ input, textarea, select, button { font: inherit; color: inherit; }
   z-index: 1000;
 }
 .skip-link:focus {
-  left: 8px;
-  top: 8px;
+  width: auto;
+  height: auto;
+  clip-path: none;
   outline: 2px solid var(--brass);
   outline-offset: 2px;
 }
@@ -270,9 +281,12 @@ section {
 }
 .masthead__nav a:not(.nav__cta):hover::after { right: 0; }
 .nav__cta {
+  display: inline-flex;
+  align-items: center;
   background: var(--claret);
   color: var(--cream) !important;
   padding: 10px 16px;
+  min-height: 44px; /* Why: matches .btn touch-target floor (Apple HIG / WCAG 2.5.5 AAA). */
   border-radius: var(--r-2);
   letter-spacing: 0.16em;
   transition: background 180ms ease, transform 180ms ease;
