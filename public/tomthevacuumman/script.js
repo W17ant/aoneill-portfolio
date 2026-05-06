@@ -49,6 +49,9 @@
   }
 
   // --- Smooth scroll for in-page anchors -------------------------------
+  // Why: focus the section's heading (not the section itself) so screen readers
+  // announce the destination context, not the bare landmark. Tabindex is set
+  // once on first activation to avoid mutating the DOM on every click.
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href').slice(1);
@@ -60,9 +63,11 @@
         behavior: prefersReducedMotion ? 'auto' : 'smooth',
         block: 'start'
       });
-      // Move focus to the target for keyboard/screen-reader users
-      target.setAttribute('tabindex', '-1');
-      target.focus({ preventScroll: true });
+      const focusTarget = target.querySelector('h1, h2, h3') || target;
+      if (!focusTarget.hasAttribute('tabindex')) {
+        focusTarget.setAttribute('tabindex', '-1');
+      }
+      focusTarget.focus({ preventScroll: true });
     });
   });
 
