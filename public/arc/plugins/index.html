@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><title>Plugin authoring · Jarvis docs</title><!-- Canonical URL — keeps SEO tidy if a page is reachable via multiple
+         routes (e.g. trailing slash variants on Pages / Vercel). --><link rel="canonical" href="https://aoneill.co.uk/arc/plugins/"><!-- Favicons. SVG is the master; PNG fallback for browsers that don't
+         render SVG favicons (older Safari versions on iOS, some embedded
+         WebViews). The 32× size is what most browsers actually render. --><link rel="icon" type="image/svg+xml" href="/arc/favicon.svg"><link rel="apple-touch-icon" href="/arc/og-card.png"><!-- OpenGraph (Facebook, LinkedIn, Slack unfurls, Discord, generic) --><meta property="og:site_name" content="Jarvis"><meta property="og:type" content="website"><meta property="og:title" content="Plugin authoring · Jarvis docs"><meta property="og:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta property="og:url" content="https://aoneill.co.uk/arc/plugins/"><meta property="og:image" content="https://aoneill.co.uk/arc/og-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jarvis — voice-first AI assistant with an instrument-cluster HUD"><meta property="og:locale" content="en_GB"><!-- Twitter / X large card. summary_large_image gives the wide
+         hero treatment instead of the cramped square thumbnail. --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@w17ant"><meta name="twitter:creator" content="@w17ant"><meta name="twitter:title" content="Plugin authoring · Jarvis docs"><meta name="twitter:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta name="twitter:image" content="https://aoneill.co.uk/arc/og-card.png"><!-- Theme colour for mobile browser chrome (Safari address bar tint,
+         Chrome on Android status bar). Matches the kiosk's --accent-deep. --><meta name="theme-color" content="#0077a8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/arc/styles.css"></head> <body> <header class="topbar"> <a class="topbar__brand" href="/arc/"> <span class="topbar__brand-primary">JARVIS</span> <span class="topbar__brand-suffix">DOCS</span> </a> <nav class="topbar__links" aria-label="Primary"> <a href="https://github.com/W17ANT/Jarvis" target="_blank" rel="noopener">GitHub</a> <a href="/arc/quickstart">Get started</a> </nav> </header> <div class="page"> <aside class="sidenav" aria-label="Documentation sections"> <ol> <li> <a href="/arc/" class="sidenav__link"> Home </a> </li><li> <a href="/arc/quickstart" class="sidenav__link"> Quickstart </a> </li><li> <a href="/arc/install-clients" class="sidenav__link"> White-label install </a> </li><li> <a href="/arc/tool-reference" class="sidenav__link"> Tool reference </a> </li><li> <a href="/arc/plugins" class="sidenav__link sidenav__link--active"> Plugin authoring </a> </li><li> <a href="/arc/privacy" class="sidenav__link"> Privacy </a> </li><li> <a href="/arc/troubleshooting" class="sidenav__link"> Troubleshooting </a> </li> </ol> </aside> <main class="prose"> <h1 id="authoring-a-jarvis-plugin">Authoring a Jarvis plugin</h1>
+<p>Drop a directory into <code>bridge/plugins/&#x3C;name>/</code> with a manifest and a handler. The bridge picks it up at boot, hot-reloads on file edits, and registers your tools alongside the built-in 60-tool catalogue. Plugin tools are auto-exposed via the MCP server too — Claude Desktop / Cursor / Continue see them automatically.</p>
+<h2 id="file-layout">File layout</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>bridge/plugins/my-plugin/</span></span>
+<span class="line"><span>├── manifest.json     # tool schemas + handler path + env requirements</span></span>
+<span class="line"><span>├── handler.mjs       # default async function (toolName, args, ctx) => result</span></span>
+<span class="line"><span>└── README.md         # optional — what your plugin does, how to use it</span></span></code></pre>
+<h2 id="manifest">Manifest</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E6EDF3">{</span></span>
+<span class="line"><span style="color:#7EE787">  "name"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"my-plugin"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">  "version"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"1.0.0"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">  "description"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"One-line summary of what this plugin does."</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">  "tools"</span><span style="color:#E6EDF3">: [</span></span>
+<span class="line"><span style="color:#E6EDF3">    {</span></span>
+<span class="line"><span style="color:#7EE787">      "name"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"my_tool"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">      "description"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"What the LLM should know about when to call this. Be specific — this is what the embedding tool-router matches against."</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">      "parameters"</span><span style="color:#E6EDF3">: {</span></span>
+<span class="line"><span style="color:#7EE787">        "type"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"object"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">        "properties"</span><span style="color:#E6EDF3">: {</span></span>
+<span class="line"><span style="color:#7EE787">          "query"</span><span style="color:#E6EDF3">: { </span><span style="color:#7EE787">"type"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"string"</span><span style="color:#E6EDF3">, </span><span style="color:#7EE787">"description"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"Required input."</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#7EE787">          "limit"</span><span style="color:#E6EDF3">: { </span><span style="color:#7EE787">"type"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"integer"</span><span style="color:#E6EDF3">, </span><span style="color:#7EE787">"description"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"Optional max results."</span><span style="color:#E6EDF3"> }</span></span>
+<span class="line"><span style="color:#E6EDF3">        },</span></span>
+<span class="line"><span style="color:#7EE787">        "required"</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">"query"</span><span style="color:#E6EDF3">]</span></span>
+<span class="line"><span style="color:#E6EDF3">      }</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  ],</span></span>
+<span class="line"><span style="color:#7EE787">  "env"</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">"MY_API_KEY"</span><span style="color:#E6EDF3">],</span></span>
+<span class="line"><span style="color:#7EE787">  "handler"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"./handler.mjs"</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#7EE787">  "confirmation"</span><span style="color:#E6EDF3">: {</span></span>
+<span class="line"><span style="color:#7EE787">    "my_tool"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"About to call my_tool with query </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">{query}</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">. Confirm?"</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+<h3 id="field-reference">Field reference</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead><tbody><tr><td><code>name</code></td><td>yes</td><td>Alphanumeric + hyphen, 2-41 chars. Must match the directory name.</td></tr><tr><td><code>version</code></td><td>recommended</td><td>Semver string. Surfaced in <code>/health/plugins</code>.</td></tr><tr><td><code>description</code></td><td>yes</td><td>One-line plugin summary.</td></tr><tr><td><code>tools</code></td><td>yes</td><td>Array of <code>{ name, description, parameters }</code>. The shape matches the OpenAI function-calling schema.</td></tr><tr><td><code>env</code></td><td>optional</td><td>Array of env var names that MUST be set (in <code>.env</code>) for the plugin to load. Plugin is skipped at boot if any are missing — the bridge logs a hint.</td></tr><tr><td><code>handler</code></td><td>yes</td><td>Path to the handler module, relative to the plugin directory.</td></tr><tr><td><code>confirmation</code></td><td>optional</td><td>Map of <code>toolName</code> → template string. When present, the operator must confirm before the tool runs. Placeholders <code>{key}</code> are substituted from the args at runtime. Supports dotted paths (<code>{user.email}</code>).</td></tr></tbody></table>
+<h3 id="tool-naming-rules">Tool naming rules</h3>
+<ul>
+<li><code>name</code> must be lowercase alphanumeric + underscore: <code>my_tool</code>, <code>fetch_weather</code>, <code>send_to_slack</code>.</li>
+<li>It must NOT collide with any built-in tool name. Check <code>/health</code> <code>toolCount</code> before vs after — if your plugin’s tool clashes, the most-recently-registered wins, but the surprise is yours.</li>
+<li>Pick descriptive names. The embedding tool-router uses <code>name + description</code> as the search corpus when matching the operator’s voice query to a tool.</li>
+</ul>
+<h2 id="handler">Handler</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#8B949E">// bridge/plugins/my-plugin/handler.mjs</span></span>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#FF7B72"> default</span><span style="color:#FF7B72"> async</span><span style="color:#FF7B72"> function</span><span style="color:#D2A8FF"> handle</span><span style="color:#FFA657">(toolName, args, ctx) </span><span style="color:#E6EDF3">{</span></span>
+<span class="line"><span style="color:#FF7B72">  if</span><span style="color:#E6EDF3"> (toolName </span><span style="color:#FF7B72">===</span><span style="color:#A5D6FF"> "my_tool"</span><span style="color:#E6EDF3">) {</span></span>
+<span class="line"><span style="color:#FF7B72">    const</span><span style="color:#79C0FF"> r</span><span style="color:#FF7B72"> =</span><span style="color:#FF7B72"> await</span><span style="color:#D2A8FF"> fetch</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">`https://api.example.com/?q=${</span><span style="color:#D2A8FF">encodeURIComponent</span><span style="color:#A5D6FF">(</span><span style="color:#E6EDF3">args</span><span style="color:#A5D6FF">.</span><span style="color:#E6EDF3">query</span><span style="color:#A5D6FF">)</span><span style="color:#A5D6FF">}`</span><span style="color:#E6EDF3">, {</span></span>
+<span class="line"><span style="color:#E6EDF3">      headers: { Authorization: </span><span style="color:#A5D6FF">`Bearer ${</span><span style="color:#E6EDF3">process</span><span style="color:#A5D6FF">.</span><span style="color:#E6EDF3">env</span><span style="color:#A5D6FF">.</span><span style="color:#79C0FF">MY_API_KEY</span><span style="color:#A5D6FF">}`</span><span style="color:#E6EDF3"> },</span></span>
+<span class="line"><span style="color:#E6EDF3">    });</span></span>
+<span class="line"><span style="color:#FF7B72">    if</span><span style="color:#E6EDF3"> (</span><span style="color:#FF7B72">!</span><span style="color:#E6EDF3">r.ok) </span><span style="color:#FF7B72">return</span><span style="color:#E6EDF3"> { error: </span><span style="color:#A5D6FF">`upstream ${</span><span style="color:#E6EDF3">r</span><span style="color:#A5D6FF">.</span><span style="color:#E6EDF3">status</span><span style="color:#A5D6FF">}`</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#FF7B72">    const</span><span style="color:#79C0FF"> data</span><span style="color:#FF7B72"> =</span><span style="color:#FF7B72"> await</span><span style="color:#E6EDF3"> r.</span><span style="color:#D2A8FF">json</span><span style="color:#E6EDF3">();</span></span>
+<span class="line"><span style="color:#8B949E">    /* The LLM reads the returned object and uses it to compose a reply.</span></span>
+<span class="line"><span style="color:#8B949E">     * Include a `summary` field if you want a TTS-friendly plain-English</span></span>
+<span class="line"><span style="color:#8B949E">     * line the assistant can read aloud verbatim. */</span></span>
+<span class="line"><span style="color:#FF7B72">    return</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">      ok: </span><span style="color:#79C0FF">true</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">      results: data.items.</span><span style="color:#D2A8FF">slice</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">, args.limit </span><span style="color:#FF7B72">||</span><span style="color:#79C0FF"> 10</span><span style="color:#E6EDF3">),</span></span>
+<span class="line"><span style="color:#E6EDF3">      summary: </span><span style="color:#A5D6FF">`Found ${</span><span style="color:#E6EDF3">data</span><span style="color:#A5D6FF">.</span><span style="color:#E6EDF3">items</span><span style="color:#A5D6FF">.</span><span style="color:#79C0FF">length</span><span style="color:#A5D6FF">} matches for "${</span><span style="color:#E6EDF3">args</span><span style="color:#A5D6FF">.</span><span style="color:#E6EDF3">query</span><span style="color:#A5D6FF">}".`</span><span style="color:#E6EDF3">,</span></span>
+<span class="line"><span style="color:#E6EDF3">    };</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#FF7B72">  return</span><span style="color:#E6EDF3"> { error: </span><span style="color:#A5D6FF">`unknown tool: ${</span><span style="color:#E6EDF3">toolName</span><span style="color:#A5D6FF">}`</span><span style="color:#E6EDF3"> };</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+<p>The handler module’s default export must be an async function with the signature <code>(toolName, args, ctx) => result</code>.</p>
+<h3 id="the-ctx-object">The <code>ctx</code> object</h3>
+<p>Plugins receive a context object with safe primitives:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th><code>ctx.*</code></th><th>Use for</th></tr></thead><tbody><tr><td><code>ctx.log(...args)</code></td><td>Console logging that prefixes <code>[plugin]</code> for clarity.</td></tr><tr><td><code>ctx.broadcastToClients({ type, data })</code></td><td>Push a WebSocket event to the HUD (e.g. progress updates, notifications).</td></tr><tr><td><code>ctx.memory</code></td><td>The <code>bridge/memory.mjs</code> module — <code>recall</code>, <code>saveFact</code>, <code>searchFacts</code>, etc. Plugins can persist facts across sessions.</td></tr><tr><td><code>ctx.executeTool(name, args)</code></td><td>Invoke any other registered tool — built-in or plugin. Confirmation + audit gates apply transparently.</td></tr></tbody></table>
+<p>What you DON’T get: a sandboxed <code>fs</code> / <code>http</code> / <code>child_process</code>. Plugins run in the same Node.js process as the bridge. Use Node’s standard APIs directly when needed; trust model is “operator owns the filesystem, plugins they drop in are trusted.”</p>
+<h2 id="hot-reload">Hot reload</h2>
+<p>The bridge watches <code>bridge/plugins/</code> recursively. Any file change in a plugin directory triggers a debounced (500ms) reload:</p>
+<ol>
+<li>The plugin’s existing tools are unregistered from the host’s TOOLS array.</li>
+<li>The manifest is re-parsed and re-validated.</li>
+<li>The handler module is dynamic-imported with a cache-bust (<code>?t=&#x3C;timestamp></code>) so your edits actually run.</li>
+<li>Tools re-register; the HUD receives a <code>plugins.reloaded</code> WebSocket event.</li>
+</ol>
+<p>If you delete a plugin’s directory while the bridge is running, its tools are unregistered cleanly — no restart needed.</p>
+<h2 id="confirmation-gates">Confirmation gates</h2>
+<p>If a tool is destructive (sends a message, makes a purchase, deletes data), declare a confirmation template in the manifest:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#A5D6FF">"confirmation"</span><span style="color:#E6EDF3">: {</span></span>
+<span class="line"><span style="color:#7EE787">  "send_message"</span><span style="color:#E6EDF3">: </span><span style="color:#A5D6FF">"About to send </span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF">{text}</span><span style="color:#FF7B72">\"</span><span style="color:#A5D6FF"> to {recipient}. Proceed?"</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre>
+<p>The bridge will refuse to run the tool until the LLM passes <code>confirmed: true</code> in the args. The operator sees the rendered template (with <code>{text}</code> and <code>{recipient}</code> substituted from the actual args) and confirms by voice. This is the same gate the built-in destructive tools use (<code>draft_email</code>, <code>request_purchase</code>, etc.).</p>
+<p>Templates are pure string substitution — no code eval. Use <code>{a.b.c}</code> for nested args (<code>args.user.email</code> becomes <code>{user.email}</code>).</p>
+<h2 id="required-env-vars">Required env vars</h2>
+<p>Plugins that need API keys declare them in <code>manifest.json</code>:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#A5D6FF">"env"</span><span style="color:#E6EDF3">: [</span><span style="color:#A5D6FF">"STRIPE_SECRET_KEY"</span><span style="color:#E6EDF3">, </span><span style="color:#A5D6FF">"STRIPE_WEBHOOK_SECRET"</span><span style="color:#E6EDF3">]</span></span></code></pre>
+<p>If any listed var is missing from <code>.env</code>, the plugin is <strong>skipped</strong> at boot with a log line:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[plugin] my-plugin: skipping — missing env vars: STRIPE_SECRET_KEY (add to .env then reload)</span></span></code></pre>
+<p>Add the keys via the settings panel’s API keys section (bridge writes to <code>.env</code>), then touch the manifest to trigger a reload.</p>
+<h2 id="the-ask-jarvis-to-write-it-workflow">The “ask Jarvis to write it” workflow</h2>
+<p>The settings panel hints: <em>“Ask Jarvis to wire this key into a tool.”</em> That promise is real — the operator can voice-instruct:</p>
+<blockquote>
+<p>“Jarvis, write me a plugin called weather-uk that uses MET_OFFICE_API_KEY to fetch the forecast for a UK postcode.”</p>
+</blockquote>
+<p>The code agent (<code>bridge/code-agent.mjs</code>) scaffolds a manifest + handler stub from the request, drops them into <code>bridge/plugins/weather-uk/</code>, and the watcher auto-loads the plugin. Operator gets a reviewable scaffold; iteration is voice-driven.</p>
+<h2 id="verification">Verification</h2>
+<p>Once your plugin is in place:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#8B949E"># Confirm the plugin loaded</span></span>
+<span class="line"><span style="color:#FFA657">curl</span><span style="color:#A5D6FF"> http://localhost:8766/health/plugins</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> jq</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E"># Confirm tool count went up</span></span>
+<span class="line"><span style="color:#FFA657">curl</span><span style="color:#A5D6FF"> http://localhost:8766/health</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> jq</span><span style="color:#A5D6FF"> '.toolCount'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#8B949E"># Drive a voice command — say "Jarvis, run my-tool with query foo"</span></span>
+<span class="line"><span style="color:#8B949E"># The HUD shows the tool dispatching; the audit log records the call.</span></span></code></pre>
+<p>If something goes wrong, the bridge log (<code>/tmp/jarvis-bridge.log</code>) tells you why:</p>
+<ul>
+<li><code>[plugin] my-plugin: handler import failed: ...</code> — syntax error in your handler module</li>
+<li><code>[plugin] my-plugin: tool name "X" is invalid</code> — manifest field doesn’t match the regex</li>
+<li><code>[plugin] my-plugin: skipping — missing env vars: ...</code> — env var not set</li>
+</ul>
+<h2 id="reference-plugin">Reference plugin</h2>
+<p><code>bridge/plugins/example-quote/</code> ships with the project — a 50-line plugin that returns a random programming quote. Use it as a template:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">cp</span><span style="color:#79C0FF"> -r</span><span style="color:#A5D6FF"> bridge/plugins/example-quote</span><span style="color:#A5D6FF"> bridge/plugins/my-plugin</span></span>
+<span class="line"><span style="color:#8B949E"># Edit manifest.json + handler.mjs</span></span>
+<span class="line"><span style="color:#8B949E"># The watcher auto-loads on save</span></span></code></pre>
+<h2 id="what-plugins-cant-do-yet">What plugins can’t do (yet)</h2>
+<ul>
+<li><strong>Bundled npm dependencies</strong> — plugins use whatever’s in the bridge’s <code>node_modules</code>. Add a <code>package.json</code> in your plugin dir if you really need a dep, but install it manually for now (<code>cd bridge/plugins/my-plugin &#x26;&#x26; npm install</code>). Plugin marketplace + auto-install is Phase 5 work.</li>
+<li><strong>Per-plugin sandboxing</strong> — single-operator-kiosk trust model. Don’t load plugins from untrusted authors.</li>
+<li><strong>Cross-plugin state</strong> — no shared in-memory bus. Use <code>ctx.memory</code> (SQLite) to persist or <code>ctx.broadcastToClients</code> to message via WebSocket.</li>
+<li><strong>Frontend extensions</strong> — plugins extend the bridge only. UI/HUD changes aren’t part of the plugin model. (Roadmap: Phase 5 plugin marketplace will support this.)</li>
+</ul> </main> </div> <footer class="bottombar"> <span>Jarvis is MIT-licensed. Built local-first for Apple Silicon.</span> <span><a href="/arc/privacy">Privacy</a> · <a href="https://github.com/W17ANT/Jarvis/issues">Report an issue</a></span> </footer> </body></html>

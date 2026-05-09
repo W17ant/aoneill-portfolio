@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><title>Privacy · Jarvis docs</title><!-- Canonical URL — keeps SEO tidy if a page is reachable via multiple
+         routes (e.g. trailing slash variants on Pages / Vercel). --><link rel="canonical" href="https://aoneill.co.uk/arc/privacy/"><!-- Favicons. SVG is the master; PNG fallback for browsers that don't
+         render SVG favicons (older Safari versions on iOS, some embedded
+         WebViews). The 32× size is what most browsers actually render. --><link rel="icon" type="image/svg+xml" href="/arc/favicon.svg"><link rel="apple-touch-icon" href="/arc/og-card.png"><!-- OpenGraph (Facebook, LinkedIn, Slack unfurls, Discord, generic) --><meta property="og:site_name" content="Jarvis"><meta property="og:type" content="website"><meta property="og:title" content="Privacy · Jarvis docs"><meta property="og:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta property="og:url" content="https://aoneill.co.uk/arc/privacy/"><meta property="og:image" content="https://aoneill.co.uk/arc/og-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jarvis — voice-first AI assistant with an instrument-cluster HUD"><meta property="og:locale" content="en_GB"><!-- Twitter / X large card. summary_large_image gives the wide
+         hero treatment instead of the cramped square thumbnail. --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@w17ant"><meta name="twitter:creator" content="@w17ant"><meta name="twitter:title" content="Privacy · Jarvis docs"><meta name="twitter:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta name="twitter:image" content="https://aoneill.co.uk/arc/og-card.png"><!-- Theme colour for mobile browser chrome (Safari address bar tint,
+         Chrome on Android status bar). Matches the kiosk's --accent-deep. --><meta name="theme-color" content="#0077a8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/arc/styles.css"></head> <body> <header class="topbar"> <a class="topbar__brand" href="/arc/"> <span class="topbar__brand-primary">JARVIS</span> <span class="topbar__brand-suffix">DOCS</span> </a> <nav class="topbar__links" aria-label="Primary"> <a href="https://github.com/W17ANT/Jarvis" target="_blank" rel="noopener">GitHub</a> <a href="/arc/quickstart">Get started</a> </nav> </header> <div class="page"> <aside class="sidenav" aria-label="Documentation sections"> <ol> <li> <a href="/arc/" class="sidenav__link"> Home </a> </li><li> <a href="/arc/quickstart" class="sidenav__link"> Quickstart </a> </li><li> <a href="/arc/install-clients" class="sidenav__link"> White-label install </a> </li><li> <a href="/arc/tool-reference" class="sidenav__link"> Tool reference </a> </li><li> <a href="/arc/plugins" class="sidenav__link"> Plugin authoring </a> </li><li> <a href="/arc/privacy" class="sidenav__link sidenav__link--active"> Privacy </a> </li><li> <a href="/arc/troubleshooting" class="sidenav__link"> Troubleshooting </a> </li> </ol> </aside> <main class="prose"> <h1 id="privacy">Privacy</h1>
+<p>Jarvis is local-first by design. This document is the explicit, auditable answer to the question <em>“what does Jarvis send off-device?”</em></p>
+<h2 id="tldr">TL;DR</h2>
+<p><strong>Nothing leaves your machine without your explicit, per-action consent.</strong></p>
+<ul>
+<li>No analytics SDK.</li>
+<li>No metrics endpoint.</li>
+<li>No telemetry server.</li>
+<li>No “anonymous usage data” toggle that’s actually opted-in by default.</li>
+</ul>
+<p>The only paths off-device are ones the operator triggers themselves.</p>
+<h2 id="whats-local-only-always">What’s local-only (always)</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Data</th><th>Where it lives</th></tr></thead><tbody><tr><td>Voice transcripts</td><td>Whisper on <code>localhost:8768</code>, never sent anywhere else</td></tr><tr><td>LLM context + replies</td><td>Ollama on <code>localhost:11434</code> for local models, see “External LLM providers” below for cloud</td></tr><tr><td>Conversation history</td><td><code>data/memory.db</code> (SQLite) on this machine</td></tr><tr><td>Tool audit log</td><td><code>data/audit/YYYY-MM.jsonl</code> on this machine</td></tr><tr><td>Session metrics (latency / wakes / queries)</td><td><code>data/audit/sessions/YYYY-MM-DD.jsonl</code> on this machine</td></tr><tr><td>Brand config</td><td><code>config/brand.json</code> on this machine</td></tr><tr><td>API keys</td><td><code>.env</code> on this machine</td></tr><tr><td>Knowledge base (your docs)</td><td><code>docs/knowledge/</code> on this machine, indexed in <code>data/memory.db</code></td></tr><tr><td>Plugin code</td><td><code>bridge/plugins/</code> on this machine</td></tr></tbody></table>
+<p>None of these touch the network unless the operator explicitly invokes a tool that does.</p>
+<h2 id="what-goes-off-device--and-only-when">What goes off-device — and only when</h2>
+<p>Three categories of outbound traffic exist. All three are operator-initiated.</p>
+<h3 id="1-tools-you-call-that-hit-the-internet">1. Tools you call that hit the internet</h3>
+<p>When you say “search the web for X”, <code>web_search</code> makes a request to a search provider (default: SerpAPI if configured, else falls back to a public Open-Meteo / DuckDuckGo path). When you say “open mail.com”, a Chromium browser navigates there. When you say “draft email to X”, the bridge talks to your local Mail.app via AppleScript — no network in that case.</p>
+<p>The audit log records every such call. The operator can review it at any time:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">tail</span><span style="color:#A5D6FF"> data/audit/</span><span style="color:#E6EDF3">$(</span><span style="color:#FFA657">date</span><span style="color:#A5D6FF"> +%Y-%m</span><span style="color:#E6EDF3">)</span><span style="color:#A5D6FF">.jsonl</span></span></code></pre>
+<h3 id="2-external-llm-providers-only-when-configured">2. External LLM providers (only when configured)</h3>
+<p>If you’ve added an <code>ANTHROPIC_API_KEY</code> or <code>OPENAI_API_KEY</code> via the settings panel and configured one of the routing slots (chat / vision / high-stakes) to use a cloud provider, queries that hit that workload go to that provider’s API. This is opt-in: by default, every workload routes to local Ollama.</p>
+<p>What the cloud provider sees: the query text + relevant tool definitions + the conversation context. What they DON’T see: anything you didn’t include in the query (memory, audit log, knowledge base content unless that turn referenced it).</p>
+<p>To stay 100% local: don’t add cloud keys. Default routing stays on Ollama.</p>
+<h3 id="3-diagnostic-zips-manual-by-you">3. Diagnostic ZIPs (manual, by you)</h3>
+<p>The settings panel has an <em>Export diagnostic</em> button. When clicked it runs <code>tools/diagnose.sh</code> which bundles:</p>
+<ul>
+<li><code>/tmp/jarvis-*.log</code> (bridge / Kokoro / Whisper / static server logs)</li>
+<li><code>config/brand.json</code></li>
+<li><code>bridge/plugins/*/manifest.json</code> (manifests only — never plugin source code)</li>
+<li><code>data/audit/sessions/</code> (last 7 days of session metrics)</li>
+<li>A snapshot of <code>/health/timings</code>, <code>/health/sessions</code>, <code>/health/plugins</code></li>
+<li>macOS / chip / Node version info</li>
+</ul>
+<p>The bundle drops on your Desktop. <strong>Nothing is sent automatically.</strong> The operator chooses whether to email it (the script optionally opens a Mail.app draft addressed to the maintainer; the operator still has to hit Send).</p>
+<p>What the bundle does NOT contain:</p>
+<ul>
+<li><code>.env</code> (API keys, secrets)</li>
+<li><code>data/memory.db</code> (your conversation history)</li>
+<li><code>data/audit/YYYY-MM.jsonl</code> (full tool dispatch log)</li>
+<li>Knowledge base contents</li>
+</ul>
+<p>If you want to share a richer bundle, you can attach those manually — but the default has the privacy-leaning subset.</p>
+<h2 id="audit-trail">Audit trail</h2>
+<p>Every tool dispatch is logged to <code>data/audit/YYYY-MM.jsonl</code> with timestamp, tool name, args, result snippet (truncated to 4KB), error, runId, and durationMs. This is the operator’s source of truth for “did Jarvis do anything I didn’t want?” — grep / cat / less it like any plain text log.</p>
+<p>The audit log is local, append-only, never sent anywhere by Jarvis itself.</p>
+<h2 id="voice-telemetry">Voice telemetry</h2>
+<p>When the latency-debug panel is open (Shift+Cmd+P), the HUD posts <code>performance.mark()</code> summaries to <code>/perf</code> after every voice turn. The bridge writes a sanitised row to <code>data/audit/sessions/YYYY-MM-DD.jsonl</code>:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E6EDF3">{</span><span style="color:#7EE787">"ts"</span><span style="color:#E6EDF3">:</span><span style="color:#79C0FF">1715210400000</span><span style="color:#E6EDF3">,</span><span style="color:#7EE787">"heard"</span><span style="color:#E6EDF3">:</span><span style="color:#A5D6FF">"hey jarvis what time is it"</span><span style="color:#E6EDF3">,</span><span style="color:#7EE787">"voiceToWhisperMs"</span><span style="color:#E6EDF3">:</span><span style="color:#79C0FF">420</span><span style="color:#E6EDF3">,</span><span style="color:#7EE787">"whisperInferenceMs"</span><span style="color:#E6EDF3">:</span><span style="color:#79C0FF">210</span><span style="color:#E6EDF3">,</span><span style="color:#7EE787">"voiceToAudioMs"</span><span style="color:#E6EDF3">:</span><span style="color:#79C0FF">1100</span><span style="color:#E6EDF3">,</span><span style="color:#7EE787">"error"</span><span style="color:#E6EDF3">:</span><span style="color:#79C0FF">null</span><span style="color:#E6EDF3">}</span></span></code></pre>
+<p>Note: only the heard text + latency spans. No tool args, no LLM reply, no system metadata beyond the spans. The diagnostic ZIP bundles these rows; nothing else exports them.</p>
+<h2 id="how-to-verify">How to verify</h2>
+<p>The trust-but-verify path: read the bridge source.</p>
+<ul>
+<li><code>bridge/server.mjs</code> — every HTTP / WebSocket endpoint. Search for <code>fetch(</code> to find every outbound network call.</li>
+<li><code>bridge/sessions.mjs</code> — the session telemetry writer. Confirm it’s <code>appendFile</code> + nothing else.</li>
+<li><code>bridge/llm/providers.mjs</code> — provider router. Confirm Anthropic / OpenAI calls are gated behind explicit env vars.</li>
+<li><code>tools/diagnose.sh</code> — the bundle composition. Confirm it never auto-emails, only opens a draft.</li>
+</ul>
+<p>The codebase is MIT — fork it, audit it, host it yourself. There’s no separate hosted service watching what you do.</p>
+<h2 id="what-we-dont-promise">What we don’t promise</h2>
+<ul>
+<li><strong>Network-level privacy from your ISP / OS.</strong> Jarvis runs on your Mac; macOS itself sends some telemetry to Apple if you haven’t disabled it. Ollama similarly may check for updates. These are out of Jarvis’s control.</li>
+<li><strong>Privacy from cloud LLM providers</strong> when you opt-in to one. Read their terms. Anthropic and OpenAI both publish data-retention policies.</li>
+<li><strong>Privacy from people with physical access to your Mac.</strong> <code>data/memory.db</code> is plain SQLite, <code>.env</code> is plaintext. Use FileVault.</li>
+</ul>
+<h2 id="reporting-privacy-issues">Reporting privacy issues</h2>
+<p>If you find anything that contradicts this doc — a network call that isn’t operator-initiated, a leak through the audit log, anything that touches <code>.env</code> — file an issue at <a href="https://github.com/W17ant/Jarvis/issues">https://github.com/W17ant/Jarvis/issues</a> with the <strong>privacy</strong> label. Privacy bugs are top-priority.</p> </main> </div> <footer class="bottombar"> <span>Jarvis is MIT-licensed. Built local-first for Apple Silicon.</span> <span><a href="/arc/privacy">Privacy</a> · <a href="https://github.com/W17ANT/Jarvis/issues">Report an issue</a></span> </footer> </body></html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><title>Troubleshooting · Jarvis docs</title><!-- Canonical URL — keeps SEO tidy if a page is reachable via multiple
+         routes (e.g. trailing slash variants on Pages / Vercel). --><link rel="canonical" href="https://aoneill.co.uk/arc/troubleshooting/"><!-- Favicons. SVG is the master; PNG fallback for browsers that don't
+         render SVG favicons (older Safari versions on iOS, some embedded
+         WebViews). The 32× size is what most browsers actually render. --><link rel="icon" type="image/svg+xml" href="/arc/favicon.svg"><link rel="apple-touch-icon" href="/arc/og-card.png"><!-- OpenGraph (Facebook, LinkedIn, Slack unfurls, Discord, generic) --><meta property="og:site_name" content="Jarvis"><meta property="og:type" content="website"><meta property="og:title" content="Troubleshooting · Jarvis docs"><meta property="og:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta property="og:url" content="https://aoneill.co.uk/arc/troubleshooting/"><meta property="og:image" content="https://aoneill.co.uk/arc/og-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jarvis — voice-first AI assistant with an instrument-cluster HUD"><meta property="og:locale" content="en_GB"><!-- Twitter / X large card. summary_large_image gives the wide
+         hero treatment instead of the cramped square thumbnail. --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@w17ant"><meta name="twitter:creator" content="@w17ant"><meta name="twitter:title" content="Troubleshooting · Jarvis docs"><meta name="twitter:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta name="twitter:image" content="https://aoneill.co.uk/arc/og-card.png"><!-- Theme colour for mobile browser chrome (Safari address bar tint,
+         Chrome on Android status bar). Matches the kiosk's --accent-deep. --><meta name="theme-color" content="#0077a8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/arc/styles.css"></head> <body> <header class="topbar"> <a class="topbar__brand" href="/arc/"> <span class="topbar__brand-primary">JARVIS</span> <span class="topbar__brand-suffix">DOCS</span> </a> <nav class="topbar__links" aria-label="Primary"> <a href="https://github.com/W17ANT/Jarvis" target="_blank" rel="noopener">GitHub</a> <a href="/arc/quickstart">Get started</a> </nav> </header> <div class="page"> <aside class="sidenav" aria-label="Documentation sections"> <ol> <li> <a href="/arc/" class="sidenav__link"> Home </a> </li><li> <a href="/arc/quickstart" class="sidenav__link"> Quickstart </a> </li><li> <a href="/arc/install-clients" class="sidenav__link"> White-label install </a> </li><li> <a href="/arc/tool-reference" class="sidenav__link"> Tool reference </a> </li><li> <a href="/arc/plugins" class="sidenav__link"> Plugin authoring </a> </li><li> <a href="/arc/privacy" class="sidenav__link"> Privacy </a> </li><li> <a href="/arc/troubleshooting" class="sidenav__link sidenav__link--active"> Troubleshooting </a> </li> </ol> </aside> <main class="prose"> <h1 id="troubleshooting">Troubleshooting</h1>
+<p>Quick fixes for the issues that come up. If nothing here works, run <code>./tools/diagnose.sh</code> and attach the resulting tarball to a <a href="https://github.com/W17ANT/Jarvis/issues">GitHub issue</a>.</p>
+<h2 id="bridge-offline-toast">”Bridge offline” toast</h2>
+<p>The HUD’s WebSocket can’t reach <code>localhost:8766</code>.</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> status</span><span style="color:#8B949E">     # what's running on which port?</span></span>
+<span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> restart</span><span style="color:#8B949E">    # nuke + restart all four services</span></span>
+<span class="line"><span style="color:#FFA657">tail</span><span style="color:#A5D6FF"> /tmp/jarvis-bridge.log</span></span></code></pre>
+<p>Common causes:</p>
+<ul>
+<li>The bridge crashed at boot. Check <code>/tmp/jarvis-bridge.log</code> — usually a port conflict or a missing <code>.env</code> value.</li>
+<li>Ollama isn’t running. <code>ollama serve</code> starts it; the bridge tolerates Ollama being down but voice commands will fail.</li>
+<li>Your firewall is blocking localhost. Unusual but happens with Little Snitch — allow <code>node</code> on <code>:8766</code>.</li>
+</ul>
+<h2 id="stt--whisper-not-online">STT / Whisper not online</h2>
+<p>The status pip in the calendar strip stays amber for <code>whisper</code>.</p>
+<ul>
+<li>Whisper needs Python 3.11. <code>python3.11 --version</code> should print <code>3.11.x</code>. If it points at 3.12, the MLX wheel won’t load.</li>
+<li>The first launch downloads the MLX <code>large-v3-turbo</code> model (~1.5 GB). On slow connections this can take a few minutes; the pip stays amber until the first successful transcript.</li>
+<li>Reinstall: <code>cd bridge &#x26;&#x26; rm -rf .venv &#x26;&#x26; python3.11 -m venv .venv &#x26;&#x26; .venv/bin/pip install -r requirements.txt</code>.</li>
+</ul>
+<h2 id="tts--kokoro-silent">TTS / Kokoro silent</h2>
+<p>The voice loop completes but no audio plays.</p>
+<ul>
+<li>Check <code>/tmp/jarvis-kokoro.log</code> for ONNX runtime errors. The Kokoro voice file lives at <code>bridge/kokoro_voices/&#x3C;voice-id>.bin</code>; missing voices fall back silently to <code>bm_daniel</code> only if it exists.</li>
+<li>Confirm <code>~/Library/Audio/...</code> permissions — macOS sometimes prompts on first run.</li>
+<li>Browser autoplay policy blocks audio until the user has interacted with the page once. Click anywhere on the HUD before testing.</li>
+</ul>
+<h2 id="wake-word-not-firing">Wake word not firing</h2>
+<ul>
+<li>VAD threshold may be too low (mic picking up ambient noise constantly) or too high (genuine speech ignored). Open Settings and watch the live mic-level meter — the threshold mark should sit just above your room’s idle level. Default <code>0.02</code> works for a quiet office; bump to <code>0.04</code> in a louder room.</li>
+<li>Kokoro’s wake-word detector is regex-based on the Whisper transcript. Settings → Brand identity → “wake mishears” lets you add common Whisper mistranscriptions (“jervis”, “jarviz”, “hi jarvis”).</li>
+</ul>
+<h2 id="cpugpu-temps-show-as">CPU/GPU temps show as <code>—</code></h2>
+<p><code>macmon</code> isn’t installed or isn’t on PATH.</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">brew</span><span style="color:#A5D6FF"> install</span><span style="color:#A5D6FF"> vladkens/tap/macmon</span></span>
+<span class="line"><span style="color:#79C0FF">which</span><span style="color:#A5D6FF"> macmon</span></span>
+<span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> restart</span></span></code></pre>
+<p>The HUD shows a one-time toast at startup if macmon is missing. The kiosk works without it — temps just stay blank.</p>
+<h2 id="llm-key-invalid-toast">LLM “key invalid” toast</h2>
+<p>You’ve added an Anthropic / OpenAI key but it’s wrong or revoked.</p>
+<ul>
+<li>Open Settings → API keys, paste the corrected key, save. The bridge picks it up without a restart.</li>
+<li>If you don’t want cloud LLMs at all, leave both fields blank and set every routing slot to <strong>Ollama</strong> in Settings → LLM provider routing.</li>
+</ul>
+<h2 id="chrome-window-wont-open">Chrome window won’t open</h2>
+<p><code>./launch.sh</code> reports the static server is up but no Chrome appears.</p>
+<ul>
+<li>Chrome’s <code>--app</code> mode requires Chrome to be installed. Brave, Arc, and Chromium also work. Set <code>BROWSER=brave</code> (or <code>chromium</code>) in <code>.env</code>.</li>
+<li>On a multi-monitor setup, Chrome may have remembered an off-screen window position. Close any dangling Chrome instances and re-launch.</li>
+</ul>
+<h2 id="diagnostic-bundle">Diagnostic bundle</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./tools/diagnose.sh</span></span></code></pre>
+<p>Drops a tarball on your Desktop with logs, system snapshot, brand config, plugin manifests, and last 7 days of session telemetry. <strong>No <code>.env</code> and no <code>data/memory.db</code></strong> — safe to attach to a GitHub issue.</p>
+<p>The Settings → Diagnostics panel has the same export button if you’d rather click than terminal.</p> </main> </div> <footer class="bottombar"> <span>Jarvis is MIT-licensed. Built local-first for Apple Silicon.</span> <span><a href="/arc/privacy">Privacy</a> · <a href="https://github.com/W17ANT/Jarvis/issues">Report an issue</a></span> </footer> </body></html>
