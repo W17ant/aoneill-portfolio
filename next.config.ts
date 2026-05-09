@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
       { source: '/tomthevacuumman/',  destination: '/tomthevacuumman/index.html' },
       { source: '/renovaelabs',       destination: '/renovaelabs/index.html' },
       { source: '/renovaelabs/',      destination: '/renovaelabs/index.html' },
+      // Why: /arc serves the Jarvis Astro docs subtree (built into /public/arc).
+      // Astro emits trailingSlash directories with index.html, so child routes
+      // like /arc/quickstart/ resolve via Next's static serving — only the bare
+      // /arc + /arc/ need explicit rewrites to land on the homepage.
+      { source: '/arc',               destination: '/arc/index.html' },
+      { source: '/arc/',              destination: '/arc/index.html' },
     ];
   },
 };

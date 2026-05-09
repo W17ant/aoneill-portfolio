@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><title>Quickstart · Jarvis docs</title><!-- Canonical URL — keeps SEO tidy if a page is reachable via multiple
+         routes (e.g. trailing slash variants on Pages / Vercel). --><link rel="canonical" href="https://aoneill.co.uk/arc/quickstart/"><!-- Favicons. SVG is the master; PNG fallback for browsers that don't
+         render SVG favicons (older Safari versions on iOS, some embedded
+         WebViews). The 32× size is what most browsers actually render. --><link rel="icon" type="image/svg+xml" href="/arc/favicon.svg"><link rel="apple-touch-icon" href="/arc/og-card.png"><!-- OpenGraph (Facebook, LinkedIn, Slack unfurls, Discord, generic) --><meta property="og:site_name" content="Jarvis"><meta property="og:type" content="website"><meta property="og:title" content="Quickstart · Jarvis docs"><meta property="og:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta property="og:url" content="https://aoneill.co.uk/arc/quickstart/"><meta property="og:image" content="https://aoneill.co.uk/arc/og-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jarvis — voice-first AI assistant with an instrument-cluster HUD"><meta property="og:locale" content="en_GB"><!-- Twitter / X large card. summary_large_image gives the wide
+         hero treatment instead of the cramped square thumbnail. --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@w17ant"><meta name="twitter:creator" content="@w17ant"><meta name="twitter:title" content="Quickstart · Jarvis docs"><meta name="twitter:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta name="twitter:image" content="https://aoneill.co.uk/arc/og-card.png"><!-- Theme colour for mobile browser chrome (Safari address bar tint,
+         Chrome on Android status bar). Matches the kiosk's --accent-deep. --><meta name="theme-color" content="#0077a8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/arc/styles.css"></head> <body> <header class="topbar"> <a class="topbar__brand" href="/arc/"> <span class="topbar__brand-primary">JARVIS</span> <span class="topbar__brand-suffix">DOCS</span> </a> <nav class="topbar__links" aria-label="Primary"> <a href="https://github.com/W17ANT/Jarvis" target="_blank" rel="noopener">GitHub</a> <a href="/arc/quickstart">Get started</a> </nav> </header> <div class="page"> <aside class="sidenav" aria-label="Documentation sections"> <ol> <li> <a href="/arc/" class="sidenav__link"> Home </a> </li><li> <a href="/arc/quickstart" class="sidenav__link sidenav__link--active"> Quickstart </a> </li><li> <a href="/arc/install-clients" class="sidenav__link"> White-label install </a> </li><li> <a href="/arc/tool-reference" class="sidenav__link"> Tool reference </a> </li><li> <a href="/arc/plugins" class="sidenav__link"> Plugin authoring </a> </li><li> <a href="/arc/privacy" class="sidenav__link"> Privacy </a> </li><li> <a href="/arc/troubleshooting" class="sidenav__link"> Troubleshooting </a> </li> </ol> </aside> <main class="prose"> <h1 id="quickstart">Quickstart</h1>
+<p>Five minutes from <code>git clone</code> to wake-word.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>macOS 13+ on Apple Silicon (M1, M2, M3, or M4). Intel Macs are not supported in v1.</li>
+<li>16 GB RAM minimum (32 GB recommended for the 14B Qwen variant).</li>
+<li>30 GB free disk for the LLM weights and Whisper model.</li>
+<li>A working microphone (built-in is fine; the kiosk auto-detects).</li>
+</ul>
+<h2 id="install">Install</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> clone</span><span style="color:#A5D6FF"> https://github.com/W17ANT/Jarvis.git</span></span>
+<span class="line"><span style="color:#79C0FF">cd</span><span style="color:#A5D6FF"> Jarvis</span></span>
+<span class="line"><span style="color:#FFA657">./tools/install.sh</span></span></code></pre>
+<p>The installer:</p>
+<ol>
+<li>Installs Homebrew dependencies — <code>ollama</code>, <code>python3.11</code>, <code>vladkens/tap/macmon</code>.</li>
+<li>Pulls the default Ollama models (<code>qwen2.5:7b</code> for chat, <code>nomic-embed-text</code> for retrieval).</li>
+<li>Creates <code>data/</code>, <code>config/</code>, <code>.env</code> with sane defaults.</li>
+<li>Runs the setup wizard for agent name + wake phrase.</li>
+</ol>
+<h2 id="first-launch">First launch</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./launch.sh</span></span></code></pre>
+<p>This starts four services in the background:</p>
+<ul>
+<li><strong>bridge</strong> (<code>:8766</code>) — Node WebSocket + HTTP server. Voice routing, tool dispatch, MCP endpoint.</li>
+<li><strong>static</strong> (<code>:8765</code>) — serves <code>index.html</code> to Chrome.</li>
+<li><strong>kokoro</strong> (<code>:8767</code>) — Python TTS server.</li>
+<li><strong>whisper</strong> (<code>:8768</code>) — Python STT server (MLX <code>large-v3-turbo</code>).</li>
+</ul>
+<p>A Chrome window opens at <code>http://localhost:8765</code> in <code>--app</code> mode. The HUD takes about 600ms to paint after the bridge reports ready.</p>
+<h2 id="first-voice-command">First voice command</h2>
+<p>Say <strong>“hey jarvis”</strong> (or whatever wake phrase you set). The reactor at the centre pulses cyan when listening. Try:</p>
+<ul>
+<li><em>“What’s the weather?”</em></li>
+<li><em>“Open mail.”</em></li>
+<li><em>“What can you do?”</em> — opens the COMMANDS panel listing all 60+ voice-callable tools.</li>
+</ul>
+<p>If nothing happens, see <a href="/troubleshooting">Troubleshooting</a>.</p>
+<h2 id="stop--restart">Stop / restart</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> stop</span><span style="color:#8B949E">      # stops all four services</span></span>
+<span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> restart</span><span style="color:#8B949E">   # stops, then starts again</span></span>
+<span class="line"><span style="color:#FFA657">./launch.sh</span><span style="color:#A5D6FF"> status</span><span style="color:#8B949E">    # what's running on which port</span></span></code></pre>
+<h2 id="update">Update</h2>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./tools/update.sh</span></span></code></pre>
+<p>Pulls the latest commits, refreshes Ollama models if the manifest changed, and respects your <code>.brand-lock</code> file (white-label installs won’t lose their custom brand).</p>
+<h2 id="where-do-i-configure-things">Where do I configure things?</h2>
+<p>Press the <strong>SETTINGS</strong> button (top-right of the HUD) for:</p>
+<ul>
+<li>LLM provider routing (chat / vision / high-stakes — Ollama default, Anthropic / OpenAI opt-in)</li>
+<li>API keys (generic NAME=VALUE editor)</li>
+<li>Brand identity (agent name, wake phrase, colours, fonts)</li>
+<li>VAD threshold + live mic-level meter</li>
+<li>Diagnostics (last 7 days session metrics + export ZIP)</li>
+</ul>
+<p>The <code>?</code> button next to SETTINGS opens the COMMANDS panel — every voice-callable tool grouped by category, with example phrasings.</p> </main> </div> <footer class="bottombar"> <span>Jarvis is MIT-licensed. Built local-first for Apple Silicon.</span> <span><a href="/arc/privacy">Privacy</a> · <a href="https://github.com/W17ANT/Jarvis/issues">Report an issue</a></span> </footer> </body></html>
