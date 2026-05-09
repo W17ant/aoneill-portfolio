@@ -1,0 +1,145 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><title>White-label install · Jarvis docs</title><!-- Canonical URL — keeps SEO tidy if a page is reachable via multiple
+         routes (e.g. trailing slash variants on Pages / Vercel). --><link rel="canonical" href="https://aoneill.co.uk/arc/install-clients/"><!-- Favicons. SVG is the master; PNG fallback for browsers that don't
+         render SVG favicons (older Safari versions on iOS, some embedded
+         WebViews). The 32× size is what most browsers actually render. --><link rel="icon" type="image/svg+xml" href="/arc/favicon.svg"><link rel="apple-touch-icon" href="/arc/og-card.png"><!-- OpenGraph (Facebook, LinkedIn, Slack unfurls, Discord, generic) --><meta property="og:site_name" content="Jarvis"><meta property="og:type" content="website"><meta property="og:title" content="White-label install · Jarvis docs"><meta property="og:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta property="og:url" content="https://aoneill.co.uk/arc/install-clients/"><meta property="og:image" content="https://aoneill.co.uk/arc/og-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Jarvis — voice-first AI assistant with an instrument-cluster HUD"><meta property="og:locale" content="en_GB"><!-- Twitter / X large card. summary_large_image gives the wide
+         hero treatment instead of the cramped square thumbnail. --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@w17ant"><meta name="twitter:creator" content="@w17ant"><meta name="twitter:title" content="White-label install · Jarvis docs"><meta name="twitter:description" content="Voice-first AI assistant with an instrument-cluster HUD. Local LLM, real CPU/GPU temps, kiosk-mode, white-label. MIT."><meta name="twitter:image" content="https://aoneill.co.uk/arc/og-card.png"><!-- Theme colour for mobile browser chrome (Safari address bar tint,
+         Chrome on Android status bar). Matches the kiosk's --accent-deep. --><meta name="theme-color" content="#0077a8"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="/arc/styles.css"></head> <body> <header class="topbar"> <a class="topbar__brand" href="/arc/"> <span class="topbar__brand-primary">JARVIS</span> <span class="topbar__brand-suffix">DOCS</span> </a> <nav class="topbar__links" aria-label="Primary"> <a href="https://github.com/W17ANT/Jarvis" target="_blank" rel="noopener">GitHub</a> <a href="/arc/quickstart">Get started</a> </nav> </header> <div class="page"> <aside class="sidenav" aria-label="Documentation sections"> <ol> <li> <a href="/arc/" class="sidenav__link"> Home </a> </li><li> <a href="/arc/quickstart" class="sidenav__link"> Quickstart </a> </li><li> <a href="/arc/install-clients" class="sidenav__link sidenav__link--active"> White-label install </a> </li><li> <a href="/arc/tool-reference" class="sidenav__link"> Tool reference </a> </li><li> <a href="/arc/plugins" class="sidenav__link"> Plugin authoring </a> </li><li> <a href="/arc/privacy" class="sidenav__link"> Privacy </a> </li><li> <a href="/arc/troubleshooting" class="sidenav__link"> Troubleshooting </a> </li> </ol> </aside> <main class="prose"> <h1 id="install-jarvis-as-a-white-label-client">Install Jarvis as a white-label client</h1>
+<p>This guide is for <strong>client installs</strong> — when you (or someone you’re delivering Jarvis to) want a private fork of the codebase that won’t be silently rebranded by upstream changes.</p>
+<p>The model: <strong>fork the repo, then track upstream</strong>. Pulls bring in fixes; the brand-lock keeps your skin from being overwritten.</p>
+<h2 id="why-fork">Why fork?</h2>
+<ul>
+<li>Your install gets its own GitHub home — your commits, your config, your memory backups never leak upstream.</li>
+<li>You decide when (or if) to pull upstream improvements.</li>
+<li>The <code>.brand-lock</code> file in the repo root catches any upstream change that would rebrand your install — it aborts the update with an explicit override message rather than silently flipping your kiosk to a different brand.</li>
+</ul>
+<h2 id="what-you-need">What you need</h2>
+<ul>
+<li>A GitHub account (free is fine; private fork is fine if you’d rather)</li>
+<li>macOS 14+ on Apple Silicon (M1/M2/M3/M4/M5)</li>
+<li>64 GB RAM recommended; 32 GB works on a smaller model tier</li>
+<li>Homebrew installed</li>
+<li>Internet for the initial Ollama model pull (offline after that)</li>
+</ul>
+<h2 id="step-1--fork-on-github">Step 1 — Fork on GitHub</h2>
+<p>You can do this with one paste in your Claude Code terminal:</p>
+<blockquote>
+<p>Fork <code>W17ANT/Jarvis</code> to my GitHub account, rewire this clone’s <code>origin</code> to point at my fork, push my current <code>main</code> to it, and add <code>W17ANT/Jarvis</code> as <code>upstream</code>. Don’t pull any new upstream changes yet.</p>
+</blockquote>
+<p>Claude Code will use either <code>gh</code> CLI (if you’ve run <code>gh auth login</code>) or the GitHub MCP server. If neither is wired, it’ll stop and tell you what auth is needed — non-destructive.</p>
+<p>Or do it manually:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#8B949E"># 1. On GitHub: visit https://github.com/W17ANT/Jarvis and click Fork</span></span>
+<span class="line"><span style="color:#8B949E"># 2. On your Mac, in your install directory:</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> remote</span><span style="color:#A5D6FF"> rename</span><span style="color:#A5D6FF"> origin</span><span style="color:#A5D6FF"> upstream</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> remote</span><span style="color:#A5D6FF"> add</span><span style="color:#A5D6FF"> origin</span><span style="color:#A5D6FF"> git@github.com:</span><span style="color:#FF7B72">&#x3C;</span><span style="color:#A5D6FF">your-handl</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">></span><span style="color:#A5D6FF">/Jarvis.git</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span><span style="color:#79C0FF"> -u</span><span style="color:#A5D6FF"> origin</span><span style="color:#A5D6FF"> main</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span><span style="color:#A5D6FF"> origin</span><span style="color:#79C0FF"> --tags</span></span></code></pre>
+<p>After this, <code>git remote -v</code> should show:</p>
+<ul>
+<li><code>origin</code> → your fork</li>
+<li><code>upstream</code> → <code>W17ANT/Jarvis</code></li>
+</ul>
+<h2 id="step-2--lock-your-brand">Step 2 — Lock your brand</h2>
+<p>Drop a <code>.brand-lock</code> file in the repo root with the brand name your kiosk runs under (matching <code>config/brand.json</code>’s <code>agent.name</code>):</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "Jarvis"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> .brand-lock</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> add</span><span style="color:#A5D6FF"> .brand-lock</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> commit</span><span style="color:#79C0FF"> -m</span><span style="color:#A5D6FF"> "lock brand to Jarvis"</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span></span></code></pre>
+<p>If you’ve already rebranded your install via the settings panel (e.g. to “Aria” or “Beacon”), put that name in <code>.brand-lock</code> instead.</p>
+<p>From now on, <code>tools/update.sh</code> reads <code>.brand-lock</code> and refuses to fast-forward to any upstream that would change <code>config/brand.json</code>’s agent name. Bypass requires <code>--force-brand-change</code>.</p>
+<h2 id="step-3--pull-upstream-improvements">Step 3 — Pull upstream improvements</h2>
+<p>When you want fixes or features from upstream:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> fetch</span><span style="color:#A5D6FF"> upstream</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> merge</span><span style="color:#A5D6FF"> upstream/main</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span></span></code></pre>
+<p>The brand-lock guard in <code>tools/update.sh</code> will catch any merge that would rebrand. You’ll see a message like:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="plaintext"><code><span class="line"><span>✗ upstream branch (origin/main) is brand "OtherBrand" but this install is locked to "Jarvis".</span></span>
+<span class="line"><span>✗ pulling would rebrand this kiosk. ABORTING.</span></span></code></pre>
+<p>If that fires by mistake, the fix is one of:</p>
+<ul>
+<li><code>git checkout</code> a different branch (if you’re on the wrong one)</li>
+<li>update <code>.brand-lock</code> if the upstream brand is what you want</li>
+<li><code>./tools/update.sh --force-brand-change</code> if you really do want to switch brands</li>
+</ul>
+<h2 id="step-4--customise">Step 4 — Customise</h2>
+<p>Open the kiosk’s settings panel (top-right gear icon) and change:</p>
+<ul>
+<li><strong>Brand identity</strong> — agent name, wake phrase, mishears, agency name, tagline</li>
+<li><strong>HUD accent colour</strong> — picks a per-profile palette</li>
+<li><strong>Voice</strong> — Kokoro has 50+ options</li>
+<li><strong>API keys</strong> — drop in Anthropic / OpenAI / any other key in <code>NAME=VALUE</code> form</li>
+<li><strong>LLM provider routing</strong> — which provider handles chat / vision / high-stakes work</li>
+</ul>
+<p>Saves to <code>config/brand.json</code> and <code>.env</code> respectively. The HUD live-reloads on brand changes — no restart needed.</p>
+<h2 id="step-5--update-your-fork-periodically">Step 5 — Update your fork periodically</h2>
+<p>Once a month-ish, or whenever you want a specific upstream fix:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">./tools/update.sh</span></span></code></pre>
+<p>This pulls from your fork’s main (which only gains commits when YOU push). To bring in upstream:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> fetch</span><span style="color:#A5D6FF"> upstream</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> merge</span><span style="color:#A5D6FF"> upstream/main</span></span>
+<span class="line"><span style="color:#8B949E"># resolve any conflicts (rare — most upstream changes don't touch brand config)</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span></span>
+<span class="line"><span style="color:#FFA657">./tools/update.sh</span></span></code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p><strong>My install reads “Flat-Out” or some other brand after an update</strong></p>
+<p>You probably tracked the wrong branch. Check <code>git status</code> — your branch should track <code>origin/main</code> (your fork), not <code>upstream/main</code> directly.</p>
+<p><strong>The brand-lock keeps firing even though I want the upstream brand</strong></p>
+<p>Either delete <code>.brand-lock</code> (no protection going forward) or update its content to match the upstream brand:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">cat</span><span style="color:#A5D6FF"> config/brand.json</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> grep</span><span style="color:#A5D6FF"> '"name"'</span><span style="color:#FF7B72"> |</span><span style="color:#FFA657"> head</span><span style="color:#79C0FF"> -1</span><span style="color:#8B949E">   # check upstream agent name</span></span>
+<span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "&#x3C;that-name>"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> .brand-lock</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> commit</span><span style="color:#79C0FF"> -am</span><span style="color:#A5D6FF"> "update brand lock to match upstream"</span></span></code></pre>
+<p><strong>I want to give my install a completely different brand (e.g. “Aria”)</strong></p>
+<p>Run the setup wizard or use the in-app settings panel:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#FFA657">node</span><span style="color:#A5D6FF"> tools/setup-wizard.mjs</span></span></code></pre>
+<p>Then update <code>.brand-lock</code>:</p>
+<pre class="astro-code github-dark-default" style="background-color:#0d1117;color:#e6edf3; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#79C0FF">echo</span><span style="color:#A5D6FF"> "Aria"</span><span style="color:#FF7B72"> ></span><span style="color:#A5D6FF"> .brand-lock</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> commit</span><span style="color:#79C0FF"> -am</span><span style="color:#A5D6FF"> "rebrand to Aria"</span></span>
+<span class="line"><span style="color:#FFA657">git</span><span style="color:#A5D6FF"> push</span></span></code></pre>
+<p>Future updates from upstream will be blocked unless they also use the brand “Aria” or you bypass with <code>--force-brand-change</code>.</p>
+<h2 id="what-lives-where">What lives where</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>File</th><th>What it does</th></tr></thead><tbody><tr><td><code>.brand-lock</code></td><td>The brand name this install is locked to. Read by <code>tools/update.sh</code>.</td></tr><tr><td><code>config/brand.json</code></td><td>Live brand config — agent name, wake phrase, palette, fonts. The settings panel writes here.</td></tr><tr><td><code>config/launcher.json</code></td><td>The 9 dock items in the LAUNCH panel. Edit to add/remove apps.</td></tr><tr><td><code>.env</code></td><td>API keys + LLM provider routing. The settings panel writes here.</td></tr><tr><td><code>data/memory.db</code></td><td>Your conversation history + facts. Backed up automatically before each update.</td></tr><tr><td><code>data/audit/</code></td><td>Append-only journal of every tool the agent ran.</td></tr><tr><td><code>docs/knowledge/</code></td><td>Drop markdown / PDF / docx here for the knowledge base. Auto-indexed.</td></tr><tr><td><code>config/creative-style.md</code></td><td>Editorial voice guide injected into every LLM prompt. Operator’s “house rules” file.</td></tr></tbody></table>
+<h2 id="need-help">Need help?</h2>
+<ul>
+<li>File issues at <a href="https://github.com/W17ANT/Jarvis/issues">https://github.com/W17ANT/Jarvis/issues</a></li>
+<li>The <code>tools/diagnose.sh</code> script bundles logs + system snapshot + brand config into a tarball you can attach to an issue.</li>
+</ul> </main> </div> <footer class="bottombar"> <span>Jarvis is MIT-licensed. Built local-first for Apple Silicon.</span> <span><a href="/arc/privacy">Privacy</a> · <a href="https://github.com/W17ANT/Jarvis/issues">Report an issue</a></span> </footer> </body></html>
