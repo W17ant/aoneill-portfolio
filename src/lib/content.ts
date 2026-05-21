@@ -101,15 +101,15 @@ const timeline: TimelineEntry[] = [
   },
   {
     id: 'transition',
-    date: '2024',
+    date: '2024-2026',
     title: 'Career change into software',
     subtitle: 'MSc Computer Science with AI',
     description:
-      'Enrolled at St Mary\'s University to put structure on the self-taught programming and go deeper on AI/ML.',
+      "Enrolled at St Mary's University to put structure on the self-taught programming and go deeper on AI/ML. Worked through seven units, each with a substantial build alongside the theory.",
     bullets: [
-      'Studying machine learning, neural networks, and software engineering',
-      'Treating code like any other engineered system',
-      'Building real projects alongside the theory',
+      'Databases, Web Technologies, Software Testing and CI/CD',
+      'Artificial Intelligence, Machine Learning, NLP and Computer Vision',
+      'Shipped a project per unit — RL agents, classifiers, transformers, CV systems',
     ],
     tags: ['Education', 'AI/ML', 'Career Change'],
     tone: 'growth',
@@ -179,6 +179,22 @@ const projects: Project[] = [
       "Deep Q-Learning with experience replay in PyTorch. The network takes the 11-feature state (danger in 3 directions, current heading, food position) and outputs Q-values for 3 actions (straight, turn left, turn right). Q-values get updated via the Bellman equation, and exploration decays over time. I ran the 12 experiments to actually see what mattered, rather than guessing.",
     outcome:
       "Best configuration hit consistent scores of 40+ after 200 training episodes. A few clear findings: wider beat deeper for this task, and bigger replay buffers stabilised learning. The wall-collision variant was noticeably harder and needed different hyperparameters. Everything is documented with training curves, architecture comparisons, and statistical summaries.",
+  },
+  {
+    slug: 'nlp-twitter-sentiment',
+    title: 'Twitter Sentiment Classification',
+    description:
+      'Entity-level sentiment classifier across six architectures, from a plain MLP up to fine-tuned transformers. Twelve runs, head-to-head: a tuned MLP topped the leaderboard at 98.6%, beating RoBERTa at a fraction of the training cost.',
+    tech: ['Python', 'PyTorch', 'Hugging Face', 'Transformers', 'NLP', 'scikit-learn'],
+    featured: true,
+    overview:
+      "MSc NLP final assessment. Entity-level sentiment classification on the Twitter Entity Sentiment dataset (positive / negative / neutral, with irrelevant rolled into neutral). I ran six architectures back to back — MLP, BiLSTM, 1-D CNN, DistilBERT, RoBERTa, ALBERT — with two configurations each, so twelve experiments in total measuring accuracy, macro/weighted F1, precision, recall, and wall-clock training time.",
+    problem:
+      "The interesting question with sentiment classification isn't 'can a transformer do this', it's 'when do you actually need one?'. Transformers are expensive to train and serve, and a lot of NLP tasks don't earn that cost back. I wanted concrete numbers on where the trade-off sits for entity-level sentiment.",
+    approach:
+      "Same preprocessing and train/val split across every model. Classical and recurrent baselines (MLP, BiLSTM, 1-D CNN) used trained embeddings. The three transformer baselines (DistilBERT, RoBERTa, ALBERT) were fine-tuned from Hugging Face checkpoints. I ran two configs per model — different widths, layers, learning rates — and logged accuracy, macro F1, weighted F1, precision, recall, and training time for each run.",
+    outcome:
+      "MLP Config A topped the leaderboard at 98.6% accuracy and 0.986 macro F1, trained in 54 seconds. RoBERTa Config A came in at 97.5% but took over an hour to train. DistilBERT Config B managed 97.1% in 20 minutes. The headline finding for this dataset: a well-tuned MLP matched or beat every transformer at roughly 1/70th the training cost, which is a useful concrete data point about when transformer overhead is worth paying for.",
   },
   {
     slug: 'heart-disease-classification',

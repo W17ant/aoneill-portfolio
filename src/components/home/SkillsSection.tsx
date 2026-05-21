@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   SKILLS SECTION - Structured grid cards             ###
    ###   Clean category cards with proficiency dot indicators###
-   ###   Last Updated: 02-03-2026                           ###
+   ###   Last Updated: 21-05-2026                           ###
    ########################################################### */
 
 'use client';
@@ -38,6 +38,9 @@ const categories: Category[] = [
       { name: 'pandas', level: 4 },
       { name: 'NumPy', level: 4 },
       { name: 'Deep Learning', level: 4 },
+      { name: 'NLP', level: 4 },
+      { name: 'Transformers', level: 3 },
+      { name: 'Computer Vision', level: 3 },
       { name: 'Reinforcement Learning', level: 3 },
     ],
   },
