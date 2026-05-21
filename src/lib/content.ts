@@ -163,6 +163,43 @@ const timeline: TimelineEntry[] = [
 
 const projects: Project[] = [
   {
+    slug: 'agent-office',
+    title: 'Agent Office',
+    description:
+      "Pixel-art virtual office that visualises your AI agents working in real time. Watch Claude Code agents spawn, sit at desks, take coffee breaks, and chat in a Slack-style panel — isometric, animated, and popular on social media.",
+    tech: ['TypeScript', 'React', 'Vite', 'Electron', 'WebSockets', 'Remotion', 'Pixel Art'],
+    repo: 'https://github.com/W17ant/Claude-Office',
+    featured: true,
+    logo: '/images/agent-office-logo.png',
+    overview:
+      "A pixel-art office that turns the abstract sprawl of multi-agent AI workflows into something you can watch. Each Claude Code agent gets a desk, a sprite, and a status; they chat, queue, take breaks, and finish tasks visibly. Includes a Dunder Mifflin mode that swaps the cast for the cast of The Office, with in-character chatter and prop overlays.",
+    problem:
+      "Multi-agent workflows are invisible by default. Logs and dashboards tell you what happened but not how it felt. I wanted a way to actually see agents working, partly as a debugging surface and partly because the medium itself tells a better story than the logs.",
+    approach:
+      "Isometric pixel-art scene rendered in the browser, driven by a WebSocket bridge that listens to live Claude Code activity. Agents are sprites with state machines (idle, working, on break, chatting). The Slack-style panel mirrors agent chatter as real messages. Remotion handles the recorded clips that ended up doing most of the work on social.",
+    outcome:
+      "Picked up real traction on social media, driven mostly by the Dunder Mifflin mode clip. More importantly it works as a debugging tool. You can see at a glance when an agent is stuck, looping, or waiting. Open source, with a config schema for adding your own cast and rooms.",
+  },
+  {
+    slug: 'jarvis',
+    title: 'Jarvis',
+    description:
+      "Personal AI assistant CLI built around Claude. A bridge architecture lets it talk to your apps, run plugins, and keep conversational state across sessions. Docs are hosted at /arc so you can read it without cloning anything.",
+    tech: ['Node.js', 'TypeScript', 'Claude API', 'CLI', 'Plugin Architecture', 'Homebrew', 'Docker'],
+    url: '/arc',
+    repo: 'https://github.com/W17ant/Jarvis',
+    featured: true,
+    logo: '/images/jarvis-logo.png',
+    overview:
+      "Jarvis is the assistant I actually use day to day. Conversational CLI that wraps Claude with persistent memory, a plugin system for adding capabilities, a bridge layer for talking to other apps, and a HUD for status. Distributed via Homebrew and Docker so it's the same on every machine I touch.",
+    problem:
+      "I kept rebuilding the same wrappers around Claude. Memory, history, app integrations, scriptable commands. It needed to be one thing I could extend, not five half-finished scripts in different repos.",
+    approach:
+      "Modular core with a plugin interface so capabilities (inbox, demo recorder, asset panel, conversation mode) can be added without touching the core. The bridge layer abstracts external apps behind a single event protocol. Docs are versioned alongside the code and published to /arc on this site via a git subtree, so the published docs always reflect the shipped binary.",
+    outcome:
+      "Daily driver for my own workflow. The plugin ecosystem is what makes it stick. Extending it doesn't feel like a chore, which means I actually keep adding things to it rather than abandoning it for the next shiny tool. Full docs and quickstart at /arc.",
+  },
+  {
     slug: 'snake-rl-agent',
     title: 'Deep Q-Learning Snake Agent',
     description:
