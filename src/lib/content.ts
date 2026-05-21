@@ -224,6 +224,7 @@ const projects: Project[] = [
       'Entity-level sentiment classifier across six architectures, from a plain MLP up to fine-tuned transformers. Twelve runs, head-to-head: a tuned MLP topped the leaderboard at 98.6%, beating RoBERTa at a fraction of the training cost.',
     tech: ['Python', 'PyTorch', 'Hugging Face', 'Transformers', 'NLP', 'scikit-learn'],
     featured: true,
+    logo: '/images/nlp-twitter-sentiment-logo.png',
     overview:
       "MSc NLP final assessment. Entity-level sentiment classification on the Twitter Entity Sentiment dataset (positive / negative / neutral, with irrelevant rolled into neutral). I ran six architectures back to back — MLP, BiLSTM, 1-D CNN, DistilBERT, RoBERTa, ALBERT — with two configurations each, so twelve experiments in total measuring accuracy, macro/weighted F1, precision, recall, and wall-clock training time.",
     problem:
