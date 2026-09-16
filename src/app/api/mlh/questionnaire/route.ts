@@ -15,6 +15,7 @@
  *   start   verify the code, then resume the given response or begin a new one
  *   save    merge a patch of answers into a response
  *   finish  the same as save, and stamp the response as completed
+ *   accept  record that the client accepted the costs cover page
  *
  * The response id is the only thing the client holds afterwards. It is a v4 uuid
  * and never guessable, but it is not a secret on its own - every action still
@@ -24,7 +25,7 @@
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
 import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
-import { createResponse, loadResponse, saveAnswers, isConfigured } from '@/lib/mlh/store';
+import { createResponse, loadResponse, saveAnswers, acceptCosts, isConfigured } from '@/lib/mlh/store';
 import { allQuestions, type Answers } from '@/lib/mlh/questionnaire';
 
 /* ###########################################################
@@ -186,6 +187,8 @@ export async function POST(request: Request) {
         answers: record.answers,
         completedBy: record.completedBy,
         completedAt: record.completedAt,
+        acceptedAt: record.acceptedAt,
+        acceptedBy: record.acceptedBy,
         // Tells the client its resume link was stale, so it can say so rather
         // than silently presenting an empty form as if nothing was ever saved.
         resumed: Boolean(existing),
@@ -204,6 +207,18 @@ export async function POST(request: Request) {
 
       const result = await saveAnswers(responseId, patch, completedBy, action === 'finish');
       return NextResponse.json({ saved: true, ...result });
+    }
+
+    /* --- accept: the costs cover page --- */
+    if (action === 'accept') {
+      const responseId = typeof body.responseId === 'string' ? body.responseId : '';
+      const name = typeof body.name === 'string' ? body.name.trim().slice(0, 200) : '';
+      if (!responseId || !name) {
+        return NextResponse.json({ error: 'Please add your name and try again.' }, { status: 400 });
+      }
+
+      const result = await acceptCosts(responseId, name);
+      return NextResponse.json({ accepted: true, ...result });
     }
 
     return NextResponse.json({ error: 'Please check your details and try again.' }, { status: 400 });

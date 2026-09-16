@@ -77,6 +77,9 @@ export interface StoredResponse {
   answers: Answers;
   completedBy: string | null;
   completedAt: string | null;
+  /** When the client accepted the costs cover page, or null if they have not. */
+  acceptedAt: string | null;
+  acceptedBy: string | null;
 }
 
 /** Starts a response and returns it empty. */
@@ -105,7 +108,11 @@ export async function loadResponse(id: string): Promise<StoredResponse | null> {
   if (!isUuid(id)) return null;
 
   const response = await request(
-    `/rest/v1/mlh_responses?id=eq.${encodeURIComponent(id)}&select=id,answers,completed_by,completed_at&limit=1`,
+    // select=* rather than naming columns: PostgREST rejects the whole query if
+    // one named column is missing, so an explicit list makes this code depend on
+    // a migration having run. With * a lagging migration just means the
+    // acceptance fields read as null and the questionnaire keeps working.
+    `/rest/v1/mlh_responses?id=eq.${encodeURIComponent(id)}&select=*&limit=1`,
   );
 
   if (!response.ok) {
@@ -163,7 +170,37 @@ export async function saveAnswers(
 }
 
 /* ###########################################################
-   ###   4. Helpers                                         ###
+   ###   4. Cost acceptance                                 ###
+   ########################################################### */
+
+/**
+ * Records that the client accepted the costs cover page.
+ *
+ * Idempotent: the function keeps the first timestamp, so re-reading the page and
+ * pressing accept again does not move the date.
+ *
+ * @param id - the response being accepted against
+ * @param name - who accepted, as they typed it
+ */
+export async function acceptCosts(
+  id: string,
+  name: string,
+): Promise<{ acceptedAt: string | null; acceptedBy: string | null }> {
+  const response = await request('/rest/v1/rpc/mlh_accept_costs', {
+    method: 'POST',
+    body: JSON.stringify({ p_id: id, p_name: name }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Could not record acceptance (${response.status}): ${await response.text()}`);
+  }
+
+  const rows = (await response.json()) as Array<{ accepted_at: string | null; accepted_by: string | null }>;
+  return { acceptedAt: rows[0]?.accepted_at ?? null, acceptedBy: rows[0]?.accepted_by ?? null };
+}
+
+/* ###########################################################
+   ###   5. Helpers                                         ###
    ########################################################### */
 
 function toStored(row: Record<string, unknown>): StoredResponse {
@@ -172,6 +209,8 @@ function toStored(row: Record<string, unknown>): StoredResponse {
     answers: (row.answers as Answers) ?? {},
     completedBy: (row.completed_by as string | null) ?? null,
     completedAt: (row.completed_at as string | null) ?? null,
+    acceptedAt: (row.accepted_at as string | null) ?? null,
+    acceptedBy: (row.accepted_by as string | null) ?? null,
   };
 }
 
