@@ -166,3 +166,72 @@ revoke execute on function mlh_save_answers(uuid, jsonb, text, boolean) from pub
 revoke execute on function mlh_touch_updated_at() from public, anon, authenticated;
 revoke all on mlh_responses from anon, authenticated;
 revoke all on mlh_response_progress from anon, authenticated;
+
+-- ---------------------------------------------------------------------------
+-- Cost acceptance (cover page)
+-- ---------------------------------------------------------------------------
+
+-- The questionnaire opens on a costs summary the client accepts before
+-- answering anything. Recording it here gives a note of who agreed and when,
+-- which is the point of asking. Not a contract - see the wording on the page.
+alter table mlh_responses
+  add column if not exists accepted_at timestamptz,
+  add column if not exists accepted_by text;
+
+comment on column mlh_responses.accepted_at is
+  'When the client accepted the costs cover page. Null means they skipped it or have not reached it.';
+
+-- Stamped once and never cleared, same reasoning as completed_at: someone who
+-- accepts and then rereads the page has still accepted.
+create or replace function mlh_accept_costs(p_id uuid, p_name text)
+returns table (accepted_at timestamptz, accepted_by text)
+language plpgsql
+security invoker
+set search_path = public
+as $$
+begin
+  update mlh_responses r
+  -- Both fields lock to the FIRST acceptance. Locking the timestamp but letting
+  -- the name be overwritten would pair the original date with whoever pressed
+  -- the button last, which is worse than either alone as a record of who agreed.
+  set accepted_at = coalesce(r.accepted_at, now()),
+      accepted_by = coalesce(r.accepted_by, nullif(trim(p_name), ''))
+  where r.id = p_id;
+
+  if not found then
+    raise exception 'No such response';
+  end if;
+
+  return query
+    select r.accepted_at, r.accepted_by from mlh_responses r where r.id = p_id;
+end;
+$$;
+
+revoke execute on function mlh_accept_costs(uuid, text) from public, anon, authenticated;
+
+-- Surface acceptance alongside progress, so one read answers "have they agreed
+-- and how far through are they".
+--
+-- DROP then CREATE, not CREATE OR REPLACE: replacing a view cannot reorder or
+-- insert columns, and putting accepted_at fourth reads to Postgres as renaming
+-- created_at - "42P16: cannot change name of view column". Dropping is safe
+-- because a view holds no data.
+drop view if exists mlh_response_progress;
+
+create view mlh_response_progress
+  with (security_invoker = on)
+as
+  select
+    id,
+    completed_by,
+    completed_at,
+    accepted_at,
+    accepted_by,
+    created_at,
+    updated_at,
+    (select count(*) from jsonb_each_text(answers) a where length(trim(a.value)) > 0) as answered,
+    answers
+  from mlh_responses
+  order by updated_at desc;
+
+revoke all on mlh_response_progress from anon, authenticated;

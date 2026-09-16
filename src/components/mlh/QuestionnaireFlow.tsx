@@ -25,6 +25,7 @@
  */
 
 import Image from 'next/image';
+import CostsAgreement from '@/components/mlh/CostsAgreement';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   questionnaire,
@@ -70,6 +71,10 @@ export default function QuestionnaireFlow({ turnstileSiteKey }: { turnstileSiteK
   const [message, setMessage] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [resumeNotice, setResumeNotice] = useState<string | null>(null);
+  const [acceptedAt, setAcceptedAt] = useState<string | null>(null);
+  const [acceptedBy, setAcceptedBy] = useState<string | null>(null);
+  /** The costs page is step 0. Dismissed once seen, per visit. */
+  const [showCosts, setShowCosts] = useState(true);
 
   /** Answers edited but not yet sent, so a failed save is not lost. */
   const pending = useRef<Answers>({});
@@ -150,6 +155,8 @@ export default function QuestionnaireFlow({ turnstileSiteKey }: { turnstileSiteK
       setAnswers(result.answers || {});
       setCompletedBy(result.completedBy || '');
       setCompletedAt(result.completedAt || null);
+      setAcceptedAt(result.acceptedAt || null);
+      setAcceptedBy(result.acceptedBy || null);
       setUnlocked(true);
 
       window.localStorage.setItem(STORAGE_KEY, result.responseId);
@@ -168,6 +175,24 @@ export default function QuestionnaireFlow({ turnstileSiteKey }: { turnstileSiteK
       }
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Could not start.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  /* --- accepting the costs ----------------------------------------------- */
+
+  async function acceptCosts(name: string) {
+    if (!responseId) return;
+    setBusy(true);
+    setMessage(null);
+    try {
+      const result = await call({ action: 'accept', responseId, name });
+      setAcceptedAt(result.acceptedAt || new Date().toISOString());
+      setAcceptedBy(result.acceptedBy || name);
+      setShowCosts(false);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Could not record that.');
     } finally {
       setBusy(false);
     }
@@ -273,6 +298,23 @@ export default function QuestionnaireFlow({ turnstileSiteKey }: { turnstileSiteK
     );
   }
 
+  /* --- step 0: the costs cover page -------------------------------------- */
+
+  if (showCosts) {
+    return (
+      <Panel wide>
+        <CostsAgreement
+          acceptedAt={acceptedAt}
+          acceptedBy={acceptedBy}
+          onAccept={acceptCosts}
+          onSkip={() => setShowCosts(false)}
+          busy={busy}
+          error={message}
+        />
+      </Panel>
+    );
+  }
+
   /* --- the questionnaire ------------------------------------------------- */
 
   const onLastSection = sectionIndex === sections.length - 1;
@@ -303,6 +345,18 @@ export default function QuestionnaireFlow({ turnstileSiteKey }: { turnstileSiteK
         </div>
 
         <nav className="mt-4 flex flex-wrap gap-1.5" aria-label="Sections">
+          {/* A way back to the costs, so they are re-readable rather than a gate
+              seen once and lost. */}
+          <button
+            type="button"
+            onClick={() => {
+              commit();
+              setShowCosts(true);
+            }}
+            className="rounded-full border border-[var(--stroke)] px-2.5 py-1 text-xs text-[var(--ink-secondary)] transition-colors hover:bg-[var(--bg-surface)]"
+          >
+            Costs{acceptedAt ? ' ✓' : ''}
+          </button>
           {sections.map((s, i) => {
             const done = countAnswered(sectionQuestions(s), answers);
             const total = sectionQuestions(s).length;
