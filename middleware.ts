@@ -58,14 +58,21 @@ export function middleware(request: NextRequest) {
 }
 
 // Apply middleware to all routes except static files, MSC folder, and the
-// client-demo subtrees (tomthevacuumman, renovaelabs). These demos are
+// client-demo subtrees (tomthevacuumman, renovaelabs, MLH). These demos are
 // standalone static HTML builds with Google Fonts and their own security
 // posture; the site-wide CSP (which omits fonts.googleapis.com from
 // style-src) would otherwise block them.
+//
+// MLH is excluded only for the demo itself, NOT for /MLH/Questions. The demo is
+// a prebuilt static export whose script tags cannot carry a per-request nonce,
+// and 'strict-dynamic' disables host allowlisting, so the site CSP blocked every
+// one of its chunks and the pages rendered as a bare shell. The questionnaire at
+// /MLH/Questions is a normal server-rendered route, gets its nonce like any other
+// page, and keeps the CSP - it is the half that takes client input.
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico|images|MSC|tomthevacuumman|renovaelabs|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|images|MSC|tomthevacuumman|renovaelabs|MLH/(?!Questions)|MLH$|.*\\.png$|.*\\.jpg$|.*\\.svg$|.*\\.ico$).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
