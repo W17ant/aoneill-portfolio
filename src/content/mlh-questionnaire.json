@@ -1,0 +1,2647 @@
+{
+  "title": "Manchester Leisure Hire",
+  "subtitle": "Website information questionnaire",
+  "source": "MLH-client-questionnaire.docx",
+  "generatedAt": "2026-09-16T09:17:14.069Z",
+  "questionCount": 333,
+  "sections": [
+    {
+      "id": "business-and-brand",
+      "title": "Business and brand",
+      "subsections": [
+        {
+          "title": "Identity",
+          "questions": [
+            {
+              "id": "q1",
+              "number": 1,
+              "title": "Trading name",
+              "note": "Current: Manchester Leisure Hire. Confirm public-facing name and spelling.",
+              "long": false
+            },
+            {
+              "id": "q2",
+              "number": 2,
+              "title": "Abbreviation",
+              "note": "Current: MLH. Confirm use on website, favicon and emails.",
+              "long": false
+            },
+            {
+              "id": "q3",
+              "number": 3,
+              "title": "Legal business name",
+              "note": "Full contracting entity name.",
+              "long": false
+            },
+            {
+              "id": "q4",
+              "number": 4,
+              "title": "Business type",
+              "note": "Limited company, sole trader or partnership.",
+              "long": false
+            },
+            {
+              "id": "q5",
+              "number": 5,
+              "title": "Company registration number",
+              "note": "If applicable. State N/A if not applicable.",
+              "long": false
+            },
+            {
+              "id": "q6",
+              "number": 6,
+              "title": "VAT registration status",
+              "note": "Confirm with the business accountant.",
+              "long": false
+            },
+            {
+              "id": "q7",
+              "number": 7,
+              "title": "VAT registration number",
+              "note": "If registered. State N/A otherwise.",
+              "long": false
+            },
+            {
+              "id": "q8",
+              "number": 8,
+              "title": "Registered office",
+              "note": "Full legal address, including postcode and country.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Contact",
+          "questions": [
+            {
+              "id": "q9",
+              "number": 9,
+              "title": "Public trading address",
+              "note": "Confirm which address may be published.",
+              "long": false
+            },
+            {
+              "id": "q10",
+              "number": 10,
+              "title": "Collection area",
+              "note": "Current: Greater Manchester. Confirm town and public location wording.",
+              "long": false
+            },
+            {
+              "id": "q11",
+              "number": 11,
+              "title": "Collection street address",
+              "note": "Exact collection location if different from trading address.",
+              "long": false
+            },
+            {
+              "id": "q12",
+              "number": 12,
+              "title": "Collection town and postcode",
+              "note": "Needed for directions and verified business details.",
+              "long": false
+            },
+            {
+              "id": "q13",
+              "number": 13,
+              "title": "Business telephone",
+              "note": "Public customer number, including country code.",
+              "long": false
+            },
+            {
+              "id": "q14",
+              "number": 14,
+              "title": "Business email",
+              "note": "Enquiries and operator notification recipient.",
+              "long": false
+            },
+            {
+              "id": "q15",
+              "number": 15,
+              "title": "Emergency telephone",
+              "note": "During-hire and out-of-hours contact.",
+              "long": false
+            },
+            {
+              "id": "q16",
+              "number": 16,
+              "title": "WhatsApp",
+              "note": "Whether offered, number and staffed hours.",
+              "long": false
+            },
+            {
+              "id": "q17",
+              "number": 17,
+              "title": "Opening hours",
+              "note": "Days, hours, bank holidays and closures.",
+              "long": false
+            },
+            {
+              "id": "q18",
+              "number": 18,
+              "title": "Response time",
+              "note": "Customer enquiries and cancellation requests.",
+              "long": false
+            },
+            {
+              "id": "q19",
+              "number": 19,
+              "title": "Map pin and directions",
+              "note": "Exact map link, access instructions and landmarks.",
+              "long": false
+            },
+            {
+              "id": "q20",
+              "number": 20,
+              "title": "Customer parking",
+              "note": "Availability, price and responsibility for parked vehicles.",
+              "long": false
+            },
+            {
+              "id": "q21",
+              "number": 21,
+              "title": "Delivery or transfers",
+              "note": "Service area, airport/station pickup, cost or not offered.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Brand",
+          "questions": [
+            {
+              "id": "q22",
+              "number": 22,
+              "title": "Logo",
+              "note": "Current: MLH font-based wordmark. Approve dark/light logo, email version and favicon.",
+              "long": false
+            },
+            {
+              "id": "q23",
+              "number": 23,
+              "title": "Colours",
+              "note": "Current: Forest green, cream and lime accents. Approve current palette or supply brand guide.",
+              "long": false
+            },
+            {
+              "id": "q24",
+              "number": 24,
+              "title": "Typography",
+              "note": "Current: Serif headings and sans-serif body. Approve current website and email typography.",
+              "long": false
+            },
+            {
+              "id": "q25",
+              "number": 25,
+              "title": "Tone and key message",
+              "note": "Current: Relaxed campervan adventures from Manchester. Confirm ideal customer and main selling points.",
+              "long": false
+            },
+            {
+              "id": "q26",
+              "number": 26,
+              "title": "Business story",
+              "note": "Current: Generic draft About page. Founders, start date, experience, values and real story.",
+              "long": true
+            },
+            {
+              "id": "q27",
+              "number": 27,
+              "title": "Team profiles",
+              "note": "Names, roles, approved biographies and photos.",
+              "long": false
+            },
+            {
+              "id": "q28",
+              "number": 28,
+              "title": "Testimonials",
+              "note": "Genuine quotes, source links and permission. No invented ratings.",
+              "long": false
+            },
+            {
+              "id": "q29",
+              "number": 29,
+              "title": "Accreditations and partners",
+              "note": "Evidence and logo permission for any claims.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Web",
+          "questions": [
+            {
+              "id": "q30",
+              "number": 30,
+              "title": "Domain name",
+              "note": "Current: Local preview only. Preferred live domain and any existing domains.",
+              "long": false
+            },
+            {
+              "id": "q31",
+              "number": 31,
+              "title": "Existing website",
+              "note": "URL, current provider and whether replacing it.",
+              "long": false
+            },
+            {
+              "id": "q32",
+              "number": 32,
+              "title": "Existing email setup",
+              "note": "Provider and addresses to preserve when changing DNS.",
+              "long": false
+            },
+            {
+              "id": "q33",
+              "number": 33,
+              "title": "Social profiles",
+              "note": "Instagram, Facebook, TikTok, YouTube and any other approved links.",
+              "long": false
+            },
+            {
+              "id": "q34",
+              "number": 34,
+              "title": "Existing search listings",
+              "note": "Google Business Profile and any duplicates or old listings.",
+              "long": true
+            },
+            {
+              "id": "q35",
+              "number": 35,
+              "title": "Target locations",
+              "note": "Actual service area and priority towns for search content.",
+              "long": false
+            },
+            {
+              "id": "q36",
+              "number": 36,
+              "title": "Launch date",
+              "note": "Target date and client approval contact.",
+              "long": false
+            },
+            {
+              "id": "q37",
+              "number": 37,
+              "title": "Budget and ongoing ownership",
+              "note": "Hosting, support, updates and named billing owner.",
+              "long": false
+            },
+            {
+              "id": "q38",
+              "number": 38,
+              "title": "Domain renewals",
+              "note": "Who owns the registration, expiry and auto-renewal contact.",
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleet",
+      "title": "Fleet",
+      "subsections": [
+        {
+          "title": "Fern",
+          "questions": [
+            {
+              "id": "q39",
+              "number": 39,
+              "title": "Camper name",
+              "note": "Current: Fern.",
+              "long": false
+            },
+            {
+              "id": "q40",
+              "number": 40,
+              "title": "URL name",
+              "note": "Current: fern.",
+              "long": false
+            },
+            {
+              "id": "q41",
+              "number": 41,
+              "title": "Make and model",
+              "note": "Current: Volkswagen T5.1 camper.",
+              "long": false
+            },
+            {
+              "id": "q42",
+              "number": 42,
+              "title": "Short headline",
+              "note": "Current: Small footprint. Big adventures.",
+              "long": false
+            },
+            {
+              "id": "q43",
+              "number": 43,
+              "title": "Description",
+              "note": "Current: A nimble home on wheels for slow mornings and roads less travelled. Pop the roof, put the kettle on and make yourself at home.",
+              "long": true
+            },
+            {
+              "id": "q44",
+              "number": 44,
+              "title": "Berths (sleeping places)",
+              "note": "Current: 4.",
+              "long": false
+            },
+            {
+              "id": "q45",
+              "number": 45,
+              "title": "Belted travel seats",
+              "note": "Current: 4.",
+              "long": false
+            },
+            {
+              "id": "q46",
+              "number": 46,
+              "title": "Transmission",
+              "note": "Current: Automatic.",
+              "long": false
+            },
+            {
+              "id": "q47",
+              "number": 47,
+              "title": "Exterior colour",
+              "note": "Current: Sage green. Current generated image colour. Confirm actual vehicle colour.",
+              "long": false
+            },
+            {
+              "id": "q48",
+              "number": 48,
+              "title": "Pet friendly",
+              "note": "Current: Yes. Confirm dogs allowed, limits and any fee in Hire & pricing.",
+              "long": false
+            },
+            {
+              "id": "q49",
+              "number": 49,
+              "title": "Base nightly price (GBP)",
+              "note": "Current: £125 per night. Demo price in pounds. Confirm tax-inclusive customer price.",
+              "long": false
+            },
+            {
+              "id": "q50",
+              "number": 50,
+              "title": "Listed on website",
+              "note": "Current: Yes. Confirm launch availability and fleet order.",
+              "long": true
+            },
+            {
+              "id": "q51",
+              "number": 51,
+              "title": "Included equipment and features",
+              "note": "Current: Pop-top roof, Two double beds, Kitchen & fridge, Diesel heating, Outdoor table, USB charging. Confirm each feature and add anything missing.",
+              "long": true
+            },
+            {
+              "id": "q52",
+              "number": 52,
+              "title": "Exceptions to the standard hire rules",
+              "note": "Current: Uses the shared demo rules. Confirm any different minimum/maximum nights, notice, turnaround, collection/return times, booking deposit, balance deadline, tax or cancellation terms for this camper. Standard values are in Hire and pricing.",
+              "long": true
+            },
+            {
+              "id": "q53",
+              "number": 53,
+              "title": "Main exterior photo",
+              "note": "Current: Generated placeholder. Supply actual vehicle photo. Confirm colour and body style.",
+              "long": false
+            },
+            {
+              "id": "q54",
+              "number": 54,
+              "title": "Interior photos",
+              "note": "Current: Shared generated orange-van interior. Supply this camper’s actual kitchen, seating and sleeping layout.",
+              "long": false
+            },
+            {
+              "id": "q55",
+              "number": 55,
+              "title": "Rear/gallery photos",
+              "note": "Current: Generated colour-matched rear view. Supply rear, roof raised, beds made up and storage photos.",
+              "long": false
+            },
+            {
+              "id": "q56",
+              "number": 56,
+              "title": "Registration (private record)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q57",
+              "number": 57,
+              "title": "Year and conversion company",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q58",
+              "number": 58,
+              "title": "Fuel type and engine",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q59",
+              "number": 59,
+              "title": "Height, length and width (metres)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q60",
+              "number": 60,
+              "title": "Weight and driving licence category",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q61",
+              "number": 61,
+              "title": "Bed dimensions and adult/child suitability",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q62",
+              "number": 62,
+              "title": "Child-seat mounting and ISOFIX",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q63",
+              "number": 63,
+              "title": "Toilet and shower specification",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q64",
+              "number": 64,
+              "title": "Fresh/waste water capacity",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q65",
+              "number": 65,
+              "title": "Electric hookup and leisure battery",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q66",
+              "number": 66,
+              "title": "Cooking equipment and gas provision",
+              "note": null,
+              "long": true
+            },
+            {
+              "id": "q67",
+              "number": 67,
+              "title": "Bedding, towels and kitchen inventory",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q68",
+              "number": 68,
+              "title": "Accessibility and entry steps",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q69",
+              "number": 69,
+              "title": "Mileage allowance and excess mileage",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q70",
+              "number": 70,
+              "title": "Maintenance and MOT schedule",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q71",
+              "number": 71,
+              "title": "Existing bookings and unavailable dates",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q72",
+              "number": 72,
+              "title": "Earliest date available for hire",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q73",
+              "number": 73,
+              "title": "Breakdown and insurance cover reference",
+              "note": null,
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Atlas",
+          "questions": [
+            {
+              "id": "q74",
+              "number": 74,
+              "title": "Camper name",
+              "note": "Current: Atlas.",
+              "long": false
+            },
+            {
+              "id": "q75",
+              "number": 75,
+              "title": "URL name",
+              "note": "Current: atlas.",
+              "long": false
+            },
+            {
+              "id": "q76",
+              "number": 76,
+              "title": "Make and model",
+              "note": "Current: Volkswagen T6 camper.",
+              "long": false
+            },
+            {
+              "id": "q77",
+              "number": 77,
+              "title": "Short headline",
+              "note": "Current: A little more room to roam.",
+              "long": false
+            },
+            {
+              "id": "q78",
+              "number": 78,
+              "title": "Description",
+              "note": "Current: Room to stretch out after a day on the trail. A fixed bed, a proper kitchen and a cosy corner for your next route-planning session.",
+              "long": true
+            },
+            {
+              "id": "q79",
+              "number": 79,
+              "title": "Berths (sleeping places)",
+              "note": "Current: 2.",
+              "long": false
+            },
+            {
+              "id": "q80",
+              "number": 80,
+              "title": "Belted travel seats",
+              "note": "Current: 3.",
+              "long": false
+            },
+            {
+              "id": "q81",
+              "number": 81,
+              "title": "Transmission",
+              "note": "Current: Manual.",
+              "long": false
+            },
+            {
+              "id": "q82",
+              "number": 82,
+              "title": "Exterior colour",
+              "note": "Current: Silver. Current generated image colour. Confirm actual vehicle colour.",
+              "long": false
+            },
+            {
+              "id": "q83",
+              "number": 83,
+              "title": "Pet friendly",
+              "note": "Current: Yes. Confirm dogs allowed, limits and any fee in Hire & pricing.",
+              "long": false
+            },
+            {
+              "id": "q84",
+              "number": 84,
+              "title": "Base nightly price (GBP)",
+              "note": "Current: £145 per night. Demo price in pounds. Confirm tax-inclusive customer price.",
+              "long": false
+            },
+            {
+              "id": "q85",
+              "number": 85,
+              "title": "Listed on website",
+              "note": "Current: Yes. Confirm launch availability and fleet order.",
+              "long": true
+            },
+            {
+              "id": "q86",
+              "number": 86,
+              "title": "Included equipment and features",
+              "note": "Current: Fixed double bed, Indoor shower, Kitchen & fridge, Solar power, Diesel heating, Bike storage. Confirm each feature and add anything missing.",
+              "long": true
+            },
+            {
+              "id": "q87",
+              "number": 87,
+              "title": "Exceptions to the standard hire rules",
+              "note": "Current: Uses the shared demo rules. Confirm any different minimum/maximum nights, notice, turnaround, collection/return times, booking deposit, balance deadline, tax or cancellation terms for this camper. Standard values are in Hire and pricing.",
+              "long": true
+            },
+            {
+              "id": "q88",
+              "number": 88,
+              "title": "Main exterior photo",
+              "note": "Current: Generated placeholder. Supply actual vehicle photo. Confirm colour and body style.",
+              "long": false
+            },
+            {
+              "id": "q89",
+              "number": 89,
+              "title": "Interior photos",
+              "note": "Current: Shared generated orange-van interior. Supply this camper’s actual kitchen, seating and sleeping layout.",
+              "long": false
+            },
+            {
+              "id": "q90",
+              "number": 90,
+              "title": "Rear/gallery photos",
+              "note": "Current: Generated colour-matched rear view. Supply rear, roof raised, beds made up and storage photos.",
+              "long": false
+            },
+            {
+              "id": "q91",
+              "number": 91,
+              "title": "Registration (private record)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q92",
+              "number": 92,
+              "title": "Year and conversion company",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q93",
+              "number": 93,
+              "title": "Fuel type and engine",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q94",
+              "number": 94,
+              "title": "Height, length and width (metres)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q95",
+              "number": 95,
+              "title": "Weight and driving licence category",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q96",
+              "number": 96,
+              "title": "Bed dimensions and adult/child suitability",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q97",
+              "number": 97,
+              "title": "Child-seat mounting and ISOFIX",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q98",
+              "number": 98,
+              "title": "Toilet and shower specification",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q99",
+              "number": 99,
+              "title": "Fresh/waste water capacity",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q100",
+              "number": 100,
+              "title": "Electric hookup and leisure battery",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q101",
+              "number": 101,
+              "title": "Cooking equipment and gas provision",
+              "note": null,
+              "long": true
+            },
+            {
+              "id": "q102",
+              "number": 102,
+              "title": "Bedding, towels and kitchen inventory",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q103",
+              "number": 103,
+              "title": "Accessibility and entry steps",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q104",
+              "number": 104,
+              "title": "Mileage allowance and excess mileage",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q105",
+              "number": 105,
+              "title": "Maintenance and MOT schedule",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q106",
+              "number": 106,
+              "title": "Existing bookings and unavailable dates",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q107",
+              "number": 107,
+              "title": "Earliest date available for hire",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q108",
+              "number": 108,
+              "title": "Breakdown and insurance cover reference",
+              "note": null,
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Moss",
+          "questions": [
+            {
+              "id": "q109",
+              "number": 109,
+              "title": "Camper name",
+              "note": "Current: Moss.",
+              "long": false
+            },
+            {
+              "id": "q110",
+              "number": 110,
+              "title": "URL name",
+              "note": "Current: moss.",
+              "long": false
+            },
+            {
+              "id": "q111",
+              "number": 111,
+              "title": "Make and model",
+              "note": "Current: Volkswagen T6 camper.",
+              "long": false
+            },
+            {
+              "id": "q112",
+              "number": 112,
+              "title": "Short headline",
+              "note": "Current: Your weekend, a little wilder.",
+              "long": false
+            },
+            {
+              "id": "q113",
+              "number": 113,
+              "title": "Description",
+              "note": "Current: An easy-going camper for a couple or a small family. Pack the essentials, choose a direction and leave the everyday behind.",
+              "long": true
+            },
+            {
+              "id": "q114",
+              "number": 114,
+              "title": "Berths (sleeping places)",
+              "note": "Current: 4.",
+              "long": false
+            },
+            {
+              "id": "q115",
+              "number": 115,
+              "title": "Belted travel seats",
+              "note": "Current: 5.",
+              "long": false
+            },
+            {
+              "id": "q116",
+              "number": 116,
+              "title": "Transmission",
+              "note": "Current: Automatic.",
+              "long": false
+            },
+            {
+              "id": "q117",
+              "number": 117,
+              "title": "Exterior colour",
+              "note": "Current: Burnt orange. Current generated image colour. Confirm actual vehicle colour.",
+              "long": false
+            },
+            {
+              "id": "q118",
+              "number": 118,
+              "title": "Pet friendly",
+              "note": "Current: No. Confirm dogs allowed, limits and any fee in Hire & pricing.",
+              "long": false
+            },
+            {
+              "id": "q119",
+              "number": 119,
+              "title": "Base nightly price (GBP)",
+              "note": "Current: £115 per night. Demo price in pounds. Confirm tax-inclusive customer price.",
+              "long": false
+            },
+            {
+              "id": "q120",
+              "number": 120,
+              "title": "Listed on website",
+              "note": "Current: Yes. Confirm launch availability and fleet order.",
+              "long": true
+            },
+            {
+              "id": "q121",
+              "number": 121,
+              "title": "Included equipment and features",
+              "note": "Current: Pop-top roof, Kitchen & fridge, Awning, Outdoor chairs, Heating, USB charging. Confirm each feature and add anything missing.",
+              "long": true
+            },
+            {
+              "id": "q122",
+              "number": 122,
+              "title": "Exceptions to the standard hire rules",
+              "note": "Current: Uses the shared demo rules. Confirm any different minimum/maximum nights, notice, turnaround, collection/return times, booking deposit, balance deadline, tax or cancellation terms for this camper. Standard values are in Hire and pricing.",
+              "long": true
+            },
+            {
+              "id": "q123",
+              "number": 123,
+              "title": "Main exterior photo",
+              "note": "Current: Generated placeholder. Supply actual vehicle photo. Confirm colour and body style.",
+              "long": false
+            },
+            {
+              "id": "q124",
+              "number": 124,
+              "title": "Interior photos",
+              "note": "Current: Shared generated orange-van interior. Supply this camper’s actual kitchen, seating and sleeping layout.",
+              "long": false
+            },
+            {
+              "id": "q125",
+              "number": 125,
+              "title": "Rear/gallery photos",
+              "note": "Current: Generated colour-matched rear view. Supply rear, roof raised, beds made up and storage photos.",
+              "long": false
+            },
+            {
+              "id": "q126",
+              "number": 126,
+              "title": "Registration (private record)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q127",
+              "number": 127,
+              "title": "Year and conversion company",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q128",
+              "number": 128,
+              "title": "Fuel type and engine",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q129",
+              "number": 129,
+              "title": "Height, length and width (metres)",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q130",
+              "number": 130,
+              "title": "Weight and driving licence category",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q131",
+              "number": 131,
+              "title": "Bed dimensions and adult/child suitability",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q132",
+              "number": 132,
+              "title": "Child-seat mounting and ISOFIX",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q133",
+              "number": 133,
+              "title": "Toilet and shower specification",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q134",
+              "number": 134,
+              "title": "Fresh/waste water capacity",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q135",
+              "number": 135,
+              "title": "Electric hookup and leisure battery",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q136",
+              "number": 136,
+              "title": "Cooking equipment and gas provision",
+              "note": null,
+              "long": true
+            },
+            {
+              "id": "q137",
+              "number": 137,
+              "title": "Bedding, towels and kitchen inventory",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q138",
+              "number": 138,
+              "title": "Accessibility and entry steps",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q139",
+              "number": 139,
+              "title": "Mileage allowance and excess mileage",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q140",
+              "number": 140,
+              "title": "Maintenance and MOT schedule",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q141",
+              "number": 141,
+              "title": "Existing bookings and unavailable dates",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q142",
+              "number": 142,
+              "title": "Earliest date available for hire",
+              "note": null,
+              "long": false
+            },
+            {
+              "id": "q143",
+              "number": 143,
+              "title": "Breakdown and insurance cover reference",
+              "note": null,
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hire-and-pricing",
+      "title": "Hire and pricing",
+      "subsections": [
+        {
+          "title": "Booking",
+          "questions": [
+            {
+              "id": "q144",
+              "number": 144,
+              "title": "Minimum hire",
+              "note": "Current: 3 nights. Confirm weekday, weekend and bank-holiday exceptions.",
+              "long": true
+            },
+            {
+              "id": "q145",
+              "number": 145,
+              "title": "Maximum hire",
+              "note": "Current: 28 nights. Confirm extensions and longer trips.",
+              "long": false
+            },
+            {
+              "id": "q146",
+              "number": 146,
+              "title": "Advance notice",
+              "note": "Current: 48 hours. Confirm last-minute booking policy.",
+              "long": true
+            },
+            {
+              "id": "q147",
+              "number": 147,
+              "title": "Turnaround",
+              "note": "Current: 3 hours. Cleaning and inspection time between hires.",
+              "long": false
+            },
+            {
+              "id": "q148",
+              "number": 148,
+              "title": "Pickup time",
+              "note": "Current: 15:00. Confirm permitted days and late pickups.",
+              "long": false
+            },
+            {
+              "id": "q149",
+              "number": 149,
+              "title": "Return time",
+              "note": "Current: 10:00. Confirm permitted days and late returns.",
+              "long": false
+            },
+            {
+              "id": "q150",
+              "number": 150,
+              "title": "Timezone",
+              "note": "Current: Europe/London. Local UK time including daylight saving.",
+              "long": false
+            },
+            {
+              "id": "q151",
+              "number": 151,
+              "title": "Booking window",
+              "note": "How far ahead customers may book. Additional limit needs implementation if wanted.",
+              "long": false
+            },
+            {
+              "id": "q152",
+              "number": 152,
+              "title": "Same-day turnaround",
+              "note": "Confirm whether operationally possible.",
+              "long": false
+            },
+            {
+              "id": "q153",
+              "number": 153,
+              "title": "Season closures",
+              "note": "Winter closures, maintenance and owner-use dates.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Payment",
+          "questions": [
+            {
+              "id": "q154",
+              "number": 154,
+              "title": "Booking deposit",
+              "note": "Current: 25% of total. Part-payment of hire. Confirm final percentage.",
+              "long": false
+            },
+            {
+              "id": "q155",
+              "number": 155,
+              "title": "Balance deadline",
+              "note": "Current: 28 days before collection. Bookings inside this window currently require full payment.",
+              "long": false
+            },
+            {
+              "id": "q156",
+              "number": 156,
+              "title": "Pay in full option",
+              "note": "Current: Offered. Confirm alongside deposit choice.",
+              "long": false
+            },
+            {
+              "id": "q157",
+              "number": 157,
+              "title": "Currency",
+              "note": "Current: GBP. Current checkout currency.",
+              "long": false
+            },
+            {
+              "id": "q158",
+              "number": 158,
+              "title": "Tax treatment",
+              "note": "Current: 0% demo rate. Confirm VAT rate and whether advertised prices include it.",
+              "long": false
+            },
+            {
+              "id": "q159",
+              "number": 159,
+              "title": "Refundable damage deposit",
+              "note": "Amount, collection method, timing and return deadline. Separate from booking deposit.",
+              "long": false
+            },
+            {
+              "id": "q160",
+              "number": 160,
+              "title": "Damage deposit process",
+              "note": "Current: Not automatically collected. Agree manual process or extra payment integration.",
+              "long": false
+            },
+            {
+              "id": "q161",
+              "number": 161,
+              "title": "Invoice details",
+              "note": "Business details, VAT information and customer invoice needs.",
+              "long": false
+            },
+            {
+              "id": "q162",
+              "number": 162,
+              "title": "Other payment methods",
+              "note": "Bank transfer, cash or telephone payments require agreed recording process.",
+              "long": false
+            },
+            {
+              "id": "q163",
+              "number": 163,
+              "title": "Unpaid balance procedure",
+              "note": "Reminder schedule, grace period and operator action.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Pricing",
+          "questions": [
+            {
+              "id": "q164",
+              "number": 164,
+              "title": "Seasonal rates",
+              "note": "Current: No approved seasonal rates. Supply per camper: season name, start/end, nightly GBP and minimum nights.",
+              "long": false
+            },
+            {
+              "id": "q165",
+              "number": 165,
+              "title": "School holidays and weekends",
+              "note": "Confirm date ranges, premiums and minimum stay rules.",
+              "long": false
+            },
+            {
+              "id": "q166",
+              "number": 166,
+              "title": "Long-hire discounts",
+              "note": "Thresholds, rates and eligibility. Confirm whether additional logic is needed.",
+              "long": false
+            },
+            {
+              "id": "q167",
+              "number": 167,
+              "title": "Promo codes",
+              "note": "Current: No approved codes. Supply code, percentage, expiry with timezone and enabled status.",
+              "long": false
+            },
+            {
+              "id": "q168",
+              "number": 168,
+              "title": "Discount scope",
+              "note": "Current: Hire charge only. Confirm whether extras should be excluded as currently implemented.",
+              "long": false
+            },
+            {
+              "id": "q169",
+              "number": 169,
+              "title": "Mandatory fees",
+              "note": "Cleaning, booking or service fees. State none if none.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Extras",
+          "questions": [
+            {
+              "id": "q170",
+              "number": 170,
+              "title": "Bedding pack",
+              "note": "Current: Fresh bedding pack. Confirm contents, quantity and which campers offer it.",
+              "long": false
+            },
+            {
+              "id": "q171",
+              "number": 171,
+              "title": "Bedding price",
+              "note": "Current: 25. GBP once per booking.",
+              "long": false
+            },
+            {
+              "id": "q172",
+              "number": 172,
+              "title": "Cooking kit",
+              "note": "Current: Outdoor cooking kit. Confirm contents, quantity and availability.",
+              "long": false
+            },
+            {
+              "id": "q173",
+              "number": 173,
+              "title": "Cooking kit price",
+              "note": "Current: 18. GBP once per booking.",
+              "long": false
+            },
+            {
+              "id": "q174",
+              "number": 174,
+              "title": "Additional driver",
+              "note": "Current: Additional driver. Confirm insurer approval, maximum drivers and identity checks.",
+              "long": false
+            },
+            {
+              "id": "q175",
+              "number": 175,
+              "title": "Additional driver price",
+              "note": "Current: 10. GBP per night.",
+              "long": false
+            },
+            {
+              "id": "q176",
+              "number": 176,
+              "title": "Other optional extras",
+              "note": "Name, price, per-night or per-booking, stock and applicable campers.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Pets",
+          "questions": [
+            {
+              "id": "q177",
+              "number": 177,
+              "title": "Pet limits",
+              "note": "Number, size, breeds if relevant and advance permission.",
+              "long": false
+            },
+            {
+              "id": "q178",
+              "number": 178,
+              "title": "Pet charge",
+              "note": "Per booking or per night. Confirm cleaning rules.",
+              "long": false
+            },
+            {
+              "id": "q179",
+              "number": 179,
+              "title": "Assistance animals",
+              "note": "Agree handling and customer communication.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Eligibility",
+          "questions": [
+            {
+              "id": "q180",
+              "number": 180,
+              "title": "Minimum and maximum driver age",
+              "note": "Use insurer-approved limits.",
+              "long": false
+            },
+            {
+              "id": "q181",
+              "number": 181,
+              "title": "Licence categories and countries",
+              "note": "Accepted licences, foreign licences and translation requirements.",
+              "long": false
+            },
+            {
+              "id": "q182",
+              "number": 182,
+              "title": "Licence held for minimum period",
+              "note": "Years and evidence required.",
+              "long": false
+            },
+            {
+              "id": "q183",
+              "number": 183,
+              "title": "Points, convictions and claims",
+              "note": "Insurer acceptance rules and referral process.",
+              "long": false
+            },
+            {
+              "id": "q184",
+              "number": 184,
+              "title": "Identity and address documents",
+              "note": "Required documents and secure submission process.",
+              "long": false
+            },
+            {
+              "id": "q185",
+              "number": 185,
+              "title": "Licence checks",
+              "note": "Provider or manual process, timing and consent.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Insurance",
+          "questions": [
+            {
+              "id": "q186",
+              "number": 186,
+              "title": "Insurer and policy scope",
+              "note": "Confirm self-drive hire cover and who approves exceptions.",
+              "long": true
+            },
+            {
+              "id": "q187",
+              "number": 187,
+              "title": "Excess amount",
+              "note": "Standard excess and excluded risks.",
+              "long": false
+            },
+            {
+              "id": "q188",
+              "number": 188,
+              "title": "Optional excess reduction",
+              "note": "Price, conditions and availability or not offered.",
+              "long": false
+            },
+            {
+              "id": "q189",
+              "number": 189,
+              "title": "Breakdown cover",
+              "note": "Territory, assistance number and customer instructions.",
+              "long": false
+            },
+            {
+              "id": "q190",
+              "number": 190,
+              "title": "Accident or damage process",
+              "note": "Reporting deadline, photos, contact and recovery process.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Usage",
+          "questions": [
+            {
+              "id": "q191",
+              "number": 191,
+              "title": "Included mileage",
+              "note": "Daily or total allowance and charge per extra mile.",
+              "long": false
+            },
+            {
+              "id": "q192",
+              "number": 192,
+              "title": "Travel territories",
+              "note": "UK regions, Ireland and Europe permissions.",
+              "long": false
+            },
+            {
+              "id": "q193",
+              "number": 193,
+              "title": "Ferries and overseas travel",
+              "note": "Approval, documentation, fees and cover.",
+              "long": false
+            },
+            {
+              "id": "q194",
+              "number": 194,
+              "title": "Festivals and events",
+              "note": "Allowed uses, extra conditions or restrictions.",
+              "long": false
+            },
+            {
+              "id": "q195",
+              "number": 195,
+              "title": "Smoking and vaping",
+              "note": "Policy and cleaning charge.",
+              "long": true
+            },
+            {
+              "id": "q196",
+              "number": 196,
+              "title": "Off-road and restricted roads",
+              "note": "Vehicle-use restrictions.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Return",
+          "questions": [
+            {
+              "id": "q197",
+              "number": 197,
+              "title": "Fuel policy",
+              "note": "Required level and refuelling charge.",
+              "long": true
+            },
+            {
+              "id": "q198",
+              "number": 198,
+              "title": "Cleaning and waste",
+              "note": "Interior clean, toilet/waste emptying and charges.",
+              "long": false
+            },
+            {
+              "id": "q199",
+              "number": 199,
+              "title": "Late return charge",
+              "note": "Grace period, hourly/daily fee and contact process.",
+              "long": false
+            },
+            {
+              "id": "q200",
+              "number": 200,
+              "title": "Damage, keys and equipment",
+              "note": "Charges or assessment process for loss/damage.",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "Cancellation",
+          "questions": [
+            {
+              "id": "q201",
+              "number": 201,
+              "title": "Customer cancellation schedule",
+              "note": "Current: Draft operator review only. Refund percentages by notice period and deposit treatment.",
+              "long": false
+            },
+            {
+              "id": "q202",
+              "number": 202,
+              "title": "Date changes and transfers",
+              "note": "Fees, deadlines, repricing and named-driver changes.",
+              "long": false
+            },
+            {
+              "id": "q203",
+              "number": 203,
+              "title": "No-show or early return",
+              "note": "Refund and charging policy.",
+              "long": true
+            },
+            {
+              "id": "q204",
+              "number": 204,
+              "title": "Operator cancellation",
+              "note": "Breakdown before collection, replacement van and refunds.",
+              "long": false
+            },
+            {
+              "id": "q205",
+              "number": 205,
+              "title": "Disruption or severe weather",
+              "note": "Approved policy and communication.",
+              "long": true
+            },
+            {
+              "id": "q206",
+              "number": 206,
+              "title": "Refund timescale",
+              "note": "Processing and customer expectations.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Terms",
+          "questions": [
+            {
+              "id": "q207",
+              "number": 207,
+              "title": "Approved hire agreement",
+              "note": "Current: Draft only. Supply approved final wording, version and effective date.",
+              "long": false
+            },
+            {
+              "id": "q208",
+              "number": 208,
+              "title": "Complaints process",
+              "note": "Contact, escalation and response times.",
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "content-and-photos",
+      "title": "Content and photos",
+      "subsections": [
+        {
+          "title": "Home",
+          "questions": [
+            {
+              "id": "q209",
+              "number": 209,
+              "title": "Hero photograph",
+              "note": "Current: Stock campervan landscape. Approve licensed image or supply real MLH camper photography.",
+              "long": false
+            },
+            {
+              "id": "q210",
+              "number": 210,
+              "title": "Main headline and intro",
+              "note": "Current: Current draft homepage copy. Approve benefit claims, collection location and calls to action.",
+              "long": true
+            },
+            {
+              "id": "q211",
+              "number": 211,
+              "title": "Availability lifestyle image",
+              "note": "Current: Generated lakeside scene. Approve illustrative use or provide licensed replacement.",
+              "long": false
+            },
+            {
+              "id": "q212",
+              "number": 212,
+              "title": "Fleet preview copy",
+              "note": "Current: Demo camper names and specifications. Update after Fleet is confirmed.",
+              "long": true
+            },
+            {
+              "id": "q213",
+              "number": 213,
+              "title": "Availability wording",
+              "note": "Current: Demo availability and pricing notices. Remove only after real inventory and payments are approved.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "About",
+          "questions": [
+            {
+              "id": "q214",
+              "number": 214,
+              "title": "Business story",
+              "note": "Current: Generic draft. Supply approved story, team and reasons to book.",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "Contact",
+          "questions": [
+            {
+              "id": "q215",
+              "number": 215,
+              "title": "Enquiry copy",
+              "note": "Current: Tell us your dates and plans. Approve response promise and contact information.",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "Policies",
+          "questions": [
+            {
+              "id": "q216",
+              "number": 216,
+              "title": "Privacy notice",
+              "note": "Current: Draft only. Supply identity, purposes, lawful bases, processors, transfers, retention and rights contact.",
+              "long": false
+            },
+            {
+              "id": "q217",
+              "number": 217,
+              "title": "Hire terms",
+              "note": "Current: Draft only. Supply approved contract and cancellation schedule.",
+              "long": true
+            },
+            {
+              "id": "q218",
+              "number": 218,
+              "title": "Accessibility statement",
+              "note": "Current: Draft website and vehicle guidance. Confirm assistance contact and physical accessibility details.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Media",
+          "questions": [
+            {
+              "id": "q219",
+              "number": 219,
+              "title": "Photo rights",
+              "note": "Confirm ownership or licence for every supplied image.",
+              "long": false
+            },
+            {
+              "id": "q220",
+              "number": 220,
+              "title": "Photo folder",
+              "note": "Shared folder link. Label files by camper and view.",
+              "long": false
+            },
+            {
+              "id": "q221",
+              "number": 221,
+              "title": "People in photographs",
+              "note": "Confirm permission to publish identifiable people.",
+              "long": false
+            },
+            {
+              "id": "q222",
+              "number": 222,
+              "title": "Image descriptions",
+              "note": "Accurate alt text and captions based on actual photographs.",
+              "long": true
+            },
+            {
+              "id": "q223",
+              "number": 223,
+              "title": "Brand files",
+              "note": "Current: Font-based MLH SVG logos. Approve logo, favicon, Apple icon and social sharing image.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Search",
+          "questions": [
+            {
+              "id": "q224",
+              "number": 224,
+              "title": "Homepage title and description",
+              "note": "Current: Draft metadata present. Approve business name, service and location wording.",
+              "long": true
+            },
+            {
+              "id": "q225",
+              "number": 225,
+              "title": "Camper page titles/descriptions",
+              "note": "Current: Generated from demo fleet. Confirm final names and unique descriptions.",
+              "long": true
+            },
+            {
+              "id": "q226",
+              "number": 226,
+              "title": "Guide titles/descriptions",
+              "note": "Current: Draft destination content. Approve search summaries and headings.",
+              "long": true
+            },
+            {
+              "id": "q227",
+              "number": 227,
+              "title": "Business structured data",
+              "note": "Current: Gated by verified details. Supply real name, address and contact details. No invented ratings.",
+              "long": false
+            },
+            {
+              "id": "q228",
+              "number": 228,
+              "title": "Guide authorship",
+              "note": "Current: Manchester Leisure Hire. Confirm author/editor and publication/update dates.",
+              "long": false
+            },
+            {
+              "id": "q229",
+              "number": 229,
+              "title": "Redirects from old website",
+              "note": "Supply old URLs and important existing pages if replacing a site.",
+              "long": false
+            },
+            {
+              "id": "q230",
+              "number": 230,
+              "title": "Review sources",
+              "note": "Google or other genuine review profile links and permission.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "FAQ",
+          "questions": [
+            {
+              "id": "q231",
+              "number": 231,
+              "title": "Do I need a special driving licence?",
+              "note": "Current: Licence, age and driving-history requirements depend on the operator’s insurance. These must be confirmed before bookings open. Approve final answer after hire policies are confirmed.",
+              "long": true
+            },
+            {
+              "id": "q232",
+              "number": 232,
+              "title": "Can I bring my dog?",
+              "note": "Current: Look for a dog-friendly camper and include your plans in your enquiry. Fern and Atlas are dog-friendly demo vehicles. Approve final answer after hire policies are confirmed.",
+              "long": true
+            },
+            {
+              "id": "q233",
+              "number": 233,
+              "title": "What is included in the price?",
+              "note": "Current: Your quote lists the nightly hire, selected extras, discounts and any applicable tax. Campsites, fuel and personal travel costs are separate. Approve final answer after hire policies are confirmed.",
+              "long": true
+            },
+            {
+              "id": "q234",
+              "number": 234,
+              "title": "How does the booking deposit work?",
+              "note": "Current: The demo booking deposit is 25% of the total. The balance is due 28 days before collection. Bookings within 28 days are payable in full. Approve final answer after hire policies are confirmed.",
+              "long": true
+            },
+            {
+              "id": "q235",
+              "number": 235,
+              "title": "Where do I collect the camper?",
+              "note": "Current: The demo collection area is Greater Manchester. The operator must configure the actual collection address and handover instructions before launch. Approve final answer after hire policies are confirmed.",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "peak district",
+          "questions": [
+            {
+              "id": "q236",
+              "number": 236,
+              "title": "Title",
+              "note": "Current: A slower weekend in the Peaks. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q237",
+              "number": 237,
+              "title": "Region",
+              "note": "Current: PEAK DISTRICT. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q238",
+              "number": 238,
+              "title": "Trip length",
+              "note": "Current: 3 day escape. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q239",
+              "number": 239,
+              "title": "Introduction",
+              "note": "Current: Quiet valleys, limestone trails and a good reason to take the scenic route. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q240",
+              "number": 240,
+              "title": "Article text",
+              "note": "Current: Draft article on the website. Review the Peak District article in the shared website preview and supply corrections or approve it.",
+              "long": false
+            },
+            {
+              "id": "q241",
+              "number": 241,
+              "title": "Hero and article photos",
+              "note": "Current: Licensed-source landscape photographs. Approve imagery and credits, or supply replacements.",
+              "long": false
+            },
+            {
+              "id": "q242",
+              "number": 242,
+              "title": "Local recommendations",
+              "note": "Current: Generic route and campsite advice. Supply approved campsite links, route advice, distances and any partnership disclosure.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "lake district",
+          "questions": [
+            {
+              "id": "q243",
+              "number": 243,
+              "title": "Title",
+              "note": "Current: Wake up somewhere wonderful. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q244",
+              "number": 244,
+              "title": "Region",
+              "note": "Current: LAKE DISTRICT. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q245",
+              "number": 245,
+              "title": "Trip length",
+              "note": "Current: 5 day escape. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q246",
+              "number": 246,
+              "title": "Introduction",
+              "note": "Current: Lakeside mornings and a few days with nowhere else to be. Approve or replace destination advice and copy.",
+              "long": true
+            },
+            {
+              "id": "q247",
+              "number": 247,
+              "title": "Article text",
+              "note": "Current: Draft article on the website. Review the Lake District article in the shared website preview and supply corrections or approve it.",
+              "long": false
+            },
+            {
+              "id": "q248",
+              "number": 248,
+              "title": "Hero and article photos",
+              "note": "Current: Licensed-source landscape photographs. Approve imagery and credits, or supply replacements.",
+              "long": false
+            },
+            {
+              "id": "q249",
+              "number": 249,
+              "title": "Local recommendations",
+              "note": "Current: Generic route and campsite advice. Supply approved campsite links, route advice, distances and any partnership disclosure.",
+              "long": false
+            },
+            {
+              "id": "q250",
+              "number": 250,
+              "title": "NC500 guide approval",
+              "note": "Current: New article requested. Approve the article, destination photos, advice and any named recommendations before launch.",
+              "long": false
+            },
+            {
+              "id": "q251",
+              "number": 251,
+              "title": "Cornwall guide approval",
+              "note": "Current: New article requested. Approve the article, destination photos, advice and any named recommendations before launch.",
+              "long": false
+            },
+            {
+              "id": "q252",
+              "number": 252,
+              "title": "Eryri Snowdonia guide approval",
+              "note": "Current: New article requested. Approve the article, destination photos, advice and any named recommendations before launch.",
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "title": "Operations",
+      "subsections": [
+        {
+          "title": "People",
+          "questions": [
+            {
+              "id": "q253",
+              "number": 253,
+              "title": "Business sign-off contact",
+              "note": "Name and email of final approver.",
+              "long": false
+            },
+            {
+              "id": "q254",
+              "number": 254,
+              "title": "Booking administrator",
+              "note": "Who manages bookings, availability and manual reservations.",
+              "long": false
+            },
+            {
+              "id": "q255",
+              "number": 255,
+              "title": "Refund authority",
+              "note": "Who approves cancellations and refunds.",
+              "long": false
+            },
+            {
+              "id": "q256",
+              "number": 256,
+              "title": "Website support owner",
+              "note": "Developer/support contact and ongoing agreement.",
+              "long": false
+            },
+            {
+              "id": "q257",
+              "number": 257,
+              "title": "Finance and reconciliation owner",
+              "note": "Who checks payments, payouts, refunds and discrepancies.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Inventory",
+          "questions": [
+            {
+              "id": "q258",
+              "number": 258,
+              "title": "Existing reservations",
+              "note": "Supply every camper, start/end and booking reference securely for import.",
+              "long": false
+            },
+            {
+              "id": "q259",
+              "number": 259,
+              "title": "Other sales channels",
+              "note": "Existing booking platforms and manual diary. No channel sync currently configured.",
+              "long": false
+            },
+            {
+              "id": "q260",
+              "number": 260,
+              "title": "Maintenance and blackout dates",
+              "note": "Provide per camper including cleaning buffers.",
+              "long": false
+            },
+            {
+              "id": "q261",
+              "number": 261,
+              "title": "New campers or removals",
+              "note": "Expected fleet changes before launch.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Handover",
+          "questions": [
+            {
+              "id": "q262",
+              "number": 262,
+              "title": "Collection instructions",
+              "note": "Current: Generic reminder only. Directions, parking, arrival time, documents and handover duration.",
+              "long": false
+            },
+            {
+              "id": "q263",
+              "number": 263,
+              "title": "Return checklist",
+              "note": "Fuel, waste, cleaning, key return and inspection process.",
+              "long": true
+            },
+            {
+              "id": "q264",
+              "number": 264,
+              "title": "Vehicle manuals",
+              "note": "Quick-start guides, videos, safety and emergency instructions per camper.",
+              "long": false
+            },
+            {
+              "id": "q265",
+              "number": 265,
+              "title": "Equipment checklist",
+              "note": "Inventory signed at collection and return.",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "Email",
+          "questions": [
+            {
+              "id": "q266",
+              "number": 266,
+              "title": "Sender name",
+              "note": "Current: Manchester Leisure Hire. Confirm display name.",
+              "long": false
+            },
+            {
+              "id": "q267",
+              "number": 267,
+              "title": "Sending email address",
+              "note": "Verified domain address for service messages.",
+              "long": false
+            },
+            {
+              "id": "q268",
+              "number": 268,
+              "title": "Reply/support address",
+              "note": "Mailbox monitored by operator.",
+              "long": false
+            },
+            {
+              "id": "q269",
+              "number": 269,
+              "title": "Admin recipient",
+              "note": "Booking and enquiry notification destination.",
+              "long": false
+            },
+            {
+              "id": "q270",
+              "number": 270,
+              "title": "Booking confirmation",
+              "note": "Current: Draft template. Approve wording and information customers receive.",
+              "long": false
+            },
+            {
+              "id": "q271",
+              "number": 271,
+              "title": "Balance reminder and receipt",
+              "note": "Current: Draft templates. Approve timing, payment instructions and support contact.",
+              "long": false
+            },
+            {
+              "id": "q272",
+              "number": 272,
+              "title": "Arrival message",
+              "note": "Current: Generic draft. Replace with actual collection instructions.",
+              "long": false
+            },
+            {
+              "id": "q273",
+              "number": 273,
+              "title": "Cancellation and refund updates",
+              "note": "Current: Draft templates. Match approved policies and expected refund timing.",
+              "long": true
+            },
+            {
+              "id": "q274",
+              "number": 274,
+              "title": "Payment review message",
+              "note": "Current: Draft template. Assign owner and response target for uncertain payments.",
+              "long": false
+            },
+            {
+              "id": "q275",
+              "number": 275,
+              "title": "Sign-in email",
+              "note": "Current: Supabase authentication. Approve sender, branding and secure-link wording.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Data",
+          "questions": [
+            {
+              "id": "q276",
+              "number": 276,
+              "title": "Privacy contact",
+              "note": "Person handling access/deletion requests.",
+              "long": false
+            },
+            {
+              "id": "q277",
+              "number": 277,
+              "title": "Booking record retention",
+              "note": "Agree period with business advisers.",
+              "long": false
+            },
+            {
+              "id": "q278",
+              "number": 278,
+              "title": "Enquiry retention",
+              "note": "Agree deletion period and purpose.",
+              "long": false
+            },
+            {
+              "id": "q279",
+              "number": 279,
+              "title": "Driver-document retention",
+              "note": "Agree secure collection/storage and deletion. No document portal configured.",
+              "long": false
+            },
+            {
+              "id": "q280",
+              "number": 280,
+              "title": "Marketing retention",
+              "note": "Current: 180 days. Confirm prospect retention and suppression handling.",
+              "long": false
+            },
+            {
+              "id": "q281",
+              "number": 281,
+              "title": "Cookie consent",
+              "note": "Current: Optional tracking disabled. Decide whether analytics/ads are wanted and approve consent implementation.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Marketing",
+          "questions": [
+            {
+              "id": "q282",
+              "number": 282,
+              "title": "Research automation",
+              "note": "Current: Optional and spending disabled. Decide whether to enable partner prospect discovery.",
+              "long": false
+            },
+            {
+              "id": "q283",
+              "number": 283,
+              "title": "Monthly research budget (GBP)",
+              "note": "Current: 0. Client must approve a cap before research is enabled.",
+              "long": false
+            },
+            {
+              "id": "q284",
+              "number": 284,
+              "title": "Monthly search quota",
+              "note": "Current: 5. Current conservative SerpAPI quota.",
+              "long": false
+            },
+            {
+              "id": "q285",
+              "number": 285,
+              "title": "Monthly contact quota",
+              "note": "Current: 20. Hunter calls include verification. Confirm plan allowances.",
+              "long": false
+            },
+            {
+              "id": "q286",
+              "number": 286,
+              "title": "Target partner types",
+              "note": "Campsites, local tourism or other relevant businesses.",
+              "long": false
+            },
+            {
+              "id": "q287",
+              "number": 287,
+              "title": "Target geography",
+              "note": "Approved towns/regions and exclusions.",
+              "long": false
+            },
+            {
+              "id": "q288",
+              "number": 288,
+              "title": "Outreach reviewer",
+              "note": "Named person reviewing relevance, entity type and lawful basis.",
+              "long": false
+            },
+            {
+              "id": "q289",
+              "number": 289,
+              "title": "Outreach channel",
+              "note": "Current: No automated cold-email sender. Agree permitted manual process. Resend is transactional only.",
+              "long": false
+            },
+            {
+              "id": "q290",
+              "number": 290,
+              "title": "Referral offer",
+              "note": "Commission, discount, tracking and agreement terms or none.",
+              "long": true
+            },
+            {
+              "id": "q291",
+              "number": 291,
+              "title": "Advertising budget",
+              "note": "Optional Google/social ads budget and owner.",
+              "long": false
+            },
+            {
+              "id": "q292",
+              "number": 292,
+              "title": "Success measures",
+              "note": "Booking, enquiry and revenue reporting priorities.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Technical",
+          "questions": [
+            {
+              "id": "q293",
+              "number": 293,
+              "title": "Account ownership",
+              "note": "Client business owns accounts, billing, recovery and administrator access.",
+              "long": false
+            },
+            {
+              "id": "q294",
+              "number": 294,
+              "title": "Developer invitations",
+              "note": "Invite developer with suitable permissions. No passwords or API keys in this document.",
+              "long": false
+            },
+            {
+              "id": "q295",
+              "number": 295,
+              "title": "Admin MFA",
+              "note": "Named admins enrol multi-factor authentication before launch.",
+              "long": false
+            },
+            {
+              "id": "q296",
+              "number": 296,
+              "title": "Backups and recovery",
+              "note": "Agree restore target and separate photo backup location.",
+              "long": false
+            },
+            {
+              "id": "q297",
+              "number": 297,
+              "title": "Monitoring and alerts",
+              "note": "Who receives hosting, payment, email and database alerts.",
+              "long": false
+            },
+            {
+              "id": "q298",
+              "number": 298,
+              "title": "Spend limits",
+              "note": "Approve provider budgets and alert recipients.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Launch",
+          "questions": [
+            {
+              "id": "q299",
+              "number": 299,
+              "title": "Business and fleet approval",
+              "note": "Named approver and date after all final data is entered.",
+              "long": false
+            },
+            {
+              "id": "q300",
+              "number": 300,
+              "title": "Policies and insurance approval",
+              "note": "Named approver and date after approved documents are supplied.",
+              "long": true
+            },
+            {
+              "id": "q301",
+              "number": 301,
+              "title": "Hosted booking tests",
+              "note": "Current: Still required. Test payment, deposit/balance, cancellations, refunds, emails and concurrent booking.",
+              "long": false
+            },
+            {
+              "id": "q302",
+              "number": 302,
+              "title": "Customer and admin access tests",
+              "note": "Current: Still required. Test sign-in, secure booking links and admin permissions.",
+              "long": false
+            },
+            {
+              "id": "q303",
+              "number": 303,
+              "title": "Mobile and accessibility review",
+              "note": "Current: Final review required. Approve navigation, forms, readable filters and payment layout.",
+              "long": false
+            },
+            {
+              "id": "q304",
+              "number": 304,
+              "title": "Recovery test",
+              "note": "Current: Staging restore required. Confirm backups can be restored and payments reconciled.",
+              "long": false
+            },
+            {
+              "id": "q305",
+              "number": 305,
+              "title": "Search launch",
+              "note": "Current: Demo currently noindex. Verify real domain, sitemap and metadata before enabling indexing.",
+              "long": false
+            },
+            {
+              "id": "q306",
+              "number": 306,
+              "title": "Live payment approval",
+              "note": "Current: Disabled. Client approval after Stripe verification and end-to-end tests.",
+              "long": false
+            },
+            {
+              "id": "q307",
+              "number": 307,
+              "title": "Training and handover",
+              "note": "Agree administrator training and operating guide.",
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "third-party-accounts",
+      "title": "Third party accounts",
+      "subsections": [
+        {
+          "title": "Required",
+          "questions": [
+            {
+              "id": "q308",
+              "number": 308,
+              "title": "Domain registrar (Required)",
+              "note": "Current: Own/renew the live domain. Confirm domain owner, renewal and DNS access. Annual domain charge varies",
+              "long": false
+            },
+            {
+              "id": "q309",
+              "number": 309,
+              "title": "Vercel (Required)",
+              "note": "Current: Website hosting and scheduled jobs. Create client team/project, invite developer and approve billing. Pro plan proposed. See current pricing. Account: https://vercel.com/signup",
+              "long": false
+            },
+            {
+              "id": "q310",
+              "number": 310,
+              "title": "Supabase (Required)",
+              "note": "Current: Database, customer sign-in and image storage. Create client organisation, production/staging projects and approve region. Paid production plan proposed for backups. Account: https://supabase.com/dashboard",
+              "long": false
+            },
+            {
+              "id": "q311",
+              "number": 311,
+              "title": "Stripe (Required)",
+              "note": "Current: Card checkout, deposits, balances and refunds. Business verification and payout details entered directly in Stripe. Payment and applicable transaction fees. Account: https://dashboard.stripe.com/register",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Required for planned setup",
+          "questions": [
+            {
+              "id": "q312",
+              "number": 312,
+              "title": "Cloudflare DNS (Required for planned setup)",
+              "note": "Current: Domain DNS management. Use existing account if available. Preserve mailbox DNS records. Free DNS may suffice. Domain charge separate. Account: https://dash.cloudflare.com/sign-up",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Required",
+          "questions": [
+            {
+              "id": "q313",
+              "number": 313,
+              "title": "Cloudflare Turnstile (Required)",
+              "note": "Current: Spam and automated-request protection. Uses same Cloudflare account. Configure production hostnames. Free plan available. Account: https://dash.cloudflare.com/",
+              "long": false
+            },
+            {
+              "id": "q314",
+              "number": 314,
+              "title": "Resend (Required)",
+              "note": "Current: Booking and service email delivery. Verify sending domain and configure delivery webhooks. Transactional only. Choose plan for actual email volume. Account: https://resend.com/signup",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Recommended",
+          "questions": [
+            {
+              "id": "q315",
+              "number": 315,
+              "title": "GitHub (Recommended)",
+              "note": "Current: Client-owned source repository and deployment access. Create private repository, invite developer and connect to Vercel. Select plan for organisation needs. Account: https://github.com/signup",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Required capability",
+          "questions": [
+            {
+              "id": "q316",
+              "number": 316,
+              "title": "Business email provider (Required capability)",
+              "note": "Current: Inbox for enquiries, replies and account ownership. Reuse existing mailbox. Resend does not provide an inbox. Existing plan or mailbox subscription.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Required for SEO handover",
+          "questions": [
+            {
+              "id": "q317",
+              "number": 317,
+              "title": "Google Search Console (Required for SEO handover)",
+              "note": "Current: Search visibility, indexing and sitemap submission. Use client Google account. Verify domain via DNS and invite developer. Free Account: https://search.google.com/search-console",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Optional if eligible",
+          "questions": [
+            {
+              "id": "q318",
+              "number": 318,
+              "title": "Google Business Profile (Optional if eligible)",
+              "note": "Current: Local map and business listing. Claim existing listing first. Verify real business details and eligibility. Free Account: https://www.google.com/business/",
+              "long": true
+            }
+          ]
+        },
+        {
+          "title": "Optional",
+          "questions": [
+            {
+              "id": "q319",
+              "number": 319,
+              "title": "Google Analytics 4 (Optional)",
+              "note": "Current: Website and booking analytics. Not enabled. Requires approved consent and event implementation. Standard service available without subscription. Account: https://analytics.google.com/",
+              "long": false
+            },
+            {
+              "id": "q320",
+              "number": 320,
+              "title": "Google Tag Manager (Optional)",
+              "note": "Current: Manage approved analytics/advertising tags. Only if chosen tracking setup needs it. Not currently integrated. Standard service available without subscription. Account: https://tagmanager.google.com/",
+              "long": false
+            },
+            {
+              "id": "q321",
+              "number": 321,
+              "title": "Google Ads (Optional)",
+              "note": "Current: Paid search advertising. Not enabled. Requires conversion tracking, consent and campaign setup. Client-approved advertising spend. Account: https://ads.google.com/",
+              "long": false
+            },
+            {
+              "id": "q322",
+              "number": 322,
+              "title": "Bing Webmaster Tools (Optional)",
+              "note": "Current: Bing indexing and sitemap submission. Verify the live site or import approved Search Console property. Free Account: https://www.bing.com/webmasters/",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Optional research feature",
+          "questions": [
+            {
+              "id": "q323",
+              "number": 323,
+              "title": "SerpAPI (Optional research feature)",
+              "note": "Current: Find potential local referral partners. Do not subscribe until research budget and workflow are approved. Check search quota and current plan. Account: https://serpapi.com/users/sign_up",
+              "long": false
+            },
+            {
+              "id": "q324",
+              "number": 324,
+              "title": "Hunter (Optional research feature)",
+              "note": "Current: Find and verify business contact emails. Only needed if partner research is enabled. Check search and verification credits. Account: https://hunter.io/users/sign_up",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Required capability",
+          "questions": [
+            {
+              "id": "q325",
+              "number": 325,
+              "title": "Photo storage/backup (Required capability)",
+              "note": "Current: Keep originals and recover website media. Choose owner, folder and backup schedule. Database backup excludes image files. Use existing storage where suitable.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Optional vendor",
+          "questions": [
+            {
+              "id": "q326",
+              "number": 326,
+              "title": "Consent platform (Optional vendor)",
+              "note": "Current: Manage optional tracking consent. Consent implementation required before optional tracking. External platform not mandatory. Extra subscription only if chosen.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Agreed service",
+          "questions": [
+            {
+              "id": "q327",
+              "number": 327,
+              "title": "Sentry (Agreed service)",
+              "note": "Current: Application error reporting and alerts. Create a client-owned organisation and Next.js project. Confirm account owner, billing budget, developer access and alert recipients. Integration pending. Account: https://sentry.io/signup/",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Decision needed",
+          "questions": [
+            {
+              "id": "q328",
+              "number": 328,
+              "title": "Licence-check service (Decision needed)",
+              "note": "Current: Driver eligibility checks. Not integrated. Confirm whether operator performs checks manually. Quote depends on chosen process.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Optional future work",
+          "questions": [
+            {
+              "id": "q329",
+              "number": 329,
+              "title": "Accounting integration (Optional future work)",
+              "note": "Current: Automated bookkeeping exports or sync. No accounting sync currently configured. Existing plan or extra integration cost.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Agreed service",
+          "questions": [
+            {
+              "id": "q330",
+              "number": 330,
+              "title": "Upstash Redis (Agreed service)",
+              "note": "Current: Managed Redis for API rate limiting. Create a client-owned account and database. Confirm region, spending limit and developer access. Share credentials securely. Integration pending; queue services are not included unless separately agreed. Account: https://console.upstash.com/",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Not planned",
+          "questions": [
+            {
+              "id": "q331",
+              "number": 331,
+              "title": "Google Merchant Center (Not planned)",
+              "note": "Current: Shopping product feeds. Do not treat camper rental as a supported retail vehicle feed. Not in current stack.",
+              "long": false
+            }
+          ]
+        },
+        {
+          "title": "Agreed monitoring service",
+          "questions": [
+            {
+              "id": "q332",
+              "number": 332,
+              "title": "UptimeRobot",
+              "note": "Current: Website and API uptime checks and downtime alerts. Create a client-owned account. Confirm website URL, alert recipients and monitoring plan. Account: https://uptimerobot.com/ . Configuration pending.",
+              "long": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "anything-else",
+      "title": "Anything else",
+      "subsections": [
+        {
+          "title": "",
+          "questions": [
+            {
+              "id": "extra1",
+              "number": null,
+              "title": "Add other campers, extras, policies, existing accounts or requirements that we have not covered.",
+              "note": null,
+              "long": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

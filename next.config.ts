@@ -6,6 +6,61 @@
    ########################################################### */
 
 import type { NextConfig } from "next";
+import { readdirSync, existsSync } from "node:fs";
+import { join, posix } from "node:path";
+
+/**
+ * Builds a rewrite for every page inside a static demo subtree in /public.
+ *
+ * Why this is generated rather than listed: a Next static export with
+ * trailingSlash writes each page as `<route>/index.html`, and neither `next dev`
+ * nor the Next static handler resolves a directory to its index. Without an
+ * explicit rewrite, /MLH/ works (it is listed by hand) but /MLH/campervans/
+ * 404s - which is exactly what the /arc subtree does today, despite the comment
+ * below claiming otherwise.
+ *
+ * Walking the folder keeps the rewrites correct when the demo is re-exported
+ * with different pages, and it emits nothing at all if the folder is absent, so
+ * a clone without the demo still builds.
+ *
+ * @param root - folder name under /public, e.g. "MLH"
+ * @returns one rewrite per directory holding an index.html, both with and
+ *          without a trailing slash
+ */
+function staticSubtreeRewrites(root: string) {
+  const base = join(process.cwd(), "public", root);
+  if (!existsSync(base)) return [];
+
+  const routes: string[] = [];
+
+  const walk = (dir: string, prefix: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      // _next holds hashed assets, which are served as files, not pages.
+      if (!entry.isDirectory() || entry.name === "_next") continue;
+      const next = join(dir, entry.name);
+      const route = posix.join(prefix, entry.name);
+      if (existsSync(join(next, "index.html"))) routes.push(route);
+      walk(next, route);
+    }
+  };
+
+  walk(base, "");
+
+  // Both cases of the folder name point at the same files. The folder is
+  // uppercase because the client's brand is MLH, but people type it lowercase -
+  // and Vercel serves static files case-sensitively, so /mlh/campervans/ would
+  // 404 while /MLH/campervans/ worked. Listing both sources is explicit and
+  // cannot loop: every destination ends in index.html, which no source matches.
+  const sources = (path: string) =>
+    Array.from(new Set([path, path.toLowerCase()]));
+
+  return routes.flatMap((route) =>
+    sources(`/${root}/${route}`).flatMap((source) => [
+      { source, destination: `/${root}/${route}/index.html` },
+      { source: `${source}/`, destination: `/${root}/${route}/index.html` },
+    ]),
+  );
+}
 
 const nextConfig: NextConfig = {
   // Security headers are now handled by middleware.ts
@@ -33,6 +88,19 @@ const nextConfig: NextConfig = {
       // /arc + /arc/ need explicit rewrites to land on the homepage.
       { source: '/arc',               destination: '/arc/index.html' },
       { source: '/arc/',              destination: '/arc/index.html' },
+      // Why: /MLH is the Manchester Leisure Hire demo — a Next static export
+      // (basePath /MLH) under /public/MLH. Its own trailingSlash output means
+      // child routes like /MLH/campervans/ already resolve to a directory
+      // index, so only the bare /MLH + /MLH/ need a rewrite, same as /arc.
+      //
+      // The uppercase path is safe here despite the RenovaeLabs loop above:
+      // that looped because the catch-all destination also matched the source
+      // case-insensitively. These two destinations are a different path.
+      { source: '/MLH',               destination: '/MLH/index.html' },
+      { source: '/MLH/',              destination: '/MLH/index.html' },
+      { source: '/mlh',               destination: '/MLH/index.html' },
+      { source: '/mlh/',              destination: '/MLH/index.html' },
+      ...staticSubtreeRewrites('MLH'),
     ];
   },
 };
