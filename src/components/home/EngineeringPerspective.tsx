@@ -21,8 +21,8 @@ const CAPABILITIES: Capability[] = [
   {
     title: 'Building production web applications',
     summary:
-      'Next.js and TypeScript apps with auth, payments and an admin side, built for a client and running in production.',
-    proof: ['keepitwhat'],
+      'Next.js and TypeScript apps with auth, payments, print fulfilment and an admin side, running in production for paying customers.',
+    proof: ['the-card-genie', 'keepitwhat'],
   },
   {
     title: 'Designing and evaluating ML experiments',

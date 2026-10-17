@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 // Why by slug: the homepage story is fixed to these three (a tool, an ML
 // study, a client build). The `featured` flag drives /projects and can change
 // independently without reshuffling the homepage.
-const SELECTED_SLUGS = ['agent-office', 'nlp-twitter-sentiment', 'keepitwhat'];
+const SELECTED_SLUGS = ['agent-office', 'nlp-twitter-sentiment', 'the-card-genie'];
 
 // Why these three: two ML experiments plus the terminal UI show range without
 // repeating the lanyard, which is already in the hero.
