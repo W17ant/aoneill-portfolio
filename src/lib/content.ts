@@ -479,6 +479,128 @@ const projects: Project[] = [
     ],
   },
   {
+    slug: 'the-card-genie',
+    title: 'The Card Genie',
+    description:
+      'My own AI greeting-card business. Upload a photo, describe a scene, and it comes back as a personalised image or video card, sent online or printed and posted. Chained image and video models, a moderation layer, and hard daily spend caps on every paid call.',
+    tech: ['Next.js 16', 'React 19', 'TypeScript', 'Supabase', 'Stripe', 'fal.ai', 'Claude API', 'Prodigi', 'Vitest'],
+    category: 'ai-tooling',
+    url: 'https://thecardgenie.com',
+    // Why: the repo is private, so no `repo` link.
+    featured: false,
+    overview:
+      "The Card Genie is a business I run myself, through my own limited company. You upload a photo of a person or a pet, pick an occasion and describe a scene, and the site turns it into a card: a still image, or a 5, 10 or 15 second video. The recipient gets a link, or a printed A5 card with a QR code inside that plays the video. The same codebase also handles event invitations with RSVPs and wedding stationery, in 28 locales with regional pricing.",
+    problem:
+      "Generative image and video models are good enough to make a card someone would actually want, but each call costs real money, the models fail or refuse in ways you can't predict, and anything with a free preview is open to abuse. The hard part wasn't calling a model. It was making that pipeline cheap enough, safe enough and reliable enough to put in front of paying customers.",
+    approach:
+      "Image generation runs through a fallback chain on fal.ai (Nano Banana Pro edit, then Nano Banana 2, then Seedream), and video goes to a primary image-to-video model with a second as fallback. A content refusal from the provider is detected and not retried. Text goes through two moderation stages before any image call: a fixed denylist, then a Claude Haiku classifier whose verdict is forced through tool use, so a malformed reply blocks the request instead of letting it through. Every paid call reserves budget first against a site-wide daily cap, with a separate per-IP cap on free previews and Upstash rate limiting in front, and cost is logged per model. Claude Sonnet handles the creative side: suggesting scene descriptions, rewriting prompts and, behind a feature flag, planning multi-clip video storyboards. For print, the artwork is outpainted into the bleed area and rendered to a 300 DPI PDF, Stripe webhooks drive fulfilment, and Prodigi prints and posts the card.",
+    // TODO(antony): confirm the homepage counter (1,236 cards made, Oct 2026) counts paid cards before quoting it here, and add any revenue or conversion numbers you're happy to publish.
+    outcome:
+      "Live at thecardgenie.com and taking orders, with Stripe checkout, a Pro subscription, and Prodigi print fulfilment. There are 264 Vitest test files, run in CI alongside type-checking and lint. I ran a full security review of the codebase, which turned up 43 findings (8 high, none critical): row-level security policies that let users write to payment columns, token leaks, SSRF and open redirects, and prompt injection into the moderation classifier. They were worked through in a series of dedicated security fix commits.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Build an evaluation set for the image pipeline, so changes to prompts or the model chain are judged on a fixed batch of inputs rather than by eye, and add a CSP nonce so inline scripts can be locked down.",
+    media: [
+      {
+        src: '/images/projects/the-card-genie/desktop-home.webp',
+        alt: "The Card Genie homepage with the headline 'Turn any photo into a show-stopping card', Create a card and Create an invitation buttons, and a photo of a woman holding up a printed card next to a phone playing its video",
+        caption: 'Homepage: a photo goes in, a card and a video come out.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/the-card-genie/desktop-design.webp',
+        alt: "Example design page showing a 3D-render wizard card made from a customer photo, the prompt that produced it, a 'Make this style with your photo' button, and a price table for image and video cards sent online or posted",
+        caption: 'Each example shows the source photo and the words that made it, then reruns the recipe on yours.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/the-card-genie/desktop-create.webp',
+        alt: "First step of the card creator, asking 'What's the occasion?' with a search box and illustrated tiles for Birthday, Wedding, Engagement, New baby, Christening and more",
+        caption: 'Creator step one: the occasion sets the style, mood and motion of the card.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/the-card-genie/mobile-home.webp',
+        alt: "Mobile homepage with the headline 'Turn any photo into a magical card' and full-width Create a card and Create an invitation buttons",
+        caption: 'Mobile homepage.',
+        kind: 'image',
+        width: 780,
+        height: 1328,
+        device: 'mobile',
+      },
+    ],
+  },
+  {
+    slug: 'yournotebook',
+    title: 'YourNotebook',
+    description:
+      'My own personalised notebook shop. Customers design an engraved A5 cover in the browser, see exactly what will be engraved before paying, and I laser-engrave it in-house. Photos become engravable line art, and a burn simulation rejects designs the laser would ruin.',
+    tech: ['Next.js 16', 'React 19', 'TypeScript', 'Supabase', 'Stripe', 'fal.ai', 'Claude API', 'Vitest'],
+    category: 'web',
+    url: 'https://www.yournotebook.co.uk',
+    // Why: the repo is private, so no `repo` link.
+    featured: false,
+    overview:
+      "YourNotebook is a sister business to The Card Genie, run through the same company. It sells vegan-leather A5 notebooks that are laser-engraved in-house: a name and a milestone, a few words, a map, or a photo redrawn as line art. The in-browser studio lets customers arrange text and images on a to-scale cover, and what they approve on screen is what gets engraved. There's no customer account to create; orders go from basket to Stripe Checkout to a private order page where the customer signs off the proof.",
+    problem:
+      "A laser doesn't print, it burns. A photo engraved straight onto leather turns into a dark smudge, fine lines merge, and too much burned area ruins the material. I needed a way to turn anything a customer uploads into something the laser can actually reproduce, and to catch the designs that won't work before the order is paid for, not after.",
+    approach:
+      "Uploaded photos, children's drawings, logos and handwriting go to an image-edit model on fal.ai with versioned prompts that redraw them as line art. The result is checked by a burn simulation I wrote, which models how the laser's melt spread closes up neighbouring strokes, how small a feature can survive, and how much of the cover gets burned, and rejects designs that fail. The final art becomes a 1-bit image wrapped in an SVG sized in millimetres for the laser. On the text side, a 'Write it' button drafts engraving copy with Claude Sonnet, using a JSON schema generated from the design's own fields so each line's character limit becomes a hard length constraint. Customer text is screened by a phrase blocklist and then a Claude Haiku moderation pass. Every AI route sits behind sliding-window rate limits and a daily spend cap per provider.",
+    // TODO(antony): todos.md says the Upstash env vars aren't set in Vercel yet, so the AI studio routes return 503 and the spend caps are off. Set them before linking this page anywhere, and add order numbers if you want an outcome claim.
+    outcome:
+      "Live at yournotebook.co.uk with over 45 designs. Payment runs on Stripe Checkout with signed webhooks, shipping labels through Sendcloud, and an admin area behind a magic link plus TOTP where I send proofs, download engrave files, refund and print labels. There are 345 Vitest test files, plus Playwright and axe accessibility checks. A full security review found 6 issues (4 medium, 2 low, none high), including a race in the TOTP lockout, a ReDoS, and order tokens that could leak to analytics, and each one has been addressed.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Run the calibration burn so the simulation's thresholds come from measured results on the actual laser and leather, instead of the placeholder values it uses now.",
+    media: [
+      {
+        src: '/images/projects/yournotebook/desktop-home.webp',
+        alt: "YourNotebook homepage with the headline 'A little notebook. A lot of meaning.', the £17.99 price, a Find their notebook button, two engraved notebooks and a row of thirteen cover colour swatches",
+        caption: 'Homepage: an A5 notebook, engraved in-house, previewed before you pay.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/yournotebook/desktop-studio.webp',
+        alt: "Personalisation studio for the Chapter/Vol. 30 design, with controls for the milestone, fonts and sizes in millimetres, a name field and cover colours, beside a live preview of the cover reading 'Vol. 30' above the name",
+        caption: 'Studio: text is sized in millimetres on a to-scale cover, and elements can be dragged or moved with the arrow keys.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/yournotebook/desktop-photo-collection.webp',
+        alt: "Photo notebooks collection titled 'Engraved from a picture you send us', with engraved line-art covers made from a portrait, a meme, a child's drawing of a house and a handwritten note",
+        caption: 'Photos, drawings and handwriting are redrawn as line art the laser can trace.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/yournotebook/mobile-studio.webp',
+        alt: "Mobile studio with a live cover preview, an Arrange full screen button, and a sticky warning that the name field still shows the example text, above a disabled Add to basket button",
+        caption: 'Mobile studio: the basket stays locked until the example text has been replaced.',
+        kind: 'image',
+        width: 780,
+        height: 1328,
+        device: 'mobile',
+      },
+    ],
+  },
+  {
     slug: 'critical-minerals',
     title: 'Critical Minerals Tomorrow',
     description:
