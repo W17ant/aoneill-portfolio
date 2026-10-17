@@ -22,13 +22,14 @@ export default function Footer() {
 
   return (
     <footer
-      className="py-12 mt-20"
+      // Why: the homepage ends on a full-bleed contact band, so a top margin leaves a white strip.
+      className={`py-12 ${isHomePage ? '' : 'mt-20'}`}
       style={{
         background: 'var(--footer-bg)',
         color: 'var(--footer-text)',
       }}
     >
-      <div className={`max-w-6xl mx-auto px-5 ${isHomePage ? 'lg:pr-[100px]' : ''}`}>
+      <div className="max-w-6xl mx-auto px-5">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Brand + positioning */}
           <div className="flex flex-col items-center md:items-start gap-2">
@@ -36,7 +37,7 @@ export default function Footer() {
               Antony O&apos;Neill
             </Link>
             <p className="text-[13px] text-center md:text-left opacity-70">
-              Building with AI, ML, and data. I ship production web apps.
+              ML &amp; Software Engineer · Manchester, UK
             </p>
           </div>
 
