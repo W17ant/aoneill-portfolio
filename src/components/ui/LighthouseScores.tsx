@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   LIGHTHOUSE SCORES - Displays live PageSpeed        ###
    ###   Insights scores with circular gauges               ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 'use client';
@@ -20,8 +20,11 @@ interface Scores {
   seo: number;
   fetchedAt: string;
   cached?: boolean;
-  fallback?: boolean;
+  stale?: boolean;
 }
+
+/** API body: real scores, or an explicit "nothing measured yet" marker. */
+type LighthouseResponse = (Scores & { available: true }) | { available: false };
 
 /* ###########################################################
    ###   2. Score Gauge Component                           ###
@@ -103,17 +106,22 @@ function ScoreSkeleton() {
 export default function LighthouseScores({ prominent = false }: { prominent?: boolean }) {
   const [scores, setScores] = useState<Scores | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
 
   useEffect(() => {
     async function fetchScores() {
       try {
+        // Why: the API answers 503 with { available: false } when PageSpeed has
+        // never returned a real result, so read the body before checking ok.
         const res = await fetch('/api/lighthouse');
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
+        const data = (await res.json()) as LighthouseResponse;
+        if (!data.available) {
+          setUnavailable(true);
+          return;
+        }
         setScores(data);
       } catch {
-        setError(true);
+        setUnavailable(true);
       } finally {
         setLoading(false);
       }
@@ -121,9 +129,6 @@ export default function LighthouseScores({ prominent = false }: { prominent?: bo
 
     fetchScores();
   }, []);
-
-  // Don't render anything if error
-  if (error) return null;
 
   const gaugeSize = prominent ? 'large' : 'small';
 
@@ -140,6 +145,10 @@ export default function LighthouseScores({ prominent = false }: { prominent?: bo
             <ScoreSkeleton />
             <ScoreSkeleton />
           </>
+        ) : unavailable ? (
+          <div className={`opacity-60 ${prominent ? 'text-xs' : 'text-[10px]'}`}>
+            Scores unavailable
+          </div>
         ) : scores ? (
           <>
             <ScoreGauge score={scores.performance} label="Performance" size={gaugeSize} />
@@ -149,7 +158,7 @@ export default function LighthouseScores({ prominent = false }: { prominent?: bo
           </>
         ) : null}
       </div>
-      {scores && !scores.fallback && (
+      {scores && (
         <div className={`opacity-40 ${prominent ? 'text-[10px]' : 'text-[9px]'}`}>
           Updated {new Date(scores.fetchedAt).toLocaleDateString()}
         </div>
