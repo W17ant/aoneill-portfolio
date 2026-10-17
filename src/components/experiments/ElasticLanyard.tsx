@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   ELASTIC LANYARD - Physics-based elastic simulation ###
    ###   Interactive badge with realistic rope physics      ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 'use client';
@@ -36,6 +36,12 @@ interface ElasticLanyardProps {
   onTensionChange?: (tension: number) => void;
   showTensionBar?: boolean;
   showBadgeOverlay?: boolean;
+  /**
+   * Let clicks fall through the empty scene area to content underneath.
+   * Why: in the hero the scene sits beside the pitch; only the badge itself
+   * should capture pointer events, never the transparent canvas around it.
+   */
+  passThrough?: boolean;
 }
 
 /* ###########################################################
@@ -51,13 +57,23 @@ const config = {
   elasticity: 0.4,
   iterations: 6,
   maxStretch: 2.2,
+  // Why: ~300 Verlet steps is enough for the rope to come to rest from the
+  // straight-down start, so the reduced-motion pose looks naturally hung.
+  settleSteps: 300,
 };
+
+const HINT_ID = 'elastic-lanyard-hint';
 
 /* ###########################################################
    ###   3. Component                                       ###
    ########################################################### */
 
-export default function ElasticLanyard({ onTensionChange, showTensionBar = true, showBadgeOverlay = true }: ElasticLanyardProps) {
+export default function ElasticLanyard({
+  onTensionChange,
+  showTensionBar = true,
+  showBadgeOverlay = true,
+  passThrough = false,
+}: ElasticLanyardProps) {
   /* ###########################################################
      ###   State & Refs                                       ###
      ########################################################### */
@@ -72,6 +88,11 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
   const dragPointRef = useRef<Point | null>(null);
   const animationRef = useRef<number | undefined>(undefined);
   const hasSwungInRef = useRef(false);
+  const reducedMotionRef = useRef(false);
+  // Starts/stops the rAF loop; assigned by the animation effect so drag
+  // handlers can wake the simulation when reduced motion keeps it paused.
+  const startLoopRef = useRef<() => void>(() => {});
+  const settleRef = useRef<() => void>(() => {});
   const [mounted, setMounted] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -388,16 +409,13 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
     };
 
     resizeCanvas();
-    // Swing in on first mount
-    if (!hasSwungInRef.current) {
-      initRope(true);
-      hasSwungInRef.current = true;
-    } else {
-      initRope(false);
-    }
 
     const handleResize = () => {
       resizeCanvas();
+      if (reducedMotionRef.current) {
+        settleRef.current();
+        return;
+      }
       const points = pointsRef.current;
       if (points.length > 0 && sceneRef.current) {
         points[0].x = sceneRef.current.getBoundingClientRect().width / 2;
@@ -407,46 +425,109 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
 
     window.addEventListener('resize', handleResize);
 
-    // Animation
-    const animate = () => {
+    // One physics tick: integrate, constrain, re-pin the anchor
+    const stepPhysics = () => {
       const points = pointsRef.current;
       const constraints = constraintsRef.current;
 
-      // Update physics
       for (const point of points) {
         if (!isDraggingRef.current || point !== dragPointRef.current) {
           updatePoint(point);
         }
       }
 
-      // Resolve constraints
       for (let i = 0; i < config.iterations; i++) {
         for (const constraint of constraints) {
           resolveConstraint(constraint);
         }
       }
 
-      // Keep anchor fixed
-      if (points.length > 0 && scene) {
-        const rect = scene.getBoundingClientRect();
-        points[0].x = rect.width / 2;
+      if (points.length > 0) {
+        points[0].x = scene.getBoundingClientRect().width / 2;
         points[0].y = 50;
       }
+    };
 
-      // Render
+    const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawPin(ctx);
       drawLanyard(ctx);
       drawConnector(ctx);
       positionBadge();
+    };
 
+    // Run the simulation to rest off-screen and draw a single static frame
+    const settle = () => {
+      initRope(false);
+      for (let i = 0; i < config.settleSteps; i++) stepPhysics();
+      render();
+    };
+
+    let running = false;
+    let inView = true;
+
+    const animate = () => {
+      stepPhysics();
+      render();
+
+      // Why: with reduced motion the loop only runs while the visitor is
+      // actively dragging; once they let go it stops and snaps to rest.
+      if (reducedMotionRef.current && !isDraggingRef.current) {
+        running = false;
+        settle();
+        return;
+      }
+      if (!inView) {
+        running = false;
+        return;
+      }
       animationRef.current = requestAnimationFrame(animate);
     };
 
-    animate();
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    startLoopRef.current = startLoop;
+    settleRef.current = settle;
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotionRef.current = motionQuery.matches;
+
+    if (reducedMotionRef.current) {
+      settle();
+    } else {
+      // Swing in on first mount
+      initRope(!hasSwungInRef.current);
+      hasSwungInRef.current = true;
+      startLoop();
+    }
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      reducedMotionRef.current = e.matches;
+      if (e.matches) {
+        settle();
+      } else {
+        startLoop();
+      }
+    };
+    motionQuery.addEventListener('change', handleMotionChange);
+
+    // Why: the hero is no longer a fixed overlay, so pause the simulation
+    // once it scrolls out of view instead of burning frames off-screen.
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView && !reducedMotionRef.current) startLoop();
+    });
+    observer.observe(scene);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      motionQuery.removeEventListener('change', handleMotionChange);
+      observer.disconnect();
+      running = false;
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -485,6 +566,8 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
       dragPointRef.current.oldX = dragPointRef.current.x;
       dragPointRef.current.oldY = dragPointRef.current.y;
     }
+    // Wake the loop in case it is paused (reduced motion or off-screen)
+    startLoopRef.current();
   }, [getEventPos]);
 
   useEffect(() => {
@@ -515,6 +598,8 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
 
   // Handle double-click to flick the badge
   const handleDoubleClick = useCallback(() => {
+    // Why: a flick is a large unrequested swing; skip it for reduced motion
+    if (reducedMotionRef.current) return;
     const points = pointsRef.current;
     if (points.length > 0) {
       const lastPoint = points[points.length - 1];
@@ -526,8 +611,15 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
   // Reset on R key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore typing in form fields so "r" doesn't reset mid-sentence
+      const target = e.target as HTMLElement | null;
+      if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
       if (e.key.toLowerCase() === 'r') {
-        initRope();
+        if (reducedMotionRef.current) {
+          settleRef.current();
+        } else {
+          initRope();
+        }
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -558,10 +650,21 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
   return (
     <div
       ref={sceneRef}
-      className="relative w-full h-full"
+      className={`relative w-full h-full ${passThrough ? 'pointer-events-none' : ''}`}
       onDoubleClick={handleDoubleClick}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full z-[2]" />
+      <canvas
+        ref={canvasRef}
+        role="img"
+        aria-label="Lanyard holding Antony O'Neill's ID badge"
+        aria-describedby={HINT_ID}
+        className="absolute inset-0 w-full h-full z-[2] pointer-events-none"
+      />
+      {/* Why: the old always-on instruction toast was removed; this keeps the
+          interaction discoverable for screen readers and on hover (title). */}
+      <span id={HINT_ID} className="sr-only">
+        The badge can be dragged to stretch the lanyard. Double-click to flick it, or use the About button on the badge to flip it over.
+      </span>
 
       {/* Badge */}
       <div
@@ -584,6 +687,7 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
           }}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
+          title="Drag to stretch, double-click to flick"
         >
           <div
             className="absolute left-2.5 right-2.5 top-2 h-2.5 rounded-full opacity-80"
@@ -674,13 +778,13 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 className="text-[13px] mt-1.5 font-semibold"
                 style={{ color: 'rgba(2,6,23,.58)' }}
               >
-                AI/ML Engineer
+                ML &amp; Software Engineer
               </div>
               <div
                 className="text-[12px] mt-3 leading-relaxed"
                 style={{ color: 'rgba(2,6,23,.55)' }}
               >
-                Python · PyTorch · scikit-learn · Data Science
+                Manchester, UK
               </div>
               <div
                 className="text-[13px] mt-3 font-semibold"
@@ -698,7 +802,8 @@ export default function ElasticLanyard({ onTensionChange, showTensionBar = true,
                 color: 'rgba(2,6,23,.62)',
               }}
             >
-              <span>ID: AO-2025</span>
+              {/* Why: location-based ID instead of a year, which went stale */}
+              <span>ID: AO-MCR</span>
               <button
                 onClick={(e) => {
                   e.stopPropagation();

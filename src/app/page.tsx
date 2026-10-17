@@ -1,346 +1,279 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
-   ###   HOME PAGE - Main landing page with hero,           ###
-   ###   timeline, projects preview, and lab experiments    ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   HOME PAGE - Introduction, selected work,           ###
+   ###   engineering perspective, lab preview, contact      ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
-import { getTimeline, getFeaturedProjects, getExperiments } from '@/lib/content';
+import { getProjects, getExperiments, type Project } from '@/lib/content';
 import { availability } from '@/lib/availability';
-import Timeline from '@/components/ui/Timeline';
 import HeroWithLanyard from '@/components/home/HeroWithLanyard';
 import MobileAboutCard from '@/components/home/MobileAboutCard';
-import SkillsSection from '@/components/home/SkillsSection';
+import SelectedProjects from '@/components/home/SelectedProjects';
+import EngineeringPerspective from '@/components/home/EngineeringPerspective';
 import ExperimentIcon from '@/components/ui/ExperimentIcon';
 import EmailButton from '@/components/ui/EmailButton';
-import GitHubActivity from '@/components/home/GitHubActivity';
+import ObfuscatedEmail from '@/components/ui/ObfuscatedEmail';
+
+export const metadata: Metadata = {
+  title: "Antony O'Neill | ML & Software Engineer, Manchester, UK",
+  description:
+    "ML & Software Engineer in Manchester, UK. MSc Computer Science & AI after 17 years in mechanical engineering. Selected work, lab experiments and contact details.",
+  alternates: { canonical: '/' },
+};
 
 /* ###########################################################
-   ###   1. Page Component                                  ###
+   ###   1. Content Selection                               ###
+   ########################################################### */
+
+// Why by slug: the homepage story is fixed to these three (a tool, an ML
+// study, a client build). The `featured` flag drives /projects and can change
+// independently without reshuffling the homepage.
+const SELECTED_SLUGS = ['agent-office', 'nlp-twitter-sentiment', 'keepitwhat'];
+
+// Why these three: two ML experiments plus the terminal UI show range without
+// repeating the lanyard, which is already in the hero.
+const LAB_SLUGS = ['snake-rl', 'bot-detector', 'terminal-nav'];
+
+// Why not the global .btn class: it is unlayered CSS, so it overrides
+// Tailwind utilities and paints light-theme surfaces onto the dark bands.
+const BUTTON_BASE =
+  'inline-flex items-center px-6 py-3 rounded-[var(--radius-sm)] text-[13px] font-semibold border transition-colors';
+const PRIMARY = `btn-primary ${BUTTON_BASE}`;
+const GHOST_ON_DARK = `${BUTTON_BASE} border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/30`;
+
+const GITHUB_URL = 'https://github.com/W17ANT';
+
+// TODO(antony): no CV file exists in /public. Add one (e.g. /public/antony-oneill-cv.pdf)
+// and set CV_URL to show a "Download CV" link in the hero.
+const CV_URL: string | null = null;
+
+/* ###########################################################
+   ###   2. Page Component                                  ###
    ########################################################### */
 
 export default async function HomePage() {
-  const timeline = await getTimeline();
-  const featuredProjects = await getFeaturedProjects();
-  const experiments = await getExperiments();
+  const [projects, experiments] = await Promise.all([getProjects(), getExperiments()]);
 
-  /* ###########################################################
-     ###   2. Page Sections                                    ###
-     ########################################################### */
+  const selected = SELECTED_SLUGS.map((slug) => projects.find((p) => p.slug === slug)).filter(
+    (p): p is Project => Boolean(p)
+  );
+  const labPicks = LAB_SLUGS.map((slug) => experiments.find((e) => e.slug === slug)).filter(
+    (e): e is NonNullable<typeof e> => Boolean(e)
+  );
+
+  const statusColor =
+    availability.status === 'available'
+      ? 'var(--accent-light)'
+      : availability.status === 'limited'
+        ? 'var(--warning)'
+        : 'var(--danger)';
 
   return (
     <main>
       {/* =====================================================
-          HERO SECTION - Main intro with animated lanyard
+          INTRODUCTION - Who, role, pitch, CTAs + lanyard
           ===================================================== */}
-      <section className="relative min-h-[90vh] flex items-center pt-20">
-        {/* Background layer - separate so lanyard can overlay */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            background: 'linear-gradient(135deg, var(--hero-start), var(--hero-mid), var(--hero-end))',
-          }}
-        />
-
-        {/* Lanyard, tension bar, and instructions */}
-        <HeroWithLanyard />
-
-        <div className="max-w-4xl mx-auto px-5 py-20 w-full relative z-[1] lg:pr-[max(20px,calc(900px-40vw))]">
-          {/* Text content - fluid right padding on lg+ that scales with viewport width */}
-          <div className="text-center md:text-left">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-[-0.03em]">
-              Antony O&apos;Neill
+      <section
+        aria-labelledby="intro-heading"
+        className="relative overflow-hidden pt-28 md:pt-12 lg:pt-0"
+        style={{
+          // Why: a quieter two-stop version of the old three-stop gradient,
+          // with the blue kept as a soft glow behind the lanyard only.
+          background:
+            'radial-gradient(ellipse 700px 600px at 85% 30%, color-mix(in srgb, var(--hero-end) 45%, transparent), transparent), linear-gradient(160deg, var(--hero-start), var(--hero-mid))',
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-5 grid lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px] gap-x-12 items-center">
+          <div className="py-12 md:py-20 lg:py-24">
+            <h1 id="intro-heading" className="text-white mb-8">
+              <span className="block text-5xl md:text-7xl font-bold tracking-[-0.035em] leading-[1.02]">
+                Antony O&apos;Neill
+              </span>
+              <span className="block mt-4 text-xl md:text-2xl font-medium tracking-[-0.01em] text-white/80">
+                ML &amp; Software Engineer, Manchester, UK
+              </span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-4 font-medium">
-              Building with AI, ML, and data. I ship production web apps.
-            </p>
-            <p className="text-lg text-white/70 mb-10 max-w-2xl leading-relaxed">
-              MSc Computer Science & AI student. Before that, 17 years as a mechanical engineer.
-              I&apos;m used to taking apart complicated systems to figure out what&apos;s actually broken. These days I&apos;m doing the same with code and data.
+
+            {/* TODO(antony): confirm whether the MSc is complete; if so, "after 17 years ... I completed an MSc" reads stronger. */}
+            <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-[38ch] mb-10">
+              Seventeen years as a mechanical engineer, then an MSc in Computer Science &amp; AI. I design ML
+              experiments and build the production software around them.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
-              <a
-                href="#timeline"
-                className="btn-primary px-8 py-3"
-                style={{ borderRadius: '100px' }}
-              >
-                My Journey
+            <div className="flex flex-wrap items-center gap-3">
+              <a href="#work" className={PRIMARY}>
+                View selected work
               </a>
-              <Link
-                href="/projects"
-                className="btn px-8 py-3 border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/30"
-                style={{ borderRadius: '100px' }}
+              <EmailButton
+                user="Antony"
+                domain="aoneill.co.uk"
+                className={GHOST_ON_DARK}
               >
-                View Projects
-              </Link>
+                Email me
+              </EmailButton>
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={GHOST_ON_DARK}
+              >
+                GitHub
+              </a>
+              {/* CV slot: rendered only once CV_URL is set (see TODO above) */}
+              {CV_URL && (
+                <a
+                  href={CV_URL}
+                  className={GHOST_ON_DARK}
+                >
+                  Download CV
+                </a>
+              )}
             </div>
 
-            {/* Availability indicator */}
-            <div className="mt-8 md:mt-12">
-              <div className="status-badge inline-flex">
-                <span
-                  className="status-dot"
-                  style={{
-                    background:
-                      availability.status === 'available'
-                        ? 'var(--accent-light)'
-                        : availability.status === 'limited'
-                        ? 'var(--warning)'
-                        : 'var(--danger)',
-                    boxShadow:
-                      availability.status === 'available'
-                        ? '0 0 8px var(--accent-light)'
-                        : availability.status === 'limited'
-                        ? '0 0 8px var(--warning)'
-                        : '0 0 8px var(--danger)',
-                  }}
-                />
-                {availability.status === 'available'
-                  ? 'Available for projects'
-                  : availability.status === 'limited'
-                  ? 'Limited availability'
-                  : 'Currently unavailable'}
-              </div>
-            </div>
+            <p className="mt-10 inline-flex items-center gap-2.5 text-sm text-white/70">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ background: statusColor }}
+                aria-hidden="true"
+              />
+              {availability.label}: ML engineering, data science and software.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* =====================================================
-          MOBILE ABOUT CARD - Static flippable lanyard card
-          ===================================================== */}
-      <div style={{ background: 'linear-gradient(180deg, var(--hero-end), var(--bg-base))' }}>
+          <HeroWithLanyard />
+        </div>
+
+        {/* Mobile/tablet stand-in for the lanyard (component is lg:hidden) */}
         <MobileAboutCard />
-      </div>
-
-      {/* =====================================================
-          TIMELINE SECTION - Career journey and milestones
-          ===================================================== */}
-      <section id="timeline" className="py-16 md:py-32" style={{ background: 'var(--bg-base)' }}>
-        <div className="max-w-4xl mx-auto px-5">
-          <h2 className="text-3xl font-semibold mb-3 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
-            Timeline
-          </h2>
-          <p className="text-base mb-8 md:mb-12" style={{ color: 'var(--ink-secondary)' }}>
-            How I got here and what I&apos;ve been doing.
-          </p>
-
-          <Timeline entries={timeline} />
-        </div>
       </section>
 
       {/* =====================================================
-          SKILLS SECTION - Technical skills showcase
+          SELECTED WORK - Three editorial project spreads
           ===================================================== */}
-      <SkillsSection />
-
-      {/* =====================================================
-          FEATURED PROJECTS - Showcase of production work
-          ===================================================== */}
-      <section className="py-24 md:py-32" style={{ background: 'var(--bg-surface)' }}>
-        <div className="max-w-4xl mx-auto px-5">
-          <div className="flex items-center justify-between mb-12">
+      <section id="work" aria-labelledby="work-heading" className="py-24 md:py-32 scroll-mt-20" style={{ background: 'var(--bg-base)' }}>
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-14 md:mb-20">
             <div>
-              <h2 className="text-3xl font-semibold mb-2 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
-                Featured Projects
+              <h2
+                id="work-heading"
+                className="text-3xl md:text-4xl font-semibold tracking-[-0.02em] mb-3"
+                style={{ color: 'var(--ink)' }}
+              >
+                Selected work
               </h2>
-              <p style={{ color: 'var(--ink-secondary)' }}>
-                Things I&apos;ve built and put in front of real users.
+              <p className="text-base max-w-[52ch]" style={{ color: 'var(--ink-secondary)' }}>
+                An open-source tool, an ML study and a client build.
               </p>
             </div>
-            <Link
-              href="/projects"
-              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium transition-colors"
-              style={{ color: 'var(--link)' }}
-            >
-              View all
-              <span>&rarr;</span>
+            <Link href="/projects" className="text-sm font-medium underline underline-offset-4" style={{ color: 'var(--link)' }}>
+              All projects
             </Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {featuredProjects.map((project) => (
-              <Link
-                key={project.slug}
-                href={`/projects/${project.slug}`}
-                className="card card-interactive group p-6"
+          <SelectedProjects projects={selected} />
+        </div>
+      </section>
+
+      {/* =====================================================
+          ENGINEERING PERSPECTIVE - Background + capabilities
+          ===================================================== */}
+      <section
+        aria-labelledby="perspective-heading"
+        className="py-24 md:py-32 border-y"
+        style={{ background: 'var(--bg-surface)', borderColor: 'var(--stroke)' }}
+      >
+        <div className="max-w-6xl mx-auto px-5">
+          <EngineeringPerspective projects={projects} />
+        </div>
+      </section>
+
+      {/* =====================================================
+          LAB PREVIEW - Three experiments, links to /lab
+          ===================================================== */}
+      <section aria-labelledby="lab-heading" className="py-24 md:py-28" style={{ background: 'var(--bg-base)' }}>
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+              <h2
+                id="lab-heading"
+                className="text-3xl md:text-4xl font-semibold tracking-[-0.02em] mb-3"
+                style={{ color: 'var(--ink)' }}
               >
-                <div className="flex items-start gap-4 mb-3">
-                  {project.logo && (
-                    <div
-                      className="w-12 h-12 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
-                      style={{ background: 'var(--bg-surface)', border: '1px solid var(--stroke)' }}
-                    >
-                      <Image
-                        src={project.logo}
-                        alt={`${project.title} logo`}
-                        width={40}
-                        height={40}
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <h3
-                      className="text-lg font-semibold mb-1 group-hover:text-[var(--link)] transition-colors"
-                      style={{ color: 'var(--ink)' }}
-                    >
-                      {project.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.slice(0, 3).map((t) => (
-                    <span key={t} className="tag">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <Link
-            href="/projects"
-            className="sm:hidden flex items-center justify-center gap-2 mt-8 btn"
-          >
-            View all projects &rarr;
-          </Link>
-        </div>
-      </section>
-
-      {/* =====================================================
-          GITHUB ACTIVITY - Recent commits and repositories
-          ===================================================== */}
-      <section className="py-24 md:py-32" style={{ background: 'var(--bg-base)' }}>
-        <div className="max-w-4xl mx-auto px-5">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-semibold mb-2 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
-                Open Source
-              </h2>
-              <p style={{ color: 'var(--ink-secondary)' }}>
-                What I&apos;ve been pushing lately.
-              </p>
-            </div>
-          </div>
-          <GitHubActivity />
-        </div>
-      </section>
-
-      {/* =====================================================
-          LAB PREVIEW - Interactive experiments showcase
-          ===================================================== */}
-      <section className="py-24 md:py-32" style={{ background: 'var(--bg-base)' }}>
-        <div className="max-w-4xl mx-auto px-5">
-          <div className="flex items-center justify-between mb-12">
-            <div>
-              <h2 className="text-3xl font-semibold mb-2 tracking-[-0.01em]" style={{ color: 'var(--ink)' }}>
                 Lab
               </h2>
-              <p style={{ color: 'var(--ink-secondary)' }}>
-                Small experiments, mostly around interaction and motion.
+              <p className="text-base max-w-[52ch]" style={{ color: 'var(--ink-secondary)' }}>
+                Small interactive experiments you can play with in the browser.
               </p>
             </div>
-            <Link
-              href="/lab"
-              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium transition-colors"
-              style={{ color: 'var(--link)' }}
-            >
-              View all
-              <span>&rarr;</span>
+            <Link href="/lab" className="text-sm font-medium underline underline-offset-4" style={{ color: 'var(--link)' }}>
+              Open the Lab
             </Link>
           </div>
 
-          <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
-            {/* Reorder: ML experiments first */}
-            {[
-              ...experiments.filter(e => ['snake-rl', 'bot-detector'].includes(e.slug)),
-              ...experiments.filter(e => !['snake-rl', 'bot-detector'].includes(e.slug))
-            ].slice(0, 6).map((exp) => {
-              const labColors: Record<string, string> = {
-                'snake-rl': '#059669',
-                'bot-detector': '#059669',
-                'lanyard': '#3b82f6',
-                'magnetic-cursor': '#3b82f6',
-                'terminal-nav': '#8b5cf6',
-                'cicd-pipeline': '#8b5cf6',
-                'password-strength': '#f59e0b',
-                'dependency-graph': '#3b82f6',
-              };
-              const headerColor = labColors[exp.slug] || '#059669';
-
-              return (
+          <ul className="grid gap-4 md:grid-cols-3">
+            {labPicks.map((exp) => (
+              <li key={exp.slug}>
                 <Link
-                  key={exp.slug}
                   href={`/lab/${exp.slug}`}
-                  className="card card-interactive group overflow-hidden"
+                  className="group flex h-full gap-4 p-5 rounded-[var(--radius)] border transition-colors hover:border-[var(--stroke-hover)]"
+                  style={{ borderColor: 'var(--stroke)', background: 'var(--bg-elevated)' }}
                 >
-                  <div
-                    className="px-4 pt-4 pb-3 flex items-center justify-center"
-                    style={{ background: `${headerColor}12` }}
+                  <span
+                    className="w-10 h-10 shrink-0 rounded-[var(--radius-sm)] flex items-center justify-center"
+                    style={{ background: 'var(--accent-bg)', color: 'var(--accent)' }}
+                    aria-hidden="true"
                   >
-                    <div
-                      className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center"
-                      style={{ background: `${headerColor}20`, color: headerColor }}
-                    >
-                      <ExperimentIcon name={exp.icon} size={20} />
-                    </div>
-                  </div>
-                  <div className="p-4 sm:p-5 pt-3">
-                    <h3
-                      className="font-semibold mb-1 text-sm sm:text-base group-hover:text-[var(--link)] transition-colors truncate"
+                    <ExperimentIcon name={exp.icon} size={20} />
+                  </span>
+                  <span>
+                    <span
+                      className="block font-semibold mb-1 group-hover:text-[var(--link)] transition-colors"
                       style={{ color: 'var(--ink)' }}
                     >
                       {exp.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm truncate" style={{ color: 'var(--ink-muted)' }}>
-                      {exp.tags.slice(0, 2).join(' · ')}
-                    </p>
-                  </div>
+                    </span>
+                    <span className="block text-sm leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                      {exp.description}
+                    </span>
+                  </span>
                 </Link>
-              );
-            })}
-          </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
       {/* =====================================================
-          CONTACT CTA - Call to action with availability
+          CONTACT - Closing call to action
           ===================================================== */}
       <section
+        aria-labelledby="contact-heading"
         className="py-24 md:py-32"
-        style={{
-          background: 'linear-gradient(135deg, var(--hero-start), var(--hero-end))',
-        }}
+        style={{ background: 'linear-gradient(160deg, var(--hero-start), var(--hero-mid))' }}
       >
-        <div className="max-w-2xl mx-auto px-5 text-center">
-          <h2 className="text-3xl font-semibold text-white mb-4 tracking-[-0.01em]">Let&apos;s work together</h2>
-          <p className="text-lg text-white/80 mb-8 leading-relaxed">
-            {availability.description}
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="btn-primary px-8 py-3"
-              style={{ borderRadius: '100px' }}
-            >
-              {availability.ctaText}
-            </Link>
-            <EmailButton
-              user="Antony"
-              domain="aoneill.co.uk"
-              className="btn px-8 py-3 border-white/20 bg-white/5 text-white hover:bg-white/10 hover:border-white/30"
-              style={{ borderRadius: '100px' }}
-            >
-              Email directly
-            </EmailButton>
+        <div className="max-w-6xl mx-auto px-5 grid gap-10 lg:grid-cols-12 items-end">
+          <div className="lg:col-span-7">
+            <h2 id="contact-heading" className="text-3xl md:text-5xl font-semibold tracking-[-0.025em] text-white mb-5">
+              Hiring for a graduate role?
+            </h2>
+            <p className="text-lg text-white/75 leading-relaxed max-w-[52ch]">{availability.description}</p>
+          </div>
+          <div className="lg:col-span-5 lg:justify-self-end flex flex-col gap-4 items-start">
+            <div className="flex flex-wrap gap-3">
+              <EmailButton user="Antony" domain="aoneill.co.uk" className={PRIMARY}>
+                Email me
+              </EmailButton>
+              <Link
+                href="/contact"
+                className={GHOST_ON_DARK}
+              >
+                Use the contact form
+              </Link>
+            </div>
+            <ObfuscatedEmail user="Antony" domain="aoneill.co.uk" className="text-sm text-white/70 hover:text-white" />
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   AVAILABILITY CONFIG - Status management            ###
    ###   Single source of truth for availability status     ###
-   ###   Last Updated: 02-03-2026                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 /* ###########################################################
@@ -13,6 +13,8 @@ export type AvailabilityStatus = 'available' | 'limited' | 'unavailable';
 
 interface AvailabilityConfig {
   status: AvailabilityStatus;
+  /** Short badge text shown in the hero */
+  label: string;
   responseTime: string;
   nextStart: string;
   headline: string;
@@ -24,29 +26,35 @@ interface AvailabilityConfig {
    ###   2. Status Configuration                            ###
    ########################################################### */
 
+// Why: the primary goal is a graduate ML / data / software role; freelance work
+// is secondary, so every status leads with employment rather than "projects".
+// nextStart avoids hard-coded months because dated values go stale silently.
 const config: Record<AvailabilityStatus, Omit<AvailabilityConfig, 'status'>> = {
   available: {
+    label: 'Open to graduate roles',
     responseTime: 'Within 24 hours',
     nextStart: 'Immediately',
-    headline: 'Open to opportunities',
+    headline: 'Open to graduate roles',
     description:
-      "I'm finishing my MSc in AI and looking at data science, ML engineering, and software roles. Happy to talk about graduate schemes, contracts, or anything interesting.",
+      "I'm looking for graduate roles in ML engineering, data science and software engineering. Happy to talk about graduate schemes, junior positions, or a well-scoped contract.",
     ctaText: 'Get in touch',
   },
   limited: {
+    label: 'Limited availability',
     responseTime: '2-3 days',
-    nextStart: 'May 2026',
+    nextStart: 'By arrangement',
     headline: 'Limited availability',
     description:
-      "Heads down on coursework right now, but still open to a conversation. Send the details and I'll get back within a few days.",
+      "Busy right now, but still interested in graduate ML and software roles. Send the details and I'll reply within a few days.",
     ctaText: 'Discuss availability',
   },
   unavailable: {
+    label: 'Not looking right now',
     responseTime: '1 week',
-    nextStart: 'July 2026',
-    headline: 'Focused on studies',
+    nextStart: 'By arrangement',
+    headline: 'Not looking right now',
     description:
-      "Deep in exam season or project deadlines. I'll still read messages, just might take a bit longer to reply.",
+      "I'm not taking on new roles or projects at the moment. I still read every message, it may just take a little longer to reply.",
     ctaText: 'Send a message',
   },
 };
