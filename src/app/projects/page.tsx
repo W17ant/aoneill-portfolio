@@ -1,11 +1,11 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   PROJECTS PAGE - Portfolio project listing with     ###
-   ###   GitHub link and project cards                      ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   category labels, selected projects first           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
-import { getProjects } from '@/lib/content';
+import { getProjects, projectCategoryLabels } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github } from 'lucide-react';
@@ -15,16 +15,18 @@ import { Github } from 'lucide-react';
    ########################################################### */
 
 export const metadata = {
-  title: 'Projects | Antony O\'Neill - AI & ML Developer',
-  description: 'Portfolio of web applications, data-driven projects, and ML experiments. Built with Next.js, Python, and modern tooling.',
+  title: 'Projects | Antony O\'Neill - ML & Software Engineer',
+  description: 'Case studies in machine learning, computer vision, AI tooling and production web apps: the problem, the approach, the results, and what I\'d do next.',
   keywords: ['AI Projects', 'ML Portfolio', 'Data Science Projects', 'Next.js Projects', 'Python Projects', 'Web Application Examples'],
   openGraph: {
     title: 'Projects | Antony O\'Neill',
-    description: 'Portfolio of web applications, data-driven projects, and ML experiments.',
-    url: 'https://aoneill.co.uk/projects',
+    description: 'Case studies in machine learning, computer vision, AI tooling and production web apps.',
+    url: '/projects/',
+    // Why: page-level openGraph replaces the root one wholesale, so the site card must be restated.
+    images: [{ url: '/images/og-image.png', width: 1200, height: 630 }],
   },
   alternates: {
-    canonical: 'https://aoneill.co.uk/projects',
+    canonical: '/projects/',
   },
 };
 
@@ -33,7 +35,9 @@ export const metadata = {
    ########################################################### */
 
 export default async function ProjectsPage() {
-  const projects = await getProjects();
+  const all = await getProjects();
+  // Why: the three selected projects lead; the rest keep their content.ts order.
+  const projects = [...all.filter((p) => p.featured), ...all.filter((p) => !p.featured)];
 
   return (
     <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
@@ -43,7 +47,7 @@ export default async function ProjectsPage() {
             Projects
           </h1>
           <p className="text-lg mb-4" style={{ color: 'var(--ink-secondary)' }}>
-            Things I&apos;ve actually built and shipped. The case studies show the decisions behind them, not just screenshots.
+            Things I&apos;ve built and shipped. Each case study covers the problem, the approach, the results, and what I&apos;d do next.
           </p>
           <a
             href="https://github.com/W17ANT"
@@ -61,7 +65,7 @@ export default async function ProjectsPage() {
           {projects.map((project) => (
             <Link
               key={project.slug}
-              href={`/projects/${project.slug}`}
+              href={`/projects/${project.slug}/`}
               className="card card-interactive group p-6"
             >
               <div className="flex items-start gap-5">
@@ -76,7 +80,7 @@ export default async function ProjectsPage() {
                   >
                     <Image
                       src={project.logo}
-                      alt={`${project.title} logo`}
+                      alt=""
                       width={48}
                       height={48}
                       className="object-contain"
@@ -88,6 +92,9 @@ export default async function ProjectsPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-4">
                     <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] mb-1" style={{ color: 'var(--accent)' }}>
+                        {projectCategoryLabels[project.category]}
+                      </p>
                       <h2
                         className="text-xl font-semibold mb-2 group-hover:text-[var(--link)] transition-colors"
                         style={{ color: 'var(--ink)' }}
