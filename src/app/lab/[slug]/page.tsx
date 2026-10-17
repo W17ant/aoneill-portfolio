@@ -44,6 +44,11 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: `${experiment.title} | Lab | Antony O'Neill`,
     description: experiment.description,
+    // Why: the root layout sets no canonical, so each page declares its own.
+    // A relative path resolves against metadataBase (the www host).
+    alternates: {
+      canonical: `/lab/${slug}`,
+    },
   };
 }
 

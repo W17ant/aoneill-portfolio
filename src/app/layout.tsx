@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   ROOT LAYOUT - App shell with theme, nav & footer   ###
    ###   Includes SEO metadata and font configuration       ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 import type { Metadata } from 'next';
@@ -41,36 +41,32 @@ const sora = Sora({
    ###   2. SEO Metadata Configuration                      ###
    ########################################################### */
 
+// Why: www is the canonical host. The apex 307-redirects to www, so every
+// absolute URL (metadataBase, JSON-LD, OG images) points at www directly.
+const SITE_URL = 'https://www.aoneill.co.uk';
+
+const DEFAULT_TITLE = 'Antony O\'Neill | ML & Software Engineer | Manchester, UK';
+const DEFAULT_DESCRIPTION =
+  'ML & Software Engineer in Manchester, UK. MSc Computer Science & AI student with 17 years in mechanical engineering, building production web applications and machine learning experiments.';
+
 export const metadata: Metadata = {
-  title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
-  description:
-    'Manchester-based software engineer specialising in AI, machine learning, and data-driven web applications. MSc AI student with 17 years engineering background. Building with Python, Next.js, and modern ML tools.',
-  metadataBase: new URL('https://aoneill.co.uk'),
+  title: DEFAULT_TITLE,
+  description: DEFAULT_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
   keywords: [
-    'AI Developer',
-    'Machine Learning Engineer',
     'ML Engineer',
-    'Data Science',
+    'Machine Learning Engineer',
     'Software Engineer',
-    'Python Developer',
-    'Full-Stack Developer',
-    'Next.js Developer',
-    'React Developer',
-    'TypeScript Developer',
-    'Manchester Developer',
-    'UK Developer',
-    'Neural Networks',
-    'Deep Learning',
-    'Reinforcement Learning',
-    'Data Engineering',
-    'Web Application Development',
-    'Supabase',
-    'PostgreSQL',
-    'API Development',
+    'Data Science',
+    'Python',
+    'Next.js',
+    'TypeScript',
+    'Manchester',
+    'UK',
     'MSc AI',
-    'Graduate Developer',
+    'Graduate ML Engineer',
   ],
-  authors: [{ name: 'Antony O\'Neill' }],
+  authors: [{ name: 'Antony O\'Neill', url: SITE_URL }],
   creator: 'Antony O\'Neill',
   icons: {
     icon: [
@@ -82,32 +78,32 @@ export const metadata: Metadata = {
     ],
     apple: { url: '/images/apple-touch-icon.png', sizes: '180x180' },
   },
+  // Why: openGraph and twitter deliberately carry no title or description.
+  // Next fills both from each page's own title/description, so share cards
+  // differ per page instead of every page repeating the homepage's text.
+  // A page that defines its own openGraph replaces this object entirely.
+  //
+  // Why no og:url or canonical here: anything set in the root layout is
+  // inherited by every page that doesn't override it, so a root canonical of
+  // "/" would tell search engines that every such page is a duplicate of the
+  // homepage. Each page sets its own `alternates.canonical` (relative paths
+  // resolve against metadataBase, so '/lab' becomes https://www.aoneill.co.uk/lab).
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://aoneill.co.uk',
     siteName: 'Antony O\'Neill',
-    title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
-    description:
-      'Manchester-based software engineer specialising in AI, machine learning, and data-driven applications. MSc AI student with engineering background.',
     images: [
       {
         url: '/images/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Antony O\'Neill - AI & ML Developer',
+        alt: 'Antony O\'Neill - ML & Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Antony O\'Neill | AI & ML Developer | Software Engineer',
-    description:
-      'Manchester-based software engineer specialising in AI, machine learning, and data-driven applications. MSc AI student.',
     images: ['/images/og-image.png'],
-  },
-  alternates: {
-    canonical: 'https://aoneill.co.uk',
   },
   robots: {
     index: true,
@@ -133,6 +129,13 @@ export default async function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         {/* Trusted Types policy for CSP compliance */}
+        {/* Why: these policies are pass-through ((s) => s). They exist only so
+            the CSP's require-trusted-types-for 'script' directive doesn't break
+            React/Next, which assign strings to DOM sinks. They satisfy the
+            browser's API check but sanitise nothing, so Trusted Types currently
+            gives no XSS protection beyond what React's escaping already does.
+            Follow-up: replace 'default' with a policy that rejects or sanitises
+            unexpected input, and drop the policies Next no longer needs. */}
         <script
           nonce={nonce}
           dangerouslySetInnerHTML={{
@@ -166,10 +169,15 @@ export default async function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Antony O\'Neill',
-              url: 'https://aoneill.co.uk',
-              image: 'https://aoneill.co.uk/images/og-image.png',
-              jobTitle: 'Software Engineer',
-              description: 'Manchester-based software engineer specialising in AI, machine learning, and data-driven web applications. MSc AI student with 17 years engineering background.',
+              url: SITE_URL,
+              image: `${SITE_URL}/images/og-image.png`,
+              jobTitle: 'ML & Software Engineer',
+              description: DEFAULT_DESCRIPTION,
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Manchester',
+                addressCountry: 'GB',
+              },
               sameAs: [
                 'https://github.com/W17ANT',
                 'https://www.linkedin.com/in/AntonyONeillADL',
@@ -242,7 +250,7 @@ export default async function RootLayout({
                   '%c║                                                               ║\\n' +
                   '╠═══════════════════════════════════════════════════════════════╣\\n' +
                   '║                                                               ║\\n' +
-                  '%c║  AI & ML Developer | Software Engineer                        ║\\n' +
+                  '%c║  ML & Software Engineer                                       ║\\n' +
                   '║  Manchester, UK                                               ║\\n' +
                   '%c║                                                               ║\\n' +
                   '%c║  Built with: Next.js · Python · TypeScript · ML               ║\\n' +

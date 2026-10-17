@@ -21,10 +21,10 @@ export const metadata = {
   openGraph: {
     title: 'Lab | Antony O\'Neill - Interactive Web Experiments',
     description: 'Interactive experiments exploring physics simulations, AI/ML visualizations, and creative coding.',
-    url: 'https://aoneill.co.uk/lab',
+    url: '/lab',
   },
   alternates: {
-    canonical: 'https://aoneill.co.uk/lab',
+    canonical: '/lab',
   },
 };
 
