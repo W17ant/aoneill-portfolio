@@ -3,7 +3,7 @@
    ###   HERO LANYARD - Dynamic lanyard loader component    ###
    ###   Dynamically imports the ElasticLanyard component   ###
    ###   with client-side only rendering (no SSR)           ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 'use client';
@@ -25,6 +25,7 @@ const ElasticLanyard = dynamic(() => import('@/components/experiments/ElasticLan
    ########################################################### */
 
 export default function HeroLanyard() {
-  // Render elastic lanyard without tension bar for hero section
-  return <ElasticLanyard showTensionBar={false} />;
+  // Render elastic lanyard without tension bar for hero section.
+  // passThrough keeps the transparent scene from blocking the pitch beside it.
+  return <ElasticLanyard showTensionBar={false} passThrough />;
 }
