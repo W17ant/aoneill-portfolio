@@ -2,14 +2,14 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   LAB EXPERIMENT PAGE - Dynamic experiment detail    ###
    ###   Renders individual lab experiments with metadata   ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 /* ###########################################################
    ###   1. Imports                                         ###
    ########################################################### */
 
-import { getExperimentBySlug, getExperiments } from '@/lib/content';
+import { getExperimentBySlug, getExperiments, getProjectBySlug } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import ExperimentRenderer from '@/components/experiments/ExperimentRenderer';
@@ -44,6 +44,9 @@ export async function generateMetadata({ params }: PageProps) {
   return {
     title: `${experiment.title} | Lab | Antony O'Neill`,
     description: experiment.description,
+    alternates: {
+      canonical: `/lab/${slug}/`,
+    },
   };
 }
 
@@ -58,6 +61,11 @@ export default async function ExperimentPage({ params }: PageProps) {
   if (!experiment) {
     notFound();
   }
+
+  // Why: some experiments are the interactive half of a written-up project (e.g. Snake).
+  const relatedProject = experiment.relatedProject
+    ? await getProjectBySlug(experiment.relatedProject)
+    : undefined;
 
   return (
     <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
@@ -100,6 +108,18 @@ export default async function ExperimentPage({ params }: PageProps) {
             <p className="leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
               {experiment.explores || experiment.description}
             </p>
+            {relatedProject && (
+              <p className="mt-3 leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+                Full write-up, with the experiment results:{' '}
+                <Link
+                  href={`/projects/${relatedProject.slug}/`}
+                  className="font-medium hover:underline"
+                  style={{ color: 'var(--link)' }}
+                >
+                  {relatedProject.title} case study &rarr;
+                </Link>
+              </p>
+            )}
           </section>
 
           {experiment.principles && (
