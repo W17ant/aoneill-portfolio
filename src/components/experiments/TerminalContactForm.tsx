@@ -2,7 +2,8 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   TERMINAL CONTACT FORM - Terminal-style contact UI  ###
    ###   Interactive form with typing animation & validation###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Optional "terminal mode" on /contact               ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 'use client';
@@ -48,6 +49,19 @@ function escapeHtml(text: string): string {
     .replace(/'/g, '&#039;');
 }
 
+// Why: the boot sequence and progress bar are pure theatre. Users who ask for
+// reduced motion get the prompt straight away instead of ~2s of timed lines.
+function prefersReducedMotion(): boolean {
+  return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+/** Wait `ms`, or resolve immediately when the user prefers reduced motion. */
+const delay = (ms: number) =>
+  prefersReducedMotion() ? Promise.resolve() : new Promise((resolve) => setTimeout(resolve, ms));
+
+// Why: #888 on the #0d0d0d terminal background is ~5.5:1 (the old #444 was ~2:1)
+const PLACEHOLDER_CLASS = 'placeholder:text-[#888]';
+
 const steps: Step[] = [
   {
     field: 'name',
@@ -73,7 +87,7 @@ const steps: Step[] = [
   {
     field: 'message',
     prompt: 'Enter your message (press Enter twice to submit):',
-    placeholder: 'Tell me about your project...',
+    placeholder: 'A role, a team, or a project...',
     ariaLabel: 'Your message',
     multiline: true,
     validate: (val) => (val.length >= 10 ? null : 'Message must be at least 10 characters'),
@@ -168,8 +182,6 @@ export default function TerminalContactForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- showSummary triggers state updates, intentionally excluded
   }, [currentStep, addOutput, isSubmitted]);
 
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
   /* ###########################################################
      ###   Form Submission                                   ###
      ########################################################### */
@@ -193,7 +205,7 @@ export default function TerminalContactForm() {
 
     // Actually send the email
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, website: honeypot }),
@@ -371,8 +383,8 @@ export default function TerminalContactForm() {
           }}
         />
 
-        {/* ASCII Art - hidden on small screens */}
-        <div className="hidden sm:block mb-4">
+        {/* ASCII Art - hidden on small screens; decorative so hidden from screen readers */}
+        <div className="hidden sm:block mb-4" aria-hidden="true">
           <pre className="text-[9px] leading-tight text-[#00ff41] opacity-80">
 {` █████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗
 ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║
@@ -384,7 +396,7 @@ export default function TerminalContactForm() {
           <div className="text-[11px] text-cyan-400 tracking-[0.3em] mt-1 ml-1">CONTACT FORM</div>
         </div>
         {/* Mobile ASCII - simplified */}
-        <div className="block sm:hidden mb-3">
+        <div className="block sm:hidden mb-3" aria-hidden="true">
           <pre className="text-[7px] leading-tight text-[#00ff41] opacity-80">
 {`█████╗  ██████╗ ███╗   ██╗███████╗██╗██╗     ██╗
 ██╔══██╗██╔═══██╗████╗  ██║██╔════╝██║██║     ██║
@@ -396,7 +408,8 @@ export default function TerminalContactForm() {
           <div className="text-[9px] text-cyan-400 tracking-[0.2em] mt-1">CONTACT FORM</div>
         </div>
 
-        {/* Output */}
+        {/* Output - a polite live log so prompts, errors and the send result are announced */}
+        <div role="log" aria-live="polite" aria-label="Terminal output">
         {output.map((line, i) => (
           <div
             key={i}
@@ -405,6 +418,7 @@ export default function TerminalContactForm() {
             dangerouslySetInnerHTML={{ __html: line.text.replace(/\n/g, '<br>') }}
           />
         ))}
+        </div>
 
         {/* Progress bar during submission */}
         {isSubmitted && progress < 100 && (
@@ -438,7 +452,7 @@ export default function TerminalContactForm() {
                   placeholder={currentStepData.placeholder}
                   aria-label={currentStepData.ariaLabel}
                   rows={3}
-                  className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none resize-none placeholder:text-[#444]"
+                  className={`w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none resize-none ${PLACEHOLDER_CLASS}`}
                   style={{ caretColor: '#00ff41' }}
                 />
               ) : (
@@ -451,7 +465,7 @@ export default function TerminalContactForm() {
                   placeholder={currentStepData.placeholder}
                   aria-label={currentStepData.ariaLabel}
                   autoComplete={currentStepData.field === 'email' ? 'email' : currentStepData.field === 'name' ? 'name' : 'off'}
-                  className="w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
+                  className={`w-full bg-transparent border-none text-[#f8f8f2] text-sm outline-none ${PLACEHOLDER_CLASS}`}
                   style={{ caretColor: '#00ff41' }}
                 />
               )}
@@ -477,7 +491,7 @@ export default function TerminalContactForm() {
               placeholder="Type reset to start over..."
               aria-label="Type reset to start a new message"
               autoComplete="off"
-              className="flex-1 bg-transparent border-none text-[#f8f8f2] text-sm outline-none placeholder:text-[#444]"
+              className={`flex-1 bg-transparent border-none text-[#f8f8f2] text-sm outline-none ${PLACEHOLDER_CLASS}`}
               style={{ caretColor: '#00ff41' }}
             />
           </div>
