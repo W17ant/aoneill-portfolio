@@ -48,7 +48,8 @@ export default function HalloweenEffects() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (!isHalloween()) return;
+    // Why: decorative motion; skip entirely for users who ask for reduced motion.
+    if (!isHalloween() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     // eslint-disable-next-line react-hooks/set-state-in-effect -- Intentional client-only state
     setShow(true);
   }, []);

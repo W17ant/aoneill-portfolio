@@ -174,7 +174,9 @@ export default function SeasonalParticles() {
 
   useEffect(() => {
     const holiday = getHoliday();
-    const type = getParticleType(holiday);
+    // Why: falling particles are pure decoration, so reduced-motion users get none.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const type = reduceMotion ? 'none' : getParticleType(holiday);
     setParticleType(type); // eslint-disable-line react-hooks/set-state-in-effect -- Client-only date check
 
     if (type === 'none') return;
