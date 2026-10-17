@@ -46,6 +46,15 @@ const FRAMING: Record<string, Framing> = {
       background: 'var(--hero-start)',
     },
   },
+  'the-card-genie': {
+    kind: 'My own AI product',
+    visual: {
+      src: '/images/projects/the-card-genie/desktop-home.webp',
+      alt: 'The Card Genie homepage',
+      fit: 'cover',
+      background: 'var(--hero-start)',
+    },
+  },
   keepitwhat: {
     kind: 'Client e-commerce build',
     visual: {

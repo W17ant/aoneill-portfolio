@@ -416,7 +416,7 @@ const projects: Project[] = [
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
     category: 'client',
     url: 'https://keepitwhat.com',
-    featured: true,
+    featured: false,
     logo: '/images/keepitwhat-logo.png',
     overview:
       "Production e-commerce platform built from scratch for a personalised gifts business. Real-time product customiser with live preview, Stripe checkout, Supabase backend with auth, and a custom admin dashboard for orders and inventory. Next.js 15 App Router with React Server Components.",
@@ -487,7 +487,7 @@ const projects: Project[] = [
     category: 'ai-tooling',
     url: 'https://thecardgenie.com',
     // Why: the repo is private, so no `repo` link.
-    featured: false,
+    featured: true,
     overview:
       "The Card Genie is a business I run myself, through my own limited company. You upload a photo of a person or a pet, pick an occasion and describe a scene, and the site turns it into a card: a still image, or a 5, 10 or 15 second video. The recipient gets a link, or a printed A5 card with a QR code inside that plays the video. The same codebase also handles event invitations with RSVPs and wedding stationery, in 28 locales with regional pricing.",
     problem:
