@@ -277,15 +277,16 @@ button:focus-visible,
 }
 
 .btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
+  /* Why: white on --accent (#059669) is ~3.8:1 and fails AA for button text; #047857 is ~5.5:1. */
+  background: #047857;
+  border-color: #047857;
   color: #ffffff;
   box-shadow: 0 4px 14px -2px rgba(5, 150, 105, 0.35);
 }
 
 .btn-primary:hover {
-  background: #047857;
-  border-color: #047857;
+  background: #065f46;
+  border-color: #065f46;
   color: #ffffff;
   box-shadow: 0 6px 20px -2px rgba(5, 150, 105, 0.4);
 }
@@ -309,11 +310,16 @@ button:focus-visible,
 }
 
 [data-theme="dark"] .btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
   color: #022c22;
   box-shadow: 0 8px 32px -8px rgba(52, 211, 153, 0.35);
 }
 
 [data-theme="dark"] .btn-primary:hover {
+  background: var(--accent-light);
+  border-color: var(--accent-light);
+  color: #022c22;
   box-shadow: 0 12px 40px -8px rgba(52, 211, 153, 0.45);
 }
 
