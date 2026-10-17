@@ -1,29 +1,33 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
-   ###   CONTACT PAGE - Enquiry form with availability      ###
-   ###   status and terminal-style contact form             ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   CONTACT PAGE - Plain contact form (default),       ###
+   ###   optional terminal mode, direct email & socials     ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 import { availability } from '@/lib/availability';
-import TerminalContactForm from '@/components/experiments/TerminalContactForm';
 import ObfuscatedEmail from '@/components/ui/ObfuscatedEmail';
+import type { ContactFormInitialResult } from '@/components/experiments/ContactForm';
+import ContactModes from './ContactModes';
 
 /* ###########################################################
    ###   1. SEO Metadata                                    ###
    ########################################################### */
 
+const DESCRIPTION =
+  'Contact Antony O\'Neill, ML & Software Engineer in Manchester, UK. Open to graduate machine learning, data science and software engineering roles, and happy to hear about freelance projects.';
+
 export const metadata = {
-  title: 'Contact | Antony O\'Neill - Hire a Full-Stack Developer',
-  description: 'Get in touch for web development projects, freelance enquiries, and collaborations. Manchester-based full-stack developer available for Next.js, React, and TypeScript projects.',
-  keywords: ['Hire Developer', 'Freelance Web Developer', 'Contact Developer', 'Web Development Enquiry', 'Project Collaboration', 'Manchester Web Developer'],
+  title: 'Contact | Antony O\'Neill - ML & Software Engineer',
+  description: DESCRIPTION,
+  keywords: ['ML Engineer', 'Software Engineer', 'Graduate ML Engineer', 'Data Science', 'Machine Learning', 'Manchester', 'Contact'],
   openGraph: {
-    title: 'Contact | Antony O\'Neill',
-    description: 'Get in touch for web development projects, freelance enquiries, and collaborations.',
-    url: 'https://aoneill.co.uk/contact',
+    title: 'Contact | Antony O\'Neill - ML & Software Engineer',
+    description: DESCRIPTION,
+    url: '/contact/',
   },
   alternates: {
-    canonical: 'https://aoneill.co.uk/contact',
+    canonical: '/contact/',
   },
 };
 
@@ -31,39 +35,77 @@ export const metadata = {
    ###   2. Page Component                                  ###
    ########################################################### */
 
-export default function ContactPage() {
+// Why: the API redirects no-JS form posts back here with ?sent=1 or ?error=<code>
+function parseResult(params: Record<string, string | string[] | undefined>): ContactFormInitialResult {
+  if (params.sent === '1') return 'sent';
+  const error = params.error;
+  return error === 'rate' || error === 'validation' || error === 'server' ? error : null;
+}
+
+const SOCIAL_LINKS = [
+  { label: 'GitHub', href: 'https://github.com/W17ANT' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/AntonyONeillADL' },
+];
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const { status, responseTime, nextStart, headline, description } = availability;
+  const initialResult = parseResult(await searchParams);
 
   return (
     <main className="min-h-[100svh] pt-24 pb-16" style={{ background: 'var(--bg-base)' }}>
       <div className="max-w-6xl mx-auto px-5">
-        <header className="mb-12 text-center">
+        <header className="mb-10 max-w-2xl">
           <h1 className="text-4xl font-semibold mb-4 tracking-[-0.02em]" style={{ color: 'var(--ink)' }}>
             Contact
           </h1>
-          <p className="text-lg" style={{ color: 'var(--ink-secondary)' }}>
-            Let&apos;s discuss your project.
+          <p className="text-lg leading-relaxed" style={{ color: 'var(--ink-secondary)' }}>
+            I&apos;m an ML &amp; Software Engineer in Manchester, UK, primarily looking for graduate roles in
+            machine learning, data and software engineering. I&apos;m also happy to hear about freelance projects.
           </p>
         </header>
 
-        {/* 2-column layout: Form (2/3) | Status (1/3) */}
+        {/* 2-column layout: Direct contact + form (2/3) | Status (1/3) */}
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {/* Terminal Contact Form - 2/3 width */}
-          <div className="lg:col-span-2">
-            <TerminalContactForm />
+          <div className="lg:col-span-2 space-y-6">
+            {/* Direct contact - kept above the form so it's the first option on mobile too */}
+            <section
+              aria-labelledby="direct-contact-title"
+              className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b"
+              style={{ borderColor: 'var(--stroke-hover)' }}
+            >
+              <div>
+                <h2 id="direct-contact-title" className="text-sm mb-1" style={{ color: 'var(--ink-secondary)' }}>
+                  Email me directly
+                </h2>
+                <ObfuscatedEmail
+                  user="Antony"
+                  domain="aoneill.co.uk"
+                  className="text-lg font-semibold underline underline-offset-4 decoration-[var(--stroke-hover)] transition-colors hover:text-[var(--link)]"
+                  style={{ color: 'var(--ink)' }}
+                />
+              </div>
+              <ul className="flex gap-3" aria-label="Profiles">
+                {SOCIAL_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn text-sm"
+                    >
+                      {link.label}
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
 
-            {/* Direct Contact */}
-            <div className="mt-6 text-center lg:text-left">
-              <p className="text-sm mb-2" style={{ color: 'var(--ink-secondary)' }}>
-                Prefer email directly?
-              </p>
-              <ObfuscatedEmail
-                user="Antony"
-                domain="aoneill.co.uk"
-                className="font-semibold transition-colors hover:text-[var(--link)]"
-                style={{ color: 'var(--ink)' }}
-              />
-            </div>
+            <ContactModes initialResult={initialResult} />
           </div>
 
           {/* Availability Card - 1/3 width */}
