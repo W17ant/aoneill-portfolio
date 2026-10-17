@@ -3,7 +3,7 @@
    ###   MOBILE ABOUT CARD - Flippable ID badge component   ###
    ###   Animated lanyard card for mobile devices with      ###
    ###   swing-in animation and 3D flip functionality       ###
-   ###   Last Updated: 28-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 'use client';
@@ -77,7 +77,7 @@ export default function MobileAboutCard() {
     // rotate(15deg) translateX(60px), which pushed the page to 446px wide on a
     // 375px phone and gave it a sideways scroll. Clip, not hidden, so this does
     // not become a scroll container and the swing's vertical reach is untouched.
-    <div id="about" className="lg:hidden flex justify-center py-8 px-5 scroll-mt-24 overflow-x-clip">
+    <div id="about" className="lg:hidden flex justify-center pt-2 pb-14 px-5 scroll-mt-24 overflow-x-clip">
       {/* Card container */}
       <div
         ref={containerRef}
@@ -198,13 +198,13 @@ export default function MobileAboutCard() {
                 className="text-[13px] mt-1.5 font-semibold"
                 style={{ color: 'rgba(2,6,23,.58)' }}
               >
-                Full-stack Developer
+                ML &amp; Software Engineer
               </div>
               <div
                 className="text-[12px] mt-3 leading-relaxed"
                 style={{ color: 'rgba(2,6,23,.55)' }}
               >
-                Next.js · React · TypeScript · AI/ML
+                Manchester, UK
               </div>
               <div
                 className="text-[13px] mt-3 font-semibold"
@@ -222,7 +222,8 @@ export default function MobileAboutCard() {
                 color: 'rgba(2,6,23,.62)',
               }}
             >
-              <span>ID: AO-2025</span>
+              {/* Why: location-based ID instead of a year, which went stale */}
+              <span>ID: AO-MCR</span>
               {/* Flip card to show About section */}
               <button
                 onClick={() => setIsFlipped(true)}
@@ -300,8 +301,8 @@ export default function MobileAboutCard() {
                   className="text-[13px] leading-relaxed text-justify"
                   style={{ color: 'rgba(2,6,23,.75)' }}
                 >
-                  Looking for graduate roles in software engineering or AI/ML
-                  where the technical and the practical actually meet.
+                  Looking for graduate roles in ML engineering, data science
+                  or software, where the technical and the practical meet.
                 </p>
               ) : (
                 <button
