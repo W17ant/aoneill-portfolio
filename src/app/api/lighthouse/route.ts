@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   LIGHTHOUSE API - Fetches PageSpeed Insights        ###
    ###   scores with caching for performance display        ###
-   ###   Last Updated: 27-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 import { NextResponse } from 'next/server';
@@ -30,14 +30,13 @@ interface CacheEntry {
   timestamp: number;
 }
 
-// Fallback scores to show when API is rate-limited or unavailable
-const FALLBACK_SCORES: LighthouseScores = {
-  performance: 100,
-  accessibility: 96,
-  bestPractices: 100,
-  seo: 100,
-  fetchedAt: new Date().toISOString(),
-};
+/** Response body when no real scores exist yet. */
+interface UnavailableResponse {
+  available: false;
+}
+
+// Why: there is deliberately no hardcoded fallback. A made-up score set with a
+// fresh timestamp would present invented numbers as a live measurement.
 
 /* ###########################################################
    ###   2. Cache Configuration                             ###
@@ -49,7 +48,8 @@ const CACHE_DURATION = 24 * 60 * 60 * 1000;
 // In-memory cache (persists across requests in same instance)
 let cache: CacheEntry | null = null;
 
-// The URL to test - your live site (use www to avoid redirect)
+// Why: www is the canonical host (the apex redirects to it), so testing www
+// measures the page visitors actually get rather than a redirect hop.
 const SITE_URL = 'https://www.aoneill.co.uk';
 
 /* ###########################################################
@@ -119,6 +119,7 @@ export async function GET(request: Request) {
     if (cache && now - cache.timestamp < CACHE_DURATION) {
       return NextResponse.json({
         ...cache.scores,
+        available: true,
         cached: true,
       });
     }
@@ -134,25 +135,26 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       ...scores,
+      available: true,
       cached: false,
     });
   } catch (error) {
     console.error('Lighthouse API error:', error);
 
-    // Return cached data if available, even if stale
+    // Return the last real result, even if stale. Its fetchedAt is the time it
+    // was actually measured, so the UI date stays truthful.
     if (cache) {
       return NextResponse.json({
         ...cache.scores,
+        available: true,
         cached: true,
         stale: true,
       });
     }
 
-    // Return fallback scores when API unavailable (rate-limited, etc.)
-    return NextResponse.json({
-      ...FALLBACK_SCORES,
-      fallback: true,
-    });
+    // No real result to show: say so explicitly rather than inventing one.
+    const body: UnavailableResponse = { available: false };
+    return NextResponse.json(body, { status: 503 });
   }
 }
 
