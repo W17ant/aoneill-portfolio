@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   CONTENT LIBRARY - Data management for timeline,    ###
    ###   projects, and lab experiments                      ###
-   ###   Last Updated: 30-12-2024                           ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 /**
@@ -26,19 +26,74 @@ export interface TimelineEntry {
   links?: { label: string; href: string }[];
 }
 
+/**
+ * Project category. Drives the label on project cards and the per-project
+ * page title / Open Graph copy.
+ */
+export type ProjectCategory = 'ai-tooling' | 'ml' | 'cv' | 'client' | 'web';
+
+/** Human-readable label for each category (used in metadata and on cards). */
+export const projectCategoryLabels: Record<ProjectCategory, string> = {
+  'ai-tooling': 'AI Tooling',
+  ml: 'Machine Learning',
+  cv: 'Computer Vision',
+  client: 'Client Work',
+  web: 'Web Development',
+};
+
+/** A large screenshot or clip shown on a project's case-study page. */
+export interface ProjectMedia {
+  src: string;
+  alt: string;
+  caption?: string;
+  kind: 'image' | 'video';
+  /** Intrinsic pixel size, so next/image can reserve space and avoid layout shift. */
+  width: number;
+  height: number;
+  /** Phone-sized captures render narrower so they don't dominate the page. */
+  device?: 'desktop' | 'mobile';
+}
+
+/**
+ * One row of a model-comparison table. Every metric is optional because
+ * only numbers that were actually recorded should appear here.
+ */
+export interface ProjectResult {
+  model: string;
+  config: string;
+  /** Accuracy as a percentage, e.g. 98.6 */
+  accuracy?: number;
+  macroF1?: number;
+  /** Wall-clock training time in seconds. */
+  trainingSeconds?: number;
+  /** True when trainingSeconds is a lower bound ("over an hour"). */
+  trainingSecondsIsLowerBound?: boolean;
+}
+
 export interface Project {
   slug: string;
   title: string;
   description: string;
   tech: string[];
+  category: ProjectCategory;
   url?: string;
   repo?: string;
+  /** Exactly three projects are featured on the homepage. */
   featured: boolean;
   logo?: string;
   overview?: string;
   problem?: string;
   approach?: string;
+  /** Rendered as "Results" on the case-study page. */
   outcome?: string;
+  /** "What I'd do next" section. */
+  nextSteps?: string;
+  /** How results were measured (dataset, split, metrics, limitations). */
+  evaluation?: string;
+  media?: ProjectMedia[];
+  results?: ProjectResult[];
+  /** Slug of a Lab experiment that belongs to the same body of work. */
+  relatedExperiment?: string;
 }
 
 export interface TutorialStep {
@@ -67,6 +122,8 @@ export interface Experiment {
   explores?: string;
   principles?: string[];
   tutorial?: Tutorial;
+  /** Slug of a project case study that belongs to the same body of work. */
+  relatedProject?: string;
 }
 
 export interface Make {
@@ -101,6 +158,7 @@ const timeline: TimelineEntry[] = [
   },
   {
     id: 'transition',
+    // TODO(antony): confirm MSc dates (start year, and whether it has finished — today is Oct 2026).
     date: '2024-2026',
     title: 'Career change into software',
     subtitle: 'MSc Computer Science with AI',
@@ -166,19 +224,43 @@ const projects: Project[] = [
     slug: 'agent-office',
     title: 'Agent Office',
     description:
-      "Pixel-art virtual office that visualises your AI agents working in real time. Watch Claude Code agents spawn, sit at desks, take coffee breaks, and chat in a Slack-style panel — isometric, animated, and popular on social media.",
+      "Pixel-art virtual office that visualises your AI agents working in real time. Watch Claude Code agents spawn, sit at desks, take coffee breaks, and chat in a Slack-style panel. Click any agent to see its task, tool calls, and transcript.",
     tech: ['TypeScript', 'React', 'Vite', 'Electron', 'WebSockets', 'Remotion', 'Pixel Art'],
+    category: 'ai-tooling',
     repo: 'https://github.com/W17ant/Claude-Office',
     featured: true,
-    logo: '/images/agent-office-logo.png',
+    logo: '/images/agent-office-logo.webp',
     overview:
       "A pixel-art office that turns the abstract sprawl of multi-agent AI workflows into something you can watch. Each Claude Code agent gets a desk, a sprite, and a status; they chat, queue, take breaks, and finish tasks visibly. Includes a Dunder Mifflin mode that swaps the cast for the cast of The Office, with in-character chatter and prop overlays.",
     problem:
       "Multi-agent workflows are invisible by default. Logs and dashboards tell you what happened but not how it felt. I wanted a way to actually see agents working, partly as a debugging surface and partly because the medium itself tells a better story than the logs.",
     approach:
-      "Isometric pixel-art scene rendered in the browser, driven by a WebSocket bridge that listens to live Claude Code activity. Agents are sprites with state machines (idle, working, on break, chatting). The Slack-style panel mirrors agent chatter as real messages. Remotion handles the recorded clips that ended up doing most of the work on social.",
+      "Isometric pixel-art scene rendered in the browser, driven by a WebSocket bridge that listens to live Claude Code activity. Agents are sprites with state machines (idle, working, on break, chatting). The Slack-style panel mirrors agent chatter as real messages. Remotion handles the recorded clips.",
+    // TODO(antony): add real social numbers (views, stars, reposts) if you want the traction claim back.
     outcome:
-      "Picked up real traction on social media, driven mostly by the Dunder Mifflin mode clip. More importantly it works as a debugging tool. You can see at a glance when an agent is stuck, looping, or waiting. Open source, with a config schema for adding your own cast and rooms.",
+      "It works as a debugging tool: you can see at a glance when an agent is stuck, looping, or waiting. Clicking a character opens an inspector card with its task, every tool call (failed ones in red), token usage, model, and the tail of its transcript. Failed deploys or repeated tool failures switch the office into an incident mode. Open source, with a config schema for adding your own cast and rooms.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Record a short clip of a real multi-agent session for this page, and keep pushing the inspector further as a debugging surface, so the office answers 'why is this agent stuck?' without opening the logs.",
+    media: [
+      {
+        src: '/images/projects/agent-office/office-day.webp',
+        alt: 'Isometric pixel-art office with agents at desks, next to a Slack-style #office-general channel listing Reviewer, Security, Tester, Architect, DevOps and PerfEng agents starting and finishing tasks',
+        caption: 'Day mode: each spawned agent gets a desk and posts its status to the channel.',
+        kind: 'image',
+        width: 1173,
+        height: 761,
+      },
+      {
+        src: '/images/projects/agent-office/inspector.webp',
+        alt: 'Inspector card for an Explorer agent showing its task, four tool calls with one failed Bash call in red, token count and model, and the tail of its transcript, beside the office and live cost meters',
+        caption: 'Clicking an agent opens the inspector: task, tool calls, tokens, model and transcript.',
+        kind: 'image',
+        width: 1120,
+        height: 740,
+      },
+      // TODO(antony): record a short clip of the office working (a GIF or MP4) and add it here with kind: 'video'.
+    ],
   },
   {
     slug: 'jarvis',
@@ -186,10 +268,11 @@ const projects: Project[] = [
     description:
       "Personal AI assistant CLI built around Claude. A bridge architecture lets it talk to your apps, run plugins, and keep conversational state across sessions. Docs are hosted at /arc so you can read it without cloning anything.",
     tech: ['Node.js', 'TypeScript', 'Claude API', 'CLI', 'Plugin Architecture', 'Homebrew', 'Docker'],
+    category: 'ai-tooling',
     url: '/arc',
     repo: 'https://github.com/W17ant/Jarvis',
-    featured: true,
-    logo: '/images/jarvis-logo.png',
+    featured: false,
+    logo: '/images/jarvis-logo.webp',
     overview:
       "Jarvis is the assistant I actually use day to day. Conversational CLI that wraps Claude with persistent memory, a plugin system for adding capabilities, a bridge layer for talking to other apps, and a HUD for status. Distributed via Homebrew and Docker so it's the same on every machine I touch.",
     problem:
@@ -198,6 +281,9 @@ const projects: Project[] = [
       "Modular core with a plugin interface so capabilities (inbox, demo recorder, asset panel, conversation mode) can be added without touching the core. The bridge layer abstracts external apps behind a single event protocol. Docs are versioned alongside the code and published to /arc on this site via a git subtree, so the published docs always reflect the shipped binary.",
     outcome:
       "Daily driver for my own workflow. The plugin ecosystem is what makes it stick. Extending it doesn't feel like a chore, which means I actually keep adding things to it rather than abandoning it for the next shiny tool. Full docs and quickstart at /arc.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Keep moving one-off scripts into plugins, and add tests around the bridge protocol so new app integrations can't break existing ones.",
   },
   {
     slug: 'snake-rl-agent',
@@ -205,9 +291,12 @@ const projects: Project[] = [
     description:
       'Reinforcement learning agent that learns to play Snake with a deep neural network. I ran a stack of experiments to see how network size, memory buffer, and environment changes actually affected learning.',
     tech: ['Python', 'PyTorch', 'Deep Q-Learning', 'Neural Networks', 'Reinforcement Learning'],
+    category: 'ml',
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/snake-rl',
-    featured: true,
-    logo: '/images/snake-rl-logo.png',
+    featured: false,
+    logo: '/images/snake-rl-logo.webp',
+    // Why: the Lab's Snake Q-Learning demo is the interactive half of this project.
+    relatedExperiment: 'snake-rl',
     overview:
       'My MSc AI final project. A Deep Q-Network agent that learns to play Snake from scratch. The agent sees the world through an 11-feature state vector, stores past experiences in a replay buffer, and uses epsilon-greedy exploration to decide when to try something new versus exploit what it already knows. I ran 12 experiments varying network width (256 vs 512), depth, memory buffer sizes (10K to 200K), and a wall-collision variant of the environment.',
     problem:
@@ -215,16 +304,21 @@ const projects: Project[] = [
     approach:
       "Deep Q-Learning with experience replay in PyTorch. The network takes the 11-feature state (danger in 3 directions, current heading, food position) and outputs Q-values for 3 actions (straight, turn left, turn right). Q-values get updated via the Bellman equation, and exploration decays over time. I ran the 12 experiments to actually see what mattered, rather than guessing.",
     outcome:
-      "Best configuration hit consistent scores of 40+ after 200 training episodes. A few clear findings: wider beat deeper for this task, and bigger replay buffers stabilised learning. The wall-collision variant was noticeably harder and needed different hyperparameters. Everything is documented with training curves, architecture comparisons, and statistical summaries.",
+      "Best configuration hit consistent scores of 40+ after 200 training episodes. A few clear findings: wider beat deeper for this task, and bigger replay buffers stabilised learning. The wall-collision variant was noticeably harder and needed different hyperparameters. Everything is documented with training curves, architecture comparisons, and statistical summaries. There's an in-browser version of the agent, with a step-by-step tutorial, in the Lab.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Give the agent more of the board than the 11-feature state vector (a grid or image input) so it can plan around its own body, and compare that against the current setup with the same 12-experiment method.",
   },
   {
     slug: 'nlp-twitter-sentiment',
     title: 'Twitter Sentiment Classification',
     description:
-      'Entity-level sentiment classifier across six architectures, from a plain MLP up to fine-tuned transformers. Twelve runs, head-to-head: a tuned MLP topped the leaderboard at 98.6%, beating RoBERTa at a fraction of the training cost.',
+      'Entity-level sentiment classifier across six architectures, from a plain MLP up to fine-tuned transformers. Twelve runs, head-to-head: a tuned MLP topped the leaderboard at 98.6% accuracy and trained in 54 seconds, against over an hour for RoBERTa.',
     tech: ['Python', 'PyTorch', 'Hugging Face', 'Transformers', 'NLP', 'scikit-learn'],
+    category: 'ml',
+    // TODO(antony): no public repo found under github.com/W17ant for this project. Add `repo` (or a notebook link) if one exists.
     featured: true,
-    logo: '/images/nlp-twitter-sentiment-logo.png',
+    logo: '/images/nlp-twitter-sentiment-logo.webp',
     overview:
       "MSc NLP final assessment. Entity-level sentiment classification on the Twitter Entity Sentiment dataset (positive / negative / neutral, with irrelevant rolled into neutral). I ran six architectures back to back — MLP, BiLSTM, 1-D CNN, DistilBERT, RoBERTa, ALBERT — with two configurations each, so twelve experiments in total measuring accuracy, macro/weighted F1, precision, recall, and wall-clock training time.",
     problem:
@@ -232,7 +326,20 @@ const projects: Project[] = [
     approach:
       "Same preprocessing and train/val split across every model. Classical and recurrent baselines (MLP, BiLSTM, 1-D CNN) used trained embeddings. The three transformer baselines (DistilBERT, RoBERTa, ALBERT) were fine-tuned from Hugging Face checkpoints. I ran two configs per model — different widths, layers, learning rates — and logged accuracy, macro F1, weighted F1, precision, recall, and training time for each run.",
     outcome:
-      "MLP Config A topped the leaderboard at 98.6% accuracy and 0.986 macro F1, trained in 54 seconds. RoBERTa Config A came in at 97.5% but took over an hour to train. DistilBERT Config B managed 97.1% in 20 minutes. The headline finding for this dataset: a well-tuned MLP matched or beat every transformer at roughly 1/70th the training cost, which is a useful concrete data point about when transformer overhead is worth paying for.",
+      "MLP Config A topped the leaderboard at 98.6% accuracy and 0.986 macro F1, trained in 54 seconds. RoBERTa Config A came in at 97.5% but took over an hour to train. DistilBERT Config B managed 97.1% in 20 minutes. The headline finding for this dataset: a well-tuned MLP matched or beat every transformer while training in under a minute of wall-clock time, against over an hour for RoBERTa. That's a useful concrete data point about when transformer overhead is worth paying for.",
+    evaluation:
+      "Every model used the same preprocessing and the same train/validation split of the Twitter Entity Sentiment dataset, with the irrelevant class folded into neutral to give three labels. Each of the twelve runs (six architectures, two configurations each) logged accuracy, macro and weighted F1, precision, recall, and wall-clock training time. Training times are elapsed time on the machine the runs used, so they compare models against each other, not against other setups. The results come from one dataset and one run per configuration, so they show where the trade-off sat here rather than a general rule.",
+    // TODO(antony): add to `evaluation`: hardware (CPU/GPU) used for the timings, split ratio, whether scores are on the validation split or a separate held-out test set, and any seed/repeat info.
+    // TODO(antony): fill in the remaining rows below (BiLSTM, 1-D CNN, ALBERT, the other config of each model, and macro F1 for the transformers). Only recorded numbers are listed.
+    results: [
+      { model: 'MLP', config: 'Config A', accuracy: 98.6, macroF1: 0.986, trainingSeconds: 54 },
+      // Why: the write-up only says "over an hour", so 3600 s is shown as a lower bound.
+      { model: 'RoBERTa', config: 'Config A', accuracy: 97.5, trainingSeconds: 3600, trainingSecondsIsLowerBound: true },
+      { model: 'DistilBERT', config: 'Config B', accuracy: 97.1, trainingSeconds: 20 * 60 },
+    ],
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Repeat each configuration over several seeds to put error bars on the gaps, and run the same comparison on a second, messier sentiment dataset to see whether the MLP's lead holds when the text is harder.",
   },
   {
     slug: 'heart-disease-classification',
@@ -240,9 +347,10 @@ const projects: Project[] = [
     description:
       'Binary classifier predicting heart disease risk. I compared Random Forest, SVM, and Neural Networks across nine configurations. Random Forest came out on top at 85%.',
     tech: ['Python', 'scikit-learn', 'TensorFlow', 'Keras', 'pandas', 'Data Science'],
+    category: 'ml',
     repo: 'https://github.com/W17ant/msc-artificial-intelligence/tree/main/assessments/heart-disease',
-    featured: true,
-    logo: '/images/heart-disease-logo.jpg',
+    featured: false,
+    logo: '/images/heart-disease-logo.webp',
     overview:
       "MSc AI mid-module assessment. Binary classifier for heart disease risk using the UCI Heart Disease dataset. I compared three families of model (Random Forest, SVM, Neural Network) with three configurations each, so nine in total, to see how the algorithm choice and hyperparameters actually shifted the result.",
     problem:
@@ -251,6 +359,9 @@ const projects: Project[] = [
       'Full ML pipeline: exploratory analysis with correlation heatmaps, feature importance ranking, and distribution plots. Preprocessing used StandardScaler normalisation and stratified train-test splits. The nine configurations were Random Forest (default, depth-limited, sample-constrained), SVM (RBF, linear, tuned RBF), and Neural Network (simple, with dropout, wider). I evaluated with accuracy, precision, recall, F1, ROC-AUC, and confusion matrices.',
     outcome:
       "Random Forest with sample constraints came out on top at 85.25%. Chest pain type (cp), max heart rate (thalachh), and number of major vessels (caa) were the most predictive features. The neural networks overfit on a dataset this small even with dropout, which lined up with what I expected. Everything sits in one Jupyter notebook with visualisations and reproducible runs.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Swap the single train-test split for cross-validation, which matters on 303 samples, and report confidence intervals so the gaps between the top configurations are easier to judge.",
   },
   {
     slug: 'ml-classification-practical',
@@ -258,10 +369,11 @@ const projects: Project[] = [
     description:
       "Interactive Jupyter notebook walkthrough of Nearest Class Mean classification. Live code execution, visualisations, and extensions covering LDA, QDA, and Mahalanobis distance.",
     tech: ['Python', 'NumPy', 'Matplotlib', 'Machine Learning', 'Classification'],
+    category: 'ml',
     url: 'https://w17ant.github.io/machine-learning-practical/notebook_guide.html',
     repo: 'https://github.com/W17ant/machine-learning-practical',
     featured: false,
-    logo: '/images/ml-practical-logo.png',
+    logo: '/images/ml-practical-logo.webp',
     overview:
       "An interactive page that runs a Jupyter notebook cell by cell, walking through ML classification with hands-on examples. Covers the full pipeline from data loading to evaluation, with four extensions for the more advanced classifiers.",
     problem:
@@ -277,7 +389,8 @@ const projects: Project[] = [
     description:
       "Interactive fiction game about AI ethics in financial services. Branching choices, an ethical scoring system that tracks where you sit, and shareable outcome cards.",
     tech: ['JavaScript', 'Interactive Fiction', 'AI Ethics'],
-    url: 'https://aoneill.co.uk/MSC/ai-ethics-finance-scenario.html',
+    category: 'web',
+    url: '/MSC/ai-ethics-finance-scenario.html',
     featured: false,
     logo: '/images/credit-algorithm-logo.png',
     overview:
@@ -295,6 +408,7 @@ const projects: Project[] = [
     description:
       'Full-stack e-commerce platform for personalised gifts. Real-time product customiser, Stripe checkout, and an admin dashboard for orders and inventory.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Stripe'],
+    category: 'client',
     url: 'https://keepitwhat.com',
     featured: true,
     logo: '/images/keepitwhat-logo.png',
@@ -304,8 +418,59 @@ const projects: Project[] = [
       "The client needed a modern store that could handle the customisation side properly (engraving, printing) with live preview, take secure payments, and give them a sensible admin to actually run the business from.",
     approach:
       "Next.js App Router with React Server Components for SEO and performance. Supabase for database, authentication, and file storage. Stripe for payments with webhook handling. The customiser uses the Canvas API for real-time previews. Mobile-first layout with Tailwind.",
+    // TODO(antony): add real numbers if you have them (conversion rate, orders, support-query change, organic traffic) — the previous unquantified claims were removed.
     outcome:
-      "Launched with strong conversion rates. The customiser cut support queries because customers could see exactly what they were ordering before they paid. Fast page loads and SEO work pulled in more organic traffic over time.",
+      "Live at keepitwhat.com. Customers pick a product, open the customiser, add text or a photo, and drag it into place on a live preview of the actual print area before adding it to the cart. Personalisation choices carry through to the cart line item, and checkout runs through Stripe. The same journey works on mobile, with touch gestures for positioning and resizing.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Instrument the customiser funnel (opened, edited, saved, added to cart) so design changes can be judged on numbers rather than feel.",
+    media: [
+      {
+        src: '/images/projects/keep-it-what/desktop-product.webp',
+        alt: 'Keep It What product page for custom Titleist Pro V1 golf balls, with a photo gallery, pack-size selector, and Blank, One side and Two sides pricing options',
+        caption: 'Product page: pack size and printed sides set the price before personalising.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/keep-it-what/desktop-customise.webp',
+        alt: "Customiser showing a golf ball live preview with the text 'Happy Birthday Dad' inside the circular print area, beside controls for text, font, colour, size, rotation, alignment and curve",
+        caption: 'Customiser: text and images render live on the real print area and can be dragged into place.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/keep-it-what/desktop-cart.webp',
+        alt: 'Shopping cart with one pack of custom golf balls, an order summary with a free-shipping progress bar, subtotal, shipping and total, and Proceed to Checkout and Continue as Guest buttons',
+        caption: 'Cart and checkout start, with guest checkout and a free-shipping threshold.',
+        kind: 'image',
+        width: 1440,
+        height: 900,
+        device: 'desktop',
+      },
+      {
+        src: '/images/projects/keep-it-what/mobile-customise.webp',
+        alt: "Mobile customiser with gesture hints above a live golf ball preview reading 'Happy Birthday Dad', plus Drag and Pinch controls",
+        caption: 'Mobile customiser with touch gestures for positioning and resizing.',
+        kind: 'image',
+        width: 780,
+        height: 1328,
+        device: 'mobile',
+      },
+      {
+        src: '/images/projects/keep-it-what/mobile-cart.webp',
+        alt: 'Mobile shopping cart with one item, quantity controls, and a sticky total bar with a Checkout button',
+        caption: 'Mobile cart with a sticky checkout bar.',
+        kind: 'image',
+        width: 780,
+        height: 1328,
+        device: 'mobile',
+      },
+    ],
   },
   {
     slug: 'critical-minerals',
@@ -313,6 +478,7 @@ const projects: Project[] = [
     description:
       'Corporate site for an international strategic advisory firm. Built with Next.js, tuned for SEO with schema markup, and quick to load.',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'SEO'],
+    category: 'client',
     url: 'https://criticalmineralstomorrow.com',
     featured: false,
     logo: '/images/critical-minerals-logo.png',
@@ -322,8 +488,9 @@ const projects: Project[] = [
       "Lee Constable needed a professional web presence that read as credible in a specialist sector, brought in clients through organic search, and explained what the firm actually does.",
     approach:
       "Clean, authoritative layout with a clear information architecture. Technical SEO across the board: schema markup (Organization, Person, Service), meta tags, Open Graph, XML sitemap. Google Search Console and Analytics wired in. Images optimised and Core Web Vitals tuned.",
+    // TODO(antony): add real search data (rankings, impressions, Lighthouse/CWV scores) if you want a visibility claim here.
     outcome:
-      "Strong organic visibility for the target keywords in the critical minerals space. The site reads as credible to prospective clients, and the load times and mobile behaviour have held up under real traffic.",
+      "Shipped as a statically generated Next.js site with Organization, Person and Service schema, Open Graph tags, an XML sitemap, and Search Console and Analytics connected, so search performance can be tracked from launch.",
   },
   {
     slug: 'doom-scroll-detection',
@@ -331,9 +498,10 @@ const projects: Project[] = [
     description:
       'Webcam tool that watches your posture and phone usage to catch the doom scroll. Uses MediaPipe for face and hand tracking, YOLOv8 for phone detection.',
     tech: ['Python', 'OpenCV', 'MediaPipe', 'YOLOv8', 'Computer Vision'],
+    category: 'cv',
     repo: 'https://github.com/W17ant/Doom-Scroll-Detection',
     logo: '/images/doom-scroll-detection.jpeg',
-    featured: true,
+    featured: false,
     overview:
       "Real-time computer vision tool that watches your posture and phone use to help break the doom scroll habit. MediaPipe handles the face mesh (468 landmarks) and hand tracking (21 joints). YOLOv8 picks up the phone itself. Calibrates to you, smooths tracking with an exponential moving average, and escalates the warnings if you keep ignoring it.",
     problem:
@@ -342,6 +510,9 @@ const projects: Project[] = [
       "Full 3D pose estimation is too jittery for this, so I track nose Y position relative to a calibrated neutral. Drop below the threshold and you're looking down. YOLO is the primary phone signal (high-confidence, triggers on its own). Hand grip detection is secondary and only fires alongside looking down, which kept the false positive rate sensible. Frame-buffer hysteresis stops the warnings flickering.",
     outcome:
       "Working detector at around 30 FPS on modern hardware. Warnings escalate from a gentle chime at 10 seconds to a flashing red screen at 40 seconds. Picked up some real lessons along the way about sensor fusion, signal smoothing, and how often the simpler approach is the right one.",
+    // TODO(antony): confirm or rewrite these next steps.
+    nextSteps:
+      "Measure the false-positive rate properly with a labelled recording session, rather than judging it by feel, and tune the thresholds against that.",
   },
   {
     slug: 'tempus-prive',
@@ -349,7 +520,9 @@ const projects: Project[] = [
     description:
       'Responsive luxury watch e-commerce prototype. Vanilla JavaScript throughout, with DOM manipulation, a working shopping cart, and a mobile-first layout.',
     tech: ['JavaScript', 'CSS', 'E-commerce', 'Responsive Design'],
-    url: 'https://aoneill.co.uk/MSC/Tempus-Prive/',
+    category: 'web',
+    // Why: no directory-index rewrite exists for /MSC, so link the file itself.
+    url: '/MSC/Tempus-Prive/index.html',
     featured: false,
     logo: '/images/tp-logo.webp',
     overview:
@@ -359,7 +532,8 @@ const projects: Project[] = [
     approach:
       "Vanilla JavaScript throughout, no framework. Product filtering, cart with localStorage persistence, quantity management. Layout uses CSS Grid and Flexbox with mobile-first breakpoints.",
     outcome:
-      "Submitted and assessed well. More usefully, it forced me to actually understand the language and the layout primitives rather than reach for a framework abstraction.",
+      // TODO(antony): add the actual grade if you want to mention the assessment result.
+      "Submitted for assessment. More usefully, it forced me to actually understand the language and the layout primitives rather than reach for a framework abstraction.",
   },
 ];
 
@@ -1083,7 +1257,8 @@ interactiveElements.forEach(el => {
     tags: ['AI', 'Q-Learning', 'Neural Network'],
     component: 'SnakeRL',
     explores:
-      'Deep Q-Learning with experience replay. Neural network learns optimal actions through trial and error.',
+      'Deep Q-Learning with experience replay. Neural network learns optimal actions through trial and error. This is the interactive companion to my MSc Snake agent, where I ran 12 experiments on network size, replay buffer and environment variants.',
+    relatedProject: 'snake-rl-agent',
     principles: [
       'Q-Learning algorithm with neural network',
       'Epsilon-greedy exploration strategy',
@@ -1627,17 +1802,17 @@ function RequirementsList({ checks }: { checks: Checks }) {
   {
     slug: 'bot-detector',
     title: 'Bot Detector',
-    description: 'ML-powered analysis of mouse movements and behavior to detect bots.',
+    description: 'Scores your mouse movement on six hand-weighted behavioural features to guess whether you are a human or a bot.',
     icon: 'ScanFace',
-    tags: ['AI', 'Security', 'ML'],
+    tags: ['Security', 'Heuristics', 'Canvas'],
     component: 'BotDetector',
     explores:
-      'Real-time behavioral biometrics using a neural network trained to distinguish human mouse patterns from bot automation.',
+      'Behavioural biometrics without a trained model. Six features (speed variation, angular wobble, micro-corrections, path curvature, acceleration noise and timing variance) are each normalised to 0-1 and combined with fixed, hand-picked weights into a human-likeness score. It is a rule-based heuristic, not a learned classifier.',
     principles: [
-      'Behavioral biometrics analysis',
-      'Neural network classification',
+      'Behavioural biometrics analysis',
       'Feature extraction from movement data',
-      'Real-time anomaly detection',
+      'Hand-weighted scoring with fixed thresholds',
+      'Real-time canvas visualisation',
     ],
     tutorial: {
       difficulty: 'Intermediate',
@@ -1818,8 +1993,8 @@ function handleMouseMove(e: MouseEvent) {
           language: 'typescript'
         },
         {
-          title: 'Building the Classifier',
-          description: "Combine the features with weights to produce a single human-likeness score. Higher score, more human-looking behaviour.",
+          title: 'Building the Scoring Function',
+          description: "Combine the features with fixed weights to produce a single human-likeness score. Higher score, more human-looking behaviour. Nothing is trained here: the weights and the 0.4 / 0.6 verdict thresholds are picked by hand.",
           code: `interface Features {
   speedConsistency: number;
   angularVariance: number;
@@ -1831,7 +2006,7 @@ function handleMouseMove(e: MouseEvent) {
 
 class BehavioralClassifier {
   classify(features: Features): number {
-    // Weights based on feature importance
+    // Hand-picked weights (not learned from data)
     const weights = {
       speedConsistency: 0.20,
       angularVariance: 0.20,
@@ -1949,12 +2124,6 @@ const makes: Make[] = [
 
 export async function getTimeline(): Promise<TimelineEntry[]> {
   return timeline;
-}
-
-export async function getTimelineByTag(tag: string): Promise<TimelineEntry[]> {
-  return timeline.filter((entry) =>
-    entry.tags.some((t) => t.toLowerCase() === tag.toLowerCase())
-  );
 }
 
 export async function getProjects(): Promise<Project[]> {

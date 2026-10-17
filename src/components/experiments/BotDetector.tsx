@@ -1,7 +1,7 @@
 /* ###########################################################
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
-   ###   BOT DETECTOR - ML-powered behavioral analysis      ###
-   ###   Detects bot-like mouse patterns using neural net   ###
+   ###   BOT DETECTOR - heuristic behavioural analysis      ###
+   ###   Scores mouse patterns with hand-weighted features ###
    ###   Last Updated: 30-12-2024                           ###
    ########################################################### */
 

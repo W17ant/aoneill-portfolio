@@ -31,7 +31,7 @@ const FRAMING: Record<string, Framing> = {
   'agent-office': {
     kind: 'Open-source developer tool',
     visual: {
-      src: '/images/agent-office-logo.png',
+      src: '/images/agent-office-logo.webp',
       alt: 'Pixel-art illustration of a developer at a desk, the Agent Office artwork',
       fit: 'cover',
       background: 'var(--hero-start)',
@@ -40,7 +40,7 @@ const FRAMING: Record<string, Framing> = {
   'nlp-twitter-sentiment': {
     kind: 'MSc NLP assessment',
     visual: {
-      src: '/images/nlp-twitter-sentiment-logo.png',
+      src: '/images/nlp-twitter-sentiment-logo.webp',
       alt: 'Illustration of positive, negative and neutral speech bubbles over a network graph',
       fit: 'cover',
       background: 'var(--hero-start)',
@@ -58,18 +58,9 @@ const FRAMING: Record<string, Framing> = {
   },
 };
 
-/**
- * Read an optional `media` field if content.ts provides one.
- * Accepts either a single `{ src, alt? }` or an array of them (first wins).
- * Typed loosely on purpose so this compiles before and after that field lands.
- */
+/** First screenshot from the project's `media` list, if it has one. */
 function pickMedia(project: Project): { src: string; alt?: string } | null {
-  const media = (project as unknown as { media?: unknown }).media;
-  const first = Array.isArray(media) ? media[0] : media;
-  if (first && typeof first === 'object' && typeof (first as { src?: unknown }).src === 'string') {
-    return first as { src: string; alt?: string };
-  }
-  return null;
+  return project.media?.[0] ?? null;
 }
 
 function visualFor(project: Project): Visual {
