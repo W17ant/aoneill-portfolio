@@ -32,6 +32,7 @@ const MSC_UNITS = [
   'Machine Learning',
   'Natural Language Processing',
   'Computer Vision',
+  'Deep Learning',
 ];
 
 const MSC_PROGRAMME_URL = 'https://online.stmarys.ac.uk/msc-computer-science-with-artificial-intelligence/';
@@ -140,12 +141,12 @@ export default async function AboutPage() {
               <h2 className="text-2xl md:text-3xl font-semibold tracking-[-0.02em] mb-6" style={{ color: 'var(--ink)' }}>
                 Education
               </h2>
-              {/* TODO(antony): add the award/classification and completion date once confirmed. */}
+              {/* TODO(antony): add the classification once awarded. */}
               <h3 className="text-lg font-semibold" style={{ color: 'var(--ink)' }}>
                 MSc Computer Science with Artificial Intelligence
               </h3>
               <p className="mb-4" style={{ color: 'var(--ink-secondary)' }}>
-                St Mary&apos;s University, 2024 to 2026.{' '}
+                St Mary&apos;s University, 2024 to April 2027 (expected).{' '}
                 <a
                   href={MSC_PROGRAMME_URL}
                   target="_blank"

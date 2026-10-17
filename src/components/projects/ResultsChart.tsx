@@ -12,9 +12,9 @@ function formatDuration(seconds: number, isLowerBound?: boolean): string {
   return isLowerBound ? `> ${text}` : text;
 }
 
-// Why: accuracies cluster between 97% and 99%. On a 0-100 axis every bar looks
-// identical, so the axis starts at 95% and says so in the caption.
-const ACCURACY_AXIS_MIN = 95;
+// Why: accuracies cluster between 88% and 99%. On a 0-100 axis every bar looks
+// identical, so the axis starts at 85% and says so in the caption.
+const ACCURACY_AXIS_MIN = 85;
 const ACCURACY_AXIS_MAX = 100;
 
 interface BarRowProps {

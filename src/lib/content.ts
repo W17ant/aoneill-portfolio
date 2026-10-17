@@ -158,15 +158,14 @@ const timeline: TimelineEntry[] = [
   },
   {
     id: 'transition',
-    // TODO(antony): confirm MSc dates (start year, and whether it has finished — today is Oct 2026).
-    date: '2024-2026',
+    date: '2024 – Apr 2027',
     title: 'Career change into software',
     subtitle: 'MSc Computer Science with AI',
     description:
-      "Enrolled at St Mary's University to put structure on the self-taught programming and go deeper on AI/ML. Worked through seven units, each with a substantial build alongside the theory.",
+      "Enrolled at St Mary's University to put structure on the self-taught programming and go deeper on AI/ML. Twelve units, each with a substantial build alongside the theory; finishing in April 2027.",
     bullets: [
       'Databases, Web Technologies, Software Testing and CI/CD',
-      'Artificial Intelligence, Machine Learning, NLP and Computer Vision',
+      'Artificial Intelligence, Machine Learning, NLP, Computer Vision and Deep Learning',
       'Shipped a project per unit — RL agents, classifiers, transformers, CV systems',
     ],
     tags: ['Education', 'AI/ML', 'Career Change'],
@@ -313,7 +312,7 @@ const projects: Project[] = [
     slug: 'nlp-twitter-sentiment',
     title: 'Twitter Sentiment Classification',
     description:
-      'Entity-level sentiment classifier across six architectures, from a plain MLP up to fine-tuned transformers. Twelve runs, head-to-head: a tuned MLP topped the leaderboard at 98.6% accuracy and trained in 54 seconds, against over an hour for RoBERTa.',
+      'Entity-level sentiment classifier across six architectures, from a TF-IDF MLP up to fine-tuned transformers. Twelve runs, head-to-head: the MLP scored highest at 98.6% in 54 seconds, and checking why turned up that half the benchmark test set also sits in its training data.',
     tech: ['Python', 'PyTorch', 'Hugging Face', 'Transformers', 'NLP', 'scikit-learn'],
     category: 'ml',
     // TODO(antony): no public repo found under github.com/W17ant for this project. Add `repo` (or a notebook link) if one exists.
@@ -324,22 +323,29 @@ const projects: Project[] = [
     problem:
       "The interesting question with sentiment classification isn't 'can a transformer do this', it's 'when do you actually need one?'. Transformers are expensive to train and serve, and a lot of NLP tasks don't earn that cost back. I wanted concrete numbers on where the trade-off sits for entity-level sentiment.",
     approach:
-      "Same preprocessing and train/val split across every model. Classical and recurrent baselines (MLP, BiLSTM, 1-D CNN) used trained embeddings. The three transformer baselines (DistilBERT, RoBERTa, ALBERT) were fine-tuned from Hugging Face checkpoints. I ran two configs per model — different widths, layers, learning rates — and logged accuracy, macro F1, weighted F1, precision, recall, and training time for each run.",
+      "Same preprocessing and train/val split across every model. The MLP worked from TF-IDF features (20,000 unigrams and bigrams); the BiLSTM and 1-D CNN learned their own embeddings over 128-token sequences. The three transformer baselines (DistilBERT, RoBERTa, ALBERT) were fine-tuned from Hugging Face checkpoints. I ran two configs per model — different widths, layers, learning rates — and logged accuracy, macro F1, weighted F1, precision, recall, and training time for each run.",
     outcome:
-      "MLP Config A topped the leaderboard at 98.6% accuracy and 0.986 macro F1, trained in 54 seconds. RoBERTa Config A came in at 97.5% but took over an hour to train. DistilBERT Config B managed 97.1% in 20 minutes. The headline finding for this dataset: a well-tuned MLP matched or beat every transformer while training in under a minute of wall-clock time, against over an hour for RoBERTa. That's a useful concrete data point about when transformer overhead is worth paying for.",
+      "MLP Config A scored highest: 98.6% accuracy and 0.986 macro F1 in 54 seconds of training. The best transformer, RoBERTa Config A, reached 97.5% after 61 minutes; DistilBERT Config B got 97.1% in 20 minutes; the BiLSTMs trailed at 88.6% and 93.0%. A bag-of-words model beating fine-tuned transformers was suspicious enough to check, and the check explains it: 517 of the 1,000 test tweets appear word for word in the training file. A TF-IDF MLP can effectively memorise those, so these scores overstate how any of the models would do on unseen tweets, the MLP most of all. The honest finding is about the benchmark as much as the models: always check a provided test set for overlap before trusting a leaderboard.",
     evaluation:
-      "Every model used the same preprocessing and the same train/validation split of the Twitter Entity Sentiment dataset, with the irrelevant class folded into neutral to give three labels. Each of the twelve runs (six architectures, two configurations each) logged accuracy, macro and weighted F1, precision, recall, and wall-clock training time. Training times are elapsed time on the machine the runs used, so they compare models against each other, not against other setups. The results come from one dataset and one run per configuration, so they show where the trade-off sat here rather than a general rule.",
-    // TODO(antony): add to `evaluation`: hardware (CPU/GPU) used for the timings, split ratio, whether scores are on the validation split or a separate held-out test set, and any seed/repeat info.
-    // TODO(antony): fill in the remaining rows below (BiLSTM, 1-D CNN, ALBERT, the other config of each model, and macro F1 for the transformers). Only recorded numbers are listed.
+      "Twitter Entity Sentiment dataset, with the irrelevant class folded into neutral to give three labels. The provided training file was split 90/10 (stratified, seed 42) into 66,261 training and 7,363 development tweets; the provided 1,000-tweet validation file was held out as the test set, and every score here is on that test set. All twelve runs (six architectures, two configurations each) used the same preprocessing and logged accuracy, macro and weighted F1, precision, recall and wall-clock training time on an Apple M1 Max (PyTorch on the MPS backend). Limitations: one run per configuration with no repeats, so small gaps are within noise; training times only compare models on this machine; and 517 of the 1,000 test tweets also appear verbatim in the training file, which inflates every score.",
+    // Why: copied from the notebook's experiment_results.csv (test set, 1,000 tweets), rounded.
     results: [
       { model: 'MLP', config: 'Config A', accuracy: 98.6, macroF1: 0.986, trainingSeconds: 54 },
-      // Why: the write-up only says "over an hour", so 3600 s is shown as a lower bound.
-      { model: 'RoBERTa', config: 'Config A', accuracy: 97.5, trainingSeconds: 3600, trainingSecondsIsLowerBound: true },
-      { model: 'DistilBERT', config: 'Config B', accuracy: 97.1, trainingSeconds: 20 * 60 },
+      { model: 'MLP', config: 'Config B', accuracy: 97.9, macroF1: 0.979, trainingSeconds: 114 },
+      { model: 'BiLSTM', config: 'Config A', accuracy: 88.6, macroF1: 0.886, trainingSeconds: 522 },
+      { model: 'BiLSTM', config: 'Config B', accuracy: 93.0, macroF1: 0.929, trainingSeconds: 846 },
+      { model: '1-D CNN', config: 'Config A', accuracy: 96.5, macroF1: 0.964, trainingSeconds: 118 },
+      { model: '1-D CNN', config: 'Config B', accuracy: 96.9, macroF1: 0.968, trainingSeconds: 209 },
+      { model: 'DistilBERT', config: 'Config A', accuracy: 96.7, macroF1: 0.968, trainingSeconds: 1983 },
+      { model: 'DistilBERT', config: 'Config B', accuracy: 97.1, macroF1: 0.971, trainingSeconds: 1197 },
+      { model: 'RoBERTa', config: 'Config A', accuracy: 97.5, macroF1: 0.975, trainingSeconds: 3657 },
+      { model: 'RoBERTa', config: 'Config B', accuracy: 96.7, macroF1: 0.967, trainingSeconds: 4495 },
+      { model: 'ALBERT', config: 'Config A', accuracy: 95.9, macroF1: 0.959, trainingSeconds: 3245 },
+      { model: 'ALBERT', config: 'Config B', accuracy: 96.6, macroF1: 0.965, trainingSeconds: 1588 },
     ],
     // TODO(antony): confirm or rewrite these next steps.
     nextSteps:
-      "Repeat each configuration over several seeds to put error bars on the gaps, and run the same comparison on a second, messier sentiment dataset to see whether the MLP's lead holds when the text is harder.",
+      "Remove the 517 overlapping tweets from the test set and rerun all twelve models, so the comparison measures generalisation rather than recall. Then repeat each configuration over several seeds to put error bars on the gaps.",
   },
   {
     slug: 'heart-disease-classification',

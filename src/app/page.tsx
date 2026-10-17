@@ -97,9 +97,8 @@ export default async function HomePage() {
               </span>
             </h1>
 
-            {/* TODO(antony): confirm whether the MSc is complete; if so, "after 17 years ... I completed an MSc" reads stronger. */}
             <p className="text-lg md:text-xl text-white/75 leading-relaxed max-w-[38ch] mb-10">
-              Seventeen years as a mechanical engineer, then an MSc in Computer Science &amp; AI. I design ML
+              Seventeen years as a mechanical engineer, now finishing an MSc in Computer Science &amp; AI (April 2027). I design ML
               experiments and build the production software around them.
             </p>
 
