@@ -73,7 +73,11 @@ export default function MobileAboutCard() {
    ########################################################### */
 
   return (
-    <div id="about" className="lg:hidden flex justify-center py-8 px-5 scroll-mt-24">
+    // Why overflow-x-clip: until the card scrolls into view it waits at
+    // rotate(15deg) translateX(60px), which pushed the page to 446px wide on a
+    // 375px phone and gave it a sideways scroll. Clip, not hidden, so this does
+    // not become a scroll container and the swing's vertical reach is untouched.
+    <div id="about" className="lg:hidden flex justify-center py-8 px-5 scroll-mt-24 overflow-x-clip">
       {/* Card container */}
       <div
         ref={containerRef}
