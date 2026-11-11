@@ -6,6 +6,13 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    // Why: eslint-plugin-react's "detect" reads the React version through
+    // context.getFilename(), which ESLint 10 removed, so every file crashed
+    // react/display-name. Naming the version skips that lookup. Keep it in
+    // step with the react dependency in package.json.
+    settings: { react: { version: "19.2" } },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
