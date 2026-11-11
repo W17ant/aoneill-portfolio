@@ -2,7 +2,7 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   RATE LIMITER - Simple in-memory rate limiting      ###
    ###   Limits requests per IP address                     ###
-   ###   Last Updated: 28-12-2025                           ###
+   ###   Last Updated: 11-11-2026                           ###
    ########################################################### */
 
 interface RateLimitEntry {
@@ -86,6 +86,13 @@ export function checkRateLimit(
  * Get client IP from request headers (works with Vercel/Cloudflare)
  */
 export function getClientIP(request: Request): string {
+  // Why Vercel's header first: Vercel sets it at the edge, so a client can't
+  // supply it; the generic headers are only trusted when it is absent
+  const vercelIP = request.headers.get('x-vercel-forwarded-for');
+  if (vercelIP) {
+    return vercelIP.split(',')[0].trim();
+  }
+
   const forwarded = request.headers.get('x-forwarded-for');
   if (forwarded) {
     return forwarded.split(',')[0].trim();
@@ -94,12 +101,6 @@ export function getClientIP(request: Request): string {
   const realIP = request.headers.get('x-real-ip');
   if (realIP) {
     return realIP;
-  }
-
-  // Vercel specific
-  const vercelIP = request.headers.get('x-vercel-forwarded-for');
-  if (vercelIP) {
-    return vercelIP.split(',')[0].trim();
   }
 
   return 'unknown';

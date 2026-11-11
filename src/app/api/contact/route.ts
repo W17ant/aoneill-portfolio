@@ -3,7 +3,7 @@
    ###   CONTACT API ROUTE - Email handling endpoint        ###
    ###   Processes contact form submissions via Resend      ###
    ###   Accepts JSON (JS form) and form-encoded (no-JS)    ###
-   ###   Last Updated: 17-10-2026                           ###
+   ###   Last Updated: 11-11-2026                           ###
    ########################################################### */
 
 /* ###########################################################
@@ -14,6 +14,7 @@ import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/lib/rateLimit';
 import { isOriginAllowed, corsBlockedResponse, handlePreflight } from '@/lib/cors';
+import { isValidEmail, mailboxKey } from '@/lib/email';
 
 /* ###########################################################
    ###   2. Configuration                                   ###
@@ -132,7 +133,9 @@ export async function POST(request: Request) {
        Rate Limiting
        ======================================== */
     const clientIP = getClientIP(request);
-    const rateLimit = checkRateLimit(clientIP, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
+    // Why the prefix: every limiter shares one store, so a bare IP key could
+    // collide with another limiter's key (such as the auto-reply caps below)
+    const rateLimit = checkRateLimit(`contact:${clientIP}`, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
 
     if (!rateLimit.success) {
       return respond(
@@ -180,9 +183,7 @@ export async function POST(request: Request) {
       return invalid('Name, email and message are required');
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email) || email.length > 254) {
+    if (!isValidEmail(email)) {
       return invalid('Invalid email address');
     }
 
@@ -248,7 +249,9 @@ export async function POST(request: Request) {
     // Why: content-minimal on purpose. Nothing the submitter typed (name,
     // subject, message) is echoed back, so the form can't be used to deliver
     // attacker-written text from this domain to an arbitrary inbox.
-    const recipientKey = `autoreply:${email.toLowerCase()}`;
+    // Why mailboxKey: the cap is per inbox, so +tags, case and Gmail dots
+    // can't be varied to get another auto-reply into the same inbox
+    const recipientKey = `autoreply:${mailboxKey(email)}`;
     const perAddress = checkRateLimit(recipientKey, AUTO_REPLY_PER_ADDRESS_MAX, AUTO_REPLY_PER_ADDRESS_WINDOW);
     const globalCap = perAddress.success
       ? checkRateLimit('autoreply:global', AUTO_REPLY_GLOBAL_MAX, AUTO_REPLY_GLOBAL_WINDOW)
