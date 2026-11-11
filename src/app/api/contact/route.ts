@@ -2,7 +2,8 @@
    ###   ANTONY O'NEILL - PORTFOLIO                         ###
    ###   CONTACT API ROUTE - Email handling endpoint        ###
    ###   Processes contact form submissions via Resend      ###
-   ###   Last Updated: 28-12-2025                           ###
+   ###   Accepts JSON (JS form) and form-encoded (no-JS)    ###
+   ###   Last Updated: 17-10-2026                           ###
    ########################################################### */
 
 /* ###########################################################
@@ -30,6 +31,24 @@ const getResendClient = () => {
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000; // 1 hour
 
+// Why: the auto-reply sends mail from this domain to whatever address was
+// typed in, so it is a relay risk. Cap it per recipient (one per day, so
+// rotating IPs can't flood a single inbox) and globally (so rotating
+// addresses can't burn the domain's sending reputation). When a cap is hit
+// the notification to Antony still goes out; only the auto-reply is skipped.
+const AUTO_REPLY_PER_ADDRESS_MAX = 1;
+const AUTO_REPLY_PER_ADDRESS_WINDOW = 24 * 60 * 60 * 1000; // 24 hours
+const AUTO_REPLY_GLOBAL_MAX = 20; // Why: well above real enquiry volume
+const AUTO_REPLY_GLOBAL_WINDOW = 60 * 60 * 1000; // 1 hour
+
+// Used when the optional subject field is left blank
+const DEFAULT_SUBJECT = 'Portfolio enquiry';
+
+// Where no-JS form posts are sent back to (see respond())
+const CONTACT_PAGE_PATH = '/contact/';
+
+type ErrorCode = 'rate' | 'validation' | 'server';
+
 /* ###########################################################
    ###   3. Helper Functions                               ###
    ########################################################### */
@@ -42,6 +61,53 @@ function sanitizeHtml(str: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+/**
+ * Detect a native (no-JS) HTML form post. Those expect a page, not JSON,
+ * so responses are sent as a 303 redirect back to /contact with a status flag.
+ */
+function isFormPost(request: Request): boolean {
+  const type = request.headers.get('content-type') || '';
+  return type.includes('application/x-www-form-urlencoded') || type.includes('multipart/form-data');
+}
+
+/** Read the submitted fields from either a JSON or a form-encoded body. */
+async function readBody(request: Request, formPost: boolean): Promise<Record<string, unknown>> {
+  if (formPost) {
+    const data = await request.formData();
+    return Object.fromEntries(
+      Array.from(data.entries()).filter(([, v]) => typeof v === 'string')
+    );
+  }
+  return request.json();
+}
+
+/** Coerce an unknown body field to a trimmed string. */
+function field(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+/**
+ * Build the response: JSON for fetch() callers, a 303 redirect back to the
+ * contact page for no-JS form posts.
+ */
+function respond(
+  request: Request,
+  formPost: boolean,
+  status: number,
+  body: Record<string, unknown>,
+  errorCode?: ErrorCode,
+  headers?: Record<string, string>
+): NextResponse {
+  if (formPost) {
+    const url = new URL(CONTACT_PAGE_PATH, request.url);
+    if (errorCode) url.searchParams.set('error', errorCode);
+    else url.searchParams.set('sent', '1');
+    url.hash = 'contact-form';
+    return NextResponse.redirect(url, 303);
+  }
+  return NextResponse.json(body, { status, headers });
 }
 
 /* ###########################################################
@@ -59,6 +125,8 @@ export async function POST(request: Request) {
     return corsBlockedResponse();
   }
 
+  const formPost = isFormPost(request);
+
   try {
     /* ========================================
        Rate Limiting
@@ -67,23 +135,30 @@ export async function POST(request: Request) {
     const rateLimit = checkRateLimit(clientIP, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW);
 
     if (!rateLimit.success) {
-      return NextResponse.json(
+      return respond(
+        request,
+        formPost,
+        429,
         {
           error: 'Too many requests',
           message: `Please try again in ${Math.ceil(rateLimit.resetIn / 60)} minutes`,
         },
+        'rate',
         {
-          status: 429,
-          headers: {
-            'Retry-After': String(rateLimit.resetIn),
-            'X-RateLimit-Remaining': '0',
-          },
+          'Retry-After': String(rateLimit.resetIn),
+          'X-RateLimit-Remaining': '0',
         }
       );
     }
 
-    const body = await request.json();
-    const { name, email, subject, message, website } = body;
+    const body = await readBody(request, formPost);
+    const name = field(body.name);
+    const email = field(body.email);
+    const message = field(body.message);
+    const website = field(body.website);
+    // Why: subject is optional in the form; fall back to a neutral default
+    const rawSubject = field(body.subject);
+    const subject = rawSubject || DEFAULT_SUBJECT;
 
     /* ========================================
        Honeypot Check (spam prevention)
@@ -93,48 +168,35 @@ export async function POST(request: Request) {
     if (website) {
       // Silently reject but return success to not tip off bots
       console.log('Honeypot triggered from IP:', clientIP);
-      return NextResponse.json({ success: true });
+      return respond(request, formPost, 200, { success: true });
     }
 
     /* ========================================
        Validate input
        ======================================== */
-    if (!name || !email || !subject || !message) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
-      );
+    const invalid = (error: string) => respond(request, formPost, 400, { error }, 'validation');
+
+    if (!name || !email || !message) {
+      return invalid('Name, email and message are required');
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email address' },
-        { status: 400 }
-      );
+    if (!emailRegex.test(email) || email.length > 254) {
+      return invalid('Invalid email address');
     }
 
     // Length validation
     if (name.length < 2 || name.length > 100) {
-      return NextResponse.json(
-        { error: 'Name must be between 2 and 100 characters' },
-        { status: 400 }
-      );
+      return invalid('Name must be between 2 and 100 characters');
     }
 
-    if (subject.length < 3 || subject.length > 200) {
-      return NextResponse.json(
-        { error: 'Subject must be between 3 and 200 characters' },
-        { status: 400 }
-      );
+    if (rawSubject && (rawSubject.length < 3 || rawSubject.length > 200)) {
+      return invalid('Subject must be between 3 and 200 characters');
     }
 
     if (message.length < 10 || message.length > 5000) {
-      return NextResponse.json(
-        { error: 'Message must be between 10 and 5000 characters' },
-        { status: 400 }
-      );
+      return invalid('Message must be between 10 and 5000 characters');
     }
 
     /* ========================================
@@ -177,78 +239,66 @@ export async function POST(request: Request) {
 
     if (notifyError) {
       console.error('Failed to send notification:', notifyError);
-      return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
+      return respond(request, formPost, 500, { error: 'Failed to send email' }, 'server');
     }
 
     /* ========================================
        Send auto-reply to the sender
-       (Only sent after rate limit check passes)
        ======================================== */
-    await getResendClient().emails.send({
-      from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
-      to: [email],
-      subject: `Thanks for reaching out, ${name.split(' ')[0]}!`,
-      html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto;">
-          <!-- Header -->
-          <div style="background: linear-gradient(135deg, #1e293b 0%, #1e40af 100%); padding: 40px 30px; border-radius: 12px 12px 0 0; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">Message Received</h1>
-            <p style="color: rgba(255,255,255,0.8); margin: 0; font-size: 15px;">Thanks for getting in touch!</p>
-          </div>
+    // Why: content-minimal on purpose. Nothing the submitter typed (name,
+    // subject, message) is echoed back, so the form can't be used to deliver
+    // attacker-written text from this domain to an arbitrary inbox.
+    const recipientKey = `autoreply:${email.toLowerCase()}`;
+    const perAddress = checkRateLimit(recipientKey, AUTO_REPLY_PER_ADDRESS_MAX, AUTO_REPLY_PER_ADDRESS_WINDOW);
+    const globalCap = perAddress.success
+      ? checkRateLimit('autoreply:global', AUTO_REPLY_GLOBAL_MAX, AUTO_REPLY_GLOBAL_WINDOW)
+      : perAddress;
 
-          <!-- Body -->
-          <div style="background: #ffffff; padding: 30px; border: 1px solid #e2e8f0; border-top: none;">
-            <p style="color: #1e293b; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
-              Hi ${safeName.split(' ')[0]},
+    if (perAddress.success && globalCap.success) {
+      const { error: replyError } = await getResendClient().emails.send({
+        from: 'Antony O\'Neill <Antony@aoneill.co.uk>',
+        to: [email],
+        subject: 'Thanks for getting in touch',
+        text:
+          'Hi,\n\n' +
+          'Thanks for your message through aoneill.co.uk. I have received it and will reply as soon as I can.\n\n' +
+          'If you did not send this, you can ignore this email.\n\n' +
+          'Antony O\'Neill\n' +
+          'ML & Software Engineer, Manchester, UK\n' +
+          'https://aoneill.co.uk',
+        html: `
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 560px; margin: 0 auto; color: #1e293b;">
+          <div style="background: #ffffff; padding: 30px; border: 1px solid #e2e8f0; border-radius: 12px;">
+            <p style="font-size: 16px; line-height: 1.6; margin: 0 0 16px 0;">Hi,</p>
+            <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">
+              Thanks for your message through aoneill.co.uk. I have received it and will reply as soon as I can.
             </p>
-
-            <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0;">
-              Thanks for reaching out through my portfolio. I've received your message about <strong>"${safeSubject}"</strong> and will get back to you as soon as possible.
+            <p style="color: #64748b; font-size: 13px; line-height: 1.6; margin: 0 0 24px 0;">
+              If you did not send this, you can ignore this email.
             </p>
-
-            <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0 0 20px 0;">
-              I typically respond within 24-48 hours. In the meantime, feel free to check out my latest work:
-            </p>
-
-            <!-- CTA -->
-            <div style="text-align: center; margin: 30px 0;">
-              <a href="https://aoneill.co.uk/projects" style="display: inline-block; background: #1e40af; color: #ffffff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-                View My Projects
-              </a>
-            </div>
-
             <p style="color: #475569; font-size: 15px; line-height: 1.6; margin: 0;">
-              Speak soon,<br>
-              <strong style="color: #1e293b;">Antony O'Neill</strong>
-            </p>
-          </div>
-
-          <!-- Footer -->
-          <div style="background: #f8fafc; padding: 20px 30px; border-radius: 0 0 12px 12px; border: 1px solid #e2e8f0; border-top: none; text-align: center;">
-            <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-              Full-Stack Developer · Next.js · React · TypeScript
-            </p>
-            <p style="color: #94a3b8; font-size: 12px; margin: 8px 0 0 0;">
-              <a href="https://aoneill.co.uk" style="color: #1e40af; text-decoration: none;">aoneill.co.uk</a>
+              Antony O'Neill<br>
+              <span style="color: #64748b; font-size: 13px;">ML &amp; Software Engineer, Manchester, UK</span><br>
+              <a href="https://aoneill.co.uk" style="color: #1e40af; text-decoration: none; font-size: 13px;">aoneill.co.uk</a>
             </p>
           </div>
         </div>
       `,
-    });
+      });
 
-    return NextResponse.json(
-      { success: true },
-      {
-        headers: {
-          'X-RateLimit-Remaining': String(rateLimit.remaining),
-        },
-      }
-    );
+      // Why: the enquiry already reached Antony, so a failed auto-reply is
+      // logged rather than reported to the user as a failed submission.
+      if (replyError) console.error('Failed to send auto-reply:', replyError);
+    } else {
+      console.log('Auto-reply skipped (rate limited) for submission from IP:', clientIP);
+    }
+
+    return respond(request, formPost, 200, { success: true }, undefined, {
+      'X-RateLimit-Remaining': String(rateLimit.remaining),
+    });
   } catch (error) {
     console.error('Contact API error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
-    );
+    // Why: internal error messages (e.g. missing API key) are logged, not returned
+    return respond(request, formPost, 500, { error: 'Internal server error' }, 'server');
   }
 }
