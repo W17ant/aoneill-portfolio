@@ -8,7 +8,8 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, Loader2, AlertCircle, Maximize2, Minimize2, RotateCcw, Github } from 'lucide-react';
+import { Search, Loader2, AlertCircle, Maximize2, Minimize2, RotateCcw } from 'lucide-react';
+import Github from '@/components/ui/GithubIcon';
 
 /* ###########################################################
    ###   1. Type Definitions                                ###

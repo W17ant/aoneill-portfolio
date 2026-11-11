@@ -8,7 +8,7 @@
 import { getProjects, projectCategoryLabels } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Github } from 'lucide-react';
+import Github from '@/components/ui/GithubIcon';
 
 /* ###########################################################
    ###   1. SEO Metadata                                    ###
